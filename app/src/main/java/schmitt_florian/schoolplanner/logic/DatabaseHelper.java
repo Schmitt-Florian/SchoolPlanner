@@ -5,7 +5,7 @@ package schmitt_florian.schoolplanner.logic;
  * <br> </br>
  * as well as overview for public methods of DatabaseHelperImpl class
  */
-public interface DatabaseHelper {
+interface DatabaseHelper {
 
     /**
      * Versionnumber of the database as int
@@ -81,7 +81,7 @@ public interface DatabaseHelper {
      * <br> </br>
      * name of the abbreviation column in the teacher table as String
      */
-    String SUBJECT_COLUMN_ABBREVIATION = "teacher_abbreviation";
+    String TEACHER_COLUMN_ABBREVIATION = "teacher_abbreviation";
 
     /**
      * char, not null
