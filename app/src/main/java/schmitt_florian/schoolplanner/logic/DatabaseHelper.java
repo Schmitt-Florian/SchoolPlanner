@@ -95,7 +95,7 @@ public interface DatabaseHelper {
 
     //region homework table
     /**
-     * name of the teacher table as String
+     * name of the homework table as String
      */
     String TABLE_HOMEWORK = "homework";
 
@@ -259,4 +259,6 @@ public interface DatabaseHelper {
     String DAYS_IN_WEEK_COLUMN_WEEKDAY_ID = "days_in_week_weekday_id";
     //endregion
     //endregion
+
+
 }
