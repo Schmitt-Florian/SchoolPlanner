@@ -11,7 +11,7 @@ public class Homework {
      */
     private int id;
     /**
-     * subject the homework is for
+     * {@link Subject} the homework is for
      */
     private Subject subject;
     /**
@@ -24,10 +24,10 @@ public class Homework {
     private GregorianCalendar deadline;
 
     /**
-     * standard c'tor for Homework
+     * standard c'tor for Homework class
      *
      * @param id          numeric id of the homework (unique)
-     * @param subject     subject the homework is for
+     * @param subject     {@link Subject} the homework is for
      * @param description description/details of the homework, can be null if not available
      * @param deadline    due date / deadline for the homework, can be null if not available
      */
@@ -48,7 +48,7 @@ public class Homework {
     }
 
     /**
-     * gets subject the homework is for
+     * gets {@link Subject} the homework is for
      *
      * @return subject the homework is for
      */

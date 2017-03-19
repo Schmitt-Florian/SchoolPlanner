@@ -9,7 +9,7 @@ public class Subject {
      */
     private int id;
     /**
-     * the teacher that teaches this subject
+     * the {@link Teacher} that teaches this subject
      */
     private Teacher teacher;
     /**
@@ -25,7 +25,7 @@ public class Subject {
      * standard c'tor for Subject class
      *
      * @param id      unique numeric id of the subject
-     * @param teacher the teacher that teaches this subject
+     * @param teacher the {@link Teacher} that teaches this subject
      * @param name    name of the subject as string e.g "Math"
      * @param room    number/code of the room as String e.g "B201"
      */
@@ -46,7 +46,7 @@ public class Subject {
     }
 
     /**
-     * gets  the teacher that teaches this subject
+     * gets  the {@link Teacher} that teaches this subject
      *
      * @return the teacher that teaches this subject
      */

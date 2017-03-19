@@ -25,7 +25,7 @@ public class Teacher {
     private char gender;
 
     /**
-     * standard c'tor for Teacher Class
+     * standard c'tor for Teacher class
      *
      * @param id           unique numeric id of the teacher
      * @param name         surname as String
