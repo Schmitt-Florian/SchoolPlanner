@@ -4,7 +4,7 @@ package schmitt_florian.schoolplanner.logic;
 import android.support.annotation.Nullable;
 
 /**
- * The Teacher Class represents the an Object Teacher SQL table and is usually returned by methods from the DatabaseHelper Interface
+ * The Teacher Class represents an Object in the Teacher SQL table and is usually returned by methods from the DatabaseHelper Interface
  */
 public class Teacher {
     /**
@@ -42,7 +42,7 @@ public class Teacher {
     /**
      * gets the teachers id
      *
-     * @return returns numeric id of the teacher
+     * @return numeric id of the teacher
      */
     public int getId() {
         return id;
@@ -51,7 +51,7 @@ public class Teacher {
     /**
      * gets teachers surname
      *
-     * @return returns surname as String
+     * @return surname as String
      */
     public String getName() {
         return name;
@@ -60,7 +60,7 @@ public class Teacher {
     /**
      * gets teachers unique abbreviation as String
      *
-     * @return returns abbreviation as String if available, else return Null
+     * @return abbreviation as String if available, else return Null
      */
     public String getAbbreviation() {
         return abbreviation;
@@ -69,7 +69,7 @@ public class Teacher {
     /**
      * gets teachers gender as Char
      *
-     * @return returns gender as Char, 'f' used for female and 'm' used for male
+     * @return gender as Char, 'f' used for female and 'm' used for male
      */
     public char getGender() {
         return gender;
