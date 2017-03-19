@@ -2,7 +2,6 @@ package schmitt_florian.schoolplanner.logic;
 
 /**
  * storage for table & column names and other information's for Database,
- * <br> </br>
  * as well as overview for public methods of DatabaseHelperImpl class
  */
 interface DatabaseHelper {
@@ -77,7 +76,7 @@ interface DatabaseHelper {
     String TEACHER_COLUMN_NAME = "teacher_name";
 
     /**
-     * varchar(6), not null
+     * varchar(6), unique
      * <br> </br>
      * name of the abbreviation column in the teacher table as String
      */

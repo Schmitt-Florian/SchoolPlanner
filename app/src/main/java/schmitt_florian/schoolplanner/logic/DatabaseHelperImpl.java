@@ -113,7 +113,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_TEACHER + "(" +
                 TEACHER_COLUMN_ID + " INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL, " +
                 TEACHER_COLUMN_NAME + " VARCHAR NOT NULL, " +
-                TEACHER_COLUMN_ABBREVIATION + " VARCHAR(6) NOT NULL, " +
+                TEACHER_COLUMN_ABBREVIATION + " VARCHAR(6) UNIQUE, " +
                 TEACHER_COLUMN_GENDER + " CHAR NOT NULL "
         );
         sqLiteDatabase.close();
