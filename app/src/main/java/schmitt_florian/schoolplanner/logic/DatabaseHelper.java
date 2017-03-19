@@ -168,6 +168,39 @@ interface DatabaseHelper {
     String EXAM_COLUMN_DEADLINE = "exam_deadline";
     //endregion
 
+    //region period table
+    /**
+     * name of the period table as String
+     */
+    String TABLE_PERIOD = "period";
+
+
+    /**
+     * integer, primary key, autoincrement, not null
+     * <br> </br>
+     * name of the id column in the period table as String
+     */
+    String PERIOD_COLUMN_ID = "period_id";
+
+    /**
+     * time, not null
+     * <br> </br>
+     * HH-MM-SS
+     * <br> </br>
+     * name of the startTime column in the exam table as String
+     */
+    String PERIOD_COLUMN_STARTTIME = "period_starttime";
+
+    /**
+     * time, not null
+     * <br> </br>
+     * HH-MM-SS
+     * <br> </br>
+     * name of the endTime column in the exam table as String
+     */
+    String PERIOD_COLUMN_ENDTIME = "period_endtime";
+    //endregion
+
     //region weekday table
     /**
      * name of the weekday table as String
@@ -227,6 +260,13 @@ interface DatabaseHelper {
      * name of the subjectId column in the subjectsOnDay table as String
      */
     String SUBJECTS_ON_DAY_COLUMN_SUBJECT_ID = "subjects_on_day_subject_id";
+
+    /**
+     * integer, primary key, foreign key, not null
+     * <br> </br>
+     * name of the periodId column in the subjectsOnDay table as String
+     */
+    String SUBJECTS_ON_DAY_COLUMN_PERIOD_ID = "subjects_on_day_period_id";
 
     /**
      * integer, primary key, foreign key, not null

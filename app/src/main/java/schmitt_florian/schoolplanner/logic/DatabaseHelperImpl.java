@@ -60,6 +60,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         sqLiteDatabase.execSQL("DROP TABLE " + TABLE_TEACHER);
         sqLiteDatabase.execSQL("DROP TABLE " + TABLE_HOMEWORK);
         sqLiteDatabase.execSQL("DROP TABLE " + TABLE_EXAM);
+        sqLiteDatabase.execSQL("DROP TABLE " + TABLE_PERIOD);
         sqLiteDatabase.execSQL("DROP TABLE " + TABLE_WEEKDAY);
         sqLiteDatabase.execSQL("DROP TABLE " + TABLE_SCHEDULE);
         sqLiteDatabase.execSQL("DROP TABLE " + TABLE_SUBJECTS_ON_DAY);
@@ -77,6 +78,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         createSubjectTable(sqLiteDatabase);
         createTeacherTable(sqLiteDatabase);
         createHomeworkTable(sqLiteDatabase);
+        createPeriodTable(sqLiteDatabase);
         createExamTable(sqLiteDatabase);
         createWeekdayTable(sqLiteDatabase);
         createScheduleTable(sqLiteDatabase);
@@ -150,6 +152,20 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     }
 
     /**
+     * create period table in the schoolPlanner Database
+     *
+     * @param sqLiteDatabase the schoolPlanner Database
+     */
+    private void createPeriodTable(SQLiteDatabase sqLiteDatabase) {
+        sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_PERIOD + "(" +
+                PERIOD_COLUMN_ID + " INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL, " +
+                PERIOD_COLUMN_STARTTIME + " TIME NOT NULL, " +
+                PERIOD_COLUMN_ENDTIME + " TIME NOT NULL "
+        );
+        sqLiteDatabase.close();
+    }
+
+    /**
      * create weekday table in the schoolPlanner Database
      *
      * @param sqLiteDatabase the schoolPlanner Database
@@ -183,6 +199,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     private void createSubjectsOnDayTable(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_SUBJECTS_ON_DAY + "(" +
                 SUBJECTS_ON_DAY_COLUMN_SUBJECT_ID + " INTEGER PRIMARY KEY NOT NULL, " +
+                SUBJECTS_ON_DAY_COLUMN_PERIOD_ID + " INTEGER PRIMARY KEY NOT NULL, " +
                 SUBJECTS_ON_DAY_COLUMN_WEEKDAY_ID + " INTEGER PRIMARY KEY NOT NULL "
         );
         sqLiteDatabase.close();
