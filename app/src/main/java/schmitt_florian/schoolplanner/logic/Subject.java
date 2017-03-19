@@ -9,9 +9,9 @@ public class Subject {
      */
     private int id;
     /**
-     * numeric id of the teacher that teaches this subject
+     * the teacher that teaches this subject
      */
-    private int teacherId;
+    private Teacher teacher;
     /**
      * name of the subject as string e.g "Math"
      */
@@ -24,14 +24,14 @@ public class Subject {
     /**
      * standard c'tor for Subject class
      *
-     * @param id        unique numeric id of the subject
-     * @param teacherId numeric id of the teacher that teaches this subject
-     * @param name      name of the subject as string e.g "Math"
-     * @param room      number/code of the room as String e.g "B201"
+     * @param id      unique numeric id of the subject
+     * @param teacher the teacher that teaches this subject
+     * @param name    name of the subject as string e.g "Math"
+     * @param room    number/code of the room as String e.g "B201"
      */
-    public Subject(int id, int teacherId, String name, String room) {
+    public Subject(int id, Teacher teacher, String name, String room) {
         this.id = id;
-        this.teacherId = teacherId;
+        this.teacher = teacher;
         this.name = name;
         this.room = room;
     }
@@ -46,12 +46,12 @@ public class Subject {
     }
 
     /**
-     * gets id of the teacher that teaches this subject
+     * gets  the teacher that teaches this subject
      *
-     * @return numeric id of the teacher that teaches this subject
+     * @return the teacher that teaches this subject
      */
-    public int getTeacherId() {
-        return teacherId;
+    public Teacher getTeacher() {
+        return teacher;
     }
 
     /**
