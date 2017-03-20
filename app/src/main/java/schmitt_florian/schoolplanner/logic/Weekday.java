@@ -15,7 +15,7 @@ public class Weekday {
      */
     private String name;
     /**
-     * periods on that day, sorted by the schoolHourNo
+     * {@link Period}s on that day, sorted by the schoolHourNo
      */
     private Period[] periods;
 
@@ -24,7 +24,7 @@ public class Weekday {
      *
      * @param id      unique numeric id of the Weekday
      * @param name    name of the Weekday as string e.g "Monday"
-     * @param periods periods on that day, sorted by the schoolHourNo
+     * @param periods {@link Period} on that day, sorted by the schoolHourNo
      */
     public Weekday(int id, String name, Period[] periods) {
         this.id = id;
@@ -52,9 +52,9 @@ public class Weekday {
     }
 
     /**
-     * gets periods on that day
+     * gets {@link Period} on that day
      *
-     * @return periods on that day, sorted by the schoolHourNo, as array
+     * @return Period on that day, sorted by the schoolHourNo, as array
      */
     public Period[] getPeriods() {
         return periods;
