@@ -5,6 +5,9 @@ import android.support.annotation.Nullable;
 
 import java.util.GregorianCalendar;
 
+/**
+ * The Homework Class represents an Object in the Homework SQL table and is usually returned by methods from the DatabaseHelper Interface
+ */
 public class Homework {
     /**
      * numeric id of the homework (unique)

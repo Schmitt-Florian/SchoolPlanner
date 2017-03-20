@@ -5,6 +5,9 @@ import android.support.annotation.Nullable;
 
 import java.util.GregorianCalendar;
 
+/**
+ * The Exam Class represents an Object in the Exam SQL table and is usually returned by methods from the DatabaseHelper Interface
+ */
 public class Exam {
     /**
      * numeric id of the exam (unique)
