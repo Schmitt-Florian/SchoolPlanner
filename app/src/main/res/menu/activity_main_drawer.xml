@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_main"
+            android:icon="@drawable/ic_main"
+            android:title="Startseite" />
+        <item
+            android:id="@+id/nav_schedule"
+            android:icon="@drawable/ic_schedule"
+            android:title="Stundenplan" />
+        <item
+            android:id="@+id/nav_subjects"
+            android:icon="@drawable/ic_subjects"
+            android:title="Fächer" />
+        <item
+            android:id="@+id/nav_homework"
+            android:icon="@drawable/ic_homework"
+            android:title="Hausaufgaben" />
+        <item
+            android:id="@+id/nav_exams"
+            android:icon="@drawable/ic_exams"
+            android:title="Klausuren" />
+        <item
+            android:id="@+id/nav_credits"
+            android:icon="@drawable/ic_credits"
+            android:title="Mitwirkende" />
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_settings"
+            android:title="Einstellungen" />
+    </group>
+
+
+</menu>
