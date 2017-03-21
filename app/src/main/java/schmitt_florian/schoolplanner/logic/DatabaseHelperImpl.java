@@ -60,11 +60,11 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         sqLiteDatabase.execSQL("DROP TABLE " + TABLE_TEACHER);
         sqLiteDatabase.execSQL("DROP TABLE " + TABLE_HOMEWORK);
         sqLiteDatabase.execSQL("DROP TABLE " + TABLE_EXAM);
+        sqLiteDatabase.execSQL("DROP TABLE " + TABLE_GRADE);
         sqLiteDatabase.execSQL("DROP TABLE " + TABLE_PERIOD);
         sqLiteDatabase.execSQL("DROP TABLE " + TABLE_WEEKDAY);
         sqLiteDatabase.execSQL("DROP TABLE " + TABLE_SCHEDULE);
-        sqLiteDatabase.execSQL("DROP TABLE " + TABLE_SUBJECTS_ON_DAY);
-        sqLiteDatabase.execSQL("DROP TABLE " + TABLE_DAYS_IN_WEEK);
+
 
         sqLiteDatabase.close();
     }
@@ -78,13 +78,11 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         createSubjectTable(sqLiteDatabase);
         createTeacherTable(sqLiteDatabase);
         createHomeworkTable(sqLiteDatabase);
-        createPeriodTable(sqLiteDatabase);
         createExamTable(sqLiteDatabase);
+        createGradeTable(sqLiteDatabase);
+        createPeriodTable(sqLiteDatabase);
         createWeekdayTable(sqLiteDatabase);
         createScheduleTable(sqLiteDatabase);
-
-        createSubjectsOnDayTable(sqLiteDatabase);
-        createDaysInWeekTable(sqLiteDatabase);
 
         sqLiteDatabase.close();
     }
@@ -115,7 +113,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_TEACHER + "(" +
                 TEACHER_COLUMN_ID + " INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL, " +
                 TEACHER_COLUMN_NAME + " VARCHAR NOT NULL, " +
-                TEACHER_COLUMN_ABBREVIATION + " VARCHAR(6) UNIQUE, " +
+                TEACHER_COLUMN_ABBREVIATION + " VARCHAR UNIQUE, " +
                 TEACHER_COLUMN_GENDER + " CHAR NOT NULL "
         );
         sqLiteDatabase.close();
@@ -152,6 +150,21 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     }
 
     /**
+     * create grade table in the schoolPlanner Database
+     *
+     * @param sqLiteDatabase the schoolPlanner Database
+     */
+    private void createGradeTable(SQLiteDatabase sqLiteDatabase) {
+        sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_GRADE + "(" +
+                GRADE_COLUMN_ID + " INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL, " +
+                GRADE_COLUMN_SUBJECT_ID + " INTEGER NOT NULL, " +
+                GRADE_COLUMN_NAME + " VARCHAR NOT NULL, " +
+                GRADE_COLUMN_GRADE + " INTEGER NOT NULL "
+        );
+        sqLiteDatabase.close();
+    }
+
+    /**
      * create period table in the schoolPlanner Database
      *
      * @param sqLiteDatabase the schoolPlanner Database
@@ -159,6 +172,9 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     private void createPeriodTable(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_PERIOD + "(" +
                 PERIOD_COLUMN_ID + " INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL, " +
+                PERIOD_COLUMN_SUBJECT_ID + " INTEGER NOT NULL, " +
+                PERIOD_COLUMN_WEEKDAY_ID + " INTEGER NOT NULL, " +
+                PERIOD_COLUMN_SCHOOL_HOUR_NO + "INTEGER NOT NULL, " +
                 PERIOD_COLUMN_STARTTIME + " TIME NOT NULL, " +
                 PERIOD_COLUMN_ENDTIME + " TIME NOT NULL "
         );
@@ -173,6 +189,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     private void createWeekdayTable(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_WEEKDAY + "(" +
                 WEEKDAY_COLUMN_ID + " INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL, " +
+                WEEKDAY_COLUMN_SCHEDULE_ID + " INTEGER NOT NULL, " +
                 WEEKDAY_COLUMN_NAME + " VARCHAR NOT NULL "
         );
         sqLiteDatabase.close();
@@ -187,33 +204,6 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_SCHEDULE + "(" +
                 SCHEDULE_COLUMN_ID + " INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL, " +
                 SCHEDULE_COLUMN_NAME + " VARCHAR NOT NULL "
-        );
-        sqLiteDatabase.close();
-    }
-
-    /**
-     * create subjectsOnDay table in the schoolPlanner Database
-     *
-     * @param sqLiteDatabase the schoolPlanner Database
-     */
-    private void createSubjectsOnDayTable(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_SUBJECTS_ON_DAY + "(" +
-                SUBJECTS_ON_DAY_COLUMN_SUBJECT_ID + " INTEGER PRIMARY KEY NOT NULL, " +
-                SUBJECTS_ON_DAY_COLUMN_PERIOD_ID + " INTEGER PRIMARY KEY NOT NULL, " +
-                SUBJECTS_ON_DAY_COLUMN_WEEKDAY_ID + " INTEGER PRIMARY KEY NOT NULL "
-        );
-        sqLiteDatabase.close();
-    }
-
-    /**
-     * create daysInWeek table in the schoolPlanner Database
-     *
-     * @param sqLiteDatabase the schoolPlanner Database
-     */
-    private void createDaysInWeekTable(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_DAYS_IN_WEEK + "(" +
-                DAYS_IN_WEEK_COLUMN_SCHEDULE_ID + " INTEGER PRIMARY KEY NOT NULL, " +
-                DAYS_IN_WEEK_COLUMN_WEEKDAY_ID + " INTEGER PRIMARY KEY NOT NULL "
         );
         sqLiteDatabase.close();
     }
