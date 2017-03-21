@@ -12,7 +12,7 @@ public class Exam {
     /**
      * numeric id of the exam (unique)
      */
-    private int id; //test
+    private int id;
     /**
      * {@link Subject} the exam is in
      */
