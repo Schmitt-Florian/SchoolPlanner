@@ -76,7 +76,7 @@ interface DatabaseHelper {
     String TEACHER_COLUMN_NAME = "teacher_name";
 
     /**
-     * varchar(6), unique
+     * varchar, unique
      * <br> </br>
      * name of the abbreviation column in the teacher table as String
      */
@@ -168,6 +168,42 @@ interface DatabaseHelper {
     String EXAM_COLUMN_DEADLINE = "exam_deadline";
     //endregion
 
+    //region grade table
+    /**
+     * name of the grade table as String
+     */
+    String TABLE_GRADE = "grade";
+
+
+    /**
+     * integer, primary key, autoincrement, not null
+     * <br> </br>
+     * name of the id column in the grade table as String
+     */
+    String GRADE_COLUMN_ID = "grade_id";
+
+    /**
+     * integer, foreign key, not null
+     * <br> </br>
+     * name of the subjectId column in the grade table as String
+     */
+    String GRADE_COLUMN_SUBJECT_ID = "grade_subject_id";
+
+    /**
+     * varchar, unique, not null
+     * <br> </br>
+     * name of the name column in the grade table as String
+     */
+    String GRADE_COLUMN_NAME = "grade_name";
+
+    /**
+     * integer, not null
+     * <br> </br>
+     * name of the grade column in the grade table as String
+     */
+    String GRADE_COLUMN_GRADE = "grade_grade";
+    //endregion
+
     //region period table
     /**
      * name of the period table as String
@@ -181,6 +217,27 @@ interface DatabaseHelper {
      * name of the id column in the period table as String
      */
     String PERIOD_COLUMN_ID = "period_id";
+
+    /**
+     * integer, foreign key, not null
+     * <br> </br>
+     * name of the subjectId column in the period table as String
+     */
+    String PERIOD_COLUMN_SUBJECT_ID = "period_column_subject_id";
+
+    /**
+     * integer, foreign key, not null
+     * <br> </br>
+     * name of the weekdayId column in the period table as String
+     */
+    String PERIOD_COLUMN_WEEKDAY_ID = "period_column_weekday_id";
+
+    /**
+     * integer, not null
+     * <br> </br>
+     * name of the schoolHourNo column in the period table as String
+     */
+    String PERIOD_COLUMN_SCHOOL_HOUR_NO = "period_column_school_hour_no";
 
     /**
      * time, not null
@@ -246,58 +303,7 @@ interface DatabaseHelper {
     //endregion
     //endregion
 
-    //region connector tables
-    //region subjectsOnDay table
-    /**
-     * name of the subjectsOnDay table as String
-     */
-    String TABLE_SUBJECTS_ON_DAY = "subjects_on_day";
 
-
-    /**
-     * integer, primary key, foreign key, not null
-     * <br> </br>
-     * name of the subjectId column in the subjectsOnDay table as String
-     */
-    String SUBJECTS_ON_DAY_COLUMN_SUBJECT_ID = "subjects_on_day_subject_id";
-
-    /**
-     * integer, primary key, foreign key, not null
-     * <br> </br>
-     * name of the periodId column in the subjectsOnDay table as String
-     */
-    String SUBJECTS_ON_DAY_COLUMN_PERIOD_ID = "subjects_on_day_period_id";
-
-    /**
-     * integer, primary key, foreign key, not null
-     * <br> </br>
-     * name of the weekdayId column in the subjectsOnDay table as String
-     */
-    String SUBJECTS_ON_DAY_COLUMN_WEEKDAY_ID = "subjects_on_day_weekday_id";
-    //endregion
-
-    //region daysInWeek table
-    /**
-     * name of the daysInWeek table as String
-     */
-    String TABLE_DAYS_IN_WEEK = "days_in_week";
-
-
-    /**
-     * integer, primary key, foreign key, not null
-     * <br> </br>
-     * name of the scheduleId column in the daysInWeek table as String
-     */
-    String DAYS_IN_WEEK_COLUMN_SCHEDULE_ID = "days_in_week_schedule_id";
-
-    /**
-     * integer, primary key, foreign key, not null
-     * <br> </br>
-     * name of the weekdayId column in the daysInWeek table as String
-     */
-    String DAYS_IN_WEEK_COLUMN_WEEKDAY_ID = "days_in_week_weekday_id";
-    //endregion
-    //endregion
 
 
 }
