@@ -190,7 +190,7 @@ interface DatabaseHelper {
     String GRADE_COLUMN_SUBJECT_ID = "grade_subject_id";
 
     /**
-     * varchar, unique, not null
+     * varchar, not null
      * <br> </br>
      * name of the name column in the grade table as String
      */
@@ -273,6 +273,13 @@ interface DatabaseHelper {
     String WEEKDAY_COLUMN_ID = "weekday_id";
 
     /**
+     * integer, foreign key, not null
+     * <br> </br>
+     * name of the subjectId column in the period table as String
+     */
+    String WEEKDAY_COLUMN_SCHEDULE_ID = "weekday_schedule_id";
+
+    /**
      * varchar, not null
      * <br> </br>
      * name of the name column in the weekday table as String
@@ -303,7 +310,110 @@ interface DatabaseHelper {
     //endregion
     //endregion
 
+    /**
+     * gets the {@link Subject} at a specific id from database
+     *
+     * @param id id in database
+     * @return row with given id from db as {@link Subject}
+     */
+    Subject getSubjectAtId(int id);
 
+    /**
+     * gets the {@link Teacher} at a specific id from database
+     *
+     * @param id id in database
+     * @return row with given id from db as {@link Teacher}
+     */
+    Teacher getTeacherAtId(int id);
+
+    /**
+     * gets the {@link Exam} at a specific id from database
+     *
+     * @param id id in database
+     * @return row with given id from db as {@link Exam}
+     */
+    Exam getExamAtId(int id);
+
+    /**
+     * gets the {@link Grade} at a specific id from database
+     *
+     * @param id id in database
+     * @return row with given id from db as {@link Grade}
+     */
+    Grade getGradeAtId(int id);
+
+    /**
+     * gets the {@link Period} at a specific id from database
+     *
+     * @param id id in database
+     * @return row with given id from db as {@link Period}
+     */
+    Period getPeriodAtId(int id);
+
+    /**
+     * gets the {@link Weekday} at a specific id from database
+     *
+     * @param id id in database
+     * @return row with given id from db as {@link Weekday}
+     */
+    Weekday getWeekdayAtId(int id);
+
+    /**
+     * gets the {@link Schedule} at a specific id from database
+     *
+     * @param id id in database
+     * @return row with given id from db as {@link Schedule}
+     */
+    Schedule getScheduleId(int id);
+
+    /**
+     * inserts {@link Subject} into database
+     *
+     * @param subject {@link Subject} to be inserted
+     */
+    void insertIntoDB(Subject subject);
+
+    /**
+     * inserts {@link Teacher} into database
+     *
+     * @param teacher {@link Teacher} to be inserted
+     */
+    void insertIntoDB(Teacher teacher);
+
+    /**
+     * inserts {@link Exam} into database
+     *
+     * @param exam {@link Exam} to be inserted
+     */
+    void insertIntoDB(Exam exam);
+
+    /**
+     * inserts {@link Grade} into database
+     *
+     * @param grade {@link Grade} to be inserted
+     */
+    void insertIntoDB(Grade grade);
+
+    /**
+     * inserts {@link Period} into database
+     *
+     * @param period {@link Period} to be inserted
+     */
+    void insertIntoDB(Period period);
+
+    /**
+     * inserts {@link Weekday} into database
+     *
+     * @param weekday {@link Weekday} to be inserted
+     */
+    void insertIntoDB(Weekday weekday);
+
+    /**
+     * inserts {@link Schedule} into database
+     *
+     * @param schedule {@link Schedule} to be inserted
+     */
+    void insertIntoDB(Schedule schedule);
 
 
 }
