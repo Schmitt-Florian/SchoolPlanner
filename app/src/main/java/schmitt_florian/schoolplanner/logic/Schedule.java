@@ -7,9 +7,15 @@ package schmitt_florian.schoolplanner.logic;
  */
 public class Schedule {
     /**
+     * numeric id of the Schedule (unique)
+     */
+    private int id;
+
+    /**
      * the name for the schedule, e.g. "Week A" or "Week B" as string
      */
     private String name;
+
     /**
      * the six days of the week in an array of {@link Weekday} (monday to saturday -> length 6)
      */
@@ -18,17 +24,28 @@ public class Schedule {
     /**
      * c'tor for Schedule, that instantiates the day fields from an array
      *
+     * @param id       unique numeric id of the Schedule
      * @param name     name for the schedule, e.g. "Week A" or "Week B"
      * @param weekdays an array of {@link Weekday} containing the six days of the week (monday to saturday -> length 6)
      * @throws ArrayIndexOutOfBoundsException if the given {@link Weekday} array doesn't have the length six
      */
-    public Schedule(String name, Weekday[] weekdays) {
+    public Schedule(int id, String name, Weekday[] weekdays) {
         if (weekdays.length != 6) {
             throw new ArrayIndexOutOfBoundsException("array length " + weekdays.length + " isn't a supported Week, which length would be 6");
         } else {
+            this.id = id;
             this.name = name;
             this.days = weekdays;
         }
+    }
+
+    /**
+     * id of the Schedule
+     *
+     * @return numeric id of the Schedule (unique)
+     */
+    public int getId() {
+        return id;
     }
 
     /**

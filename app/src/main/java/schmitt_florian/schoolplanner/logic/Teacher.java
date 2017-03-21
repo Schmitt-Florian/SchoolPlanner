@@ -11,14 +11,17 @@ public class Teacher {
      * numeric id of the teacher (unique)
      */
     private int id;
+
     /**
      * surname as String
      */
     private String name;
+
     /**
      * unique abbreviation as String, can be null if not available
      */
     private String abbreviation;
+
     /**
      * gender as Char,'f' for female and 'm' for male
      */

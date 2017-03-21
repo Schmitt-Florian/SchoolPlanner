@@ -8,14 +8,17 @@ public class Subject {
      * numeric id of the subject (unique)
      */
     private int id;
+
     /**
      * the {@link Teacher} that teaches this subject
      */
     private Teacher teacher;
+
     /**
      * name of the subject as string e.g "Math"
      */
     private String name;
+
     /**
      * number/code of the room as String e.g "B201"
      */

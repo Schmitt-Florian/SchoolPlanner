@@ -13,14 +13,17 @@ public class Homework {
      * numeric id of the homework (unique)
      */
     private int id;
+
     /**
      * {@link Subject} the homework is for
      */
     private Subject subject;
+
     /**
      * description/details of the homework, can be null if not available
      */
     private String description;
+
     /**
      * due date / deadline for the homework, can be null if not available
      */

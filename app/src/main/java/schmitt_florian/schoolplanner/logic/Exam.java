@@ -13,14 +13,17 @@ public class Exam {
      * numeric id of the exam (unique)
      */
     private int id;
+
     /**
      * {@link Subject} the exam is in
      */
     private Subject subject;
+
     /**
      * description/details of the exam, can be null if not available
      */
     private String description;
+
     /**
      * due date / deadline for the exam, can be null if not available
      */
