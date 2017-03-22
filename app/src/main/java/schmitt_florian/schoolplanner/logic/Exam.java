@@ -3,6 +3,7 @@ package schmitt_florian.schoolplanner.logic;
 
 import android.support.annotation.Nullable;
 
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 /**
@@ -78,5 +79,20 @@ public class Exam {
      */
     public GregorianCalendar getDeadline() {
         return deadline;
+    }
+
+    /**
+     * builds a string from Exam's values
+     *
+     * @return Exam as String
+     */
+    @Override
+    public String toString() {
+        return "---Exam--- \n" +
+                "Id: \t" + id + "\n" +
+                subject.toString() + "\n" +
+                "Description: \t" + description + "\n" +
+                "Deadline: \t" + deadline.get(Calendar.YEAR) + "-" + deadline.get(Calendar.MONTH) + "-" + deadline.get(Calendar.DAY_OF_MONTH) + "\n" +
+                "---####---";
     }
 }

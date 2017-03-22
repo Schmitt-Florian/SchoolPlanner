@@ -77,4 +77,19 @@ public class Teacher {
     public char getGender() {
         return gender;
     }
+
+    /**
+     * builds a string from Teachers's values
+     *
+     * @return Teacher as String
+     */
+    @Override
+    public String toString() {
+        return "---Teacher--- \n" +
+                "Id: \t" + id + "\n" +
+                "Name: \t" + name + "\n" +
+                "Abbreviation: \t" + abbreviation + "\n" +
+                "Gender: \t" + gender + "\n" +
+                "---######---";
+    }
 }

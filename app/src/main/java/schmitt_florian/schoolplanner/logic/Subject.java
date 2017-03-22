@@ -74,4 +74,19 @@ public class Subject {
     public String getRoom() {
         return room;
     }
+
+    /**
+     * builds a string from Subject's values
+     *
+     * @return Subject as String
+     */
+    @Override
+    public String toString() {
+        return "---Subject--- \n" +
+                "Id: \t" + id + "\n" +
+                teacher.toString() + "\n" +
+                "Name: \t" + name + "\n" +
+                "Room: \t" + room + "\n" +
+                "---####---";
+    }
 }

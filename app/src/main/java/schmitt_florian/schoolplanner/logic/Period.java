@@ -3,6 +3,7 @@ package schmitt_florian.schoolplanner.logic;
 
 import android.support.annotation.NonNull;
 
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 /**
@@ -102,6 +103,15 @@ public class Period implements Comparable<Period> {
     }
 
     /**
+     * gets the {@link Weekday} the Subject is on
+     *
+     * @return the {@link Weekday} the Subject is on
+     */
+    public Weekday getWeekday() {
+        return weekday;
+    }
+
+    /**
      * the school hour number the period is
      *
      * @return school hour number the period is, e.g. '1' for the first school hour
@@ -109,6 +119,7 @@ public class Period implements Comparable<Period> {
     public int getSchoolHourNo() {
         return schoolHourNo;
     }
+
 
     /**
      * gets the time the period starts
@@ -128,6 +139,23 @@ public class Period implements Comparable<Period> {
         return endTime;
     }
     //endregion
+
+    /**
+     * builds a string from Period's values
+     *
+     * @return Period as String
+     */
+    @Override
+    public String toString() {
+        return "---Period--- \n" +
+                "Id: \t" + id + "\n" +
+                subject.toString() + "\n" +
+                weekday.toString() + "\n" +
+                "SchoolHourNo: \t" + schoolHourNo + "\n" +
+                "StartTime: 	" + startTime.get(Calendar.HOUR_OF_DAY) + "-" + startTime.get(Calendar.MINUTE) + "-" + startTime.get(Calendar.SECOND) + "\n" +
+                "EndTime: \t" + endTime.get(Calendar.HOUR_OF_DAY) + "-" + endTime.get(Calendar.MINUTE) + "-" + endTime.get(Calendar.SECOND) + "\n" +
+                "---####---";
+    }
 
     /**
      * compares the schoolHourNo's of this and the given period, it can be used to sort a Period[] by the schoolHourNo's,

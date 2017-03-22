@@ -61,4 +61,18 @@ public class Weekday {
     public Period[] getPeriods() {
         return periods;
     }
+
+    /**
+     * builds a string from Weekday's values
+     *
+     * @return Weekday as String
+     */
+    @Override
+    public String toString() {
+        return "---Weekday--- \n" +
+                "Id: \t" + id + "\n" +
+                "Name: \t" + name + "\n" +
+                "Periods: \t" + Arrays.toString(periods) + "\n" +
+                "---######---";
+    }
 }

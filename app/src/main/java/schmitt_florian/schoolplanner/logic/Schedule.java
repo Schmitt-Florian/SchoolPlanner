@@ -1,5 +1,7 @@
 package schmitt_florian.schoolplanner.logic;
 
+import java.util.Arrays;
+
 /**
  * The Schedule Class represents an Object in the Schedule SQL table and is usually returned by methods from the DatabaseHelper Interface
  * <br> </br>
@@ -64,5 +66,19 @@ public class Schedule {
      */
     public Weekday[] getDays() {
         return days;
+    }
+
+    /**
+     * builds a string from Schedule's values
+     *
+     * @return Schedule as String
+     */
+    @Override
+    public String toString() {
+        return "---Schedule--- \n" +
+                "Id: \t" + id + "\n" +
+                "Name: \t" + name + "\n" +
+                "Days: \t" + Arrays.toString(days) + "\n" +
+                "---######---";
     }
 }

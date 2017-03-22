@@ -76,4 +76,19 @@ public class Grade {
     public String getGrade() {
         return grade;
     }
+
+    /**
+     * builds a string from Grade's values
+     *
+     * @return Grade as String
+     */
+    @Override
+    public String toString() {
+        return "---Grade--- \n" +
+                "Id: \t" + id + "\n" +
+                subject.toString() + "\n" +
+                "Name: \t" + name + "\n" +
+                "Grade: \t" + grade + "\n" +
+                "---####---";
+    }
 }
