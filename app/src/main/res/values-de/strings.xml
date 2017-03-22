@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Schulplanner</string>
+    <string name="string_credits">Mitwirkende</string>
+    <string name="string_exams">Klausuren</string>
+    <string name="string_homepage">Startseite</string>
+    <string name="string_homework">Hausaufgaben</string>
+    <string name="string_schedule">Stundenplan</string>
+    <string name="string_settings">Einstellungen</string>
+    <string name="string_subjects">Fächer</string>
+</resources>

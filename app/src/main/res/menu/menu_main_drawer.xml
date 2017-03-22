@@ -1,36 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_main"
             android:icon="@drawable/ic_main"
-            android:title="Startseite" />
+            android:title="@string/string_homepage" />
         <item
             android:id="@+id/nav_schedule"
             android:icon="@drawable/ic_schedule"
-            android:title="Stundenplan" />
+            android:title="@string/string_schedule" />
         <item
             android:id="@+id/nav_subjects"
             android:icon="@drawable/ic_subjects"
-            android:title="Fächer" />
+            android:title="@string/string_subjects" />
         <item
             android:id="@+id/nav_homework"
             android:icon="@drawable/ic_homework"
-            android:title="Hausaufgaben" />
+            android:title="@string/string_homework" />
         <item
             android:id="@+id/nav_exams"
             android:icon="@drawable/ic_exams"
-            android:title="Klausuren" />
+            android:title="@string/string_exams" />
         <item
             android:id="@+id/nav_credits"
             android:icon="@drawable/ic_credits"
-            android:title="Mitwirkende" />
+            android:title="@string/string_credits" />
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_settings"
-            android:title="Einstellungen" />
+            android:title="@string/string_settings" />
     </group>
 
 
