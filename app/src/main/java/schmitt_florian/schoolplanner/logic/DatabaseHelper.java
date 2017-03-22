@@ -4,6 +4,7 @@ package schmitt_florian.schoolplanner.logic;
  * storage for table & column names and other information's for Database,
  * as well as overview for public methods of DatabaseHelperImpl class
  */
+@SuppressWarnings({"FieldNever", "unused"})
 interface DatabaseHelper {
 
     /**
@@ -17,7 +18,7 @@ interface DatabaseHelper {
     String DATABASE_NAME = "SchoolPlaner.db";
 
 
-    //region classic tables
+    //region tables
     //region subject table
     /**
      * name of the subject table as String
@@ -310,6 +311,8 @@ interface DatabaseHelper {
     //endregion
     //endregion
 
+    //region getObjectAtId methods
+
     /**
      * gets the {@link Subject} at a specific id from database
      *
@@ -365,6 +368,68 @@ interface DatabaseHelper {
      * @return row with given id from db as {@link Schedule}
      */
     Schedule getScheduleId(int id);
+    //endregion
+
+    //region updateObjectAtId
+
+    /**
+     * updates {@link Subject} at the given id in database
+     *
+     * @param id         the id the {@link Subject} to update has
+     * @param newSubject the new {@link Subject}
+     */
+    void updateSubjectAtId(int id, Subject newSubject);
+
+    /**
+     * updates {@link Teacher} at the given id in database
+     *
+     * @param id         the id the {@link Teacher} to update has
+     * @param newTeacher the new {@link Teacher}
+     */
+    void updateTeacherAtId(int id, Teacher newTeacher);
+
+    /**
+     * updates {@link Exam} at the given id in database
+     *
+     * @param id      the id the {@link Exam} to update has
+     * @param newExam the new {@link Exam}
+     */
+    void updateExamAtId(int id, Exam newExam);
+
+    /**
+     * updates {@link Grade} at the given id in database
+     *
+     * @param id       the id the {@link Grade} to update has
+     * @param newGrade the new {@link Grade}
+     */
+    void updateGradeAtId(int id, Grade newGrade);
+
+    /**
+     * updates {@link Period} at the given id in database
+     *
+     * @param id        the id the {@link Period} to update has
+     * @param newPeriod the new {@link Period}
+     */
+    void updatePeriodAtId(int id, Period newPeriod);
+
+    /**
+     * updates {@link Weekday} at the given id in database
+     *
+     * @param id         the id the {@link Weekday} to update has
+     * @param newWeekday the new {@link Weekday}
+     */
+    void updateWeekdayAtId(int id, Weekday newWeekday);
+
+    /**
+     * updates {@link Schedule} at the given id in database
+     *
+     * @param id          the id the {@link Schedule} to update has
+     * @param newSchedule the new {@link Schedule}
+     */
+    void updateScheduleAtId(int id, Schedule newSchedule);
+    //endregion
+
+    //region insertIntoDB methods
 
     /**
      * inserts {@link Subject} into database
@@ -414,6 +479,57 @@ interface DatabaseHelper {
      * @param schedule {@link Schedule} to be inserted
      */
     void insertIntoDB(Schedule schedule);
+//endregion
 
+    //region deleteObjectAtId methods
 
+    /**
+     * deletes the {@link Subject} at the given id from database
+     *
+     * @param id the id the {@link Subject} to delete has
+     */
+    void deleteSubjectAtId(int id);
+
+    /**
+     * deletes the {@link Teacher} at the given id from database
+     *
+     * @param id the id the {@link Teacher} to delete has
+     */
+    void deleteTeacherAtId(int id);
+
+    /**
+     * deletes the {@link Exam} at the given id from database
+     *
+     * @param id the id the {@link Exam} to delete has
+     */
+    void deleteExamAtId(int id);
+
+    /**
+     * deletes the {@link Grade} at the given id from database
+     *
+     * @param id the id the {@link Grade} to delete has
+     */
+    void deleteGradeAtId(int id);
+
+    /**
+     * deletes the {@link Period} at the given id from database
+     *
+     * @param id the id the {@link Period} to delete has
+     */
+    void deletePeriodAtId(int id);
+
+    /**
+     * deletes the {@link Weekday} at the given id from database
+     *
+     * @param id the id the {@link Weekday} to delete has
+     */
+    void deleteWeekdayAtId(int id);
+
+    /**
+     * deletes the {@link Schedule} at the given id from database
+     *
+     * @param id the id the {@link Schedule} to delete has
+     */
+    void deleteScheduleAtId(int id);
+    //endregion
 }
