@@ -367,7 +367,7 @@ interface DatabaseHelper {
      * @param id id in database
      * @return row with given id from db as {@link Schedule}
      */
-    Schedule getScheduleId(int id);
+    Schedule getScheduleAtId(int id);
     //endregion
 
     //region updateObjectAtId
