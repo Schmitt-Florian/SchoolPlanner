@@ -317,7 +317,7 @@ interface DatabaseHelper {
      * gets the {@link Subject} at a specific id from database
      *
      * @param id id in database
-     * @return row with given id from db as {@link Subject}
+     * @return row with given id from db as {@link Subject}, or null if not existing
      */
     Subject getSubjectAtId(int id);
 
@@ -325,15 +325,23 @@ interface DatabaseHelper {
      * gets the {@link Teacher} at a specific id from database
      *
      * @param id id in database
-     * @return row with given id from db as {@link Teacher}
+     * @return row with given id from db as {@link Teacher}, or null if not existing
      */
     Teacher getTeacherAtId(int id);
 
     /**
+     * gets the {@link Homework} at a specific id from database
+     *
+     * @param id id in database
+     * @return row with given id from db as {@link Homework}, or null if not existing
+     */
+    Homework getHomeworkAtId(int id);
+    
+    /**
      * gets the {@link Exam} at a specific id from database
      *
      * @param id id in database
-     * @return row with given id from db as {@link Exam}
+     * @return row with given id from db as {@link Exam}, or null if not existing
      */
     Exam getExamAtId(int id);
 
@@ -341,7 +349,7 @@ interface DatabaseHelper {
      * gets the {@link Grade} at a specific id from database
      *
      * @param id id in database
-     * @return row with given id from db as {@link Grade}
+     * @return row with given id from db as {@link Grade}, or null if not existing
      */
     Grade getGradeAtId(int id);
 
@@ -349,7 +357,7 @@ interface DatabaseHelper {
      * gets the {@link Period} at a specific id from database
      *
      * @param id id in database
-     * @return row with given id from db as {@link Period}
+     * @return row with given id from db as {@link Period}, or null if not existing
      */
     Period getPeriodAtId(int id);
 
@@ -357,7 +365,7 @@ interface DatabaseHelper {
      * gets the {@link Weekday} at a specific id from database
      *
      * @param id id in database
-     * @return row with given id from db as {@link Weekday}
+     * @return row with given id from db as {@link Weekday}, or null if not existing
      */
     Weekday getWeekdayAtId(int id);
 
@@ -365,7 +373,7 @@ interface DatabaseHelper {
      * gets the {@link Schedule} at a specific id from database
      *
      * @param id id in database
-     * @return row with given id from db as {@link Schedule}
+     * @return row with given id from db as {@link Schedule}, or null if not existing
      */
     Schedule getScheduleAtId(int id);
     //endregion
@@ -388,6 +396,14 @@ interface DatabaseHelper {
      */
     void updateTeacherAtId(int id, Teacher newTeacher);
 
+    /**
+     * updates {@link Homework} at the given id in database
+     *
+     * @param id      the id the {@link Homework} to update has
+     * @param newHomework the new {@link Homework}
+     */
+    void updateHomeworkAtId(int id, Homework newHomework);
+    
     /**
      * updates {@link Exam} at the given id in database
      *
@@ -446,6 +462,13 @@ interface DatabaseHelper {
     void insertIntoDB(Teacher teacher);
 
     /**
+     * inserts {@link Homework} into database
+     *
+     * @param homework {@link Homework} to be inserted
+     */
+    void insertIntoDB(Homework homework);
+    
+    /**
      * inserts {@link Exam} into database
      *
      * @param exam {@link Exam} to be inserted
@@ -497,6 +520,13 @@ interface DatabaseHelper {
      */
     void deleteTeacherAtId(int id);
 
+    /**
+     * deletes the {@link Homework} at the given id from database
+     *
+     * @param id the id the {@link Homework} to delete has
+     */
+    void deleteHomeworkAtId(int id);
+    
     /**
      * deletes the {@link Exam} at the given id from database
      *
