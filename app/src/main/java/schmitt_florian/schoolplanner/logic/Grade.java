@@ -23,7 +23,7 @@ public class Grade {
     /**
      * the grade itself as String, e.g "1" or "15" or "A" or what system you use
      */
-    private int grade;
+    private String grade;
 
 
     /**
@@ -33,7 +33,7 @@ public class Grade {
      * @param name    the name / type of the grade, e.g. "Presentation"
      * @param grade   the grade itself as String, e.g "1" or "15" or "A" or what system you use
      */
-    public Grade(int id, Subject subject, String name, int grade) {
+    public Grade(int id, Subject subject, String name, String grade) {
         this.id = id;
         this.subject = subject;
         this.name = name;
@@ -72,7 +72,7 @@ public class Grade {
      *
      * @return the grade itself as String, e.g "1" or "15" or "A" or what system you use
      */
-    public Integer getGrade() {
+    public String getGrade() {
         return grade;
     }
 
