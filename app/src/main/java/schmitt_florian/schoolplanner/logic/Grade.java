@@ -23,18 +23,17 @@ public class Grade {
     /**
      * the grade itself as String, e.g "1" or "15" or "A" or what system you use
      */
-    private String grade;
+    private int grade;
 
 
     /**
      * standard c'tor
-     *
-     * @param id      unique numeric id of the Grade
+     *  @param id      unique numeric id of the Grade
      * @param subject the {@link Subject} the grade was given in
      * @param name    the name / type of the grade, e.g. "Presentation"
      * @param grade   the grade itself as String, e.g "1" or "15" or "A" or what system you use
      */
-    public Grade(int id, Subject subject, String name, String grade) {
+    public Grade(int id, Subject subject, String name, int grade) {
         this.id = id;
         this.subject = subject;
         this.name = name;
@@ -73,7 +72,7 @@ public class Grade {
      *
      * @return the grade itself as String, e.g "1" or "15" or "A" or what system you use
      */
-    public String getGrade() {
+    public Integer getGrade() {
         return grade;
     }
 
