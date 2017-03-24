@@ -198,7 +198,7 @@ interface DatabaseHelper {
     String GRADE_COLUMN_NAME = "grade_name";
 
     /**
-     * integer, not null
+     * varchar, not null
      * <br> </br>
      * name of the grade column in the grade table as String
      */

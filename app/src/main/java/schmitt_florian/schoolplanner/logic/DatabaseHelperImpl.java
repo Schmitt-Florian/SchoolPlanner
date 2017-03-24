@@ -704,7 +704,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
                 GRADE_COLUMN_ID + " INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL, " +
                 GRADE_COLUMN_SUBJECT_ID + " INTEGER NOT NULL, " +
                 GRADE_COLUMN_NAME + " VARCHAR NOT NULL, " +
-                GRADE_COLUMN_GRADE + " INTEGER NOT NULL "
+                GRADE_COLUMN_GRADE + " VARCHAR NOT NULL "
         );
         sqLiteDatabase.close();
     }
