@@ -451,57 +451,65 @@ interface DatabaseHelper {
      * inserts {@link Subject} into database
      *
      * @param subject {@link Subject} to be inserted
+     * @return the id in the database the {@link Subject} was inserted
      */
-    void insertIntoDB(Subject subject);
+    int insertIntoDB(Subject subject);
 
     /**
      * inserts {@link Teacher} into database
      *
      * @param teacher {@link Teacher} to be inserted
+     * @return the id in the database the {@link Teacher} was inserted
      */
-    void insertIntoDB(Teacher teacher);
+    int insertIntoDB(Teacher teacher);
 
     /**
      * inserts {@link Homework} into database
      *
      * @param homework {@link Homework} to be inserted
+     * @return the id in the database the {@link Homework} was inserted
      */
-    void insertIntoDB(Homework homework);
+    int insertIntoDB(Homework homework);
 
     /**
      * inserts {@link Exam} into database
      *
      * @param exam {@link Exam} to be inserted
+     * @return the id in the database the {@link Exam} was inserted
      */
-    void insertIntoDB(Exam exam);
+    int insertIntoDB(Exam exam);
 
     /**
      * inserts {@link Grade} into database
      *
      * @param grade {@link Grade} to be inserted
+     * @return the id in the database the {@link Grade} was inserted
      */
-    void insertIntoDB(Grade grade);
+    int insertIntoDB(Grade grade);
 
     /**
      * inserts {@link Period} into database
      *
      * @param period {@link Period} to be inserted
+     * @return the id in the database the {@link Grade} was inserted
      */
-    void insertIntoDB(Period period);
+    int insertIntoDB(Period period);
 
     /**
      * inserts {@link Weekday} into database
      *
      * @param weekday {@link Weekday} to be inserted
+     * @return the id in the database the {@link Weekday} was inserted
      */
-    void insertIntoDB(Weekday weekday);
+    int insertIntoDB(Weekday weekday);
 
     /**
      * inserts {@link Schedule} into database
      *
      * @param schedule {@link Schedule} to be inserted
+     * @return the id in the database the {@link Schedule} was inserted
      */
-    void insertIntoDB(Schedule schedule);
+    int insertIntoDB(Schedule schedule);
 //endregion
 
     //region deleteObjectAtId methods

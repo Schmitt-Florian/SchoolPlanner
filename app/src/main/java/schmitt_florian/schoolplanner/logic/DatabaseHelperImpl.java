@@ -430,82 +430,90 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      * inserts {@link Subject} into database
      *
      * @param subject {@link Subject} to be inserted
+     * @return the id in the database the {@link Subject} was inserted
      */
     @Override
-    public void insertIntoDB(Subject subject) {
-
+    public int insertIntoDB(Subject subject) {
+        return 0;
     }
 
     /**
      * inserts {@link Teacher} into database
      *
      * @param teacher {@link Teacher} to be inserted
+     * @return the id in the database the {@link Teacher} was inserted
      */
     @Override
-    public void insertIntoDB(Teacher teacher) {
-
+    public int insertIntoDB(Teacher teacher) {
+        return 0;
     }
 
     /**
      * inserts {@link Homework} into database
      *
      * @param homework {@link Homework} to be inserted
+     * @return the id in the database the {@link Homework} was inserted
      */
     @Override
-    public void insertIntoDB(Homework homework) {
-
+    public int insertIntoDB(Homework homework) {
+        return 0;
     }
 
     /**
      * inserts {@link Exam} into database
      *
      * @param exam {@link Exam} to be inserted
+     * @return the id in the database the {@link Exam} was inserted
      */
     @Override
-    public void insertIntoDB(Exam exam) {
-
+    public int insertIntoDB(Exam exam) {
+        return 0;
     }
 
     /**
      * inserts {@link Grade} into database
      *
      * @param grade {@link Grade} to be inserted
+     * @return the id in the database the {@link Grade} was inserted
      */
     @Override
-    public void insertIntoDB(Grade grade) {
-
+    public int insertIntoDB(Grade grade) {
+        return 0;
     }
 
     /**
      * inserts {@link Period} into database
      *
      * @param period {@link Period} to be inserted
+     * @return the id in the database the {@link Grade} was inserted
      */
     @Override
-    public void insertIntoDB(Period period) {
-
+    public int insertIntoDB(Period period) {
+        return 0;
     }
 
     /**
      * inserts {@link Weekday} into database
      *
      * @param weekday {@link Weekday} to be inserted
+     * @return the id in the database the {@link Weekday} was inserted
      */
     @Override
-    public void insertIntoDB(Weekday weekday) {
-
+    public int insertIntoDB(Weekday weekday) {
+        return 0;
     }
 
     /**
      * inserts {@link Schedule} into database
      *
      * @param schedule {@link Schedule} to be inserted
+     * @return the id in the database the {@link Schedule} was inserted
      */
     @Override
-    public void insertIntoDB(Schedule schedule) {
-
+    public int insertIntoDB(Schedule schedule) {
+        return 0;
     }
-//endregion
+    //endregion
 
 
     //region deleteObjectAtId

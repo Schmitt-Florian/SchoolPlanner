@@ -8,6 +8,8 @@ import java.util.GregorianCalendar;
 
 /**
  * The Period Class represents an Object in the Period SQL table and is usually returned by methods from the DatabaseHelper Interface
+ * <br><br/>
+ * Note: this class has a natural ordering that is inconsistent with equals
  */
 public class Period implements Comparable<Period> {
     /**
@@ -159,8 +161,7 @@ public class Period implements Comparable<Period> {
 
     /**
      * compares the schoolHourNo's of this and the given period, it can be used to sort a Period[] by the schoolHourNo's,
-     * e.g. by using the Arrays.sort(Period[] periods)
-     * method to get a sorted Periods[]
+     * e.g. by using the Arrays.sort(Period[] periods) method to get a sorted Periods[]
      *
      * @param period the period to compare to
      * @return -1,0,1 if the schoolHourNo of this period is less, equal, greater than the schoolHourNo of the given period
