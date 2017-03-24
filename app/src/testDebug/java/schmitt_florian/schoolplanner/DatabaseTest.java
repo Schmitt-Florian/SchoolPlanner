@@ -24,7 +24,7 @@ public class DatabaseTest {
         int id = databaseHelper.insertIntoDB(testExpectedValue);
 
         Subject testResultValue = databaseHelper.getSubjectAtId(id);
-        databaseHelper.onUpgrade(databaseHelper.getWritableDatabase(),1,1);
+        databaseHelper.resetDatabase();
 
         assertTrue(testExpectedValue.equals(testResultValue));
 
@@ -41,7 +41,7 @@ public class DatabaseTest {
         int id = databaseHelper.insertIntoDB(testExpectedValue);
 
         Subject testResultValue = databaseHelper.getSubjectAtId(id);
-        databaseHelper.onUpgrade(databaseHelper.getWritableDatabase(),1,1);
+        databaseHelper.resetDatabase();
 
         assertTrue(testExpectedValue.equals(testResultValue));
 
@@ -58,7 +58,7 @@ public class DatabaseTest {
         int id = databaseHelper.insertIntoDB(testExpectedValue);
 
         Subject testResultValue = databaseHelper.getSubjectAtId(id);
-        databaseHelper.onUpgrade(databaseHelper.getWritableDatabase(),1,1);
+        databaseHelper.resetDatabase();
 
         assertTrue(testExpectedValue.equals(testResultValue));
 

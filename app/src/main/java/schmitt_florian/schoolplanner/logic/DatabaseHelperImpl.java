@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 
+import static android.R.attr.id;
+
 /**
  * Implementation of DatabaseHelper interface to create and interact with the schoolPlanner SQLite Database
  */
@@ -643,6 +645,12 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         return returnString.toString();
     }
 
+    /**
+     * resets the database, onUpgrade can also called instead
+     */
+    public void resetDatabase() {
+        onUpgrade(this.getWritableDatabase(), 1, 1);
+    }
 
     //region private methods
 
@@ -806,21 +814,6 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     //endregion
 
     /**
-     * method to build a SQLite query to get a row in a specific table at a specific id from schoolPlaner database
-     *
-     * @param table         name of the table to get the row from as String
-     * @param tableColumnID name of the id column in the given table as String
-     * @param id            id of the row to get
-     * @return a SQLite query  as String
-     */
-    private String buildQueryToGetRowAtId(String table, String tableColumnID, int id) {
-        return "SELECT * " +
-                "FROM " + table +
-                " WHERE " + tableColumnID +
-                " = " + id;
-    }
-
-    /**
      * gets the {@link Period}s as array at a specific {@link Weekday}
      *
      * @param weekdayID id of the {@link Weekday}
@@ -870,6 +863,38 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
 
         return (Weekday[]) weekdayArrayList.toArray();
     }
+
+    /**
+     * method to build a SQLite query to get a row in a specific table at a specific id from schoolPlaner database
+     *
+     * @param table         name of the table to get the row from as String
+     * @param tableColumnID name of the id column in the given table as String
+     * @param id            id of the row to get
+     * @return a SQLite query  as String
+     */
+    private String buildQueryToGetRowAtId(String table, String tableColumnID, int id) {
+        return "SELECT * " +
+                "FROM " + table +
+                " WHERE " + tableColumnID +
+                " = " + id;
+    }
+
+//    /**
+//     * method to build a SQLite query to get a row in a specific table at a specific id from schoolPlaner database
+//     *
+//     * @param table         name of the table to get the row from as String
+//     * @param tableColumnID name of the id column in the given table as String
+//     * @param id            id of the row to get
+//     * @return a SQLite query  as String
+//     */
+//    private String buildQueryToInsertObject(String table,) {
+//        return "SELECT * " +
+//                "FROM " + table +
+//                " WHERE " + tableColumnID +
+//                " = " + id;
+//    }
+
+
     //endregion
 
 }

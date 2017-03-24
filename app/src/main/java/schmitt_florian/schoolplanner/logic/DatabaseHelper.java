@@ -586,4 +586,9 @@ interface DatabaseHelper {
      * @return database as String
      */
     String toString(String tableName);
+
+    /**
+     * resets the database
+     */
+    void resetDatabase();
 }
