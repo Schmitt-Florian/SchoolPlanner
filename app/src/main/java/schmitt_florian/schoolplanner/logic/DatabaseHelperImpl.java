@@ -61,11 +61,15 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public Subject getSubjectAtId(int id) {
+        //Open Database
         SQLiteDatabase db = this.getReadableDatabase();
+        //Build cursor
         Cursor cursor = null;
 
+        //Query for commands
         String query = buildQueryToGetRowAtId(TABLE_SUBJECT, SUBJECT_COLUMN_ID, id);
 
+        //Return object
         try {
             cursor = db.rawQuery(query, null);
             cursor.moveToFirst();
@@ -96,7 +100,31 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public Teacher getTeacherAtId(int id) {
+        //Open Database
+        SQLiteDatabase db = this.getReadableDatabase();
+        //Build cursor
+        Cursor cursor = null;
+        //Query for commands
+        String query = buildQueryToGetRowAtId(TABLE_TEACHER, TEACHER_COLUMN_ID, id);
 
+        //Return object
+        try {
+            cursor = db.rawQuery(query, null);
+            cursor.moveToFirst();
+            return new Teacher(
+                    cursor.getInt(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(3).charAt(0)
+            );
+        } catch (Exception e) {
+            ExceptionHandler.handleDatabaseExceptionForGettingANotExistingObject("Subject", context);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
         return null;
     }
 
