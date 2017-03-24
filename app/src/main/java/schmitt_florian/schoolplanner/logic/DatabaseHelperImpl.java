@@ -5,6 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteQuery;
+
+import java.util.ArrayList;
 
 /**
  * Implementation of DatabaseHelper interface to create and interact with the schoolPlanner SQLite Database
@@ -61,15 +64,11 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public Subject getSubjectAtId(int id) {
-        //Open Database
         SQLiteDatabase db = this.getReadableDatabase();
-        //Build cursor
         Cursor cursor = null;
 
-        //Query for commands
         String query = buildQueryToGetRowAtId(TABLE_SUBJECT, SUBJECT_COLUMN_ID, id);
 
-        //Return object
         try {
             cursor = db.rawQuery(query, null);
             cursor.moveToFirst();
@@ -96,21 +95,19 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      * gets the {@link Teacher} at a specific id from database
      *
      * @param id id in database
-     * @return row with given id from db as {@link Teacher}
+     * @return row with given id from db as {@link Teacher}, or null if not existing
      */
     @Override
     public Teacher getTeacherAtId(int id) {
-        //Open Database
         SQLiteDatabase db = this.getReadableDatabase();
-        //Build cursor
         Cursor cursor = null;
-        //Query for commands
+
         String query = buildQueryToGetRowAtId(TABLE_TEACHER, TEACHER_COLUMN_ID, id);
 
-        //Return object
         try {
             cursor = db.rawQuery(query, null);
             cursor.moveToFirst();
+
             return new Teacher(
                     cursor.getInt(0),
                     cursor.getString(1),
@@ -118,7 +115,41 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
                     cursor.getString(3).charAt(0)
             );
         } catch (Exception e) {
-            ExceptionHandler.handleDatabaseExceptionForGettingANotExistingObject("Subject", context);
+            ExceptionHandler.handleDatabaseExceptionForGettingANotExistingObject("Teacher", context);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
+        return null;
+    }
+
+    /**
+     * gets the {@link Homework} at a specific id from database
+     *
+     * @param id id in database
+     * @return row with given id from db as {@link Homework}, or null if not existing
+     */
+    @Override
+    public Homework getHomeworkAtId(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+
+        String query = buildQueryToGetRowAtId(TABLE_EXAM, EXAM_COLUMN_ID, id);
+
+        try {
+            cursor = db.rawQuery(query, null);
+            cursor.moveToFirst();
+
+            return new Homework(
+                    cursor.getInt(0),
+                    getSubjectAtId(cursor.getInt(1)),
+                    cursor.getString(2),
+                    cursor.getString(3)
+            );
+        } catch (Exception e) {
+            ExceptionHandler.handleDatabaseExceptionForGettingANotExistingObject("Exam", context);
         } finally {
             if (cursor != null) {
                 cursor.close();
@@ -132,10 +163,33 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      * gets the {@link Exam} at a specific id from database
      *
      * @param id id in database
-     * @return row with given id from db as {@link Exam}
+     * @return row with given id from db as {@link Exam}, or null if not existing
      */
     @Override
     public Exam getExamAtId(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+
+        String query = buildQueryToGetRowAtId(TABLE_EXAM, EXAM_COLUMN_ID, id);
+
+        try {
+            cursor = db.rawQuery(query, null);
+            cursor.moveToFirst();
+
+            return new Exam(
+                    cursor.getInt(0),
+                    getSubjectAtId(cursor.getInt(1)),
+                    cursor.getString(2),
+                    cursor.getString(3)
+            );
+        } catch (Exception e) {
+            ExceptionHandler.handleDatabaseExceptionForGettingANotExistingObject("Exam", context);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
         return null;
     }
 
@@ -143,10 +197,33 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      * gets the {@link Grade} at a specific id from database
      *
      * @param id id in database
-     * @return row with given id from db as {@link Grade}
+     * @return row with given id from db as {@link Grade}, or null if not existing
      */
     @Override
     public Grade getGradeAtId(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+
+        String query = buildQueryToGetRowAtId(TABLE_GRADE, GRADE_COLUMN_ID, id);
+
+        try {
+            cursor = db.rawQuery(query, null);
+            cursor.moveToFirst();
+
+            return new Grade(
+                    cursor.getInt(0),
+                    getSubjectAtId(cursor.getInt(1)),
+                    cursor.getString(2),
+                    cursor.getString(3)
+            );
+        } catch (Exception e) {
+            ExceptionHandler.handleDatabaseExceptionForGettingANotExistingObject("Grade", context);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
         return null;
     }
 
@@ -154,10 +231,35 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      * gets the {@link Period} at a specific id from database
      *
      * @param id id in database
-     * @return row with given id from db as {@link Period}
+     * @return row with given id from db as {@link Period}, or null if not existing
      */
     @Override
     public Period getPeriodAtId(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+
+        String query = buildQueryToGetRowAtId(TABLE_PERIOD, PERIOD_COLUMN_ID, id);
+
+        try {
+            cursor = db.rawQuery(query, null);
+            cursor.moveToFirst();
+
+            return new Period(
+                    cursor.getInt(0),
+                    getSubjectAtId(cursor.getInt(1)),
+                    getWeekdayAtId(cursor.getInt(2)),
+                    cursor.getInt(3),
+                    cursor.getString(4),
+                    cursor.getString(5)
+            );
+        } catch (Exception e) {
+            ExceptionHandler.handleDatabaseExceptionForGettingANotExistingObject("Period", context);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
         return null;
     }
 
@@ -165,10 +267,32 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      * gets the {@link Weekday} at a specific id from database
      *
      * @param id id in database
-     * @return row with given id from db as {@link Weekday}
+     * @return row with given id from db as {@link Weekday}, or null if not existing
      */
     @Override
     public Weekday getWeekdayAtId(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+
+        String query = buildQueryToGetRowAtId(TABLE_WEEKDAY, WEEKDAY_COLUMN_ID, id);
+
+        try {
+            cursor = db.rawQuery(query, null);
+            cursor.moveToFirst();
+
+            return new Weekday(
+                    cursor.getInt(0),
+                    cursor.getString(2),
+                    getPeriodsAtWeekday(id)
+                    );
+        } catch (Exception e) {
+            ExceptionHandler.handleDatabaseExceptionForGettingANotExistingObject("Weekday", context);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
         return null;
     }
 
@@ -176,12 +300,36 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      * gets the {@link Schedule} at a specific id from database
      *
      * @param id id in database
-     * @return row with given id from db as {@link Schedule}
+     * @return row with given id from db as {@link Schedule}, or null if not existing
      */
     @Override
     public Schedule getScheduleAtId(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+
+        String query = buildQueryToGetRowAtId(TABLE_SCHEDULE, SCHEDULE_COLUMN_ID, id);
+
+        try {
+            cursor = db.rawQuery(query, null);
+            cursor.moveToFirst();
+
+            return new Schedule(
+                    cursor.getInt(0),
+                    cursor.getString(1),
+                    getWeekdaysAtSchedule(id)
+            );
+        } catch (Exception e) {
+            ExceptionHandler.handleDatabaseExceptionForGettingANotExistingObject("Schedule", context);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
         return null;
     }
+
+
 //endregion
 
 
@@ -206,6 +354,17 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public void updateTeacherAtId(int id, Teacher newTeacher) {
+
+    }
+
+    /**
+     * updates {@link Homework} at the given id in database
+     *
+     * @param id          the id the {@link Homework} to update has
+     * @param newHomework the new {@link Homework}
+     */
+    @Override
+    public void updateHomeworkAtId(int id, Homework newHomework) {
 
     }
 
@@ -289,6 +448,16 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     }
 
     /**
+     * inserts {@link Homework} into database
+     *
+     * @param homework {@link Homework} to be inserted
+     */
+    @Override
+    public void insertIntoDB(Homework homework) {
+
+    }
+
+    /**
      * inserts {@link Exam} into database
      *
      * @param exam {@link Exam} to be inserted
@@ -359,6 +528,16 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public void deleteTeacherAtId(int id) {
+
+    }
+
+    /**
+     * deletes the {@link Homework} at the given id from database
+     *
+     * @param id the id the {@link Homework} to delete has
+     */
+    @Override
+    public void deleteHomeworkAtId(int id) {
 
     }
 
@@ -525,7 +704,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
                 GRADE_COLUMN_ID + " INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL, " +
                 GRADE_COLUMN_SUBJECT_ID + " INTEGER NOT NULL, " +
                 GRADE_COLUMN_NAME + " VARCHAR NOT NULL, " +
-                GRADE_COLUMN_GRADE + " INTEGER NOT NULL "
+                GRADE_COLUMN_GRADE + " VARCHAR NOT NULL "
         );
         sqLiteDatabase.close();
     }
@@ -588,6 +767,55 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
                 "FROM " + table +
                 " WHERE " + tableColumnID +
                 " = " + id;
+    }
+
+    /**
+     * gets the {@link Period}s as array at a specific {@link Weekday}
+     * @param weekdayID id of the {@link Weekday}
+     * @return Periods at the given Weekday as Array
+     * @throws Exception if an error occurs
+     */
+    private Period[] getPeriodsAtWeekday(int weekdayID) throws Exception {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = buildQueryToGetRowAtId(TABLE_PERIOD, PERIOD_COLUMN_WEEKDAY_ID, weekdayID);
+
+        ArrayList<Period> periodArrayList = new ArrayList<>();
+        Cursor cursor = db.rawQuery(query, null);
+
+        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            periodArrayList.add(getPeriodAtId(cursor.getInt(0)));
+        }
+
+        cursor.close();
+        db.close();
+
+        return (Period[]) periodArrayList.toArray();
+    }
+
+
+    /**
+     * gets the {@link Weekday}s as array at a specific {@link Schedule}
+     * @param scheduleID id of the {@link Schedule}
+     * @return Weekdays at the given schedule as Array
+     * @throws Exception if an error occurs
+     */
+    private Weekday[] getWeekdaysAtSchedule(int scheduleID) throws Exception {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = buildQueryToGetRowAtId(TABLE_WEEKDAY, WEEKDAY_COLUMN_SCHEDULE_ID, scheduleID);
+
+        ArrayList<Weekday> weekdayArrayList = new ArrayList<>();
+        Cursor cursor = db.rawQuery(query, null);
+
+        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            weekdayArrayList.add(getWeekdayAtId(cursor.getInt(0)));
+        }
+
+        cursor.close();
+        db.close();
+
+        return (Weekday[]) weekdayArrayList.toArray();
     }
     //endregion
 

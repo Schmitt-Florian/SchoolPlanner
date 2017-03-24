@@ -77,8 +77,8 @@ public class Period implements Comparable<Period> {
         this.subject = subject;
         this.weekday = weekday;
         this.schoolHourNo = schoolHourNo;
-        this.startTime = getTimeFromString(startTime);
-        this.endTime = getTimeFromString(endTime);
+        this.startTime = convertTimeStringToGregorianCalendar(startTime);
+        this.endTime = convertTimeStringToGregorianCalendar(endTime);
     }
     //endregion
 
@@ -182,10 +182,11 @@ public class Period implements Comparable<Period> {
      * method to transfer time data as Sting to a GregorianCalendar
      *
      * @param source string with time information separated by '-' HH-MM-SS
-     * @return GregorianCalendar with time information's. Year, month, dayOfMonth = 0
+     * @return GregorianCalendar with time information's. initialized year, month, dayOfMonth with 0
      */
-    private GregorianCalendar getTimeFromString(String source) {
-        return new GregorianCalendar(0,
+    private GregorianCalendar convertTimeStringToGregorianCalendar(String source) {
+        return new GregorianCalendar(
+                0,
                 0,
                 0,
                 Integer.parseInt(source.split("-")[0]),
