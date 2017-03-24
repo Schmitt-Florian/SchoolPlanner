@@ -336,7 +336,7 @@ interface DatabaseHelper {
      * @return row with given id from db as {@link Homework}, or null if not existing
      */
     Homework getHomeworkAtId(int id);
-    
+
     /**
      * gets the {@link Exam} at a specific id from database
      *
@@ -399,11 +399,11 @@ interface DatabaseHelper {
     /**
      * updates {@link Homework} at the given id in database
      *
-     * @param id      the id the {@link Homework} to update has
+     * @param id          the id the {@link Homework} to update has
      * @param newHomework the new {@link Homework}
      */
     void updateHomeworkAtId(int id, Homework newHomework);
-    
+
     /**
      * updates {@link Exam} at the given id in database
      *
@@ -467,7 +467,7 @@ interface DatabaseHelper {
      * @param homework {@link Homework} to be inserted
      */
     void insertIntoDB(Homework homework);
-    
+
     /**
      * inserts {@link Exam} into database
      *
@@ -526,7 +526,7 @@ interface DatabaseHelper {
      * @param id the id the {@link Homework} to delete has
      */
     void deleteHomeworkAtId(int id);
-    
+
     /**
      * deletes the {@link Exam} at the given id from database
      *
@@ -562,4 +562,20 @@ interface DatabaseHelper {
      */
     void deleteScheduleAtId(int id);
     //endregion
+
+    /**
+     * represents the whole database as String
+     *
+     * @return database as String
+     */
+    @Override
+    String toString();
+
+    /**
+     * represents the given Table from the database as String
+     *
+     * @param tableName name of the table to convert tzo String, choose from the TABLE_XXX constants of {@link DatabaseHelper}
+     * @return database as String
+     */
+    String toString(String tableName);
 }

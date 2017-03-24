@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.database.sqlite.SQLiteQuery;
 
 import java.util.ArrayList;
 
@@ -284,7 +283,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
                     cursor.getInt(0),
                     cursor.getString(2),
                     getPeriodsAtWeekday(id)
-                    );
+            );
         } catch (Exception e) {
             ExceptionHandler.handleDatabaseExceptionForGettingANotExistingObject("Weekday", context);
         } finally {
@@ -593,6 +592,50 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     //endregion
 
 
+    /**
+     * represents the whole database to a String
+     *
+     * @return database as String
+     */
+    @Override
+    public String toString() {
+        return toString(TABLE_SUBJECT) + "\n \n" +
+                toString(TABLE_TEACHER) + "\n \n" +
+                toString(TABLE_HOMEWORK) + "\n \n" +
+                toString(TABLE_EXAM) + "\n \n" +
+                toString(TABLE_GRADE) + "\n \n" +
+                toString(TABLE_PERIOD) + "\n \n" +
+                toString(TABLE_WEEKDAY) + "\n \n" +
+                toString(TABLE_SCHEDULE);
+    }
+
+    /**
+     * represents the given Table from the database as String
+     *
+     * @param tableName name of the table to convert tzo String, choose from the TABLE_XXX constants of {@link DatabaseHelper}
+     * @return database as String
+     */
+    @Override
+    public String toString(String tableName) {
+        StringBuilder returnString = new StringBuilder("############################### \n" + tableName + "\n ###############################");
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + tableName;
+
+        try (Cursor cursor = db.rawQuery(query, null)) {
+            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                for (int i = 0; i < cursor.getColumnCount(); i++) {
+                    returnString.append(cursor.getColumnName(i)).append(": \t").append(cursor.getString(i)).append("|| \t");
+                }
+                returnString.append("\n");
+            }
+        }
+        returnString.append("############################### ");
+
+        return returnString.toString();
+    }
+
+
     //region private methods
 
     /**
@@ -771,6 +814,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
 
     /**
      * gets the {@link Period}s as array at a specific {@link Weekday}
+     *
      * @param weekdayID id of the {@link Weekday}
      * @return Periods at the given Weekday as Array
      * @throws Exception if an error occurs
@@ -796,6 +840,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
 
     /**
      * gets the {@link Weekday}s as array at a specific {@link Schedule}
+     *
      * @param scheduleID id of the {@link Schedule}
      * @return Weekdays at the given schedule as Array
      * @throws Exception if an error occurs
