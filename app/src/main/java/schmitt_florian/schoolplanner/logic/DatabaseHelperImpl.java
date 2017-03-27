@@ -8,10 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 
-import static android.R.attr.id;
-
 /**
- * Implementation of DatabaseHelper interface to create and interact with the schoolPlanner SQLite Database
+ * Implementation of DatabaseHelper interface to create and interact with the schoolPlanner SQLite Database.
  */
 public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelper {
 
@@ -26,7 +24,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         createTables(sqLiteDatabase);
 
-        sqLiteDatabase.close();
+        //sqLiteDatabase.close();
     }
 
     /**
@@ -40,7 +38,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         dropAllTables(sqLiteDatabase);
         onCreate(sqLiteDatabase);
-        sqLiteDatabase.close();
+        //sqLiteDatabase.close();
     }
 
 
@@ -436,6 +434,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public int insertIntoDB(Subject subject) {
+
         return 0;
     }
 
@@ -447,7 +446,32 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public int insertIntoDB(Teacher teacher) {
-        return 0;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = null;
+
+        String query = "INSERT INTO " + TABLE_TEACHER + " VALUES ( " + teacher.getId() +", \"" + teacher.getName() + "\", \"" + teacher.getAbbreviation() + "\", \"" + teacher.getGender() + "\")" /*+
+                "WHERE NOT EXISTS (SELECT * FROM " + TABLE_TEACHER + " WHERE " + TEACHER_COLUMN_ID + " = \""+teacher.getId() +"\" AND "+ TEACHER_COLUMN_NAME + " = \"" + teacher.getName() + "\" AND " + TEACHER_COLUMN_ABBREVIATION +
+                " = \"" + teacher.getAbbreviation() + "\" AND " + TEACHER_COLUMN_GENDER + " = \"" + teacher.getGender() + "\")"*/;
+
+        try{
+            db.execSQL(query);
+        }catch (Exception e){
+            ExceptionHandler.handleDatabaseExceptionForAddingAAlreadyExistingObject(teacher,context);
+        }
+
+      /*  try {
+            cursor = db.rawQuery("SELECT MAX(" + TEACHER_COLUMN_ID + ") FROM " + TABLE_TEACHER, null);
+            cursor.moveToFirst();
+
+            return cursor.getInt(0);
+        }finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
+
+*/return 0;
     }
 
     /**
@@ -627,15 +651,16 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public String toString(String tableName) {
-        StringBuilder returnString = new StringBuilder("############################### \n" + tableName + "\n ###############################");
+        StringBuilder returnString = new StringBuilder("############################### \n" + tableName + "\n-------------------------------\n");
 
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT * FROM " + tableName;
 
+
         try (Cursor cursor = db.rawQuery(query, null)) {
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 for (int i = 0; i < cursor.getColumnCount(); i++) {
-                    returnString.append(cursor.getColumnName(i)).append(": \t").append(cursor.getString(i)).append("|| \t");
+                    returnString.append(cursor.getColumnName(i)).append(": \t").append(cursor.getString(i)).append(" || ");
                 }
                 returnString.append("\n");
             }
@@ -670,7 +695,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         sqLiteDatabase.execSQL("DROP TABLE " + TABLE_SCHEDULE);
 
 
-        sqLiteDatabase.close();
+       // sqLiteDatabase.close();
     }
 
     /**
@@ -688,7 +713,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         createWeekdayTable(sqLiteDatabase);
         createScheduleTable(sqLiteDatabase);
 
-        sqLiteDatabase.close();
+      //  sqLiteDatabase.close();
     }
 
     //region table creation
@@ -700,12 +725,12 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     private void createSubjectTable(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_SUBJECT + "(" +
-                SUBJECT_COLUMN_ID + " INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL, " +
+                SUBJECT_COLUMN_ID + " INTEGER PRIMARY KEY NOT NULL, " +
                 SUBJECT_COLUMN_TEACHER_ID + " INTEGER NOT NULL, " +
                 SUBJECT_COLUMN_NAME + " VARCHAR NOT NULL, " +
-                SUBJECT_COLUMN_ROOM + " VARCHAR NOT NULL "
+                SUBJECT_COLUMN_ROOM + " VARCHAR NOT NULL )"
         );
-        sqLiteDatabase.close();
+       // sqLiteDatabase.close();
     }
 
     /**
@@ -715,12 +740,12 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     private void createTeacherTable(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_TEACHER + "(" +
-                TEACHER_COLUMN_ID + " INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL, " +
+                TEACHER_COLUMN_ID + " INTEGER PRIMARY KEY NOT NULL, " +
                 TEACHER_COLUMN_NAME + " VARCHAR NOT NULL, " +
                 TEACHER_COLUMN_ABBREVIATION + " VARCHAR UNIQUE, " +
-                TEACHER_COLUMN_GENDER + " CHAR NOT NULL "
+                TEACHER_COLUMN_GENDER + " CHAR NOT NULL )"
         );
-        sqLiteDatabase.close();
+      //  sqLiteDatabase.close();
     }
 
     /**
@@ -730,12 +755,12 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     private void createHomeworkTable(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_HOMEWORK + "(" +
-                HOMEWORK_COLUMN_ID + " INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL, " +
+                HOMEWORK_COLUMN_ID + " INTEGER PRIMARY KEY NOT NULL, " +
                 HOMEWORK_COLUMN_SUBJECT_ID + " INTEGER NOT NULL, " +
                 HOMEWORK_COLUMN_DESCRIPTION + " TEXT, " +
-                HOMEWORK_COLUMN_DEADLINE + " DATE "
+                HOMEWORK_COLUMN_DEADLINE + " DATE )"
         );
-        sqLiteDatabase.close();
+       // sqLiteDatabase.close();
     }
 
     /**
@@ -745,12 +770,12 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     private void createExamTable(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_EXAM + "(" +
-                EXAM_COLUMN_ID + " INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL, " +
+                EXAM_COLUMN_ID + " INTEGER PRIMARY KEY NOT NULL, " +
                 EXAM_COLUMN_SUBJECT_ID + " INTEGER NOT NULL, " +
                 EXAM_COLUMN_DESCRIPTION + " TEXT, " +
-                EXAM_COLUMN_DEADLINE + " DATE "
+                EXAM_COLUMN_DEADLINE + " DATE )"
         );
-        sqLiteDatabase.close();
+      //  sqLiteDatabase.close();
     }
 
     /**
@@ -760,12 +785,12 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     private void createGradeTable(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_GRADE + "(" +
-                GRADE_COLUMN_ID + " INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL, " +
+                GRADE_COLUMN_ID + " INTEGER PRIMARY KEY NOT NULL, " +
                 GRADE_COLUMN_SUBJECT_ID + " INTEGER NOT NULL, " +
                 GRADE_COLUMN_NAME + " VARCHAR NOT NULL, " +
-                GRADE_COLUMN_GRADE + " VARCHAR NOT NULL "
+                GRADE_COLUMN_GRADE + " VARCHAR NOT NULL )"
         );
-        sqLiteDatabase.close();
+     //   sqLiteDatabase.close();
     }
 
     /**
@@ -775,14 +800,14 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     private void createPeriodTable(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_PERIOD + "(" +
-                PERIOD_COLUMN_ID + " INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL, " +
+                PERIOD_COLUMN_ID + " INTEGER PRIMARY KEY NOT NULL, " +
                 PERIOD_COLUMN_SUBJECT_ID + " INTEGER NOT NULL, " +
                 PERIOD_COLUMN_WEEKDAY_ID + " INTEGER NOT NULL, " +
                 PERIOD_COLUMN_SCHOOL_HOUR_NO + "INTEGER NOT NULL, " +
                 PERIOD_COLUMN_STARTTIME + " TIME NOT NULL, " +
-                PERIOD_COLUMN_ENDTIME + " TIME NOT NULL "
+                PERIOD_COLUMN_ENDTIME + " TIME NOT NULL )"
         );
-        sqLiteDatabase.close();
+      //  sqLiteDatabase.close();
     }
 
     /**
@@ -792,11 +817,11 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     private void createWeekdayTable(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_WEEKDAY + "(" +
-                WEEKDAY_COLUMN_ID + " INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL, " +
+                WEEKDAY_COLUMN_ID + " INTEGER PRIMARY KEY NOT NULL, " +
                 WEEKDAY_COLUMN_SCHEDULE_ID + " INTEGER NOT NULL, " +
-                WEEKDAY_COLUMN_NAME + " VARCHAR NOT NULL "
+                WEEKDAY_COLUMN_NAME + " VARCHAR NOT NULL )"
         );
-        sqLiteDatabase.close();
+     //   sqLiteDatabase.close();
     }
 
     /**
@@ -806,10 +831,10 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     private void createScheduleTable(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_SCHEDULE + "(" +
-                SCHEDULE_COLUMN_ID + " INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL, " +
-                SCHEDULE_COLUMN_NAME + " VARCHAR NOT NULL "
+                SCHEDULE_COLUMN_ID + " INTEGER PRIMARY KEY NOT NULL, " +
+                SCHEDULE_COLUMN_NAME + " VARCHAR NOT NULL )"
         );
-        sqLiteDatabase.close();
+      //  sqLiteDatabase.close();
     }
     //endregion
 
@@ -878,21 +903,6 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
                 " WHERE " + tableColumnID +
                 " = " + id;
     }
-
-//    /**
-//     * method to build a SQLite query to get a row in a specific table at a specific id from schoolPlaner database
-//     *
-//     * @param table         name of the table to get the row from as String
-//     * @param tableColumnID name of the id column in the given table as String
-//     * @param id            id of the row to get
-//     * @return a SQLite query  as String
-//     */
-//    private String buildQueryToInsertObject(String table,) {
-//        return "SELECT * " +
-//                "FROM " + table +
-//                " WHERE " + tableColumnID +
-//                " = " + id;
-//    }
 
 
     //endregion

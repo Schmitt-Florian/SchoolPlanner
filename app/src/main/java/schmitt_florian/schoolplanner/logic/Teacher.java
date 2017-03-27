@@ -78,6 +78,16 @@ public class Teacher {
         return gender;
     }
 
+    public boolean meets(Teacher otherTeacher) {
+        if (this.id == otherTeacher.id && this.name.equals(otherTeacher.name) &&
+                this.abbreviation.equals(otherTeacher.abbreviation)
+                && this.gender == otherTeacher.gender) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /**
      * builds a string from Teachers's values
      *
