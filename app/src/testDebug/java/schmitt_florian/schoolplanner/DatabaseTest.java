@@ -294,7 +294,7 @@ public class DatabaseTest {
         Homework testExpectedValue = new Homework (0,
                 new Subject(0, new Teacher(0,"Braeuer","BRAE",'m'),"computer science","B106"),
                 "Database commands",
-                "03.27.2017"
+                "2017-03-27"
         );
 
         int id = databaseHelper.insertIntoDB(testExpectedValue);
@@ -310,7 +310,7 @@ public class DatabaseTest {
         Homework testExpectedValue = new Homework (0,
                 new Subject(0, new Teacher(0, "Meyer", "MEY", 'f'),"maths","A210"),
                 "page 298 No.3, linear combination",
-                "03.28.2017"
+                "2017-03-28"
         );
 
         int id = databaseHelper.insertIntoDB(testExpectedValue);
@@ -327,7 +327,7 @@ public class DatabaseTest {
         Homework testExpectedValue = new Homework (0,
                 new Subject(0, new Teacher(0, "Dickens", "DICK", 'm'),"german","C301"),
                 "read Buechner's Lenz chapter 1-5",
-                "03.31.2017"
+                "2017-03-31"
         );
 
         int id = databaseHelper.insertIntoDB(testExpectedValue);
@@ -399,7 +399,7 @@ public class DatabaseTest {
         Exam testExpectedValue = new Exam (0,
                 new Subject(0, new Teacher(0,"Braeuer","BRAE",'m'),"computer science","B106"),
                 "databases:ERM,RM,SQL-Lite",
-                "03.29.2017"
+                "2017-03-29"
         );
 
         int id = databaseHelper.insertIntoDB(testExpectedValue);
@@ -418,7 +418,7 @@ public class DatabaseTest {
                 "vectors:" +
                         "- linear combination" +
                         "- draw vectors",
-                "04.01.2017"
+                "2017-04-01"
         );
 
         int id = databaseHelper.insertIntoDB(testExpectedValue);
@@ -437,7 +437,7 @@ public class DatabaseTest {
                         "- Lenz' feelings" +
                         "- fiction and reality" +
                         "- Lenz' mental disorders",
-                "03.28.2017"
+                "2017-03-28"
         );
 
         int id = databaseHelper.insertIntoDB(testExpectedValue);
