@@ -1,6 +1,7 @@
 package schmitt_florian.schoolplanner;
 
 
+import android.test.AndroidTestCase;
 import android.test.mock.MockContext;
 
 import org.junit.Test;
@@ -15,10 +16,11 @@ import schmitt_florian.schoolplanner.logic.Subject;
 import schmitt_florian.schoolplanner.logic.Teacher;
 import schmitt_florian.schoolplanner.logic.Weekday;
 
+import static android.support.test.InstrumentationRegistry.getContext;
 import static org.junit.Assert.assertTrue;
 
 public class DatabaseTest {
-    private DatabaseHelperImpl databaseHelper = new DatabaseHelperImpl(new MockContext());
+    private DatabaseHelperImpl databaseHelper = new DatabaseHelperImpl(getContext());
 
     //Launch test area: subject
     @Test
