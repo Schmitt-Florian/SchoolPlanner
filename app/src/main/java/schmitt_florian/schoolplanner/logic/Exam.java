@@ -102,6 +102,14 @@ public class Exam {
     }
 
     /**
+     * gets the Deadline as String in YYYY-MM-DD format
+     * @return Deadline as String
+     */
+    public String getDeadlineAsString() {
+        return deadline.get(Calendar.YEAR) + "-" + deadline.get(Calendar.MONTH) + "-" + deadline.get(Calendar.DAY_OF_MONTH);
+    }
+
+    /**
      * builds a string from Exam's values
      *
      * @return Exam as String

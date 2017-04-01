@@ -132,6 +132,10 @@ public class Period implements Comparable<Period> {
         return startTime;
     }
 
+    public String getStartTimeAsString() {
+        return startTime.get(Calendar.HOUR_OF_DAY) + "-" + startTime.get(Calendar.MINUTE) + "-" + startTime.get(Calendar.SECOND);
+    }
+
     /**
      * gets the time the period ends
      *
@@ -139,6 +143,10 @@ public class Period implements Comparable<Period> {
      */
     public GregorianCalendar getEndTime() {
         return endTime;
+    }
+
+    public String getEndTimeAsString() {
+        return endTime.get(Calendar.HOUR_OF_DAY) + "-" + endTime.get(Calendar.MINUTE) + "-" + endTime.get(Calendar.SECOND);
     }
     //endregion
 
@@ -154,7 +162,7 @@ public class Period implements Comparable<Period> {
                 subject.toString() + "\n" +
                 weekday.toString() + "\n" +
                 "SchoolHourNo: \t" + schoolHourNo + "\n" +
-                "StartTime: 	" + startTime.get(Calendar.HOUR_OF_DAY) + "-" + startTime.get(Calendar.MINUTE) + "-" + startTime.get(Calendar.SECOND) + "\n" +
+                "StartTime: \t" + startTime.get(Calendar.HOUR_OF_DAY) + "-" + startTime.get(Calendar.MINUTE) + "-" + startTime.get(Calendar.SECOND) + "\n" +
                 "EndTime: \t" + endTime.get(Calendar.HOUR_OF_DAY) + "-" + endTime.get(Calendar.MINUTE) + "-" + endTime.get(Calendar.SECOND) + "\n" +
                 "---####---";
     }

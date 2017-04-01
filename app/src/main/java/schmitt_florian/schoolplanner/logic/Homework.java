@@ -31,7 +31,6 @@ public class Homework {
     private GregorianCalendar deadline;
 
 
-
     /**
      * standard c'tor for Homework class
      *
@@ -99,6 +98,14 @@ public class Homework {
     }
 
     /**
+     * gets the Deadline as String in YYYY-MM-DD format
+     * @return Deadline as String
+     */
+    public String getDeadlineAsString() {
+        return deadline.get(Calendar.YEAR) + "-" + deadline.get(Calendar.MONTH) + "-" + deadline.get(Calendar.DAY_OF_MONTH);
+    }
+
+    /**
      * builds a string from Homework's values
      *
      * @return Homework as String
@@ -117,6 +124,7 @@ public class Homework {
 
     /**
      * converts a date-string to a GregorianCalendar
+     *
      * @param source date as string in YYYY-MM-DD format
      * @return date as GregorianCalendar
      */

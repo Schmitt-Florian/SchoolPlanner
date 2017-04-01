@@ -23,8 +23,6 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         createTables(sqLiteDatabase);
-
-        //sqLiteDatabase.close();
     }
 
     /**
@@ -38,7 +36,6 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         dropAllTables(sqLiteDatabase);
         onCreate(sqLiteDatabase);
-        //sqLiteDatabase.close();
     }
 
 
@@ -434,8 +431,19 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public int insertIntoDB(Subject subject) {
+        SQLiteDatabase db = this.getWritableDatabase();
 
-        return 0;
+        String query = "INSERT INTO " + TABLE_SUBJECT + " VALUES ( " + subject.getId() + ", \"" + subject.getTeacher().getId() + "\", \"" + subject.getName() + "\", \"" + subject.getRoom() + "\")";
+
+        insertIntoDB(subject.getTeacher());
+        try {
+            db.execSQL(query);
+        } catch (Exception e) {
+            ExceptionHandler.handleDatabaseExceptionForAddingAAlreadyExistingObject(subject, context);
+            return -1;
+        }
+        return subject.getId();
+
     }
 
     /**
@@ -447,31 +455,16 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     @Override
     public int insertIntoDB(Teacher teacher) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = null;
 
-        String query = "INSERT INTO " + TABLE_TEACHER + " VALUES ( " + teacher.getId() +", \"" + teacher.getName() + "\", \"" + teacher.getAbbreviation() + "\", \"" + teacher.getGender() + "\")" /*+
-                "WHERE NOT EXISTS (SELECT * FROM " + TABLE_TEACHER + " WHERE " + TEACHER_COLUMN_ID + " = \""+teacher.getId() +"\" AND "+ TEACHER_COLUMN_NAME + " = \"" + teacher.getName() + "\" AND " + TEACHER_COLUMN_ABBREVIATION +
-                " = \"" + teacher.getAbbreviation() + "\" AND " + TEACHER_COLUMN_GENDER + " = \"" + teacher.getGender() + "\")"*/;
+        String query = "INSERT INTO " + TABLE_TEACHER + " VALUES ( " + teacher.getId() + ", \"" + teacher.getName() + "\", \"" + teacher.getAbbreviation() + "\", \"" + teacher.getGender() + "\")";
 
-        try{
+        try {
             db.execSQL(query);
-        }catch (Exception e){
-            ExceptionHandler.handleDatabaseExceptionForAddingAAlreadyExistingObject(teacher,context);
+        } catch (Exception e) {
+            ExceptionHandler.handleDatabaseExceptionForAddingAAlreadyExistingObject(teacher, context);
+            return -1;
         }
-
-      /*  try {
-            cursor = db.rawQuery("SELECT MAX(" + TEACHER_COLUMN_ID + ") FROM " + TABLE_TEACHER, null);
-            cursor.moveToFirst();
-
-            return cursor.getInt(0);
-        }finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-            db.close();
-        }
-
-*/return 0;
+        return teacher.getId();
     }
 
     /**
@@ -482,7 +475,18 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public int insertIntoDB(Homework homework) {
-        return 0;
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "INSERT INTO " + TABLE_HOMEWORK + " VALUES ( " + homework.getId() + ", \"" + homework.getSubject().getId() + "\", \"" + homework.getDescription() + "\", \"" + homework.getDeadlineAsString() + "\")";
+
+        insertIntoDB(homework.getSubject());
+        try {
+            db.execSQL(query);
+        } catch (Exception e) {
+            ExceptionHandler.handleDatabaseExceptionForAddingAAlreadyExistingObject(homework, context);
+            return -1;
+        }
+        return homework.getId();
     }
 
     /**
@@ -493,7 +497,18 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public int insertIntoDB(Exam exam) {
-        return 0;
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "INSERT INTO " + TABLE_EXAM + " VALUES ( " + exam.getId() + ", \"" + exam.getSubject().getId() + "\", \"" + exam.getDescription() + "\", \"" + exam.getDeadlineAsString() + "\")";
+
+        insertIntoDB(exam.getSubject());
+        try {
+            db.execSQL(query);
+        } catch (Exception e) {
+            ExceptionHandler.handleDatabaseExceptionForAddingAAlreadyExistingObject(exam, context);
+            return -1;
+        }
+        return exam.getId();
     }
 
     /**
@@ -504,7 +519,18 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public int insertIntoDB(Grade grade) {
-        return 0;
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "INSERT INTO " + TABLE_GRADE + " VALUES ( " + grade.getId() + ", \"" + grade.getSubject().getId() + "\", \"" + grade.getName() + "\", \"" + grade.getGrade() + "\")";
+
+        insertIntoDB(grade.getSubject());
+        try {
+            db.execSQL(query);
+        } catch (Exception e) {
+            ExceptionHandler.handleDatabaseExceptionForAddingAAlreadyExistingObject(grade, context);
+            return -1;
+        }
+        return grade.getId();
     }
 
     /**
@@ -515,7 +541,19 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public int insertIntoDB(Period period) {
-        return 0;
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "INSERT INTO " + TABLE_PERIOD + " VALUES ( " + period.getId() + ", \"" + period.getSubject().getId() + "\", \"" + period.getWeekday().getId() + "\", \"" + period.getSchoolHourNo() + "\", \"" + period.getStartTimeAsString() + "\", \"" + period.getEndTimeAsString() + "\")";
+
+        insertIntoDB(period.getSubject());
+        insertIntoDB(period.getWeekday());
+        try {
+            db.execSQL(query);
+        } catch (Exception e) {
+            ExceptionHandler.handleDatabaseExceptionForAddingAAlreadyExistingObject(period, context);
+            return -1;
+        }
+        return period.getId();
     }
 
     /**
@@ -695,7 +733,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         sqLiteDatabase.execSQL("DROP TABLE " + TABLE_SCHEDULE);
 
 
-       // sqLiteDatabase.close();
+        // sqLiteDatabase.close();
     }
 
     /**
@@ -713,7 +751,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         createWeekdayTable(sqLiteDatabase);
         createScheduleTable(sqLiteDatabase);
 
-      //  sqLiteDatabase.close();
+        //  sqLiteDatabase.close();
     }
 
     //region table creation
@@ -730,7 +768,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
                 SUBJECT_COLUMN_NAME + " VARCHAR NOT NULL, " +
                 SUBJECT_COLUMN_ROOM + " VARCHAR NOT NULL )"
         );
-       // sqLiteDatabase.close();
+        // sqLiteDatabase.close();
     }
 
     /**
@@ -745,7 +783,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
                 TEACHER_COLUMN_ABBREVIATION + " VARCHAR UNIQUE, " +
                 TEACHER_COLUMN_GENDER + " CHAR NOT NULL )"
         );
-      //  sqLiteDatabase.close();
+        //  sqLiteDatabase.close();
     }
 
     /**
@@ -760,7 +798,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
                 HOMEWORK_COLUMN_DESCRIPTION + " TEXT, " +
                 HOMEWORK_COLUMN_DEADLINE + " DATE )"
         );
-       // sqLiteDatabase.close();
+        // sqLiteDatabase.close();
     }
 
     /**
@@ -775,7 +813,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
                 EXAM_COLUMN_DESCRIPTION + " TEXT, " +
                 EXAM_COLUMN_DEADLINE + " DATE )"
         );
-      //  sqLiteDatabase.close();
+        //  sqLiteDatabase.close();
     }
 
     /**
@@ -790,7 +828,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
                 GRADE_COLUMN_NAME + " VARCHAR NOT NULL, " +
                 GRADE_COLUMN_GRADE + " VARCHAR NOT NULL )"
         );
-     //   sqLiteDatabase.close();
+        //   sqLiteDatabase.close();
     }
 
     /**
@@ -807,7 +845,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
                 PERIOD_COLUMN_STARTTIME + " TIME NOT NULL, " +
                 PERIOD_COLUMN_ENDTIME + " TIME NOT NULL )"
         );
-      //  sqLiteDatabase.close();
+        //  sqLiteDatabase.close();
     }
 
     /**
@@ -821,7 +859,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
                 WEEKDAY_COLUMN_SCHEDULE_ID + " INTEGER NOT NULL, " +
                 WEEKDAY_COLUMN_NAME + " VARCHAR NOT NULL )"
         );
-     //   sqLiteDatabase.close();
+        //   sqLiteDatabase.close();
     }
 
     /**
@@ -834,7 +872,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
                 SCHEDULE_COLUMN_ID + " INTEGER PRIMARY KEY NOT NULL, " +
                 SCHEDULE_COLUMN_NAME + " VARCHAR NOT NULL )"
         );
-      //  sqLiteDatabase.close();
+        //  sqLiteDatabase.close();
     }
     //endregion
 
