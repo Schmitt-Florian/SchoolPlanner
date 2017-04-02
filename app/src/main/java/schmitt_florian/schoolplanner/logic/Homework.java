@@ -99,6 +99,7 @@ public class Homework {
 
     /**
      * gets the Deadline as String in YYYY-MM-DD format
+     *
      * @return Deadline as String
      */
     public String getDeadlineAsString() {

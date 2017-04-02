@@ -1,9 +1,7 @@
 package schmitt_florian.schoolplanner.logic;
 
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.widget.Toast;
 
 /**
@@ -29,9 +27,9 @@ class ExceptionHandler {
      * by showing a Toast with an error message
      *
      * @param newObject the object which failed to add to the database
-     * @param context the context of the app
+     * @param context   the context of the app
      */
-    static void handleDatabaseExceptionForAddingAAlreadyExistingObject(Object newObject,  Context context) {
+    static void handleDatabaseExceptionForAddingAAlreadyExistingObject(Object newObject, Context context) {
         Toast.makeText(context, "Could not add \n" + newObject.toString() + "\nto Database. Maybe you are trying to add an already existing Object", Toast.LENGTH_LONG).show();
     }
 

@@ -103,6 +103,7 @@ public class Exam {
 
     /**
      * gets the Deadline as String in YYYY-MM-DD format
+     *
      * @return Deadline as String
      */
     public String getDeadlineAsString() {
@@ -125,8 +126,10 @@ public class Exam {
     }
 
     //region private methods
+
     /**
      * converts a date-string to a GregorianCalendar
+     *
      * @param source date as string in YYYY-MM-DD format
      * @return date as GregorianCalendar
      */

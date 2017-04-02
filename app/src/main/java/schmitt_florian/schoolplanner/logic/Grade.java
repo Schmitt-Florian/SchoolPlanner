@@ -28,7 +28,8 @@ public class Grade {
 
     /**
      * standard c'tor
-     *  @param id      unique numeric id of the Grade
+     *
+     * @param id      unique numeric id of the Grade
      * @param subject the {@link Subject} the grade was given in
      * @param name    the name / type of the grade, e.g. "Presentation"
      * @param grade   the grade itself as String, e.g "1" or "15" or "A" or what system you use

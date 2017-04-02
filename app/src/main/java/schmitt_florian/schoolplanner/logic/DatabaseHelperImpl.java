@@ -16,6 +16,16 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     private Context context = null;
 
     /**
+     * standard c'tor for DatabaseHelperImpl
+     *
+     * @param context context of the application
+     */
+    public DatabaseHelperImpl(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        this.context = context;
+    }
+
+    /**
      * method inherited from SQLiteOpenHelper to create and setup the schoolPlanner Database
      *
      * @param sqLiteDatabase the schoolPlanner Database
@@ -36,17 +46,6 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         dropAllTables(sqLiteDatabase);
         onCreate(sqLiteDatabase);
-    }
-
-
-    /**
-     * standard c'tor for DatabaseHelperImpl
-     *
-     * @param context context of the application
-     */
-    public DatabaseHelperImpl(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        this.context = context;
     }
 
 
@@ -595,7 +594,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
 
         for (int i = 0; i < schedule.getDays().length; i++) {
             insertIntoDB(schedule.getDays()[i]);
-            updateWeekdayScheduleIdAtId(schedule.getDays()[i].getId(),schedule.getId());
+            updateWeekdayScheduleIdAtId(schedule.getDays()[i].getId(), schedule.getId());
         }
 
         try {
@@ -973,18 +972,19 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
 
     /**
      * updates the WEEKDAY_COLUMN_SCHEDULE_ID column in the TABLE_WEEKDAY with the new value for at a given id
-     * @param id id of the object to update
+     *
+     * @param id         id of the object to update
      * @param scheduleId id of the new schedule
      */
     private void updateWeekdayScheduleIdAtId(int id, int scheduleId) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String query = "UPDATE " + TABLE_WEEKDAY + " SET " + WEEKDAY_COLUMN_SCHEDULE_ID + " = " + scheduleId +" WHERE " + WEEKDAY_COLUMN_ID + " = " + id;
+        String query = "UPDATE " + TABLE_WEEKDAY + " SET " + WEEKDAY_COLUMN_SCHEDULE_ID + " = " + scheduleId + " WHERE " + WEEKDAY_COLUMN_ID + " = " + id;
 
         try {
             db.execSQL(query);
         } catch (Exception e) {
-            ExceptionHandler.handleDatabaseExceptionForUpdatingAnExistingObject(WEEKDAY_COLUMN_SCHEDULE_ID + " in WEEKDAY",context);
+            ExceptionHandler.handleDatabaseExceptionForUpdatingAnExistingObject(WEEKDAY_COLUMN_SCHEDULE_ID + " in WEEKDAY", context);
         }
     }
 

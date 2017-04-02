@@ -1,9 +1,6 @@
 package schmitt_florian.schoolplanner;
 
 
-import android.test.AndroidTestCase;
-import android.test.mock.MockContext;
-
 import org.junit.Test;
 
 import schmitt_florian.schoolplanner.logic.DatabaseHelperImpl;
@@ -181,7 +178,7 @@ public class DatabaseTest {
     //Launch test area: Schedule
     @Test
     public void addGetSchedule() throws Exception {
-        Schedule testExpectedValue = new Schedule (0,
+        Schedule testExpectedValue = new Schedule(0,
                 "A Schedule",
                 new Weekday[5]
         );
@@ -197,7 +194,7 @@ public class DatabaseTest {
 
     @Test
     public void addGetSchedule1() throws Exception {
-        Schedule testExpectedValue = new Schedule (0,
+        Schedule testExpectedValue = new Schedule(0,
                 "B Schedule",
                 new Weekday[3]
         );
@@ -213,7 +210,7 @@ public class DatabaseTest {
 
     @Test
     public void addGetSchedule2() throws Exception {
-        Schedule testExpectedValue = new Schedule (0,
+        Schedule testExpectedValue = new Schedule(0,
                 "c Schedule",
                 new Weekday[7]
         );
@@ -231,9 +228,9 @@ public class DatabaseTest {
     //Launch test area: Period
     @Test
     public void addGetPeriod() throws Exception {
-        Period testExpectedValue = new Period (0,
-                new Subject(0, new Teacher(0,"Braeuer","BRAE",'m'),"computer science","B106"),
-                new Weekday(0,"Monday",new Period[6]),
+        Period testExpectedValue = new Period(0,
+                new Subject(0, new Teacher(0, "Braeuer", "BRAE", 'm'), "computer science", "B106"),
+                new Weekday(0, "Monday", new Period[6]),
                 1,
                 "7.45",
                 "8.35"
@@ -251,9 +248,9 @@ public class DatabaseTest {
 
     @Test
     public void addGetPeriod1() throws Exception {
-        Period testExpectedValue = new Period (0,
-                new Subject(0, new Teacher(0, "Meyer", "MEY", 'f'),"maths","A210"),
-                new Weekday(0,"Tuesday",new Period[10]),
+        Period testExpectedValue = new Period(0,
+                new Subject(0, new Teacher(0, "Meyer", "MEY", 'f'), "maths", "A210"),
+                new Weekday(0, "Tuesday", new Period[10]),
                 3,
                 "9.35",
                 "10.20"
@@ -271,9 +268,9 @@ public class DatabaseTest {
 
     @Test
     public void addGetPeriod2() throws Exception {
-        Period testExpectedValue = new Period (0,
-                new Subject(0, new Teacher(0, "Dickens", "DICK", 'm'),"german","C301"),
-                new Weekday(0,"Friday",new Period[5]),
+        Period testExpectedValue = new Period(0,
+                new Subject(0, new Teacher(0, "Dickens", "DICK", 'm'), "german", "C301"),
+                new Weekday(0, "Friday", new Period[5]),
                 5,
                 "11.25",
                 "12.10"
@@ -293,8 +290,8 @@ public class DatabaseTest {
     //Launch test area: Homework
     @Test
     public void addGetHomework() throws Exception {
-        Homework testExpectedValue = new Homework (0,
-                new Subject(0, new Teacher(0,"Braeuer","BRAE",'m'),"computer science","B106"),
+        Homework testExpectedValue = new Homework(0,
+                new Subject(0, new Teacher(0, "Braeuer", "BRAE", 'm'), "computer science", "B106"),
                 "Database commands",
                 "2017-03-27"
         );
@@ -307,10 +304,11 @@ public class DatabaseTest {
         assertTrue(testExpectedValue.equals(testResultValue));
 
     }
+
     @Test
     public void addGetHomework1() throws Exception {
-        Homework testExpectedValue = new Homework (0,
-                new Subject(0, new Teacher(0, "Meyer", "MEY", 'f'),"maths","A210"),
+        Homework testExpectedValue = new Homework(0,
+                new Subject(0, new Teacher(0, "Meyer", "MEY", 'f'), "maths", "A210"),
                 "page 298 No.3, linear combination",
                 "2017-03-28"
         );
@@ -326,8 +324,8 @@ public class DatabaseTest {
 
     @Test
     public void addGetHomework2() throws Exception {
-        Homework testExpectedValue = new Homework (0,
-                new Subject(0, new Teacher(0, "Dickens", "DICK", 'm'),"german","C301"),
+        Homework testExpectedValue = new Homework(0,
+                new Subject(0, new Teacher(0, "Dickens", "DICK", 'm'), "german", "C301"),
                 "read Buechner's Lenz chapter 1-5",
                 "2017-03-31"
         );
@@ -345,8 +343,8 @@ public class DatabaseTest {
     //Launch test area: Grade
     @Test
     public void addGetGrade() throws Exception {
-        Grade testExpectedValue = new Grade (0,
-                new Subject(0, new Teacher(0,"Braeuer","BRAE",'m'),"computer science","B106"),
+        Grade testExpectedValue = new Grade(0,
+                new Subject(0, new Teacher(0, "Braeuer", "BRAE", 'm'), "computer science", "B106"),
                 "oral mark",
                 "13 Points"
         );
@@ -362,8 +360,8 @@ public class DatabaseTest {
 
     @Test
     public void addGetGrade1() throws Exception {
-        Grade testExpectedValue = new Grade (0,
-                new Subject(0, new Teacher(0, "Meyer", "MEY", 'f'),"maths","A210"),
+        Grade testExpectedValue = new Grade(0,
+                new Subject(0, new Teacher(0, "Meyer", "MEY", 'f'), "maths", "A210"),
                 "exam",
                 "7 Points"
         );
@@ -379,8 +377,8 @@ public class DatabaseTest {
 
     @Test
     public void addGetGrade2() throws Exception {
-        Grade testExpectedValue = new Grade (0,
-                new Subject(0, new Teacher(0, "Dickens", "DICK", 'm'),"german","C301"),
+        Grade testExpectedValue = new Grade(0,
+                new Subject(0, new Teacher(0, "Dickens", "DICK", 'm'), "german", "C301"),
                 "presentation",
                 "14 Points"
         );
@@ -398,8 +396,8 @@ public class DatabaseTest {
     //Launch test area: Exam
     @Test
     public void addGetExam() throws Exception {
-        Exam testExpectedValue = new Exam (0,
-                new Subject(0, new Teacher(0,"Braeuer","BRAE",'m'),"computer science","B106"),
+        Exam testExpectedValue = new Exam(0,
+                new Subject(0, new Teacher(0, "Braeuer", "BRAE", 'm'), "computer science", "B106"),
                 "databases:ERM,RM,SQL-Lite",
                 "2017-03-29"
         );
@@ -415,8 +413,8 @@ public class DatabaseTest {
 
     @Test
     public void addGetExam1() throws Exception {
-        Exam testExpectedValue = new Exam (0,
-                new Subject(0, new Teacher(0, "Meyer", "MEY", 'f'),"maths","A210"),
+        Exam testExpectedValue = new Exam(0,
+                new Subject(0, new Teacher(0, "Meyer", "MEY", 'f'), "maths", "A210"),
                 "vectors:" +
                         "- linear combination" +
                         "- draw vectors",
@@ -431,10 +429,11 @@ public class DatabaseTest {
         assertTrue(testExpectedValue.equals(testResultValue));
 
     }
+
     @Test
     public void addGetExam2() throws Exception {
-        Exam testExpectedValue = new Exam (0,
-                new Subject(0, new Teacher(0, "Dickens", "DICK", 'm'),"german","C301"),
+        Exam testExpectedValue = new Exam(0,
+                new Subject(0, new Teacher(0, "Dickens", "DICK", 'm'), "german", "C301"),
                 "Lenz:" +
                         "- Lenz' feelings" +
                         "- fiction and reality" +
