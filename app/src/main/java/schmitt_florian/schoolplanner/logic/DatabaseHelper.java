@@ -274,7 +274,7 @@ interface DatabaseHelper {
     String WEEKDAY_COLUMN_ID = "weekday_id";
 
     /**
-     * integer, foreign key, not null
+     * integer, foreign key
      * <br> </br>
      * name of the subjectId column in the period table as String
      */

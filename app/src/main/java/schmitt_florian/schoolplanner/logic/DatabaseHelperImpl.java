@@ -564,7 +564,21 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public int insertIntoDB(Weekday weekday) {
-        return 0;
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "INSERT INTO " + TABLE_WEEKDAY + " VALUES ( " + weekday.getId() + ",NULL, \"" + weekday.getName() + "\")";
+
+        for (int i = 0; i < weekday.getPeriods().length; i++) {
+            insertIntoDB(weekday.getPeriods()[i]);
+        }
+
+        try {
+            db.execSQL(query);
+        } catch (Exception e) {
+            ExceptionHandler.handleDatabaseExceptionForAddingAAlreadyExistingObject(weekday, context);
+            return -1;
+        }
+        return weekday.getId();
     }
 
     /**
@@ -575,7 +589,22 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public int insertIntoDB(Schedule schedule) {
-        return 0;
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "INSERT INTO " + TABLE_SCHEDULE + " VALUES ( " + schedule.getId() + ", \"" + schedule.getName() + "\")";
+
+        for (int i = 0; i < schedule.getDays().length; i++) {
+            insertIntoDB(schedule.getDays()[i]);
+            updateWeekdayScheduleIdAtId(schedule.getDays()[i].getId(),schedule.getId());
+        }
+
+        try {
+            db.execSQL(query);
+        } catch (Exception e) {
+            ExceptionHandler.handleDatabaseExceptionForAddingAAlreadyExistingObject(schedule, context);
+            return -1;
+        }
+        return schedule.getId();
     }
     //endregion
 
@@ -856,7 +885,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     private void createWeekdayTable(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_WEEKDAY + "(" +
                 WEEKDAY_COLUMN_ID + " INTEGER PRIMARY KEY NOT NULL, " +
-                WEEKDAY_COLUMN_SCHEDULE_ID + " INTEGER NOT NULL, " +
+                WEEKDAY_COLUMN_SCHEDULE_ID + " INTEGER, " +
                 WEEKDAY_COLUMN_NAME + " VARCHAR NOT NULL )"
         );
         //   sqLiteDatabase.close();
@@ -942,6 +971,22 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
                 " = " + id;
     }
 
+    /**
+     * updates the WEEKDAY_COLUMN_SCHEDULE_ID column in the TABLE_WEEKDAY with the new value for at a given id
+     * @param id id of the object to update
+     * @param scheduleId id of the new schedule
+     */
+    private void updateWeekdayScheduleIdAtId(int id, int scheduleId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "UPDATE " + TABLE_WEEKDAY + " SET " + WEEKDAY_COLUMN_SCHEDULE_ID + " = " + scheduleId +" WHERE " + WEEKDAY_COLUMN_ID + " = " + id;
+
+        try {
+            db.execSQL(query);
+        } catch (Exception e) {
+            ExceptionHandler.handleDatabaseExceptionForUpdatingAnExistingObject(WEEKDAY_COLUMN_SCHEDULE_ID + " in WEEKDAY",context);
+        }
+    }
 
     //endregion
 
