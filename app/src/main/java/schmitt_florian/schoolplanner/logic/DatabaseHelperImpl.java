@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelper {
 
     private Context context = null;
+    private int id;
 
     /**
      * standard c'tor for DatabaseHelperImpl
@@ -617,7 +618,15 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public void deleteSubjectAtId(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
 
+        String query = "DELETE FROM " + TABLE_SUBJECT + " WHERE " + SUBJECT_COLUMN_ID + " = " + id;
+
+        try {
+            db.execSQL(query);
+        } catch (Exception e) {
+            ExceptionHandler.handleDatabaseExceptionForDeletingAnNotExistingObject(id, context);
+        }
     }
 
     /**
@@ -627,7 +636,15 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public void deleteTeacherAtId(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
 
+        String query = "DELETE FROM " + TABLE_TEACHER + " WHERE " + TEACHER_COLUMN_ID + " = " + id;
+
+        try {
+            db.execSQL(query);
+        } catch (Exception e) {
+            ExceptionHandler.handleDatabaseExceptionForDeletingAnNotExistingObject(id, context);
+        }
     }
 
     /**
@@ -637,7 +654,15 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public void deleteHomeworkAtId(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
 
+        String query = "DELETE FROM " + TABLE_HOMEWORK + " WHERE " + HOMEWORK_COLUMN_ID + " = " + id;
+
+        try {
+            db.execSQL(query);
+        } catch (Exception e) {
+            ExceptionHandler.handleDatabaseExceptionForDeletingAnNotExistingObject(id, context);
+        }
     }
 
     /**
@@ -647,7 +672,15 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public void deleteExamAtId(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
 
+        String query = "DELETE FROM " + TABLE_EXAM + " WHERE " + EXAM_COLUMN_ID + " = " + id;
+
+        try {
+            db.execSQL(query);
+        } catch (Exception e) {
+            ExceptionHandler.handleDatabaseExceptionForDeletingAnNotExistingObject(id, context);
+        }
     }
 
     /**
@@ -657,7 +690,15 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public void deleteGradeAtId(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
 
+        String query = "DELETE FROM " + TABLE_GRADE + " WHERE " + GRADE_COLUMN_ID + " = " + id;
+
+        try {
+            db.execSQL(query);
+        } catch (Exception e) {
+            ExceptionHandler.handleDatabaseExceptionForDeletingAnNotExistingObject(id, context);
+        }
     }
 
     /**
@@ -667,7 +708,15 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public void deletePeriodAtId(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
 
+        String query = "DELETE FROM " + TABLE_PERIOD + " WHERE " + PERIOD_COLUMN_ID + " = " + id;
+
+        try {
+            db.execSQL(query);
+        } catch (Exception e) {
+            ExceptionHandler.handleDatabaseExceptionForDeletingAnNotExistingObject(id, context);
+        }
     }
 
     /**
@@ -677,7 +726,15 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public void deleteWeekdayAtId(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
 
+        String query = "DELETE FROM " + TABLE_WEEKDAY + " WHERE " + WEEKDAY_COLUMN_ID + " = " + id;
+
+        try {
+            db.execSQL(query);
+        } catch (Exception e) {
+            ExceptionHandler.handleDatabaseExceptionForDeletingAnNotExistingObject(id, context);
+        }
     }
 
     /**
@@ -687,7 +744,15 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public void deleteScheduleAtId(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
 
+        String query = "DELETE FROM " + TABLE_SCHEDULE + " WHERE " + SCHEDULE_COLUMN_ID + " = " + id;
+
+        try {
+            db.execSQL(query);
+        } catch (Exception e) {
+            ExceptionHandler.handleDatabaseExceptionForDeletingAnNotExistingObject(id, context);
+        }
     }
     //endregion
 
