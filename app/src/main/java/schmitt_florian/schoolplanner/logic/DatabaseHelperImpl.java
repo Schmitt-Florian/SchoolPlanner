@@ -14,7 +14,6 @@ import java.util.ArrayList;
 public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelper {
 
     private Context context = null;
-    private int id;
 
     /**
      * standard c'tor for DatabaseHelperImpl
