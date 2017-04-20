@@ -338,7 +338,18 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public void updateSubjectAtId(int id, Subject newSubject) {
+        SQLiteDatabase db = this.getWritableDatabase();
 
+        String query = "UPDATE " + TABLE_SUBJECT + " SET "
+                + SUBJECT_COLUMN_NAME + " = " + newSubject.getName()
+                + SUBJECT_COLUMN_ROOM + " = " + newSubject.getRoom()
+                + SUBJECT_COLUMN_TEACHER_ID + " = " + newSubject.getTeacher().getId()
+                + " WHERE " + SUBJECT_COLUMN_ID + " = " + newSubject.getId();
+        try {
+            db.execSQL(query);
+        } catch (Exception e) {
+            ExceptionHandler.handleDatabaseExceptionForUpdatingAnNotExistingObject("Subject", context);
+        }
     }
 
     /**
@@ -1048,7 +1059,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         try {
             db.execSQL(query);
         } catch (Exception e) {
-            ExceptionHandler.handleDatabaseExceptionForUpdatingAnExistingObject(WEEKDAY_COLUMN_SCHEDULE_ID + " in WEEKDAY", context);
+            ExceptionHandler.handleDatabaseExceptionForUpdatingAnNotExistingObject(WEEKDAY_COLUMN_SCHEDULE_ID + " in WEEKDAY", context);
         }
     }
 

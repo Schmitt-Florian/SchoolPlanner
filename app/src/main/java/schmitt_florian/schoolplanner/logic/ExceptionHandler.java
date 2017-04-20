@@ -41,7 +41,7 @@ class ExceptionHandler {
      * @param objectTypeName name of the object type you were updating
      * @param context        the context of the app
      */
-    static void handleDatabaseExceptionForUpdatingAnExistingObject(String objectTypeName, Context context) {
+    static void handleDatabaseExceptionForUpdatingAnNotExistingObject(String objectTypeName, Context context) {
         Toast.makeText(context, "Could not update " + objectTypeName + " in Database. Maybe you have not created this " + objectTypeName + " before.", Toast.LENGTH_LONG).show();
     }
 
