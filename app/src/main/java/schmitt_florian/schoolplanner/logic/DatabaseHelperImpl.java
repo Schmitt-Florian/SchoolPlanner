@@ -365,7 +365,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         String query = "UPDATE " + TABLE_TEACHER + " SET "
                 + TEACHER_COLUMN_NAME + " = " + "'" + newTeacher.getName() + "', "
                 + TEACHER_COLUMN_ABBREVIATION + " = " + "'" + newTeacher.getAbbreviation() + "', "
-                + TEACHER_COLUMN_GENDER + " = " + "'" + newTeacher.getGender() + "',"
+                + TEACHER_COLUMN_GENDER + " = " + "'" + newTeacher.getGender() + "'"
                 + " WHERE " + TEACHER_COLUMN_ID + " = " + newTeacher.getId();
         try {
             db.execSQL(query);
@@ -385,9 +385,9 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         SQLiteDatabase db = this.getWritableDatabase();
 
         String query = "UPDATE " + TABLE_HOMEWORK + " SET "
-                + HOMEWORK_COLUMN_SUBJECT_ID + " = " +  newHomework.getSubject().getId() + "', "
+                + HOMEWORK_COLUMN_SUBJECT_ID + " = " + newHomework.getSubject().getId() + ", "
                 + HOMEWORK_COLUMN_DESCRIPTION + " = " + "'" + newHomework.getDescription() + "', "
-                + HOMEWORK_COLUMN_DEADLINE + " = " + "'" + newHomework.getDeadlineAsString() + "' "
+                + HOMEWORK_COLUMN_DEADLINE + " = " + "'" + newHomework.getDeadlineAsString() + "'"
                 + " WHERE " + SUBJECT_COLUMN_ID + " = " + newHomework.getId();
         try {
             db.execSQL(query);
@@ -404,7 +404,18 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public void updateExamAtId(int id, Exam newExam) {
+        SQLiteDatabase db = this.getWritableDatabase();
 
+        String query = "UPDATE " + TABLE_EXAM + " SET "
+                + EXAM_COLUMN_SUBJECT_ID + " = " + newExam.getSubject().getId() + ", "
+                + EXAM_COLUMN_DESCRIPTION + " = " + "'" + newExam.getDescription() + "', "
+                + EXAM_COLUMN_DEADLINE + " = " + "'" + newExam.getDeadlineAsString() + "'"
+                + " WHERE " + EXAM_COLUMN_ID + " = " + newExam.getId();
+        try {
+            db.execSQL(query);
+        } catch (Exception e) {
+            ExceptionHandler.handleDatabaseExceptionForUpdatingAnNotExistingObject("Exam", context);
+        }
     }
 
     /**
@@ -415,7 +426,18 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public void updateGradeAtId(int id, Grade newGrade) {
+        SQLiteDatabase db = this.getWritableDatabase();
 
+        String query = "UPDATE " + TABLE_GRADE + " SET "
+                + GRADE_COLUMN_SUBJECT_ID + " = " + newGrade.getSubject().getId() + ", "
+                + GRADE_COLUMN_NAME + " = " + "'" + newGrade.getName() + "', "
+                + GRADE_COLUMN_GRADE + " = " + "'" + newGrade.getGrade() + "'"
+                + " WHERE " + GRADE_COLUMN_ID + " = " + newGrade.getId();
+        try {
+            db.execSQL(query);
+        } catch (Exception e) {
+            ExceptionHandler.handleDatabaseExceptionForUpdatingAnNotExistingObject("Grade", context);
+        }
     }
 
     /**
@@ -426,7 +448,20 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public void updatePeriodAtId(int id, Period newPeriod) {
+        SQLiteDatabase db = this.getWritableDatabase();
 
+        String query = "UPDATE " + TABLE_PERIOD + " SET "
+                + PERIOD_COLUMN_SUBJECT_ID + " = " +  newPeriod.getSubject().getId()+ ", "
+                + PERIOD_COLUMN_WEEKDAY_ID + " = " +  newPeriod.getWeekday().getId()+ ", "
+                + PERIOD_COLUMN_SCHOOL_HOUR_NO + " = " +  newPeriod.getSchoolHourNo()+ ", "
+                + PERIOD_COLUMN_STARTTIME + " = " + "'" + newPeriod.getStartTimeAsString()+ "', "
+                + PERIOD_COLUMN_ENDTIME + " = " + "'" + newPeriod.getEndTimeAsString() + "'"
+                + " WHERE " + PERIOD_COLUMN_ID + " = " + newPeriod.getId();
+        try {
+            db.execSQL(query);
+        } catch (Exception e) {
+            ExceptionHandler.handleDatabaseExceptionForUpdatingAnNotExistingObject("Period", context);
+        }
     }
 
     /**
@@ -437,7 +472,18 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public void updateWeekdayAtId(int id, Weekday newWeekday) {
-
+//        SQLiteDatabase db = this.getWritableDatabase();
+//
+//        String query = "UPDATE " + TABLE_WEEKDAY + " SET "
+//                + WEEKDAY_COLUMN_NAME + " = " + "'" +  newWeekday.getName()+ "', "
+//                + WEEKDAY_COLUMN_SCHEDULE_ID + " = " + "'"+ newWeekday.get+ "', "
+//                + EXAM_COLUMN_DEADLINE+ " = " + "'"+ newExam.getDeadlineAsString()+ "', "
+//                + " WHERE " + EXAM_COLUMN_ID + " = " + newExam.getId();
+//        try {
+//            db.execSQL(query);
+//        } catch (Exception e) {
+//            ExceptionHandler.handleDatabaseExceptionForUpdatingAnNotExistingObject("Exam", context);
+//        }
     }
 
     /**
