@@ -341,8 +341,8 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         SQLiteDatabase db = this.getWritableDatabase();
 
         String query = "UPDATE " + TABLE_SUBJECT + " SET "
-                + SUBJECT_COLUMN_NAME + " = " + "'"+ newSubject.getName()+ "', "+
-                + SUBJECT_COLUMN_ROOM + " = " + "'"+ newSubject.getRoom()+ "', "+
+                + SUBJECT_COLUMN_NAME + " = " + "'" + newSubject.getName() + "', "
+                + SUBJECT_COLUMN_ROOM + " = " + "'" + newSubject.getRoom() + "', "
                 + SUBJECT_COLUMN_TEACHER_ID + " = " + newSubject.getTeacher().getId()
                 + " WHERE " + SUBJECT_COLUMN_ID + " = " + newSubject.getId();
         try {
@@ -360,7 +360,18 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public void updateTeacherAtId(int id, Teacher newTeacher) {
+        SQLiteDatabase db = this.getWritableDatabase();
 
+        String query = "UPDATE " + TABLE_TEACHER + " SET "
+                + TEACHER_COLUMN_NAME + " = " + "'" + newTeacher.getName() + "', "
+                + TEACHER_COLUMN_ABBREVIATION + " = " + "'" + newTeacher.getAbbreviation() + "', "
+                + TEACHER_COLUMN_GENDER + " = " + "'" + newTeacher.getGender() + "',"
+                + " WHERE " + TEACHER_COLUMN_ID + " = " + newTeacher.getId();
+        try {
+            db.execSQL(query);
+        } catch (Exception e) {
+            ExceptionHandler.handleDatabaseExceptionForUpdatingAnNotExistingObject("Teacher", context);
+        }
     }
 
     /**
@@ -371,7 +382,18 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public void updateHomeworkAtId(int id, Homework newHomework) {
+        SQLiteDatabase db = this.getWritableDatabase();
 
+        String query = "UPDATE " + TABLE_HOMEWORK + " SET "
+                + HOMEWORK_COLUMN_SUBJECT_ID + " = " +  newHomework.getSubject().getId() + "', "
+                + HOMEWORK_COLUMN_DESCRIPTION + " = " + "'" + newHomework.getDescription() + "', "
+                + HOMEWORK_COLUMN_DEADLINE + " = " + "'" + newHomework.getDeadlineAsString() + "' "
+                + " WHERE " + SUBJECT_COLUMN_ID + " = " + newHomework.getId();
+        try {
+            db.execSQL(query);
+        } catch (Exception e) {
+            ExceptionHandler.handleDatabaseExceptionForUpdatingAnNotExistingObject("Homework", context);
+        }
     }
 
     /**
