@@ -341,8 +341,8 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         SQLiteDatabase db = this.getWritableDatabase();
 
         String query = "UPDATE " + TABLE_SUBJECT + " SET "
-                + SUBJECT_COLUMN_NAME + " = " + newSubject.getName()
-                + SUBJECT_COLUMN_ROOM + " = " + newSubject.getRoom()
+                + SUBJECT_COLUMN_NAME + " = " + "'"+ newSubject.getName()+ "', "+
+                + SUBJECT_COLUMN_ROOM + " = " + "'"+ newSubject.getRoom()+ "', "+
                 + SUBJECT_COLUMN_TEACHER_ID + " = " + newSubject.getTeacher().getId()
                 + " WHERE " + SUBJECT_COLUMN_ID + " = " + newSubject.getId();
         try {
