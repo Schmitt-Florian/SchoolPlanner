@@ -4,6 +4,8 @@
     <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
     <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
 
+    //Navigation Drawer
+
     <string name="string_homepage">Home</string>
     <string name="string_schedule">Schedule</string>
     <string name="string_subjects">Subjects</string>
@@ -11,4 +13,10 @@
     <string name="string_exams">Exams</string>
     <string name="string_credits">Credits</string>
     <string name="string_settings">Settings</string>
+
+    //Credits
+    <string name="string_credits.developedBy">This Application was developed by:\n Natascha Becker\nDarius Wolkewitz\nKevin Schevaljé\nJan-Nicklas Watz\nMarlon Drolsbach</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
