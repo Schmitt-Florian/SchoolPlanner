@@ -333,11 +333,10 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     /**
      * updates {@link Subject} at the given id in database
      *
-     * @param id         the id the {@link Subject} to update has
      * @param newSubject the new {@link Subject}
      */
     @Override
-    public void updateSubjectAtId(int id, Subject newSubject) {
+    public void updateSubjectAtId(Subject newSubject) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         String query = "UPDATE " + TABLE_SUBJECT + " SET "
@@ -355,11 +354,10 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     /**
      * updates {@link Teacher} at the given id in database
      *
-     * @param id         the id the {@link Teacher} to update has
      * @param newTeacher the new {@link Teacher}
      */
     @Override
-    public void updateTeacherAtId(int id, Teacher newTeacher) {
+    public void updateTeacherAtId(Teacher newTeacher) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         String query = "UPDATE " + TABLE_TEACHER + " SET "
@@ -377,11 +375,10 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     /**
      * updates {@link Homework} at the given id in database
      *
-     * @param id          the id the {@link Homework} to update has
      * @param newHomework the new {@link Homework}
      */
     @Override
-    public void updateHomeworkAtId(int id, Homework newHomework) {
+    public void updateHomeworkAtId(Homework newHomework) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         String query = "UPDATE " + TABLE_HOMEWORK + " SET "
@@ -399,11 +396,10 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     /**
      * updates {@link Exam} at the given id in database
      *
-     * @param id      the id the {@link Exam} to update has
      * @param newExam the new {@link Exam}
      */
     @Override
-    public void updateExamAtId(int id, Exam newExam) {
+    public void updateExamAtId(Exam newExam) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         String query = "UPDATE " + TABLE_EXAM + " SET "
@@ -421,11 +417,10 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     /**
      * updates {@link Grade} at the given id in database
      *
-     * @param id       the id the {@link Grade} to update has
      * @param newGrade the new {@link Grade}
      */
     @Override
-    public void updateGradeAtId(int id, Grade newGrade) {
+    public void updateGradeAtId(Grade newGrade) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         String query = "UPDATE " + TABLE_GRADE + " SET "
@@ -443,18 +438,17 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     /**
      * updates {@link Period} at the given id in database
      *
-     * @param id        the id the {@link Period} to update has
      * @param newPeriod the new {@link Period}
      */
     @Override
-    public void updatePeriodAtId(int id, Period newPeriod) {
+    public void updatePeriodAtId(Period newPeriod) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         String query = "UPDATE " + TABLE_PERIOD + " SET "
-                + PERIOD_COLUMN_SUBJECT_ID + " = " +  newPeriod.getSubject().getId()+ ", "
-                + PERIOD_COLUMN_WEEKDAY_ID + " = " +  newPeriod.getWeekday().getId()+ ", "
-                + PERIOD_COLUMN_SCHOOL_HOUR_NO + " = " +  newPeriod.getSchoolHourNo()+ ", "
-                + PERIOD_COLUMN_STARTTIME + " = " + "'" + newPeriod.getStartTimeAsString()+ "', "
+                + PERIOD_COLUMN_SUBJECT_ID + " = " + newPeriod.getSubject().getId() + ", "
+                + PERIOD_COLUMN_WEEKDAY_ID + " = " + newPeriod.getWeekday().getId() + ", "
+                + PERIOD_COLUMN_SCHOOL_HOUR_NO + " = " + newPeriod.getSchoolHourNo() + ", "
+                + PERIOD_COLUMN_STARTTIME + " = " + "'" + newPeriod.getStartTimeAsString() + "', "
                 + PERIOD_COLUMN_ENDTIME + " = " + "'" + newPeriod.getEndTimeAsString() + "'"
                 + " WHERE " + PERIOD_COLUMN_ID + " = " + newPeriod.getId();
         try {
@@ -467,33 +461,23 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     /**
      * updates {@link Weekday} at the given id in database
      *
-     * @param id         the id the {@link Weekday} to update has
      * @param newWeekday the new {@link Weekday}
      */
     @Override
-    public void updateWeekdayAtId(int id, Weekday newWeekday) {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//
-//        String query = "UPDATE " + TABLE_WEEKDAY + " SET "
-//                + WEEKDAY_COLUMN_NAME + " = " + "'" +  newWeekday.getName()+ "', "
-//                + WEEKDAY_COLUMN_SCHEDULE_ID + " = " + "'"+ newWeekday.get+ "', "
-//                + EXAM_COLUMN_DEADLINE+ " = " + "'"+ newExam.getDeadlineAsString()+ "', "
-//                + " WHERE " + EXAM_COLUMN_ID + " = " + newExam.getId();
-//        try {
-//            db.execSQL(query);
-//        } catch (Exception e) {
-//            ExceptionHandler.handleDatabaseExceptionForUpdatingAnNotExistingObject("Exam", context);
-//        }
+    public void updateWeekdayAtId(Weekday newWeekday) {
+        deleteWeekdayAtId(newWeekday.getId());
+        insertIntoDB(newWeekday);
     }
 
     /**
      * updates {@link Schedule} at the given id in database
      *
-     * @param id          the id the {@link Schedule} to update has
      * @param newSchedule the new {@link Schedule}
      */
     @Override
-    public void updateScheduleAtId(int id, Schedule newSchedule) {
+    public void updateScheduleAtId(Schedule newSchedule) {
+        deleteScheduleAtId(newSchedule.getId());
+        insertIntoDB(newSchedule);
 
     }
     //endregion

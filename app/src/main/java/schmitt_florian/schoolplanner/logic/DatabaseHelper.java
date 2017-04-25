@@ -383,66 +383,58 @@ interface DatabaseHelper {
     /**
      * updates {@link Subject} at the given id in database
      *
-     * @param id         the id the {@link Subject} to update has
      * @param newSubject the new {@link Subject}
      */
-    void updateSubjectAtId(int id, Subject newSubject);
+    void updateSubjectAtId(Subject newSubject);
 
     /**
      * updates {@link Teacher} at the given id in database
      *
-     * @param id         the id the {@link Teacher} to update has
      * @param newTeacher the new {@link Teacher}
      */
-    void updateTeacherAtId(int id, Teacher newTeacher);
+    void updateTeacherAtId(Teacher newTeacher);
 
     /**
      * updates {@link Homework} at the given id in database
      *
-     * @param id          the id the {@link Homework} to update has
      * @param newHomework the new {@link Homework}
      */
-    void updateHomeworkAtId(int id, Homework newHomework);
+    void updateHomeworkAtId(Homework newHomework);
 
     /**
      * updates {@link Exam} at the given id in database
      *
-     * @param id      the id the {@link Exam} to update has
      * @param newExam the new {@link Exam}
      */
-    void updateExamAtId(int id, Exam newExam);
+    void updateExamAtId(Exam newExam);
 
     /**
      * updates {@link Grade} at the given id in database
      *
-     * @param id       the id the {@link Grade} to update has
      * @param newGrade the new {@link Grade}
      */
-    void updateGradeAtId(int id, Grade newGrade);
+    void updateGradeAtId(Grade newGrade);
 
     /**
      * updates {@link Period} at the given id in database
      *
-     * @param id        the id the {@link Period} to update has
      * @param newPeriod the new {@link Period}
      */
-    void updatePeriodAtId(int id, Period newPeriod);
+    void updatePeriodAtId(Period newPeriod);
 
     /**
      * updates {@link Weekday} at the given id in database
      *
-     * @param id         the id the {@link Weekday} to update has
      * @param newWeekday the new {@link Weekday}
      */
-    void updateWeekdayAtId(int id, Weekday newWeekday);
+    void updateWeekdayAtId(Weekday newWeekday);
 
     /**
      * updates {@link Schedule} at the given id in database
      *
-     * @param id          the id the {@link Schedule} to update has
      * @param newSchedule the new {@link Schedule}
      */
-    void updateScheduleAtId(int id, Schedule newSchedule);
+    void updateScheduleAtId(Schedule newSchedule);
     //endregion
 
     //region insertIntoDB methods
