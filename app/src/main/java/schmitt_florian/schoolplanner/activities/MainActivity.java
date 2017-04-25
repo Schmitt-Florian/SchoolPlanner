@@ -1,19 +1,26 @@
 package schmitt_florian.schoolplanner.activities;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 
 import schmitt_florian.schoolplanner.R;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, HomeFragment.OnFragmentInteractionListener {
+
+    private static final String TAG = "MainActivity";
+    FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +38,12 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        fragmentManager = this.getSupportFragmentManager();
+//        HomeFragment homeFragment = new HomeFragment();
+//        FragmentTransaction ft = fragmentManager.beginTransaction();
+//        ft.replace(R.id.container, homeFragment);
+//        ft.commit();
     }
 
     @Override
@@ -52,6 +65,12 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_main) {
             // Goto MainActivity
+            HomeFragment homeFragment = new HomeFragment();
+            FragmentTransaction ft = fragmentManager.beginTransaction();
+            ft.replace(R.id.containerMain, homeFragment);
+            ft.commit();
+            Log.d(TAG, "Home");
+
         } else if (id == R.id.nav_schedule) {
             // Goto ScheduleActivity
         } else if (id == R.id.nav_subjects) {
@@ -69,5 +88,10 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        Log.d(TAG, "onFragmentInteraction");
     }
 }
