@@ -24,14 +24,30 @@
         tools:showIn="@layout/app_bar_main">
         <include
             layout="@layout/app_bar_main"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:layout_constraintRight_creator="1"
+            tools:layout_constraintBottom_creator="1"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:layout_constraintLeft_creator="1"
+            android:layout_marginBottom="6dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:id="@+id/include2" />
         <LinearLayout
             android:id="@+id/containerMain"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="15dp"
             android:orientation="vertical"
-            >
+            app:layout_constraintRight_toLeftOf="@+id/include2"
+            tools:layout_constraintRight_creator="1"
+            tools:layout_constraintBottom_creator="1"
+            app:layout_constraintBottom_toTopOf="@+id/include2"
+            tools:layout_constraintLeft_creator="1"
+            android:layout_marginBottom="2dp"
+            app:layout_constraintLeft_toLeftOf="@+id/include2">
 
         </LinearLayout>
         </android.support.constraint.ConstraintLayout>
