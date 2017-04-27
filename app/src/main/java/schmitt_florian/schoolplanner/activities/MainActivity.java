@@ -16,8 +16,7 @@ import android.view.MenuItem;
 
 import schmitt_florian.schoolplanner.R;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, HomeFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, HomeFragment.OnFragmentInteractionListener {
 
     private static final String TAG = "MainActivity";
     FragmentManager fragmentManager;

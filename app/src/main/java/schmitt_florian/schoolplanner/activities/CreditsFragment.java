@@ -1,4 +1,4 @@
-package layout;
+package schmitt_florian.schoolplanner.activities;
 
 import android.content.Context;
 import android.net.Uri;
