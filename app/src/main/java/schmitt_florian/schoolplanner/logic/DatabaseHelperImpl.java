@@ -242,7 +242,6 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
             return new Period(
                     cursor.getInt(0),
                     getSubjectAtId(cursor.getInt(1)),
-                    getWeekdayAtId(cursor.getInt(2)),
                     cursor.getInt(3),
                     cursor.getString(4),
                     cursor.getString(5)
@@ -325,7 +324,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     }
 
 
-//endregion
+    //endregion
 
 
     //region updateObjectAtId
@@ -436,7 +435,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     }
 
     /**
-     * updates {@link Period} at the given id in database
+     * updates {@link Period} at the given id in database. Except the Weekday ID Field, which has to be updated manually
      *
      * @param newPeriod the new {@link Period}
      */
@@ -446,7 +445,6 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
 
         String query = "UPDATE " + TABLE_PERIOD + " SET "
                 + PERIOD_COLUMN_SUBJECT_ID + " = " + newPeriod.getSubject().getId() + ", "
-                + PERIOD_COLUMN_WEEKDAY_ID + " = " + newPeriod.getWeekday().getId() + ", "
                 + PERIOD_COLUMN_SCHOOL_HOUR_NO + " = " + newPeriod.getSchoolHourNo() + ", "
                 + PERIOD_COLUMN_STARTTIME + " = " + "'" + newPeriod.getStartTimeAsString() + "', "
                 + PERIOD_COLUMN_ENDTIME + " = " + "'" + newPeriod.getEndTimeAsString() + "'"
@@ -459,7 +457,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     }
 
     /**
-     * updates {@link Weekday} at the given id in database
+     * updates {@link Weekday} at the given id in database. Except the Schedule ID Field, which has to be updated manuall
      *
      * @param newWeekday the new {@link Weekday}
      */
@@ -605,10 +603,9 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     public int insertIntoDB(Period period) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String query = "INSERT INTO " + TABLE_PERIOD + " VALUES ( " + period.getId() + ", \"" + period.getSubject().getId() + "\", \"" + period.getWeekday().getId() + "\", \"" + period.getSchoolHourNo() + "\", \"" + period.getStartTimeAsString() + "\", \"" + period.getEndTimeAsString() + "\")";
+        String query = "INSERT INTO " + TABLE_PERIOD + " VALUES ( " + period.getId() + ", \"" + period.getSubject().getId() + "\",NULL, \"" + period.getSchoolHourNo() + "\", \"" + period.getStartTimeAsString() + "\", \"" + period.getEndTimeAsString() + "\")";
 
         insertIntoDB(period.getSubject());
-        insertIntoDB(period.getWeekday());
         try {
             db.execSQL(query);
         } catch (Exception e) {
@@ -631,7 +628,10 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         String query = "INSERT INTO " + TABLE_WEEKDAY + " VALUES ( " + weekday.getId() + ",NULL, \"" + weekday.getName() + "\")";
 
         for (int i = 0; i < weekday.getPeriods().length; i++) {
-            insertIntoDB(weekday.getPeriods()[i]);
+            if (weekday.getPeriods()[i] != null) {
+                insertIntoDB(weekday.getPeriods()[i]);
+                updatePeriodWeekdayIdAtId(weekday.getPeriods()[i].getId(), weekday.getId());
+            }
         }
 
         try {
@@ -642,6 +642,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         }
         return weekday.getId();
     }
+
 
     /**
      * inserts {@link Schedule} into database
@@ -656,8 +657,10 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         String query = "INSERT INTO " + TABLE_SCHEDULE + " VALUES ( " + schedule.getId() + ", \"" + schedule.getName() + "\")";
 
         for (int i = 0; i < schedule.getDays().length; i++) {
-            insertIntoDB(schedule.getDays()[i]);
-            updateWeekdayScheduleIdAtId(schedule.getDays()[i].getId(), schedule.getId());
+            if (schedule.getDays()[i] != null) {
+                insertIntoDB(schedule.getDays()[i]);
+                updateWeekdayScheduleIdAtId(schedule.getDays()[i].getId(), schedule.getId());
+            }
         }
 
         try {
@@ -1115,6 +1118,23 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         }
     }
 
+    /**
+     * updates the PERIOD_COLUMN_WEEKDAY_ID column in the TABLE_PERIOD with the new value for at a given id
+     *
+     * @param id        id of the object to update
+     * @param weekdayId id of the new schedule
+     */
+    private void updatePeriodWeekdayIdAtId(int id, int weekdayId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "UPDATE " + TABLE_PERIOD + " SET " + PERIOD_COLUMN_WEEKDAY_ID + " = " + weekdayId + " WHERE " + PERIOD_COLUMN_ID + " = " + id;
+
+        try {
+            db.execSQL(query);
+        } catch (Exception e) {
+            ExceptionHandler.handleDatabaseExceptionForUpdatingAnNotExistingObject(WEEKDAY_COLUMN_SCHEDULE_ID + " in WEEKDAY", context);
+        }
+    }
     //endregion
 
 }

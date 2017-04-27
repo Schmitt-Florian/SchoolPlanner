@@ -23,11 +23,6 @@ public class Period implements Comparable<Period> {
     private Subject subject;
 
     /**
-     * the {@link Weekday} the Subject is on
-     */
-    private Weekday weekday;
-
-    /**
      * the school hour number the period is, e.g. '1' for the first school hour
      */
     private int schoolHourNo;
@@ -49,15 +44,13 @@ public class Period implements Comparable<Period> {
      *
      * @param id           numeric id of the period (unique)
      * @param subject      the {@link Subject} taught in this period
-     * @param weekday      the {@link Weekday} the Subject is on
      * @param schoolHourNo the school hour number the period is, e.g. '1' for the first school hour
      * @param startTime    the time the period starts as GregorianCalendar
      * @param endTime      the time the period ends as GregorianCalendar
      */
-    public Period(int id, Subject subject, Weekday weekday, int schoolHourNo, GregorianCalendar startTime, GregorianCalendar endTime) {
+    public Period(int id, Subject subject, int schoolHourNo, GregorianCalendar startTime, GregorianCalendar endTime) {
         this.id = id;
         this.subject = subject;
-        this.weekday = weekday;
         this.schoolHourNo = schoolHourNo;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -69,15 +62,13 @@ public class Period implements Comparable<Period> {
      *
      * @param id           numeric id of the period (unique)
      * @param subject      the {@link Subject} taught in this period
-     * @param weekday      the {@link Weekday} the Subject is on
      * @param schoolHourNo the school hour number the period is, e.g. '1' for the first school hour
      * @param startTime    the time the period starts as String separated by '-' to look like HH-MM-SS
      * @param endTime      the time the period ends as String separated by '-' to look like HH-MM-SS
      */
-    public Period(int id, Subject subject, Weekday weekday, int schoolHourNo, String startTime, String endTime) {
+    public Period(int id, Subject subject, int schoolHourNo, String startTime, String endTime) {
         this.id = id;
         this.subject = subject;
-        this.weekday = weekday;
         this.schoolHourNo = schoolHourNo;
         this.startTime = convertTimeStringToGregorianCalendar(startTime);
         this.endTime = convertTimeStringToGregorianCalendar(endTime);
@@ -102,15 +93,6 @@ public class Period implements Comparable<Period> {
      */
     public Subject getSubject() {
         return subject;
-    }
-
-    /**
-     * gets the {@link Weekday} the Subject is on
-     *
-     * @return the {@link Weekday} the Subject is on
-     */
-    public Weekday getWeekday() {
-        return weekday;
     }
 
     /**
@@ -160,7 +142,6 @@ public class Period implements Comparable<Period> {
         return "---Period--- \n" +
                 "Id: \t" + id + "\n" +
                 subject.toString() + "\n" +
-                weekday.toString() + "\n" +
                 "SchoolHourNo: \t" + schoolHourNo + "\n" +
                 "StartTime: \t" + startTime.get(Calendar.HOUR_OF_DAY) + "-" + startTime.get(Calendar.MINUTE) + "-" + startTime.get(Calendar.SECOND) + "\n" +
                 "EndTime: \t" + endTime.get(Calendar.HOUR_OF_DAY) + "-" + endTime.get(Calendar.MINUTE) + "-" + endTime.get(Calendar.SECOND) + "\n" +
