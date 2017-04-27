@@ -19,6 +19,13 @@ import schmitt_florian.schoolplanner.R;
  * create an instance of this fragment.
  */
 public class CreditsFragment extends Fragment {
+
+    public void onClick1 (View view){
+
+        System.out.println("Test Succesful!");
+
+    }
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
