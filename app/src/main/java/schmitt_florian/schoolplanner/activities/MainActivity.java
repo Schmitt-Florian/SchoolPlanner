@@ -80,7 +80,12 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_exams) {
             // Goto ExamsActivity
         } else if (id == R.id.nav_credits) {
-            // Goto CreditsActivity
+
+            CreditsFragment creditsFragment = new CreditsFragment();
+            FragmentTransaction ft = fragmentManager.beginTransaction();
+            ft.replace(R.id.containerMain, creditsFragment);
+            ft.commit();
+
         } else if (id == R.id.nav_settings) {
             // Goto SettingsActivity
         }
