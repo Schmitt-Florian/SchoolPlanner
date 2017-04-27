@@ -2,6 +2,7 @@
     android:id="@+id/home_0"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context="schmitt_florian.schoolplanner.activities.MainActivity">
     android:orientation="vertical">
 
     <RelativeLayout
