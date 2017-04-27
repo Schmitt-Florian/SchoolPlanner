@@ -1,13 +1,59 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/home_0"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="schmitt_florian.schoolplanner.activities.HomeFragment">
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
+        android:id="@+id/home_upperHalf"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Home" />
+        android:layout_height="0dp"
+        android:layout_weight="0.3">
 
-</FrameLayout>
+        <CalendarView
+            android:id="@+id/home_calendar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/home_lowerHalf"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.7">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/home_1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/home_homework"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5">
+                // Hausaufgaben
+
+                <ListView
+                    android:id="@+id/home_listHomework"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:headerDividersEnabled="false" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/home_exams"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5">
+                // Klausuren
+
+                <ListView
+                    android:id="@+id/home_listExams"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>
