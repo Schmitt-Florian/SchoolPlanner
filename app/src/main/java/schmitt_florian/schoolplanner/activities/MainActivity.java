@@ -81,10 +81,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             // Goto ExamsActivity
         } else if (id == R.id.nav_credits) {
 
-            CreditsFragment creditsFragment = new CreditsFragment();
-            FragmentTransaction ft = fragmentManager.beginTransaction();
-            ft.replace(R.id.containerMain, creditsFragment);
-            ft.commit();
+
 
         } else if (id == R.id.nav_settings) {
             // Goto SettingsActivity
