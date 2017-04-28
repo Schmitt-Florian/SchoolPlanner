@@ -1,4 +1,4 @@
-package schmitt_florian.schoolplanner;
+/*package schmitt_florian.schoolplanner;
 
 
 import org.junit.Test;
@@ -451,4 +451,4 @@ public class DatabaseTest {
     }
     //End test area: Exam
 
-}
+}*/

@@ -1,61 +1,85 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/home_0"
+    android:id="@+id/home_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="schmitt_florian.schoolplanner.activities.MainActivity"
     android:orientation= "vertical">
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/home_upperHalf"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0.3">
+        android:layout_height="0dp"
+        android:layout_weight=".3"
+        android:orientation="horizontal"
+        />
+    <!-- Add calendar in home_upperHalf -->
 
-        <CalendarView
-            android:id="@+id/home_calendar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
-
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/home_lowerHalf"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0.7">
+        android:layout_height="0dp"
+        android:layout_weight=".7"
+        android:orientation="horizontal"
+        android:baselineAligned="false">
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/home_1"
+        <LinearLayout
+            android:id="@+id/home_topbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <RelativeLayout
-                android:id="@+id/home_homework"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:id="@+id/home_columnLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/home_labelHomework"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:inputType="textPersonName"
+                    android:text="@string/string_home.homework" />
+
+                <EditText
+                    android:id="@+id/home_labelExams"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:inputType="textPersonName"
+                    android:text="@string/string_home.exams" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/home_columnData"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="0.5">
-                // Hausaufgaben
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
                 <ListView
                     android:id="@+id/home_listHomework"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:headerDividersEnabled="false" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/home_exams"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5">
-                // Klausuren
+                    android:layout_weight=".5"/>
 
                 <ListView
                     android:id="@+id/home_listExams"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </RelativeLayout>
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".5"/>
+            </LinearLayout>
+
         </LinearLayout>
-    </RelativeLayout>
+
+    </LinearLayout>
+
+
 </LinearLayout>

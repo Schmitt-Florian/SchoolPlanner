@@ -17,4 +17,6 @@
     //Credits
     <string name="string_credits.developedBy">This Application was developed by:\n Natascha Becker\nDarius Wolkewitz\nKevin Schevaljé\nJan-Nicklas Watz\nMarlon Drolsbach</string>
 
+    <string name="string_home.homework">Homework</string>
+    <string name="string_home.exams">Exams</string>
 </resources>
