@@ -26,14 +26,11 @@
             layout="@layout/app_bar_main"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            tools:layout_constraintRight_creator="1"
-            tools:layout_constraintBottom_creator="1"
 
 
-
-
-
-            android:id="@+id/include2" />
+            android:id="@+id/include2"
+            tools:layout_editor_absoluteY="25dp"
+            tools:layout_editor_absoluteX="0dp" />
         <LinearLayout
             android:id="@+id/containerMain"
             android:layout_width="match_parent"
@@ -41,7 +38,9 @@
             android:orientation="vertical"
 
 
-            >
+
+            tools:layout_editor_absoluteY="8dp"
+            tools:layout_editor_absoluteX="8dp">
 
         </LinearLayout>
         </android.support.constraint.ConstraintLayout>

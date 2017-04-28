@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -16,10 +17,20 @@ import android.view.MenuItem;
 
 import schmitt_florian.schoolplanner.R;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, HomeFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
+        HomeFragment.OnFragmentInteractionListener,
+        ScheduleFragment.OnFragmentInteractionListener,
+        SubjectsFragment.OnFragmentInteractionListener,
+        HomeworkFragment.OnFragmentInteractionListener,
+        ExamsFragment.OnFragmentInteractionListener,
+        CreditsFragment.OnFragmentInteractionListener,
+        SettingsFragment.OnFragmentInteractionListener
+         {
 
     private static final String TAG = "MainActivity";
     FragmentManager fragmentManager;
+    Fragment f;
+    boolean a = true;
 
 
     @Override
@@ -39,11 +50,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
+
         fragmentManager = this.getSupportFragmentManager();
-//        HomeFragment homeFragment = new HomeFragment();
-//        FragmentTransaction ft = fragmentManager.beginTransaction();
-//        ft.replace(R.id.container, homeFragment);
-//        ft.commit();
+
     }
 
     @Override
@@ -64,27 +74,54 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.nav_main) {
-            // Goto MainActivity
+            // Goto Home
             HomeFragment homeFragment = new HomeFragment();
             FragmentTransaction ft = fragmentManager.beginTransaction();
             ft.replace(R.id.containerMain, homeFragment);
             ft.commit();
-            Log.d(TAG, "Home");
 
         } else if (id == R.id.nav_schedule) {
-            // Goto ScheduleActivity
+            // Goto Schedule
+            ScheduleFragment scheduleFragment = new ScheduleFragment();
+            FragmentTransaction ft = fragmentManager.beginTransaction();
+            ft.replace(R.id.containerMain, scheduleFragment);
+            ft.commit();
+
         } else if (id == R.id.nav_subjects) {
-            // Goto SubjectsActivity
+            // Goto Subjects
+            SubjectsFragment subjectsFragment = new SubjectsFragment();
+            FragmentTransaction ft = fragmentManager.beginTransaction();
+            ft.replace(R.id.containerMain, subjectsFragment);
+            ft.commit();
+
         } else if (id == R.id.nav_homework) {
-            //Goto HomeworkActivity
+            //Goto Homework
+            HomeworkFragment homeworkFragment = new HomeworkFragment();
+            FragmentTransaction ft = fragmentManager.beginTransaction();
+            ft.replace(R.id.containerMain, homeworkFragment);
+            ft.commit();
+
         } else if (id == R.id.nav_exams) {
-            // Goto ExamsActivity
+            // Goto Exams
+            ExamsFragment examsFragment = new ExamsFragment();
+            FragmentTransaction ft = fragmentManager.beginTransaction();
+            ft.replace(R.id.containerMain, examsFragment);
+            ft.commit();
+
         } else if (id == R.id.nav_credits) {
-
-
+            //Goto Credits
+            CreditsFragment creditsFragment = new CreditsFragment();
+            FragmentTransaction ft = fragmentManager.beginTransaction();
+            ft.replace(R.id.containerMain, creditsFragment);
+            ft.commit();
 
         } else if (id == R.id.nav_settings) {
-            // Goto SettingsActivity
+            // Goto Settings
+            SettingsFragment settingsFragment = new SettingsFragment();
+            FragmentTransaction ft = fragmentManager.beginTransaction();
+            ft.replace(R.id.containerMain, settingsFragment);
+            ft.commit();
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

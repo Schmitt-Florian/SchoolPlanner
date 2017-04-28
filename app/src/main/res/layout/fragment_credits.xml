@@ -15,11 +15,4 @@
         android:textSize="35sp"
         android:textStyle="italic"/>
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        android:onClick="onClick1"/>
-
 </FrameLayout>

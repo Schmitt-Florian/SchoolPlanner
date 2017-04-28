@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <EditText
+                <TextView
                     android:id="@+id/home_labelHomework"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
                     android:inputType="textPersonName"
                     android:text="@string/string_home.homework" />
 
-                <EditText
+                <TextView
                     android:id="@+id/home_labelExams"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -68,7 +68,7 @@
                     android:id="@+id/home_listHomework"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight=".5"/>
+                    android:layout_weight=".5" />
 
                 <ListView
                     android:id="@+id/home_listExams"

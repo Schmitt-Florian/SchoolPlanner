@@ -6,15 +6,11 @@
     tools:context=".activities.ExamsFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"></LinearLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton3"
@@ -27,6 +23,7 @@
         app:fabSize="mini"
         app:srcCompat="@drawable/ic_add"
         />
+
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
