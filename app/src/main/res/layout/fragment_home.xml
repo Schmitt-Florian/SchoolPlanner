@@ -1,18 +1,51 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/home_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="schmitt_florian.schoolplanner.activities.MainActivity"
-    android:orientation= "vertical">
+    android:orientation="vertical"
+    app:layout_collapseMode="none"
+    app:layout_collapseParallaxMultiplier="1.0"
+    tools:context="schmitt_florian.schoolplanner.activities.MainActivity">
 
     <LinearLayout
         android:id="@+id/home_upperHalf"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight=".3"
-        android:orientation="horizontal"
-        />
+        android:layout_weight="0.35"
+        android:divider="@drawable/ic_settings"
+        android:orientation="vertical">
+
+        <Space
+            style="@style/Base.DialogWindowTitleBackground.AppCompat"
+            android:layout_width="match_parent"
+            android:layout_height="70dp" />
+
+        <TextView
+            android:id="@+id/home_labelWeekday"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/string_day_monday"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textSize="36sp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="12dp" />
+
+        <TextView
+            android:id="@+id/home_lableDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="17.03.2017"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textSize="30sp" />
+
+    </LinearLayout>
     <!-- Add calendar in home_upperHalf -->
 
     <LinearLayout
@@ -20,14 +53,24 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight=".7"
-        android:orientation="horizontal"
-        android:baselineAligned="false">
+        android:baselineAligned="false"
+        android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/home_topbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/Spacer"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/secondary_text" />
 
             <LinearLayout
                 android:id="@+id/home_columnLabel"
@@ -43,7 +86,8 @@
                     android:ems="10"
                     android:gravity="center"
                     android:inputType="textPersonName"
-                    android:text="@string/string_home.homework" />
+                    android:text="@string/string_homework"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                 <TextView
                     android:id="@+id/home_labelExams"
@@ -53,9 +97,20 @@
                     android:ems="10"
                     android:gravity="center"
                     android:inputType="textPersonName"
-                    android:text="@string/string_home.exams" />
+                    android:text="@string/string_exams"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/Spacer2"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/secondary_text" />
 
             <LinearLayout
                 android:id="@+id/home_columnData"
@@ -66,15 +121,22 @@
 
                 <ListView
                     android:id="@+id/home_listHomework"
+                    style="@style/Widget.AppCompat.ListView"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight=".5" />
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight=".5"
+                    android:fadeScrollbars="false"
+                    android:scrollbarAlwaysDrawVerticalTrack="true" />
 
                 <ListView
                     android:id="@+id/home_listExams"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight=".5"/>
+                    android:layout_marginRight="15dp"
+                    android:layout_weight=".5"
+                    android:fadeScrollbars="false"
+                    android:scrollbarAlwaysDrawVerticalTrack="true" />
             </LinearLayout>
 
         </LinearLayout>

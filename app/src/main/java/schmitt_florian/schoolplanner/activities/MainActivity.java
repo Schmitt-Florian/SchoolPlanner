@@ -29,8 +29,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private static final String TAG = "MainActivity";
     FragmentManager fragmentManager;
-    Fragment f;
-    boolean a = true;
 
 
     @Override
@@ -39,7 +37,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -50,9 +47,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
-
         fragmentManager = this.getSupportFragmentManager();
+
+        navigationView.getMenu().getItem(0).setChecked(true);
+        onNavigationItemSelected(navigationView.getMenu().getItem(0));
 
     }
 
@@ -66,8 +64,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
@@ -75,51 +71,38 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (id == R.id.nav_main) {
             // Goto Home
-            HomeFragment homeFragment = new HomeFragment();
             FragmentTransaction ft = fragmentManager.beginTransaction();
-            ft.replace(R.id.containerMain, homeFragment);
+            ft.replace(R.id.containerMain, new HomeFragment());
             ft.commit();
-
         } else if (id == R.id.nav_schedule) {
             // Goto Schedule
-            ScheduleFragment scheduleFragment = new ScheduleFragment();
             FragmentTransaction ft = fragmentManager.beginTransaction();
-            ft.replace(R.id.containerMain, scheduleFragment);
+            ft.replace(R.id.containerMain, new ScheduleFragment());
             ft.commit();
-
         } else if (id == R.id.nav_subjects) {
             // Goto Subjects
-            SubjectsFragment subjectsFragment = new SubjectsFragment();
             FragmentTransaction ft = fragmentManager.beginTransaction();
-            ft.replace(R.id.containerMain, subjectsFragment);
+            ft.replace(R.id.containerMain, new SubjectsFragment());
             ft.commit();
-
         } else if (id == R.id.nav_homework) {
             //Goto Homework
-            HomeworkFragment homeworkFragment = new HomeworkFragment();
             FragmentTransaction ft = fragmentManager.beginTransaction();
-            ft.replace(R.id.containerMain, homeworkFragment);
+            ft.replace(R.id.containerMain, new HomeworkFragment());
             ft.commit();
-
         } else if (id == R.id.nav_exams) {
             // Goto Exams
-            ExamsFragment examsFragment = new ExamsFragment();
             FragmentTransaction ft = fragmentManager.beginTransaction();
-            ft.replace(R.id.containerMain, examsFragment);
+            ft.replace(R.id.containerMain, new ExamsFragment());
             ft.commit();
-
         } else if (id == R.id.nav_credits) {
             //Goto Credits
-            CreditsFragment creditsFragment = new CreditsFragment();
             FragmentTransaction ft = fragmentManager.beginTransaction();
-            ft.replace(R.id.containerMain, creditsFragment);
+            ft.replace(R.id.containerMain, new CreditsFragment());
             ft.commit();
-
         } else if (id == R.id.nav_settings) {
             // Goto Settings
-            SettingsFragment settingsFragment = new SettingsFragment();
             FragmentTransaction ft = fragmentManager.beginTransaction();
-            ft.replace(R.id.containerMain, settingsFragment);
+            ft.replace(R.id.containerMain, new SettingsFragment());
             ft.commit();
 
         }

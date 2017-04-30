@@ -17,6 +17,13 @@
     //Credits
     <string name="string_credits.developedBy">This Application was developed by:\n Natascha Becker\nDarius Wolkewitz\nKevin Schevaljé\nJan-Nicklas Watz\nMarlon Drolsbach</string>
 
-    <string name="string_home.homework">Homework</string>
-    <string name="string_home.exams">Exams</string>
+    //Days
+    <string name="string_day_monday">Monday</string>
+    <string name="string_day_tuesday">Tuesday</string>
+    <string name="string_day_wednesday">Wednesday</string>
+    <string name="string_day_thursday">Thursday</string>
+    <string name="string_day_friday">Friday</string>
+    <string name="string_day_saturday">Saturday</string>
+    <string name="string_day_sunday">Sunday</string>
+
 </resources>

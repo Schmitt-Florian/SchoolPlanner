@@ -8,4 +8,11 @@
     <string name="string_schedule">Stundenplan</string>
     <string name="string_settings">Einstellungen</string>
     <string name="string_subjects">Fächer</string>
+    <string name="string_day_friday">Freitag</string>
+    <string name="string_day_monday">Montag</string>
+    <string name="string_day_saturday">Samstag</string>
+    <string name="string_day_sunday">Sonntag</string>
+    <string name="string_day_thursday">Donnerstag</string>
+    <string name="string_day_tuesday">Dienstag</string>
+    <string name="string_day_wednesday">Mittwoch</string>
 </resources>
