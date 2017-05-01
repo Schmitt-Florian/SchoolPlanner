@@ -5,7 +5,7 @@ package schmitt_florian.schoolplanner.logic;
  * as well as overview for public methods of DatabaseHelperImpl class
  */
 @SuppressWarnings({"FieldNever", "unused"})
-interface DatabaseHelper {
+public interface DatabaseHelper {
 
     /**
      * Versionnumber of the database as int
@@ -578,6 +578,22 @@ interface DatabaseHelper {
      * @return database as String
      */
     String toString(String tableName);
+
+    /**
+     * returns the size of the given Table in the Database
+     *
+     * @param tableName name of the table, choose from the TABLE_XXX constants of {@link DatabaseHelper}
+     * @return the size of the table. 0 if table has no elements, 0 if table has one element and so on
+     */
+    int size(String tableName);
+
+    /**
+     * returns all indices of the given Table in the Database
+     *
+     * @param tableName name of the table, choose from the TABLE_XXX constants of {@link DatabaseHelper}
+     * @return all indices of the given Table in the Database as array
+     */
+    int[] getIndices(String tableName);
 
     /**
      * resets the database

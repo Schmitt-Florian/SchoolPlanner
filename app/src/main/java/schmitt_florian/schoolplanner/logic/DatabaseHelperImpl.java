@@ -867,6 +867,59 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     }
 
     /**
+     * returns the size of the given Table in the Database
+     *
+     * @param tableName name of the table, choose from the TABLE_XXX constants of {@link DatabaseHelper}
+     * @return the size of the table. 0 if table has no elements, 0 if table has one element and so on
+     */
+    @Override
+    public int size(String tableName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT COUNT(*) " + "FROM " + tableName;
+
+        Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToFirst();
+        int size = cursor.getInt(0);
+
+        cursor.close();
+        db.close();
+
+        return size;
+    }
+
+    /**
+     * returns all indices of the given Table in the Database
+     *
+     * @param tableName name of the table, choose from the TABLE_XXX constants of {@link DatabaseHelper}
+     * @return all indices of the given Table in the Database as array
+     */
+    @Override
+    public int[] getIndices(String tableName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT * " + "FROM " + tableName;
+
+        ArrayList<Integer> arrayList = new ArrayList<>();
+        Cursor cursor = db.rawQuery(query, null);
+
+        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            arrayList.add(cursor.getInt(0));
+        }
+
+        cursor.close();
+        db.close();
+
+
+        int[] returningArray = new int[arrayList.size()];
+        for (int i = 0; i < returningArray.length; i++) {
+            returningArray[i]=arrayList.get(i);
+        }
+
+        return returningArray;
+    }
+
+    /**
      * resets the database, onUpgrade can also called instead
      */
     public void resetDatabase() {
