@@ -15,4 +15,5 @@
     <string name="string_day_thursday">Donnerstag</string>
     <string name="string_day_tuesday">Dienstag</string>
     <string name="string_day_wednesday">Mittwoch</string>
+    <string name="string_error">Fehler</string>
 </resources>

@@ -1,5 +1,6 @@
 package schmitt_florian.schoolplanner.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,6 +12,10 @@ import android.view.ViewGroup;
 import java.util.Calendar;
 
 import schmitt_florian.schoolplanner.R;
+import schmitt_florian.schoolplanner.logic.DatabaseHelper;
+import schmitt_florian.schoolplanner.logic.DatabaseHelperImpl;
+import schmitt_florian.schoolplanner.logic.Exam;
+import schmitt_florian.schoolplanner.logic.Homework;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,6 +24,7 @@ import schmitt_florian.schoolplanner.R;
  * to handle interaction events.
  */
 public class HomeFragment extends Fragment {
+    @SuppressWarnings({"FieldNever", "unused"})
     private OnFragmentInteractionListener mListener;
     private GuiHelper guiHelper;
 
@@ -33,7 +39,9 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
         setDateToLabels(view);
+        fillListViews(view);
 
         return view;
     }
@@ -66,17 +74,18 @@ public class HomeFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
+        @SuppressWarnings({"FieldNever", "unused"})
         void onFragmentInteraction(Uri uri);
     }
 
     //region private methods
 
     /**
-     * method to initialise the Labels, which show the the Date at the home screen
+     * method to initialise the Labels, which show the Date at the home screen
      *
      * @param view the view of the fragment
      */
+    @SuppressLint("SwitchIntDef")
     private void setDateToLabels(View view) {
         Calendar calendar = Calendar.getInstance();
         switch (calendar.get(Calendar.DAY_OF_WEEK)) {
@@ -102,11 +111,40 @@ public class HomeFragment extends Fragment {
                 guiHelper.setTextToTextView(view, R.id.home_labelWeekday, getString(R.string.string_day_sunday));
                 break;
             default:
-                guiHelper.setTextToTextView(view, R.id.home_labelWeekday, "Error");
+                guiHelper.setTextToTextView(view, R.id.home_labelWeekday, getString(R.string.string_error));
                 break;
         }
-        //Todo support different date formats
-        guiHelper.setTextToTextView(view, R.id.home_lableDate, calendar.get(Calendar.DAY_OF_MONTH) + "." + calendar.get(Calendar.MONTH) + "." + calendar.get(Calendar.YEAR));
+        //TODO support different date formats
+        guiHelper.setTextToTextView(view, R.id.home_labelDate, calendar.get(Calendar.DAY_OF_MONTH) + "." + String.valueOf(calendar.get(Calendar.MONTH) + 1) + "." + calendar.get(Calendar.YEAR));
+    }
+
+    /**
+     * method to fill the ListViews, which show the {@link schmitt_florian.schoolplanner.logic.Homework} and {@link schmitt_florian.schoolplanner.logic.Exam}s at the home screen
+     *
+     * @param view the view of the fragment
+     */
+    private void fillListViews(View view) {
+        DatabaseHelper dbHelper = new DatabaseHelperImpl(view.getContext());
+
+        String[] homeworkStrings = new String[dbHelper.size(DatabaseHelper.TABLE_HOMEWORK)];
+        String[] examStrings = new String[dbHelper.size(DatabaseHelper.TABLE_EXAM)];
+
+        int[] homeworkIndices = dbHelper.getIndices(DatabaseHelper.TABLE_HOMEWORK);
+        for (int i = 0; i < homeworkIndices.length; i++) {
+            Homework homework = dbHelper.getHomeworkAtId(homeworkIndices[i]);
+
+            homeworkStrings[i] = guiHelper.extractGuiString(homework);
+        }
+
+        int[] examIndices = dbHelper.getIndices(DatabaseHelper.TABLE_HOMEWORK);
+        for (int i = 0; i < examIndices.length; i++) {
+            Exam exam = dbHelper.getExamAtId(examIndices[i]);
+
+            examStrings[i] = guiHelper.extractGuiString(exam);
+        }
+
+        guiHelper.fillListViewFromArray(view, R.id.home_listHomework, homeworkStrings);
+        guiHelper.fillListViewFromArray(view, R.id.home_listExams, examStrings);
     }
     //endregion
 
