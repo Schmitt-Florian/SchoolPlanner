@@ -103,7 +103,7 @@ public class Homework {
      * @return Deadline as String
      */
     public String getDeadlineAsString() {
-        return deadline.get(Calendar.YEAR) + "-" + deadline.get(Calendar.MONTH) + "-" + deadline.get(Calendar.DAY_OF_MONTH);
+        return deadline.get(Calendar.YEAR) + "-" + String.valueOf(deadline.get(Calendar.MONTH)+1) + "-" + deadline.get(Calendar.DAY_OF_MONTH);
     }
 
     /**
@@ -117,7 +117,7 @@ public class Homework {
                 "Id: \t" + id + "\n" +
                 subject.toString() + "\n" +
                 "Description: \t" + description + "\n" +
-                "Deadline: \t" + deadline.get(Calendar.YEAR) + "-" + deadline.get(Calendar.MONTH) + "-" + deadline.get(Calendar.DAY_OF_MONTH) + "\n" +
+                "Deadline: \t" + getDeadlineAsString() + "\n" +
                 "---####---";
     }
 
@@ -133,7 +133,7 @@ public class Homework {
         String[] date = source.split("-");
         return new GregorianCalendar(
                 Integer.parseInt(date[0]),
-                Integer.parseInt(date[1]),
+                Integer.parseInt(date[1])-1,
                 Integer.parseInt(date[2])
         );
     }
