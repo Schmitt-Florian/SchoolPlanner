@@ -26,7 +26,6 @@
             android:id="@+id/home_labelWeekday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/string_day_monday"
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
@@ -37,16 +36,14 @@
             android:layout_height="12dp" />
 
         <TextView
-            android:id="@+id/home_lableDate"
+            android:id="@+id/home_labelDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="17.03.2017"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             android:textSize="30sp" />
 
     </LinearLayout>
-    <!-- Add calendar in home_upperHalf -->
 
     <LinearLayout
         android:id="@+id/home_lowerHalf"
@@ -54,94 +51,86 @@
         android:layout_height="0dp"
         android:layout_weight=".7"
         android:baselineAligned="false"
-        android:orientation="horizontal">
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/Spacer"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/secondary_text" />
 
         <LinearLayout
-            android:id="@+id/home_topbar"
+            android:id="@+id/home_columnLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/Spacer"
-                android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/secondary_text" />
-
-            <LinearLayout
-                android:id="@+id/home_columnLabel"
-                android:layout_width="match_parent"
+                android:id="@+id/home_labelHomework"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/home_labelHomework"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:gravity="center"
-                    android:inputType="textPersonName"
-                    android:text="@string/string_homework"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Title" />
-
-                <TextView
-                    android:id="@+id/home_labelExams"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:gravity="center"
-                    android:inputType="textPersonName"
-                    android:text="@string/string_exams"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Title" />
-
-            </LinearLayout>
+                android:layout_marginEnd="15dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:gravity="center"
+                android:text="@string/string_homework"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
             <TextView
-                android:id="@+id/Spacer2"
-                android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/secondary_text" />
-
-            <LinearLayout
-                android:id="@+id/home_columnData"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:id="@+id/home_labelExams"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
                 android:layout_weight="1"
-                android:orientation="horizontal">
-
-                <ListView
-                    android:id="@+id/home_listHomework"
-                    style="@style/Widget.AppCompat.ListView"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="15dp"
-                    android:layout_weight=".5"
-                    android:fadeScrollbars="false"
-                    android:scrollbarAlwaysDrawVerticalTrack="true" />
-
-                <ListView
-                    android:id="@+id/home_listExams"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="15dp"
-                    android:layout_weight=".5"
-                    android:fadeScrollbars="false"
-                    android:scrollbarAlwaysDrawVerticalTrack="true" />
-            </LinearLayout>
+                android:ems="10"
+                android:gravity="center"
+                android:text="@string/string_exams"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
         </LinearLayout>
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/Spacer2"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/secondary_text" />
 
+        <LinearLayout
+            android:id="@+id/home_columnData"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <ListView
+                android:id="@+id/home_listHomework"
+                style="@style/Widget.AppCompat.ListView"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="15dp"
+                android:layout_weight=".5"
+                android:fadeScrollbars="false"
+                android:scrollbarAlwaysDrawVerticalTrack="true" />
+
+            <ListView
+                android:id="@+id/home_listExams"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="15dp"
+                android:layout_weight=".5"
+                android:fadeScrollbars="false"
+                android:scrollbarAlwaysDrawVerticalTrack="true" />
+        </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>
