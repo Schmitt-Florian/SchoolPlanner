@@ -131,7 +131,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = null;
 
-        String query = buildQueryToGetRowAtId(TABLE_EXAM, EXAM_COLUMN_ID, id);
+        String query = buildQueryToGetRowAtId(TABLE_HOMEWORK, HOMEWORK_COLUMN_ID, id);
 
         try {
             cursor = db.rawQuery(query, null);
@@ -144,7 +144,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
                     cursor.getString(3)
             );
         } catch (Exception e) {
-            ExceptionHandler.handleDatabaseExceptionForGettingANotExistingObject("Exam", context);
+            ExceptionHandler.handleDatabaseExceptionForGettingANotExistingObject("Homework", context);
         } finally {
             if (cursor != null) {
                 cursor.close();
@@ -913,7 +913,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
 
         int[] returningArray = new int[arrayList.size()];
         for (int i = 0; i < returningArray.length; i++) {
-            returningArray[i]=arrayList.get(i);
+            returningArray[i] = arrayList.get(i);
         }
 
         return returningArray;
@@ -925,6 +925,56 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     public void resetDatabase() {
         onUpgrade(this.getWritableDatabase(), 1, 1);
     }
+
+    public void fillDatabaseWithExamples() {
+        Teacher teacher1 = new Teacher(1, "Bräuer", "BRÄ", 'm');
+        Teacher teacher2 = new Teacher(2, "Dickens", "DICK", 'f');
+
+        Subject subject1 = new Subject(1, teacher1, "Math", "B213");
+        Subject subject2 = new Subject(2, teacher2, "German", "B308");
+
+        Exam exam1 = new Exam(1, subject1, "A simple Test in Math", "2017-05-13");
+        Exam exam2 = new Exam(2, subject2, "German Test", "2017-06-06");
+
+        Grade grade1 = new Grade(1, subject1, "2nd Math test", "13");
+        Grade grade2 = new Grade(2, subject2, "3rd German test", "4");
+
+        Homework homework1 = new Homework(1, subject1, "Geometry - draw a rectangle", "2017-06-17");
+        Homework homework2 = new Homework(2, subject2, "Characterisation Goethe", "2017-05-22");
+
+        Period period1 = new Period(1, subject1, 1, "07-45-00", "08-30-00");
+        Period period2 = new Period(2, subject1, 2, "08-35-00", "09-20-00");
+        Period period3 = new Period(3, subject2, 3, "09-35-00", "10-20-00");
+        Period period4 = new Period(4, subject2, 4, "10-25-00", "11-25-00");
+
+        Weekday weekday1 = new Weekday(1, "Monday", new Period[]{period1, period2, period3, period4});
+
+        Schedule schedule1 = new Schedule(1, "a", new Weekday[]{weekday1, null, null, null, null, null});
+
+        insertIntoDB(teacher1);
+        insertIntoDB(teacher2);
+
+        insertIntoDB(subject1);
+        insertIntoDB(subject2);
+
+        insertIntoDB(exam1);
+        insertIntoDB(exam2);
+
+        insertIntoDB(grade1);
+        insertIntoDB(grade2);
+
+        insertIntoDB(homework1);
+        insertIntoDB(homework2);
+
+        insertIntoDB(period1);
+        insertIntoDB(period2);
+        insertIntoDB(period3);
+        insertIntoDB(period4);
+
+        insertIntoDB(schedule1);
+
+    }
+
 
     //region private methods
 

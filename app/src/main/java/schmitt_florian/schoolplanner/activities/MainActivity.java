@@ -23,8 +23,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         HomeworkFragment.OnFragmentInteractionListener,
         ExamsFragment.OnFragmentInteractionListener,
         CreditsFragment.OnFragmentInteractionListener,
-        SettingsFragment.OnFragmentInteractionListener
-         {
+        SettingsFragment.OnFragmentInteractionListener {
 
     private static final String TAG = "MainActivity";
     FragmentManager fragmentManager;
@@ -47,6 +46,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
         fragmentManager = this.getSupportFragmentManager();
+
+
+        //  ----TESTING----
+//        DatabaseHelperImpl testHelper = new DatabaseHelperImpl(this);
+//        testHelper.resetDatabase();
+//        testHelper.fillDatabaseWithExamples();
+//
+//        System.out.println(testHelper.toString());
+        //  ----TESTING----
+
 
         navigationView.getMenu().getItem(0).setChecked(true);
         onNavigationItemSelected(navigationView.getMenu().getItem(0));
