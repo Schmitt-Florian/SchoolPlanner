@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import schmitt_florian.schoolplanner.R;
 import schmitt_florian.schoolplanner.logic.DatabaseHelper;
@@ -119,32 +120,96 @@ public class HomeFragment extends Fragment {
     }
 
     /**
-     * method to fill the ListViews, which show the {@link schmitt_florian.schoolplanner.logic.Homework} and {@link schmitt_florian.schoolplanner.logic.Exam}s at the home screen
+     * method to fill the ListViews, which show the {@link Homework} and {@link Exam}s at the home screen
      *
      * @param view the view of the fragment
      */
     private void fillListViews(View view) {
+        fillHomeworkListView(view);
+        fillExamListView(view);
+
+
+    }
+
+    /**
+     * method to fill the ListView, which shows the {@link Homework} at the home screen
+     *
+     * @param view the view of the fragment
+     */
+    private void fillExamListView(View view) {
         DatabaseHelper dbHelper = new DatabaseHelperImpl(view.getContext());
 
-        String[] homeworkStrings = new String[dbHelper.size(DatabaseHelper.TABLE_HOMEWORK)];
         String[] examStrings = new String[dbHelper.size(DatabaseHelper.TABLE_EXAM)];
+        int[] examIndices = dbHelper.getIndices(DatabaseHelper.TABLE_EXAM);
 
-        int[] homeworkIndices = dbHelper.getIndices(DatabaseHelper.TABLE_HOMEWORK);
-        for (int i = 0; i < homeworkIndices.length; i++) {
-            Homework homework = dbHelper.getHomeworkAtId(homeworkIndices[i]);
-
-            homeworkStrings[i] = guiHelper.extractGuiString(homework);
-        }
-
-        int[] examIndices = dbHelper.getIndices(DatabaseHelper.TABLE_HOMEWORK);
         for (int i = 0; i < examIndices.length; i++) {
             Exam exam = dbHelper.getExamAtId(examIndices[i]);
 
-            examStrings[i] = guiHelper.extractGuiString(exam);
+            if (isDateInThisWeek(exam.getDeadline())) {
+                examStrings[i] = guiHelper.extractGuiString(exam);
+            }
         }
 
-        guiHelper.fillListViewFromArray(view, R.id.home_listHomework, homeworkStrings);
-        guiHelper.fillListViewFromArray(view, R.id.home_listExams, examStrings);
+        if (!isArrayEmpty(examStrings)) {
+            guiHelper.fillListViewFromArray(view, R.id.home_listExams, examStrings);
+        }
+    }
+
+    /**
+     * method to fill the ListView, which shows the {@link Exam}s at the home screen
+     *
+     * @param view the view of the fragment
+     */
+    private void fillHomeworkListView(View view) {
+        DatabaseHelper dbHelper = new DatabaseHelperImpl(view.getContext());
+
+        String[] homeworkStrings = new String[dbHelper.size(DatabaseHelper.TABLE_HOMEWORK)];
+        int[] homeworkIndices = dbHelper.getIndices(DatabaseHelper.TABLE_HOMEWORK);
+
+        for (int i = 0; i < homeworkIndices.length; i++) {
+            Homework homework = dbHelper.getHomeworkAtId(homeworkIndices[i]);
+
+            if (isDateInThisWeek(homework.getDeadline())) {
+                homeworkStrings[i] = guiHelper.extractGuiString(homework);
+            }
+        }
+
+        if (!isArrayEmpty(homeworkStrings)) {
+            guiHelper.fillListViewFromArray(view, R.id.home_listHomework, homeworkStrings);
+        }
+    }
+
+    /**
+     * Indicates whether all object inside the given array are null
+     *
+     * @param objects the array
+     * @return true if array all object inside the given array are null, else false
+     */
+    private boolean isArrayEmpty(Object[] objects) {
+        for (Object object : objects) {
+            if (object != null) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Indicates whether the given Date is in the current week.
+     * <br><br/>
+     * Note: that this method may not work properly in the last week of this and
+     * the first week of the next year.
+     * <br><br/>
+     * Note: this method uses a that week goes from Monday to Sunday
+     *
+     * @param date the date
+     * @return true if the date is in the current week, else false
+     */
+    private boolean isDateInThisWeek(GregorianCalendar date) {
+        Calendar calendar = GregorianCalendar.getInstance();
+
+        return date.get(Calendar.WEEK_OF_YEAR) == calendar.get(Calendar.WEEK_OF_YEAR) &&
+                date.get(Calendar.YEAR) == calendar.get(Calendar.YEAR);
     }
     //endregion
 
