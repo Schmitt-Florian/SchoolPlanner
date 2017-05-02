@@ -1,6 +1,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/homework_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.SubjectsFragment">
@@ -8,23 +9,19 @@
     <!-- TODO: Update blank fragment layout -->
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"></LinearLayout>
-
     <ListView
+        android:id="@+id/homework_listHomework"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton2"
+        android:id="@+id/homework_buttonAddHomework"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
         android:layout_gravity="bottom|right"
-        android:layout_marginRight="16dp"
         android:layout_marginBottom="16dp"
+        android:layout_marginRight="16dp"
+        android:clickable="true"
         app:fabSize="mini"
         app:srcCompat="@drawable/ic_add" />
 
