@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -43,7 +44,6 @@ public class HomeFragment extends Fragment {
 
         setDateToLabels(view);
         fillListViews(view);
-
         return view;
     }
 
@@ -127,8 +127,6 @@ public class HomeFragment extends Fragment {
     private void fillListViews(View view) {
         fillHomeworkListView(view);
         fillExamListView(view);
-
-
     }
 
     /**
@@ -139,19 +137,19 @@ public class HomeFragment extends Fragment {
     private void fillExamListView(View view) {
         DatabaseHelper dbHelper = new DatabaseHelperImpl(view.getContext());
 
-        String[] examStrings = new String[dbHelper.size(DatabaseHelper.TABLE_EXAM)];
+        ArrayList<String> examStrings = new ArrayList<>();
         int[] examIndices = dbHelper.getIndices(DatabaseHelper.TABLE_EXAM);
 
-        for (int i = 0; i < examIndices.length; i++) {
-            Exam exam = dbHelper.getExamAtId(examIndices[i]);
+        for (int examIndex : examIndices) {
+            Exam exam = dbHelper.getExamAtId(examIndex);
 
             if (isDateInThisWeek(exam.getDeadline())) {
-                examStrings[i] = guiHelper.extractGuiString(exam);
+                examStrings.add(guiHelper.extractGuiString(exam));
             }
         }
 
-        if (!isArrayEmpty(examStrings)) {
-            guiHelper.fillListViewFromArray(view, R.id.home_listExams, examStrings);
+        if (examStrings.size() != 0) {
+            guiHelper.fillListViewFromArray(view, R.id.home_listExams, examStrings.toArray(new String[0]));
         }
     }
 
@@ -163,35 +161,20 @@ public class HomeFragment extends Fragment {
     private void fillHomeworkListView(View view) {
         DatabaseHelper dbHelper = new DatabaseHelperImpl(view.getContext());
 
-        String[] homeworkStrings = new String[dbHelper.size(DatabaseHelper.TABLE_HOMEWORK)];
+        ArrayList<String> homeworkStrings = new ArrayList<>();
         int[] homeworkIndices = dbHelper.getIndices(DatabaseHelper.TABLE_HOMEWORK);
 
-        for (int i = 0; i < homeworkIndices.length; i++) {
-            Homework homework = dbHelper.getHomeworkAtId(homeworkIndices[i]);
+        for (int homeworkIndex : homeworkIndices) {
+            Homework homework = dbHelper.getHomeworkAtId(homeworkIndex);
 
-            if (isDateInThisWeek(homework.getDeadline())) {
-                homeworkStrings[i] = guiHelper.extractGuiString(homework);
+            if (isDateInThisWeek(homework.getDeadline()) && !homework.isDone()) {
+                homeworkStrings.add(guiHelper.extractGuiString(homework));
             }
         }
 
-        if (!isArrayEmpty(homeworkStrings)) {
-            guiHelper.fillListViewFromArray(view, R.id.home_listHomework, homeworkStrings);
+        if (homeworkStrings.size() != 0) {
+            guiHelper.fillListViewFromArray(view, R.id.home_listHomework, homeworkStrings.toArray(new String[0]));
         }
-    }
-
-    /**
-     * Indicates whether all object inside the given array are null
-     *
-     * @param objects the array
-     * @return true if array all object inside the given array are null, else false
-     */
-    private boolean isArrayEmpty(Object[] objects) {
-        for (Object object : objects) {
-            if (object != null) {
-                return false;
-            }
-        }
-        return true;
     }
 
     /**

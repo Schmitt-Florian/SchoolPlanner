@@ -945,14 +945,16 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         Subject subject1 = new Subject(1, teacher1, "Math", "B213");
         Subject subject2 = new Subject(2, teacher2, "German", "B308");
 
-        Exam exam1 = new Exam(1, subject1, "A simple Test in Math", "2017-05-13");
-        Exam exam2 = new Exam(2, subject2, "German Test", "2017-06-06");
+        Exam exam1 = new Exam(1, subject1, "A simple Test in Math", "2017-06-13");
+        Exam exam2 = new Exam(2, subject2, "German Test", "2017-05-03");
 
         Grade grade1 = new Grade(1, subject1, "2nd Math test", "13");
         Grade grade2 = new Grade(2, subject2, "3rd German test", "4");
 
         Homework homework1 = new Homework(1, subject1, "Geometry - draw a rectangle", "2017-06-17", false);
-        Homework homework2 = new Homework(2, subject2, "Characterisation Goethe", "2017-05-22", false);
+        Homework homework2 = new Homework(2, subject2, "Characterisation Goethe", "2017-05-03", false);
+        Homework homework3 = new Homework(3, subject1, "The calculation of probabilities", "2017-05-07", true);
+        Homework homework4 = new Homework(4, subject2, "Literature during WW2", "2017-05-05", false);
 
         Period period1 = new Period(1, subject1, 1, "07-45-00", "08-30-00");
         Period period2 = new Period(2, subject1, 2, "08-35-00", "09-20-00");
@@ -979,6 +981,8 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
 
         insertIntoDB(homework1);
         insertIntoDB(homework2);
+        insertIntoDB(homework3);
+        insertIntoDB(homework4);
 
         insertIntoDB(period1);
         insertIntoDB(period2);

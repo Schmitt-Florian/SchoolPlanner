@@ -49,11 +49,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         //  ----TESTING----
-//        DatabaseHelperImpl testHelper = new DatabaseHelperImpl(this);
-//        testHelper.resetDatabase();
-//        testHelper.fillDatabaseWithExamples();
+//            DatabaseHelperImpl testHelper = new DatabaseHelperImpl(this);
+//            testHelper.resetDatabase();
+//            testHelper.fillDatabaseWithExamples();
 //
-//        System.out.println(testHelper.toString());
+//            System.out.println(testHelper.toString());
+//            testHelper.resetDatabase();
         //  ----TESTING----
 
 
