@@ -27,6 +27,8 @@
         android:layout_marginRight="16dp"
         android:clickable="true"
         app:fabSize="normal"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        app:srcCompat="@android:drawable/ic_dialog_email"
+        android:onClick="sendEmail"
+        />
 
 </FrameLayout>
