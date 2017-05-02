@@ -30,6 +30,11 @@ public class Homework {
      */
     private GregorianCalendar deadline;
 
+    /**
+     * indicates whether the homework is done or not
+     */
+    private boolean done;
+
 
     /**
      * standard c'tor for Homework class
@@ -38,12 +43,14 @@ public class Homework {
      * @param subject     {@link Subject} the homework is for
      * @param description description/details of the homework, can be null if not available
      * @param deadline    due date / deadline for the homework, can be null if not available
+     * @param done        indicates whether the homework is done or not
      */
-    public Homework(int id, Subject subject, @Nullable String description, @Nullable GregorianCalendar deadline) {
+    public Homework(int id, Subject subject, @Nullable String description, @Nullable GregorianCalendar deadline, boolean done) {
         this.id = id;
         this.subject = subject;
         this.description = description;
         this.deadline = deadline;
+        this.done = done;
     }
 
     /**
@@ -53,12 +60,14 @@ public class Homework {
      * @param subject     {@link Subject} the homework is for
      * @param description description/details of the homework, can be null if not available
      * @param deadline    due date / deadline for the homework as String in YYYY-MM-DD format, can be null if not available
+     * @param done        indicates whether the homework is done or not
      */
-    public Homework(int id, Subject subject, @Nullable String description, @Nullable String deadline) {
+    public Homework(int id, Subject subject, @Nullable String description, @Nullable String deadline, boolean done) {
         this.id = id;
         this.subject = subject;
         this.description = description;
         this.deadline = convertDateStringToGregorianCalendar(deadline);
+        this.done = done;
     }
 
     /**
@@ -107,6 +116,37 @@ public class Homework {
     }
 
     /**
+     * indicates whether the homework is done or not
+     *
+     * @return true if the homework is done, else false
+     */
+    public boolean isDone() {
+        return done;
+    }
+
+    /**
+     * gets an int representation of the done-boolean
+     *
+     * @return 1 if done is true, else 0
+     */
+    public int getDone() {
+        if (done) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    /**
+     * mark a homework is done.
+     * <br> </br>
+     * Note: this action is irreversible
+     */
+    public void setDone() {
+        this.done = true;
+    }
+
+    /**
      * method to indicate if one Homework matches another one by the values of their fields
      *
      * @param otherHomework the other Homework
@@ -115,7 +155,7 @@ public class Homework {
     public boolean match(Homework otherHomework) {
         return this.id == otherHomework.id && this.subject.match(otherHomework.subject) &&
                 this.description.equals(otherHomework.description) &&
-                this.deadline.equals(otherHomework.deadline)
+                this.deadline.equals(otherHomework.deadline) && this.done == otherHomework.done
                 ;
     }
 
@@ -131,6 +171,7 @@ public class Homework {
                 subject.toString() + "\n" +
                 "Description: \t" + description + "\n" +
                 "Deadline: \t" + getDeadlineAsString() + "\n" +
+                "Done: \t" + done + "\n" +
                 "---####---";
     }
 

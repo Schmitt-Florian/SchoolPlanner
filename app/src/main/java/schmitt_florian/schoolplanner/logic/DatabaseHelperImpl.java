@@ -137,12 +137,24 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
             cursor = db.rawQuery(query, null);
             cursor.moveToFirst();
 
-            return new Homework(
-                    cursor.getInt(0),
-                    getSubjectAtId(cursor.getInt(1)),
-                    cursor.getString(2),
-                    cursor.getString(3)
-            );
+            if (cursor.getInt(4) == 0) {
+                return new Homework(
+                        cursor.getInt(0),
+                        getSubjectAtId(cursor.getInt(1)),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                        false
+                );
+            } else {
+                return new Homework(
+                        cursor.getInt(0),
+                        getSubjectAtId(cursor.getInt(1)),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                        true
+                );
+            }
+
         } catch (Exception e) {
             ExceptionHandler.handleDatabaseExceptionForGettingANotExistingObject("Homework", context);
         } finally {
@@ -493,7 +505,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     public int insertIntoDB(Subject subject) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String query = "INSERT INTO " + TABLE_SUBJECT + " VALUES ( " + subject.getId() + ", \"" + subject.getTeacher().getId() + "\", \"" + subject.getName() + "\", \"" + subject.getRoom() + "\")";
+        String query = "INSERT INTO " + TABLE_SUBJECT + " VALUES ( " + subject.getId() + ", " + subject.getTeacher().getId() + ", \"" + subject.getName() + "\", \"" + subject.getRoom() + "\")";
 
         insertIntoDB(subject.getTeacher());
         try {
@@ -537,7 +549,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     public int insertIntoDB(Homework homework) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String query = "INSERT INTO " + TABLE_HOMEWORK + " VALUES ( " + homework.getId() + ", \"" + homework.getSubject().getId() + "\", \"" + homework.getDescription() + "\", \"" + homework.getDeadlineAsString() + "\")";
+        String query = "INSERT INTO " + TABLE_HOMEWORK + " VALUES ( " + homework.getId() + ", " + homework.getSubject().getId() + ", \"" + homework.getDescription() + "\", \"" + homework.getDeadlineAsString() + "\", " + homework.getDone() + ")";
 
         insertIntoDB(homework.getSubject());
         try {
@@ -559,7 +571,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     public int insertIntoDB(Exam exam) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String query = "INSERT INTO " + TABLE_EXAM + " VALUES ( " + exam.getId() + ", \"" + exam.getSubject().getId() + "\", \"" + exam.getDescription() + "\", \"" + exam.getDeadlineAsString() + "\")";
+        String query = "INSERT INTO " + TABLE_EXAM + " VALUES ( " + exam.getId() + ", " + exam.getSubject().getId() + ", \"" + exam.getDescription() + "\", \"" + exam.getDeadlineAsString() + "\")";
 
         insertIntoDB(exam.getSubject());
         try {
@@ -581,7 +593,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     public int insertIntoDB(Grade grade) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String query = "INSERT INTO " + TABLE_GRADE + " VALUES ( " + grade.getId() + ", \"" + grade.getSubject().getId() + "\", \"" + grade.getName() + "\", \"" + grade.getGrade() + "\")";
+        String query = "INSERT INTO " + TABLE_GRADE + " VALUES ( " + grade.getId() + ", " + grade.getSubject().getId() + ", \"" + grade.getName() + "\", \"" + grade.getGrade() + "\")";
 
         insertIntoDB(grade.getSubject());
         try {
@@ -603,7 +615,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     public int insertIntoDB(Period period) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String query = "INSERT INTO " + TABLE_PERIOD + " VALUES ( " + period.getId() + ", \"" + period.getSubject().getId() + "\",NULL, \"" + period.getSchoolHourNo() + "\", \"" + period.getStartTimeAsString() + "\", \"" + period.getEndTimeAsString() + "\")";
+        String query = "INSERT INTO " + TABLE_PERIOD + " VALUES ( " + period.getId() + ", " + period.getSubject().getId() + ",NULL, \"" + period.getSchoolHourNo() + "\", \"" + period.getStartTimeAsString() + "\", \"" + period.getEndTimeAsString() + "\")";
 
         insertIntoDB(period.getSubject());
         try {
@@ -939,8 +951,8 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         Grade grade1 = new Grade(1, subject1, "2nd Math test", "13");
         Grade grade2 = new Grade(2, subject2, "3rd German test", "4");
 
-        Homework homework1 = new Homework(1, subject1, "Geometry - draw a rectangle", "2017-06-17");
-        Homework homework2 = new Homework(2, subject2, "Characterisation Goethe", "2017-05-22");
+        Homework homework1 = new Homework(1, subject1, "Geometry - draw a rectangle", "2017-06-17", false);
+        Homework homework2 = new Homework(2, subject2, "Characterisation Goethe", "2017-05-22", false);
 
         Period period1 = new Period(1, subject1, 1, "07-45-00", "08-30-00");
         Period period2 = new Period(2, subject1, 2, "08-35-00", "09-20-00");
@@ -994,9 +1006,6 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         sqLiteDatabase.execSQL("DROP TABLE " + TABLE_PERIOD);
         sqLiteDatabase.execSQL("DROP TABLE " + TABLE_WEEKDAY);
         sqLiteDatabase.execSQL("DROP TABLE " + TABLE_SCHEDULE);
-
-
-        // sqLiteDatabase.close();
     }
 
     /**
@@ -1013,8 +1022,6 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         createPeriodTable(sqLiteDatabase);
         createWeekdayTable(sqLiteDatabase);
         createScheduleTable(sqLiteDatabase);
-
-        //  sqLiteDatabase.close();
     }
 
     //region table creation
@@ -1031,7 +1038,6 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
                 SUBJECT_COLUMN_NAME + " VARCHAR NOT NULL, " +
                 SUBJECT_COLUMN_ROOM + " VARCHAR NOT NULL )"
         );
-        // sqLiteDatabase.close();
     }
 
     /**
@@ -1046,7 +1052,6 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
                 TEACHER_COLUMN_ABBREVIATION + " VARCHAR UNIQUE, " +
                 TEACHER_COLUMN_GENDER + " CHAR NOT NULL )"
         );
-        //  sqLiteDatabase.close();
     }
 
     /**
@@ -1059,9 +1064,9 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
                 HOMEWORK_COLUMN_ID + " INTEGER PRIMARY KEY NOT NULL, " +
                 HOMEWORK_COLUMN_SUBJECT_ID + " INTEGER NOT NULL, " +
                 HOMEWORK_COLUMN_DESCRIPTION + " TEXT, " +
-                HOMEWORK_COLUMN_DEADLINE + " DATE )"
+                HOMEWORK_COLUMN_DEADLINE + " DATE, " +
+                HOMEWORK_COLUMN_DONE + "INTEGER )"
         );
-        // sqLiteDatabase.close();
     }
 
     /**
@@ -1076,7 +1081,6 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
                 EXAM_COLUMN_DESCRIPTION + " TEXT, " +
                 EXAM_COLUMN_DEADLINE + " DATE )"
         );
-        //  sqLiteDatabase.close();
     }
 
     /**
@@ -1091,7 +1095,6 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
                 GRADE_COLUMN_NAME + " VARCHAR NOT NULL, " +
                 GRADE_COLUMN_GRADE + " VARCHAR NOT NULL )"
         );
-        //   sqLiteDatabase.close();
     }
 
     /**
@@ -1108,7 +1111,6 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
                 PERIOD_COLUMN_STARTTIME + " TIME NOT NULL, " +
                 PERIOD_COLUMN_ENDTIME + " TIME NOT NULL )"
         );
-        //  sqLiteDatabase.close();
     }
 
     /**
@@ -1122,7 +1124,6 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
                 WEEKDAY_COLUMN_SCHEDULE_ID + " INTEGER, " +
                 WEEKDAY_COLUMN_NAME + " VARCHAR NOT NULL )"
         );
-        //   sqLiteDatabase.close();
     }
 
     /**
@@ -1135,7 +1136,6 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
                 SCHEDULE_COLUMN_ID + " INTEGER PRIMARY KEY NOT NULL, " +
                 SCHEDULE_COLUMN_NAME + " VARCHAR NOT NULL )"
         );
-        //  sqLiteDatabase.close();
     }
     //endregion
 

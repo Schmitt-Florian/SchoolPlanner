@@ -27,7 +27,7 @@ public interface DatabaseHelper {
 
 
     /**
-     * integer, primary key, autoincrement, not null
+     * integer, primary key, not null
      * <br> </br>
      * name of the id column in the subject table as String
      */
@@ -63,7 +63,7 @@ public interface DatabaseHelper {
 
 
     /**
-     * integer, primary key, autoincrement, not null
+     * integer, primary key, not null
      * <br> </br>
      * name of the id column in the teacher table as String
      */
@@ -101,7 +101,7 @@ public interface DatabaseHelper {
 
 
     /**
-     * integer, primary key, autoincrement, not null
+     * integer, primary key, not null
      * <br> </br>
      * name of the id column in the homework table as String
      */
@@ -129,6 +129,13 @@ public interface DatabaseHelper {
      * name of the deadline column in the homework table as String
      */
     String HOMEWORK_COLUMN_DEADLINE = "homework_deadline";
+
+    /**
+     * boolean
+     * <br> </br>
+     * name of the description column in the homework table as String
+     */
+    String HOMEWORK_COLUMN_DONE = "homework_done";
     //endregion
 
     //region exam table
@@ -139,7 +146,7 @@ public interface DatabaseHelper {
 
 
     /**
-     * integer, primary key, autoincrement, not null
+     * integer, primary key, not null
      * <br> </br>
      * name of the id column in the exam table as String
      */
@@ -177,7 +184,7 @@ public interface DatabaseHelper {
 
 
     /**
-     * integer, primary key, autoincrement, not null
+     * integer, primary key, not null
      * <br> </br>
      * name of the id column in the grade table as String
      */
@@ -213,7 +220,7 @@ public interface DatabaseHelper {
 
 
     /**
-     * integer, primary key, autoincrement, not null
+     * integer, primary key, not null
      * <br> </br>
      * name of the id column in the period table as String
      */
@@ -267,7 +274,7 @@ public interface DatabaseHelper {
 
 
     /**
-     * integer, primary key, autoincrement, not null
+     * integer, primary key, not null
      * <br> </br>
      * name of the id column in the weekday table as String
      */
@@ -296,7 +303,7 @@ public interface DatabaseHelper {
 
 
     /**
-     * integer, primary key, autoincrement, not null
+     * integer, primary key, not null
      * <br> </br>
      * name of the id column in the schedule table as String
      */
