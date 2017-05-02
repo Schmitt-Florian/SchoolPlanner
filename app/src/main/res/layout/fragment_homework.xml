@@ -6,8 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".activities.SubjectsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
 
     <ListView
         android:id="@+id/homework_listHomework"

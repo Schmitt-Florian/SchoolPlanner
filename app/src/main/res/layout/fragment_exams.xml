@@ -6,8 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".activities.ExamsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <ListView
         android:id="@+id/exams_listExams"
         android:layout_width="match_parent"
