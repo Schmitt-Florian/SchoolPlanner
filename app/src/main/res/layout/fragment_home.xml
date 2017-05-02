@@ -20,7 +20,7 @@
         <Space
             style="@style/Base.DialogWindowTitleBackground.AppCompat"
             android:layout_width="match_parent"
-            android:layout_height="70dp" />
+            android:layout_height="40dp" />
 
         <TextView
             android:id="@+id/home_labelWeekday"
