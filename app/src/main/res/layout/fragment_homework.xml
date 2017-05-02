@@ -18,13 +18,12 @@
         android:layout_height="match_parent" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
         android:layout_gravity="bottom|right"
-        android:layout_marginRight="16dp"
         android:layout_marginBottom="16dp"
+        android:layout_marginRight="16dp"
+        android:clickable="true"
         app:fabSize="mini"
         app:srcCompat="@drawable/ic_add" />
 
