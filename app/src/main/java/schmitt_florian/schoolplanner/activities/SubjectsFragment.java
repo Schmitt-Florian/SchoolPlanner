@@ -27,6 +27,7 @@ public class SubjectsFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    String[] test = {"Mathe", "Deutsch", "Englisch", "PoWi"};
 
     private OnFragmentInteractionListener mListener;
 
@@ -64,8 +65,12 @@ public class SubjectsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_schedule, container, false);
+
+        new GuiHelper().fillListViewFromArray(view, R.id.subjects_listView, test);
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_subjects, container, false);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
