@@ -1,6 +1,5 @@
 package schmitt_florian.schoolplanner.activities;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,7 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 
 import schmitt_florian.schoolplanner.R;
 
@@ -125,12 +123,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onFragmentInteraction(Uri uri) {
         Log.d(TAG, "onFragmentInteraction");
-    }
-
-    public void sendEmail(View view) {
-        Intent emailIntent = new Intent(Intent.ACTION_SEND);
-        emailIntent.putExtra(Intent.EXTRA_EMAIL,new String[]{"projectschoolplanner@gmail.com"});
-        emailIntent.setType("message/rfc822");
-        startActivity(Intent.createChooser(emailIntent, "Wählen Sie Ihren E-Maildienst aus"));
     }
 }

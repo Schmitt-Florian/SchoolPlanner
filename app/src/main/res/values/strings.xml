@@ -1,9 +1,6 @@
 <resources>
     <string name="app_name">School Planner</string>
 
-    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
-    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
-
     //Navigation Drawer
 
     <string name="string_homepage">Home</string>
@@ -27,6 +24,10 @@
     <string name="string_day_sunday">Sunday</string>
 
     //Other
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
     <string name="string_error">Error</string>
+    <string name="project_email" translatable="false">projectschoolplanner@gmail.com</string>
+    <string name="choose_email_service">Choose Email Service</string>
 
 </resources>

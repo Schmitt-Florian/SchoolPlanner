@@ -1,8 +1,10 @@
 package schmitt_florian.schoolplanner.activities;
 
 
+import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -18,11 +20,11 @@ import schmitt_florian.schoolplanner.logic.Homework;
 class GuiHelper {
 
     /**
-     * method to set the text of a TextView
+     * method to set the text of a {@link TextView}
      *
-     * @param view the view the TextView is in
-     * @param id   Resource ID of the TextView
-     * @param text The text to set to the TextView
+     * @param view the view the {@link TextView} is in
+     * @param id   Resource ID of the {@link TextView}
+     * @param text The text to set to the {@link TextView}
      */
     void setTextToTextView(View view, int id, String text) {
         TextView textView = (TextView) view.findViewById(id);
@@ -30,11 +32,11 @@ class GuiHelper {
     }
 
     /**
-     * method to set the content of a ListView
+     * method to set the content of a {@link ListView}
      *
-     * @param view    the view the ListView is in
-     * @param id      Resource ID of the ListView
-     * @param content The content to fill the ListView with
+     * @param view    the view the {@link ListView} is in
+     * @param id      Resource ID of the {@link ListView}
+     * @param content The content to fill the {@link ListView} with as string array
      */
     void fillListViewFromArray(View view, int id, String[] content) {
         ListView listView = (ListView) view.findViewById(id);
@@ -75,5 +77,30 @@ class GuiHelper {
         dateString = deadline.get(Calendar.DAY_OF_MONTH) + "." + String.valueOf(deadline.get(Calendar.MONTH) + 1) + "." + String.valueOf(deadline.get(Calendar.YEAR));
 
         return subjectName + " - " + dateString;
+    }
+
+
+    /**
+     * method used to set the {@link View.OnClickListener} of a {@link Button} at a given id
+     *
+     * @param view            the view the {@link Button} is in
+     * @param id              Resource ID of the {@link Button}
+     * @param onClickListener the {@link View.OnClickListener} to set the {@link Button} to
+     */
+    void defineButtonOnClickListener(View view, int id, View.OnClickListener onClickListener) {
+        Button b = (Button) view.findViewById(id);
+        b.setOnClickListener(onClickListener);
+    }
+
+    /**
+     * method used to set the {@link View.OnClickListener} of a {@link FloatingActionButton} at a given id
+     *
+     * @param view            the view the {@link FloatingActionButton} is in
+     * @param id              Resource ID of the {@link FloatingActionButton}
+     * @param onClickListener the {@link View.OnClickListener} to set the {@link FloatingActionButton} to
+     */
+    void defineFloatingActionButtonOnClickListener(View view, int id, View.OnClickListener onClickListener) {
+        FloatingActionButton b = (FloatingActionButton) view.findViewById(id);
+        b.setOnClickListener(onClickListener);
     }
 }
