@@ -13,6 +13,8 @@
         android:textAlignment="center"
         android:textColor="@color/accent"
         android:textSize="35sp"
-        android:textStyle="italic"/>
+        android:textStyle="italic"
+        android:layout_marginTop="12dp"
+        />
 
 </FrameLayout>
