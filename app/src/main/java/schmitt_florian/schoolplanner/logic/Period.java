@@ -133,6 +133,40 @@ public class Period implements Comparable<Period> {
     //endregion
 
     /**
+     * method to indicate if one Period matches another one by the values of their fields
+     *
+     * @param otherPeriod the other Period
+     * @return true if all fields are the same in both Periods, else false
+     */
+    public boolean match(Period otherPeriod) {
+        return this.id == otherPeriod.id && this.subject.match(otherPeriod.subject) &&
+                this.schoolHourNo == otherPeriod.schoolHourNo &&
+                this.startTime.equals(otherPeriod.startTime) && this.endTime.equals(otherPeriod.endTime)
+                ;
+    }
+
+    /**
+     * method to indicate if one Period[] matches another one by the values of their fields
+     *
+     * @param periods      one period[]
+     * @param otherPeriods the other Period[]
+     * @return true if all fields are the same in both Period[]s, else false
+     */
+    public static boolean match(Period[] periods, Period[] otherPeriods) {
+        if (periods.length != otherPeriods.length) {
+            return false;
+        }
+
+        for (int i = 0; i < periods.length; i++) {
+            if (!periods[i].match(otherPeriods[i])) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
      * builds a string from Period's values
      *
      * @return Period as String

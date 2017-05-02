@@ -103,7 +103,20 @@ public class Homework {
      * @return Deadline as String
      */
     public String getDeadlineAsString() {
-        return deadline.get(Calendar.YEAR) + "-" + String.valueOf(deadline.get(Calendar.MONTH)+1) + "-" + deadline.get(Calendar.DAY_OF_MONTH);
+        return deadline.get(Calendar.YEAR) + "-" + String.valueOf(deadline.get(Calendar.MONTH) + 1) + "-" + deadline.get(Calendar.DAY_OF_MONTH);
+    }
+
+    /**
+     * method to indicate if one Homework matches another one by the values of their fields
+     *
+     * @param otherHomework the other Homework
+     * @return true if all fields are the same in both Homework, else false
+     */
+    public boolean match(Homework otherHomework) {
+        return this.id == otherHomework.id && this.subject.match(otherHomework.subject) &&
+                this.description.equals(otherHomework.description) &&
+                this.deadline.equals(otherHomework.deadline)
+                ;
     }
 
     /**
@@ -133,7 +146,7 @@ public class Homework {
         String[] date = source.split("-");
         return new GregorianCalendar(
                 Integer.parseInt(date[0]),
-                Integer.parseInt(date[1])-1,
+                Integer.parseInt(date[1]) - 1,
                 Integer.parseInt(date[2])
         );
     }

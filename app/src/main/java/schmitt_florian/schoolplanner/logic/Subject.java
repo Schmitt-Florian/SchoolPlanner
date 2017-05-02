@@ -76,6 +76,18 @@ public class Subject {
     }
 
     /**
+     * method to indicate if one Subject matches another one by the values of their fields
+     *
+     * @param otherSubject the other Subject
+     * @return true if all fields are the same in both Subjects, else false
+     */
+    public boolean match(Subject otherSubject) {
+        return this.id == otherSubject.id && this.teacher.match(otherSubject.teacher) &&
+                this.name.equals(otherSubject.name)
+                && this.room.equals(otherSubject.room);
+    }
+
+    /**
      * builds a string from Subject's values
      *
      * @return Subject as String

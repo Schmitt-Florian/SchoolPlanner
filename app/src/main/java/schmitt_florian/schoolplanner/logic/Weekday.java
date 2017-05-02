@@ -63,6 +63,17 @@ public class Weekday {
     }
 
     /**
+     * method to indicate if one Weekday matches another one by the values of their fields
+     *
+     * @param otherWeekday the other Weekday
+     * @return true if all fields are the same in both Weekdays, else false
+     */
+    public boolean match(Weekday otherWeekday) {
+        return this.id == otherWeekday.id && this.name.equals(otherWeekday.name) &&
+                Period.match(this.periods, otherWeekday.periods);
+    }
+
+    /**
      * builds a string from Weekday's values
      *
      * @return Weekday as String
@@ -75,4 +86,6 @@ public class Weekday {
                 "Periods: \t" + Arrays.toString(periods) + "\n" +
                 "---######---";
     }
+
+
 }

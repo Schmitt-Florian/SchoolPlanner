@@ -927,8 +927,8 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     }
 
     public void fillDatabaseWithExamples() {
-        Teacher teacher1 = new Teacher(1, "Bräuer", "BRÄ", 'm');
-        Teacher teacher2 = new Teacher(2, "Dickens", "DICK", 'f');
+        Teacher teacher1 = new Teacher(1, "Bräuer", "BRÄ", Teacher.MALE);
+        Teacher teacher2 = new Teacher(2, "Dickens", "DICK", Teacher.FEMALE);
 
         Subject subject1 = new Subject(1, teacher1, "Math", "B213");
         Subject subject2 = new Subject(2, teacher2, "German", "B308");
@@ -950,6 +950,8 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         Weekday weekday1 = new Weekday(1, "Monday", new Period[]{period1, period2, period3, period4});
 
         Schedule schedule1 = new Schedule(1, "a", new Weekday[]{weekday1, null, null, null, null, null});
+
+        //###################################Insert###############################################
 
         insertIntoDB(teacher1);
         insertIntoDB(teacher2);

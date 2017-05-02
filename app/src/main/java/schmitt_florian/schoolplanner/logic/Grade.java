@@ -78,6 +78,19 @@ public class Grade {
     }
 
     /**
+     * method to indicate if one Grade matches another one by the values of their fields
+     *
+     * @param otherGrade the other Grade
+     * @return true if all fields are the same in both Grades, else false
+     */
+    public boolean match(Grade otherGrade) {
+        return this.id == otherGrade.id && this.subject.match(otherGrade.subject) &&
+                this.name.equals(otherGrade.name) &&
+                this.grade.equals(otherGrade.grade)
+                ;
+    }
+
+    /**
      * builds a string from Grade's values
      *
      * @return Grade as String
