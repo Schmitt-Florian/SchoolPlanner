@@ -29,13 +29,15 @@
 
 
             android:id="@+id/include2"
-           />
+            tools:layout_editor_absoluteY="25dp"
+            tools:layout_editor_absoluteX="0dp" />
         <LinearLayout
             android:id="@+id/containerMain"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="6dp"
             android:orientation="vertical"
-            android:layout_marginTop="?attr/actionBarSize">
+            tools:layout_editor_absoluteY="81dp"
+            tools:layout_editor_absoluteX="8dp">
 
         </LinearLayout>
         </android.support.constraint.ConstraintLayout>
