@@ -54,7 +54,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //            testHelper.fillDatabaseWithExamples();
 //
 //            System.out.println(testHelper.toString());
-//            testHelper.resetDatabase();
         //  ----TESTING----
 
 

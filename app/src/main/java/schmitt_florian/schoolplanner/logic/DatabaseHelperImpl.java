@@ -49,16 +49,576 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     }
 
 
+    //region handling Methods
     //region getObjectAtId
 
     /**
-     * gets the {@link Subject} at a specific id from database
+     * gets the {@link Subject} at a specific id from database.
+     * <br> </br>
+     * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForGettingANotExistingObject(String, Context)} to handle exceptions
      *
      * @param id id in database
      * @return row with given id from db as {@link Subject}, or null if not existing
      */
     @Override
     public Subject getSubjectAtId(int id) {
+        try {
+            return getSubjectAtIdOrThrow(id);
+        } catch (NoSuchFieldException e) {
+            ExceptionHandler.handleDatabaseExceptionForGettingANotExistingObject("Subject", context);
+            return null;
+        }
+    }
+
+    /**
+     * gets the {@link Teacher} at a specific id from database
+     * <br> </br>
+     * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForGettingANotExistingObject(String, Context)} to handle exceptions
+     *
+     * @param id id in database
+     * @return row with given id from db as {@link Teacher}, or null if not existing
+     */
+    @Override
+    public Teacher getTeacherAtId(int id) {
+        try {
+            return getTeacherAtIdOrThrow(id);
+        } catch (NoSuchFieldException e) {
+            ExceptionHandler.handleDatabaseExceptionForGettingANotExistingObject("Teacher", context);
+            return null;
+        }
+    }
+
+    /**
+     * gets the {@link Homework} at a specific id from database
+     * <br> </br>
+     * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForGettingANotExistingObject(String, Context)} to handle exceptions
+     *
+     * @param id id in database
+     * @return row with given id from db as {@link Homework}, or null if not existing
+     */
+    @Override
+    public Homework getHomeworkAtId(int id) {
+        try {
+            return getHomeworkAtIdOrThrow(id);
+        } catch (NoSuchFieldException e) {
+            ExceptionHandler.handleDatabaseExceptionForGettingANotExistingObject("Homework", context);
+            return null;
+        }
+    }
+
+    /**
+     * gets the {@link Exam} at a specific id from database
+     * <br> </br>
+     * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForGettingANotExistingObject(String, Context)} to handle exceptions
+     *
+     * @param id id in database
+     * @return row with given id from db as {@link Exam}, or null if not existing
+     */
+    @Override
+    public Exam getExamAtId(int id) {
+        try {
+            return getExamAtIdOrThrow(id);
+        } catch (NoSuchFieldException e) {
+            ExceptionHandler.handleDatabaseExceptionForGettingANotExistingObject("Exam", context);
+            return null;
+        }
+    }
+
+    /**
+     * gets the {@link Grade} at a specific id from database
+     * <br> </br>
+     * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForGettingANotExistingObject(String, Context)} to handle exceptions
+     *
+     * @param id id in database
+     * @return row with given id from db as {@link Grade}, or null if not existing
+     */
+    @Override
+    public Grade getGradeAtId(int id) {
+        try {
+            return getGradeAtIdOrThrow(id);
+        } catch (NoSuchFieldException e) {
+            ExceptionHandler.handleDatabaseExceptionForGettingANotExistingObject("Grade", context);
+            return null;
+        }
+    }
+
+    /**
+     * gets the {@link Period} at a specific id from database
+     * <br> </br>
+     * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForGettingANotExistingObject(String, Context)} to handle exceptions
+     *
+     * @param id id in database
+     * @return row with given id from db as {@link Period}, or null if not existing
+     */
+    @Override
+    public Period getPeriodAtId(int id) {
+        try {
+            return getPeriodAtIdOrThrow(id);
+        } catch (NoSuchFieldException e) {
+            ExceptionHandler.handleDatabaseExceptionForGettingANotExistingObject("Period", context);
+            return null;
+        }
+    }
+
+    /**
+     * gets the {@link Weekday} at a specific id from database
+     * <br> </br>
+     * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForGettingANotExistingObject(String, Context)} to handle exceptions
+     *
+     * @param id id in database
+     * @return row with given id from db as {@link Weekday}, or null if not existing
+     */
+    @Override
+    public Weekday getWeekdayAtId(int id) {
+        try {
+            return getWeekdayAtIdOrThrow(id);
+        } catch (NoSuchFieldException e) {
+            ExceptionHandler.handleDatabaseExceptionForGettingANotExistingObject("Weekday", context);
+            return null;
+        }
+    }
+
+    /**
+     * gets the {@link Schedule} at a specific id from database
+     * <br> </br>
+     * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForGettingANotExistingObject(String, Context)} to handle exceptions
+     *
+     * @param id id in database
+     * @return row with given id from db as {@link Schedule}, or null if not existing
+     */
+    @Override
+    public Schedule getScheduleAtId(int id) {
+        try {
+            return getScheduleAtIdOrThrow(id);
+        } catch (NoSuchFieldException e) {
+            ExceptionHandler.handleDatabaseExceptionForGettingANotExistingObject("Schedule", context);
+            return null;
+        }
+    }
+    //endregion
+
+    //region updateObjectAtId
+
+    /**
+     * updates {@link Subject} at the given id in database
+     * <br> </br>
+     * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForUpdatingAnNotExistingObject(String, Context)} to handle exceptions
+     *
+     * @param newSubject the new {@link Subject}
+     */
+    @Override
+    public void updateSubjectAtId(Subject newSubject) {
+        try {
+            updateSubjectAtIdOrThrow(newSubject);
+        } catch (NoSuchFieldException e) {
+            ExceptionHandler.handleDatabaseExceptionForUpdatingAnNotExistingObject("Subject", context);
+        }
+    }
+
+    /**
+     * updates {@link Teacher} at the given id in database
+     * <br> </br>
+     * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForUpdatingAnNotExistingObject(String, Context)} to handle exceptions
+     *
+     * @param newTeacher the new {@link Teacher}
+     */
+    @Override
+    public void updateTeacherAtId(Teacher newTeacher) {
+        try {
+            updateTeacherAtIdOrThrow(newTeacher);
+        } catch (NoSuchFieldException e) {
+            ExceptionHandler.handleDatabaseExceptionForUpdatingAnNotExistingObject("Teacher", context);
+        }
+    }
+
+    /**
+     * updates {@link Homework} at the given id in database
+     * <br> </br>
+     * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForUpdatingAnNotExistingObject(String, Context)} to handle exceptions
+     *
+     * @param newHomework the new {@link Homework}
+     */
+    @Override
+    public void updateHomeworkAtId(Homework newHomework) {
+        try {
+            updateHomeworkAtIdOrThrow(newHomework);
+        } catch (NoSuchFieldException e) {
+            ExceptionHandler.handleDatabaseExceptionForUpdatingAnNotExistingObject("Homework", context);
+        }
+    }
+
+    /**
+     * updates {@link Exam} at the given id in database
+     * <br> </br>
+     * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForUpdatingAnNotExistingObject(String, Context)} to handle exceptions
+     *
+     * @param newExam the new {@link Exam}
+     */
+    @Override
+    public void updateExamAtId(Exam newExam) {
+        try {
+            updateExamAtIdOrThrow(newExam);
+        } catch (NoSuchFieldException e) {
+            ExceptionHandler.handleDatabaseExceptionForUpdatingAnNotExistingObject("Exam", context);
+        }
+    }
+
+    /**
+     * updates {@link Grade} at the given id in database
+     * <br> </br>
+     * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForUpdatingAnNotExistingObject(String, Context)} to handle exceptions
+     *
+     * @param newGrade the new {@link Grade}
+     */
+    @Override
+    public void updateGradeAtId(Grade newGrade) {
+        try {
+            updateGradeAtIdOrThrow(newGrade);
+        } catch (NoSuchFieldException e) {
+            ExceptionHandler.handleDatabaseExceptionForUpdatingAnNotExistingObject("Grade", context);
+        }
+    }
+
+    /**
+     * updates {@link Period} at the given id in database
+     * <br> </br>
+     * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForUpdatingAnNotExistingObject(String, Context)} to handle exceptions
+     *
+     * @param newPeriod the new {@link Period}
+     */
+    @Override
+    public void updatePeriodAtId(Period newPeriod) {
+        try {
+            updatePeriodAtIdOrThrow(newPeriod);
+        } catch (NoSuchFieldException e) {
+            ExceptionHandler.handleDatabaseExceptionForUpdatingAnNotExistingObject("Period", context);
+        }
+    }
+
+    /**
+     * updates {@link Weekday} at the given id in database
+     * <br> </br>
+     * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForUpdatingAnNotExistingObject(String, Context)} to handle exceptions
+     *
+     * @param newWeekday the new {@link Weekday}
+     */
+    @Override
+    public void updateWeekdayAtId(Weekday newWeekday) {
+        try {
+            updateWeekdayAtIdOrThrow(newWeekday);
+        } catch (NoSuchFieldException e) {
+            ExceptionHandler.handleDatabaseExceptionForUpdatingAnNotExistingObject("Weekday", context);
+        }
+    }
+
+    /**
+     * updates {@link Schedule} at the given id in database
+     * <br> </br>
+     * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForUpdatingAnNotExistingObject(String, Context)} to handle exceptions
+     *
+     * @param newSchedule the new {@link Schedule}
+     */
+    @Override
+    public void updateScheduleAtId(Schedule newSchedule) {
+        try {
+            updateScheduleAtIdOrThrow(newSchedule);
+        } catch (NoSuchFieldException e) {
+            ExceptionHandler.handleDatabaseExceptionForUpdatingAnNotExistingObject("Schedule", context);
+        }
+    }
+    //endregion
+
+    //region insertIntoDB
+
+    /**
+     * inserts {@link Subject} into database, use an ID <= 0 to insert at next unoccupied ID
+     * <br> </br>
+     * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForAddingAAlreadyExistingObject(Object, Context)} to handle exceptions
+     *
+     * @param subject {@link Subject} to be inserted
+     * @return the id in the database the {@link Subject} was inserted or -1 if action could not be performed
+     */
+    @Override
+    public int insertIntoDB(Subject subject) {
+        try {
+            return insertIntoDBOrThrow(subject);
+        } catch (IllegalAccessException e) {
+            ExceptionHandler.handleDatabaseExceptionForAddingAAlreadyExistingObject(subject, context);
+            return -1;
+        }
+    }
+
+    /**
+     * inserts {@link Teacher} into database, use an ID <= 0 to insert at next unoccupied ID
+     * <br> </br>
+     * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForAddingAAlreadyExistingObject(Object, Context)} to handle exceptions
+     *
+     * @param teacher {@link Teacher} to be inserted
+     * @return the id in the database the {@link Teacher} was inserted or -1 if action could not be performed
+     */
+    @Override
+    public int insertIntoDB(Teacher teacher) {
+        try {
+            return insertIntoDBOrThrow(teacher);
+        } catch (IllegalAccessException e) {
+            ExceptionHandler.handleDatabaseExceptionForAddingAAlreadyExistingObject(teacher, context);
+            return -1;
+        }
+    }
+
+    /**
+     * inserts {@link Homework} into database, use an ID <= 0 to insert at next unoccupied ID
+     * <br> </br>
+     * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForAddingAAlreadyExistingObject(Object, Context)} to handle exceptions
+     *
+     * @param homework {@link Homework} to be inserted
+     * @return the id in the database the {@link Homework} was inserted or -1 if action could not be performed
+     */
+    @Override
+    public int insertIntoDB(Homework homework) {
+        try {
+            return insertIntoDBOrThrow(homework);
+        } catch (IllegalAccessException e) {
+            ExceptionHandler.handleDatabaseExceptionForAddingAAlreadyExistingObject(homework, context);
+            return -1;
+        }
+    }
+
+    /**
+     * inserts {@link Exam} into database, use an ID <= 0 to insert at next unoccupied ID
+     * <br> </br>
+     * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForAddingAAlreadyExistingObject(Object, Context)} to handle exceptions
+     *
+     * @param exam {@link Exam} to be inserted
+     * @return the id in the database the {@link Exam} was inserted or -1 if action could not be performed
+     */
+    @Override
+    public int insertIntoDB(Exam exam) {
+        try {
+            return insertIntoDBOrThrow(exam);
+        } catch (IllegalAccessException e) {
+            ExceptionHandler.handleDatabaseExceptionForAddingAAlreadyExistingObject(exam, context);
+            return -1;
+        }
+    }
+
+    /**
+     * inserts {@link Grade} into database, use an ID <= 0 to insert at next unoccupied ID
+     * <br> </br>
+     * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForAddingAAlreadyExistingObject(Object, Context)} to handle exceptions
+     *
+     * @param grade {@link Grade} to be inserted
+     * @return the id in the database the {@link Grade} was inserted or -1 if action could not be performed
+     */
+    @Override
+    public int insertIntoDB(Grade grade) {
+        try {
+            return insertIntoDBOrThrow(grade);
+        } catch (IllegalAccessException e) {
+            ExceptionHandler.handleDatabaseExceptionForAddingAAlreadyExistingObject(grade, context);
+            return -1;
+        }
+    }
+
+    /**
+     * inserts {@link Period} into database, use an ID <= 0 to insert at next unoccupied ID
+     * <br> </br>
+     * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForAddingAAlreadyExistingObject(Object, Context)} to handle exceptions
+     *
+     * @param period {@link Period} to be inserted
+     * @return the id in the database the {@link Grade} was inserted or -1 if action could not be performed
+     */
+    @Override
+    public int insertIntoDB(Period period) {
+        try {
+            return insertIntoDBOrThrow(period);
+        } catch (IllegalAccessException e) {
+            ExceptionHandler.handleDatabaseExceptionForAddingAAlreadyExistingObject(period, context);
+            return -1;
+        }
+    }
+
+    /**
+     * inserts {@link Weekday} into database, use an ID <= 0 to insert at next unoccupied ID
+     * <br> </br>
+     * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForAddingAAlreadyExistingObject(Object, Context)} to handle exceptions
+     *
+     * @param weekday {@link Weekday} to be inserted
+     * @return the id in the database the {@link Weekday} was inserted or -1 if action could not be performed
+     */
+    @Override
+    public int insertIntoDB(Weekday weekday) {
+        try {
+            return insertIntoDBOrThrow(weekday);
+        } catch (IllegalAccessException e) {
+            ExceptionHandler.handleDatabaseExceptionForAddingAAlreadyExistingObject(weekday, context);
+            return -1;
+        }
+    }
+
+    /**
+     * inserts {@link Schedule} into database, use an ID <= 0 to insert at next unoccupied ID
+     * <br> </br>
+     * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForAddingAAlreadyExistingObject(Object, Context)} to handle exceptions
+     *
+     * @param schedule {@link Schedule} to be inserted
+     * @return the id in the database the {@link Schedule} was inserted or -1 if action could not be performed
+     */
+    @Override
+    public int insertIntoDB(Schedule schedule) {
+        try {
+            return insertIntoDBOrThrow(schedule);
+        } catch (IllegalAccessException e) {
+            ExceptionHandler.handleDatabaseExceptionForAddingAAlreadyExistingObject(schedule, context);
+            return -1;
+        }
+    }
+    //endregion
+
+    //region deleteObjectAtId
+
+    /**
+     * deletes the {@link Subject} at the given id from database
+     * <br> </br>
+     * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForDeletingAnNotExistingObject(int, Context)} to handle exceptions
+     *
+     * @param id the id the {@link Subject} to delete has
+     */
+    @Override
+    public void deleteSubjectAtId(int id) {
+        try {
+            deleteSubjectAtIdOrThrow(id);
+        } catch (NoSuchFieldException e) {
+            ExceptionHandler.handleDatabaseExceptionForDeletingAnNotExistingObject(id, context);
+        }
+    }
+
+    /**
+     * deletes the {@link Teacher} at the given id from database
+     * <br> </br>
+     * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForDeletingAnNotExistingObject(int, Context)} to handle exceptions
+     *
+     * @param id the id the {@link Teacher} to delete has
+     */
+    @Override
+    public void deleteTeacherAtId(int id) {
+        try {
+            deleteTeacherAtIdOrThrow(id);
+        } catch (NoSuchFieldException e) {
+            ExceptionHandler.handleDatabaseExceptionForDeletingAnNotExistingObject(id, context);
+        }
+    }
+
+    /**
+     * deletes the {@link Homework} at the given id from database
+     * <br> </br>
+     * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForDeletingAnNotExistingObject(int, Context)} to handle exceptions
+     *
+     * @param id the id the {@link Homework} to delete has
+     */
+    @Override
+    public void deleteHomeworkAtId(int id) {
+        try {
+            deleteHomeworkAtIdOrThrow(id);
+        } catch (NoSuchFieldException e) {
+            ExceptionHandler.handleDatabaseExceptionForDeletingAnNotExistingObject(id, context);
+        }
+    }
+
+    /**
+     * deletes the {@link Exam} at the given id from database
+     * <br> </br>
+     * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForDeletingAnNotExistingObject(int, Context)} to handle exceptions
+     *
+     * @param id the id the {@link Exam} to delete has
+     */
+    @Override
+    public void deleteExamAtId(int id) {
+        try {
+            deleteExamAtIdOrThrow(id);
+        } catch (NoSuchFieldException e) {
+            ExceptionHandler.handleDatabaseExceptionForDeletingAnNotExistingObject(id, context);
+        }
+    }
+
+    /**
+     * deletes the {@link Grade} at the given id from database
+     * <br> </br>
+     * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForDeletingAnNotExistingObject(int, Context)} to handle exceptions
+     *
+     * @param id the id the {@link Grade} to delete has
+     */
+    @Override
+    public void deleteGradeAtId(int id) {
+        try {
+            deleteGradeAtIdOrThrow(id);
+        } catch (NoSuchFieldException e) {
+            ExceptionHandler.handleDatabaseExceptionForDeletingAnNotExistingObject(id, context);
+        }
+    }
+
+    /**
+     * deletes the {@link Period} at the given id from database
+     * <br> </br>
+     * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForDeletingAnNotExistingObject(int, Context)} to handle exceptions
+     *
+     * @param id the id the {@link Period} to delete has
+     */
+    @Override
+    public void deletePeriodAtId(int id) {
+        try {
+            deletePeriodAtIdOrThrow(id);
+        } catch (NoSuchFieldException e) {
+            ExceptionHandler.handleDatabaseExceptionForDeletingAnNotExistingObject(id, context);
+        }
+    }
+
+    /**
+     * deletes the {@link Weekday} at the given id from database
+     * <br> </br>
+     * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForDeletingAnNotExistingObject(int, Context)} to handle exceptions
+     *
+     * @param id the id the {@link Weekday} to delete has
+     */
+    @Override
+    public void deleteWeekdayAtId(int id) {
+        try {
+            deleteWeekdayAtIdOrThrow(id);
+        } catch (NoSuchFieldException e) {
+            ExceptionHandler.handleDatabaseExceptionForDeletingAnNotExistingObject(id, context);
+        }
+    }
+
+    /**
+     * deletes the {@link Schedule} at the given id from database
+     * <br> </br>
+     * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForDeletingAnNotExistingObject(int, Context)} to handle exceptions
+     *
+     * @param id the id the {@link Schedule} to delete has
+     */
+    @Override
+    public void deleteScheduleAtId(int id) {
+        try {
+            deleteScheduleAtIdOrThrow(id);
+        } catch (NoSuchFieldException e) {
+            ExceptionHandler.handleDatabaseExceptionForDeletingAnNotExistingObject(id, context);
+        }
+    }
+    //endregion
+    //endregion
+
+    //region orThrow Methods
+    //region getObjectAtId
+
+    /**
+     * gets the {@link Subject} at a specific id from database
+     *
+     * @param id id in database
+     * @return row with given id from db as {@link Subject}
+     * @throws NoSuchFieldException if there is no {@link Subject} at the given id in the Database
+     */
+    @Override
+    public Subject getSubjectAtIdOrThrow(int id) throws NoSuchFieldException {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = null;
 
@@ -70,30 +630,29 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
 
             return new Subject(
                     cursor.getInt(0),
-                    getTeacherAtId(cursor.getInt(1)),
+                    getTeacherAtIdOrThrow(cursor.getInt(1)),
                     cursor.getString(2),
                     cursor.getString(3)
             );
         } catch (Exception e) {
-            ExceptionHandler.handleDatabaseExceptionForGettingANotExistingObject("Subject", context);
+            throw new NoSuchFieldException();
         } finally {
             if (cursor != null) {
                 cursor.close();
             }
             db.close();
         }
-        return null;
     }
-
 
     /**
      * gets the {@link Teacher} at a specific id from database
      *
      * @param id id in database
-     * @return row with given id from db as {@link Teacher}, or null if not existing
+     * @return row with given id from db as {@link Teacher}
+     * @throws NoSuchFieldException if there is no {@link Teacher} at the given id in the Database
      */
     @Override
-    public Teacher getTeacherAtId(int id) {
+    public Teacher getTeacherAtIdOrThrow(int id) throws NoSuchFieldException {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = null;
 
@@ -110,24 +669,24 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
                     cursor.getString(3).charAt(0)
             );
         } catch (Exception e) {
-            ExceptionHandler.handleDatabaseExceptionForGettingANotExistingObject("Teacher", context);
+            throw new NoSuchFieldException();
         } finally {
             if (cursor != null) {
                 cursor.close();
             }
             db.close();
         }
-        return null;
     }
 
     /**
      * gets the {@link Homework} at a specific id from database
      *
      * @param id id in database
-     * @return row with given id from db as {@link Homework}, or null if not existing
+     * @return row with given id from db as {@link Homework}
+     * @throws NoSuchFieldException if there is no {@link Homework} at the given id in the Database
      */
     @Override
-    public Homework getHomeworkAtId(int id) {
+    public Homework getHomeworkAtIdOrThrow(int id) throws NoSuchFieldException {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = null;
 
@@ -140,7 +699,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
             if (cursor.getInt(4) == 0) {
                 return new Homework(
                         cursor.getInt(0),
-                        getSubjectAtId(cursor.getInt(1)),
+                        getSubjectAtIdOrThrow(cursor.getInt(1)),
                         cursor.getString(2),
                         cursor.getString(3),
                         false
@@ -148,7 +707,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
             } else {
                 return new Homework(
                         cursor.getInt(0),
-                        getSubjectAtId(cursor.getInt(1)),
+                        getSubjectAtIdOrThrow(cursor.getInt(1)),
                         cursor.getString(2),
                         cursor.getString(3),
                         true
@@ -156,24 +715,24 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
             }
 
         } catch (Exception e) {
-            ExceptionHandler.handleDatabaseExceptionForGettingANotExistingObject("Homework", context);
+            throw new NoSuchFieldException();
         } finally {
             if (cursor != null) {
                 cursor.close();
             }
             db.close();
         }
-        return null;
     }
 
     /**
      * gets the {@link Exam} at a specific id from database
      *
      * @param id id in database
-     * @return row with given id from db as {@link Exam}, or null if not existing
+     * @return row with given id from db as {@link Exam}
+     * @throws NoSuchFieldException if there is no {@link Exam} at the given id in the Database
      */
     @Override
-    public Exam getExamAtId(int id) {
+    public Exam getExamAtIdOrThrow(int id) throws NoSuchFieldException {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = null;
 
@@ -185,29 +744,29 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
 
             return new Exam(
                     cursor.getInt(0),
-                    getSubjectAtId(cursor.getInt(1)),
+                    getSubjectAtIdOrThrow(cursor.getInt(1)),
                     cursor.getString(2),
                     cursor.getString(3)
             );
         } catch (Exception e) {
-            ExceptionHandler.handleDatabaseExceptionForGettingANotExistingObject("Exam", context);
+            throw new NoSuchFieldException();
         } finally {
             if (cursor != null) {
                 cursor.close();
             }
             db.close();
         }
-        return null;
     }
 
     /**
      * gets the {@link Grade} at a specific id from database
      *
      * @param id id in database
-     * @return row with given id from db as {@link Grade}, or null if not existing
+     * @return row with given id from db as {@link Grade}
+     * @throws NoSuchFieldException if there is no {@link Grade} at the given id in the Database
      */
     @Override
-    public Grade getGradeAtId(int id) {
+    public Grade getGradeAtIdOrThrow(int id) throws NoSuchFieldException {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = null;
 
@@ -219,29 +778,29 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
 
             return new Grade(
                     cursor.getInt(0),
-                    getSubjectAtId(cursor.getInt(1)),
+                    getSubjectAtIdOrThrow(cursor.getInt(1)),
                     cursor.getString(2),
                     cursor.getString(3)
             );
         } catch (Exception e) {
-            ExceptionHandler.handleDatabaseExceptionForGettingANotExistingObject("Grade", context);
+            throw new NoSuchFieldException();
         } finally {
             if (cursor != null) {
                 cursor.close();
             }
             db.close();
         }
-        return null;
     }
 
     /**
      * gets the {@link Period} at a specific id from database
      *
      * @param id id in database
-     * @return row with given id from db as {@link Period}, or null if not existing
+     * @return row with given id from db as {@link Period}
+     * @throws NoSuchFieldException if there is no {@link Period} at the given id in the Database
      */
     @Override
-    public Period getPeriodAtId(int id) {
+    public Period getPeriodAtIdOrThrow(int id) throws NoSuchFieldException {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = null;
 
@@ -253,30 +812,30 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
 
             return new Period(
                     cursor.getInt(0),
-                    getSubjectAtId(cursor.getInt(1)),
+                    getSubjectAtIdOrThrow(cursor.getInt(1)),
                     cursor.getInt(3),
                     cursor.getString(4),
                     cursor.getString(5)
             );
         } catch (Exception e) {
-            ExceptionHandler.handleDatabaseExceptionForGettingANotExistingObject("Period", context);
+            throw new NoSuchFieldException();
         } finally {
             if (cursor != null) {
                 cursor.close();
             }
             db.close();
         }
-        return null;
     }
 
     /**
      * gets the {@link Weekday} at a specific id from database
      *
      * @param id id in database
-     * @return row with given id from db as {@link Weekday}, or null if not existing
+     * @return row with given id from db as {@link Weekday}
+     * @throws NoSuchFieldException if there is no {@link Homework} at the given id in the Database
      */
     @Override
-    public Weekday getWeekdayAtId(int id) {
+    public Weekday getWeekdayAtIdOrThrow(int id) throws NoSuchFieldException {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = null;
 
@@ -286,30 +845,31 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
             cursor = db.rawQuery(query, null);
             cursor.moveToFirst();
 
-            return new Weekday(
+            Weekday weekday = new Weekday(
                     cursor.getInt(0),
                     cursor.getString(2),
                     getPeriodsAtWeekday(id)
             );
+            return weekday;
         } catch (Exception e) {
-            ExceptionHandler.handleDatabaseExceptionForGettingANotExistingObject("Weekday", context);
+            throw new NoSuchFieldException();
         } finally {
             if (cursor != null) {
                 cursor.close();
             }
             db.close();
         }
-        return null;
     }
 
     /**
      * gets the {@link Schedule} at a specific id from database
      *
      * @param id id in database
-     * @return row with given id from db as {@link Schedule}, or null if not existing
+     * @return row with given id from db as {@link Schedule}
+     * @throws NoSuchFieldException if there is no {@link Homework} at the given id in the Database
      */
     @Override
-    public Schedule getScheduleAtId(int id) {
+    public Schedule getScheduleAtIdOrThrow(int id) throws NoSuchFieldException {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = null;
 
@@ -325,19 +885,15 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
                     getWeekdaysAtSchedule(id)
             );
         } catch (Exception e) {
-            ExceptionHandler.handleDatabaseExceptionForGettingANotExistingObject("Schedule", context);
+            throw new NoSuchFieldException();
         } finally {
             if (cursor != null) {
                 cursor.close();
             }
             db.close();
         }
-        return null;
     }
-
-
     //endregion
-
 
     //region updateObjectAtId
 
@@ -345,20 +901,15 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      * updates {@link Subject} at the given id in database
      *
      * @param newSubject the new {@link Subject}
+     * @throws NoSuchFieldException if there is no {@link Subject} at the given id in the Database
      */
     @Override
-    public void updateSubjectAtId(Subject newSubject) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        String query = "UPDATE " + TABLE_SUBJECT + " SET "
-                + SUBJECT_COLUMN_NAME + " = " + "'" + newSubject.getName() + "', "
-                + SUBJECT_COLUMN_ROOM + " = " + "'" + newSubject.getRoom() + "', "
-                + SUBJECT_COLUMN_TEACHER_ID + " = " + newSubject.getTeacher().getId()
-                + " WHERE " + SUBJECT_COLUMN_ID + " = " + newSubject.getId();
+    public void updateSubjectAtIdOrThrow(Subject newSubject) throws NoSuchFieldException {
+        deleteSubjectAtIdOrThrow(newSubject.getId());
         try {
-            db.execSQL(query);
-        } catch (Exception e) {
-            ExceptionHandler.handleDatabaseExceptionForUpdatingAnNotExistingObject("Subject", context);
+            insertIntoDBOrThrow(newSubject);
+        } catch (IllegalAccessException e) {
+            //never reach this point
         }
     }
 
@@ -366,20 +917,15 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      * updates {@link Teacher} at the given id in database
      *
      * @param newTeacher the new {@link Teacher}
+     * @throws NoSuchFieldException if there is no {@link Teacher} at the given id in the Database
      */
     @Override
-    public void updateTeacherAtId(Teacher newTeacher) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        String query = "UPDATE " + TABLE_TEACHER + " SET "
-                + TEACHER_COLUMN_NAME + " = " + "'" + newTeacher.getName() + "', "
-                + TEACHER_COLUMN_ABBREVIATION + " = " + "'" + newTeacher.getAbbreviation() + "', "
-                + TEACHER_COLUMN_GENDER + " = " + "'" + newTeacher.getGender() + "'"
-                + " WHERE " + TEACHER_COLUMN_ID + " = " + newTeacher.getId();
+    public void updateTeacherAtIdOrThrow(Teacher newTeacher) throws NoSuchFieldException {
+        deleteTeacherAtIdOrThrow(newTeacher.getId());
         try {
-            db.execSQL(query);
-        } catch (Exception e) {
-            ExceptionHandler.handleDatabaseExceptionForUpdatingAnNotExistingObject("Teacher", context);
+            insertIntoDBOrThrow(newTeacher);
+        } catch (IllegalAccessException e) {
+            //never reach this point
         }
     }
 
@@ -387,20 +933,15 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      * updates {@link Homework} at the given id in database
      *
      * @param newHomework the new {@link Homework}
+     * @throws NoSuchFieldException if there is no {@link Homework} at the given id in the Database
      */
     @Override
-    public void updateHomeworkAtId(Homework newHomework) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        String query = "UPDATE " + TABLE_HOMEWORK + " SET "
-                + HOMEWORK_COLUMN_SUBJECT_ID + " = " + newHomework.getSubject().getId() + ", "
-                + HOMEWORK_COLUMN_DESCRIPTION + " = " + "'" + newHomework.getDescription() + "', "
-                + HOMEWORK_COLUMN_DEADLINE + " = " + "'" + newHomework.getDeadlineAsString() + "'"
-                + " WHERE " + SUBJECT_COLUMN_ID + " = " + newHomework.getId();
+    public void updateHomeworkAtIdOrThrow(Homework newHomework) throws NoSuchFieldException {
+        deleteHomeworkAtIdOrThrow(newHomework.getId());
         try {
-            db.execSQL(query);
-        } catch (Exception e) {
-            ExceptionHandler.handleDatabaseExceptionForUpdatingAnNotExistingObject("Homework", context);
+            insertIntoDBOrThrow(newHomework);
+        } catch (IllegalAccessException e) {
+            //never reach this point
         }
     }
 
@@ -408,20 +949,15 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      * updates {@link Exam} at the given id in database
      *
      * @param newExam the new {@link Exam}
+     * @throws NoSuchFieldException if there is no {@link Exam} at the given id in the Database
      */
     @Override
-    public void updateExamAtId(Exam newExam) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        String query = "UPDATE " + TABLE_EXAM + " SET "
-                + EXAM_COLUMN_SUBJECT_ID + " = " + newExam.getSubject().getId() + ", "
-                + EXAM_COLUMN_DESCRIPTION + " = " + "'" + newExam.getDescription() + "', "
-                + EXAM_COLUMN_DEADLINE + " = " + "'" + newExam.getDeadlineAsString() + "'"
-                + " WHERE " + EXAM_COLUMN_ID + " = " + newExam.getId();
+    public void updateExamAtIdOrThrow(Exam newExam) throws NoSuchFieldException {
+        deleteExamAtIdOrThrow(newExam.getId());
         try {
-            db.execSQL(query);
-        } catch (Exception e) {
-            ExceptionHandler.handleDatabaseExceptionForUpdatingAnNotExistingObject("Exam", context);
+            insertIntoDBOrThrow(newExam);
+        } catch (IllegalAccessException e) {
+            //never reach this point
         }
     }
 
@@ -429,262 +965,286 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      * updates {@link Grade} at the given id in database
      *
      * @param newGrade the new {@link Grade}
+     * @throws NoSuchFieldException if there is no {@link Grade} at the given id in the Database
      */
     @Override
-    public void updateGradeAtId(Grade newGrade) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        String query = "UPDATE " + TABLE_GRADE + " SET "
-                + GRADE_COLUMN_SUBJECT_ID + " = " + newGrade.getSubject().getId() + ", "
-                + GRADE_COLUMN_NAME + " = " + "'" + newGrade.getName() + "', "
-                + GRADE_COLUMN_GRADE + " = " + "'" + newGrade.getGrade() + "'"
-                + " WHERE " + GRADE_COLUMN_ID + " = " + newGrade.getId();
+    public void updateGradeAtIdOrThrow(Grade newGrade) throws NoSuchFieldException {
+        deleteGradeAtIdOrThrow(newGrade.getId());
         try {
-            db.execSQL(query);
-        } catch (Exception e) {
-            ExceptionHandler.handleDatabaseExceptionForUpdatingAnNotExistingObject("Grade", context);
+            insertIntoDBOrThrow(newGrade);
+        } catch (IllegalAccessException e) {
+            //never reach this point
         }
     }
 
     /**
-     * updates {@link Period} at the given id in database. Except the Weekday ID Field, which has to be updated manually
+     * updates {@link Period} at the given id in database
      *
      * @param newPeriod the new {@link Period}
+     * @throws NoSuchFieldException if there is no {@link Period} at the given id in the Database
      */
     @Override
-    public void updatePeriodAtId(Period newPeriod) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        String query = "UPDATE " + TABLE_PERIOD + " SET "
-                + PERIOD_COLUMN_SUBJECT_ID + " = " + newPeriod.getSubject().getId() + ", "
-                + PERIOD_COLUMN_SCHOOL_HOUR_NO + " = " + newPeriod.getSchoolHourNo() + ", "
-                + PERIOD_COLUMN_STARTTIME + " = " + "'" + newPeriod.getStartTimeAsString() + "', "
-                + PERIOD_COLUMN_ENDTIME + " = " + "'" + newPeriod.getEndTimeAsString() + "'"
-                + " WHERE " + PERIOD_COLUMN_ID + " = " + newPeriod.getId();
+    public void updatePeriodAtIdOrThrow(Period newPeriod) throws NoSuchFieldException {
+        deletePeriodAtIdOrThrow(newPeriod.getId());
         try {
-            db.execSQL(query);
-        } catch (Exception e) {
-            ExceptionHandler.handleDatabaseExceptionForUpdatingAnNotExistingObject("Period", context);
+            insertIntoDBOrThrow(newPeriod);
+        } catch (IllegalAccessException e) {
+            //never reach this point
         }
     }
 
     /**
-     * updates {@link Weekday} at the given id in database. Except the Schedule ID Field, which has to be updated manuall
+     * updates {@link Weekday} at the given id in database
      *
      * @param newWeekday the new {@link Weekday}
+     * @throws NoSuchFieldException if there is no {@link Weekday} at the given id in the Database
      */
     @Override
-    public void updateWeekdayAtId(Weekday newWeekday) {
-        deleteWeekdayAtId(newWeekday.getId());
-        insertIntoDB(newWeekday);
+    public void updateWeekdayAtIdOrThrow(Weekday newWeekday) throws NoSuchFieldException {
+        deleteWeekdayAtIdOrThrow(newWeekday.getId());
+        try {
+            insertIntoDBOrThrow(newWeekday);
+        } catch (IllegalAccessException e) {
+            //never reach this point
+        }
     }
 
     /**
      * updates {@link Schedule} at the given id in database
      *
      * @param newSchedule the new {@link Schedule}
+     * @throws NoSuchFieldException if there is no {@link Schedule} at the given id in the Database
      */
     @Override
-    public void updateScheduleAtId(Schedule newSchedule) {
-        deleteScheduleAtId(newSchedule.getId());
-        insertIntoDB(newSchedule);
-
+    public void updateScheduleAtIdOrThrow(Schedule newSchedule) throws NoSuchFieldException {
+        deleteScheduleAtIdOrThrow(newSchedule.getId());
+        try {
+            insertIntoDBOrThrow(newSchedule);
+        } catch (IllegalAccessException e) {
+            //never reach this point
+        }
     }
     //endregion
-
 
     //region insertIntoDB
 
     /**
-     * inserts {@link Subject} into database
+     * inserts {@link Subject} into database at a given id, use an ID <= 0 to insert at next unoccupied ID
      *
      * @param subject {@link Subject} to be inserted
      * @return the id in the database the {@link Subject} was inserted
+     * @throws IllegalAccessException if the given ID is already occupied
      */
     @Override
-    public int insertIntoDB(Subject subject) {
-        SQLiteDatabase db = this.getWritableDatabase();
+    public int insertIntoDBOrThrow(Subject subject) throws IllegalAccessException {
+        try {
+            getTeacherAtIdOrThrow(subject.getTeacher().getId());
+        } catch (NoSuchFieldException e) {
+            insertIntoDBOrThrow(subject.getTeacher());
+        }
 
+        SQLiteDatabase db = this.getWritableDatabase();
         String query = "INSERT INTO " + TABLE_SUBJECT + " VALUES ( " + subject.getId() + ", " + subject.getTeacher().getId() + ", \"" + subject.getName() + "\", \"" + subject.getRoom() + "\")";
 
-        insertIntoDB(subject.getTeacher());
         try {
             db.execSQL(query);
         } catch (Exception e) {
-            ExceptionHandler.handleDatabaseExceptionForAddingAAlreadyExistingObject(subject, context);
-            return -1;
+            throw new IllegalAccessException();
         }
         return subject.getId();
-
     }
 
     /**
-     * inserts {@link Teacher} into database
+     * inserts {@link Teacher} into database, use an ID <= 0 to insert at next unoccupied ID
      *
      * @param teacher {@link Teacher} to be inserted
      * @return the id in the database the {@link Teacher} was inserted
+     * @throws IllegalAccessException if the given ID is already occupied
      */
     @Override
-    public int insertIntoDB(Teacher teacher) {
+    public int insertIntoDBOrThrow(Teacher teacher) throws IllegalAccessException {
         SQLiteDatabase db = this.getWritableDatabase();
-
         String query = "INSERT INTO " + TABLE_TEACHER + " VALUES ( " + teacher.getId() + ", \"" + teacher.getName() + "\", \"" + teacher.getAbbreviation() + "\", \"" + teacher.getGender() + "\")";
 
         try {
             db.execSQL(query);
         } catch (Exception e) {
-            ExceptionHandler.handleDatabaseExceptionForAddingAAlreadyExistingObject(teacher, context);
-            return -1;
+            throw new IllegalAccessException();
         }
         return teacher.getId();
     }
 
     /**
-     * inserts {@link Homework} into database
+     * inserts {@link Homework} into database, use an ID <= 0 to insert at next unoccupied ID
      *
      * @param homework {@link Homework} to be inserted
      * @return the id in the database the {@link Homework} was inserted
+     * @throws IllegalAccessException if the given ID is already occupied
      */
     @Override
-    public int insertIntoDB(Homework homework) {
-        SQLiteDatabase db = this.getWritableDatabase();
+    public int insertIntoDBOrThrow(Homework homework) throws IllegalAccessException {
+        try {
+            getSubjectAtIdOrThrow(homework.getSubject().getId());
+        } catch (NoSuchFieldException e) {
+            insertIntoDBOrThrow(homework.getSubject());
+        }
 
+        SQLiteDatabase db = this.getWritableDatabase();
         String query = "INSERT INTO " + TABLE_HOMEWORK + " VALUES ( " + homework.getId() + ", " + homework.getSubject().getId() + ", \"" + homework.getDescription() + "\", \"" + homework.getDeadlineAsString() + "\", " + homework.getDone() + ")";
 
-        insertIntoDB(homework.getSubject());
         try {
             db.execSQL(query);
         } catch (Exception e) {
-            ExceptionHandler.handleDatabaseExceptionForAddingAAlreadyExistingObject(homework, context);
-            return -1;
+            throw new IllegalAccessException();
         }
+
         return homework.getId();
     }
 
     /**
-     * inserts {@link Exam} into database
+     * inserts {@link Exam} into database, use an ID <= 0 to insert at next unoccupied ID
      *
      * @param exam {@link Exam} to be inserted
      * @return the id in the database the {@link Exam} was inserted
+     * @throws IllegalAccessException if the given ID is already occupied
      */
     @Override
-    public int insertIntoDB(Exam exam) {
-        SQLiteDatabase db = this.getWritableDatabase();
+    public int insertIntoDBOrThrow(Exam exam) throws IllegalAccessException {
+        try {
+            getSubjectAtIdOrThrow(exam.getSubject().getId());
+        } catch (NoSuchFieldException e) {
+            insertIntoDBOrThrow(exam.getSubject());
+        }
 
+        SQLiteDatabase db = this.getWritableDatabase();
         String query = "INSERT INTO " + TABLE_EXAM + " VALUES ( " + exam.getId() + ", " + exam.getSubject().getId() + ", \"" + exam.getDescription() + "\", \"" + exam.getDeadlineAsString() + "\")";
 
-        insertIntoDB(exam.getSubject());
         try {
             db.execSQL(query);
         } catch (Exception e) {
-            ExceptionHandler.handleDatabaseExceptionForAddingAAlreadyExistingObject(exam, context);
-            return -1;
+            throw new IllegalAccessException();
         }
         return exam.getId();
     }
 
     /**
-     * inserts {@link Grade} into database
+     * inserts {@link Grade} into database, use an ID <= 0 to insert at next unoccupied ID
      *
      * @param grade {@link Grade} to be inserted
      * @return the id in the database the {@link Grade} was inserted
+     * @throws IllegalAccessException if the given ID is already occupied
      */
     @Override
-    public int insertIntoDB(Grade grade) {
-        SQLiteDatabase db = this.getWritableDatabase();
+    public int insertIntoDBOrThrow(Grade grade) throws IllegalAccessException {
+        try {
+            getSubjectAtIdOrThrow(grade.getSubject().getId());
+        } catch (NoSuchFieldException e) {
+            insertIntoDBOrThrow(grade.getSubject());
+        }
 
+        SQLiteDatabase db = this.getWritableDatabase();
         String query = "INSERT INTO " + TABLE_GRADE + " VALUES ( " + grade.getId() + ", " + grade.getSubject().getId() + ", \"" + grade.getName() + "\", \"" + grade.getGrade() + "\")";
 
-        insertIntoDB(grade.getSubject());
         try {
             db.execSQL(query);
         } catch (Exception e) {
-            ExceptionHandler.handleDatabaseExceptionForAddingAAlreadyExistingObject(grade, context);
-            return -1;
+            throw new IllegalAccessException();
         }
         return grade.getId();
     }
 
     /**
-     * inserts {@link Period} into database
+     * inserts {@link Period} into database, use an ID <= 0 to insert at next unoccupied ID
      *
      * @param period {@link Period} to be inserted
      * @return the id in the database the {@link Grade} was inserted
+     * @throws IllegalAccessException if the given ID is already occupied
      */
     @Override
-    public int insertIntoDB(Period period) {
-        SQLiteDatabase db = this.getWritableDatabase();
+    public int insertIntoDBOrThrow(Period period) throws IllegalAccessException {
+        try {
+            getSubjectAtIdOrThrow(period.getSubject().getId());
+        } catch (NoSuchFieldException e) {
+            insertIntoDBOrThrow(period.getSubject());
+        }
 
+        SQLiteDatabase db = this.getWritableDatabase();
         String query = "INSERT INTO " + TABLE_PERIOD + " VALUES ( " + period.getId() + ", " + period.getSubject().getId() + ",NULL, \"" + period.getSchoolHourNo() + "\", \"" + period.getStartTimeAsString() + "\", \"" + period.getEndTimeAsString() + "\")";
 
-        insertIntoDB(period.getSubject());
         try {
             db.execSQL(query);
         } catch (Exception e) {
-            ExceptionHandler.handleDatabaseExceptionForAddingAAlreadyExistingObject(period, context);
-            return -1;
+            throw new IllegalAccessException();
         }
         return period.getId();
     }
 
     /**
-     * inserts {@link Weekday} into database
+     * inserts {@link Weekday} into database, use an ID <= 0 to insert at next unoccupied ID
      *
      * @param weekday {@link Weekday} to be inserted
      * @return the id in the database the {@link Weekday} was inserted
+     * @throws IllegalAccessException if the given ID is already occupied
      */
     @Override
-    public int insertIntoDB(Weekday weekday) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        String query = "INSERT INTO " + TABLE_WEEKDAY + " VALUES ( " + weekday.getId() + ",NULL, \"" + weekday.getName() + "\")";
-
+    public int insertIntoDBOrThrow(Weekday weekday) throws IllegalAccessException {
         for (int i = 0; i < weekday.getPeriods().length; i++) {
             if (weekday.getPeriods()[i] != null) {
-                insertIntoDB(weekday.getPeriods()[i]);
-                updatePeriodWeekdayIdAtId(weekday.getPeriods()[i].getId(), weekday.getId());
+                try {
+                    if ((getPeriodAtIdOrThrow(weekday.getPeriods()[i].getId()).match(weekday.getPeriods()[i]))) {
+                        updatePeriodWeekdayIdAtId(weekday.getPeriods()[i].getId(), weekday.getId());
+                    }
+                } catch (NoSuchFieldException e) {
+                    insertIntoDBOrThrow(weekday.getPeriods()[i]);
+                    updatePeriodWeekdayIdAtId(weekday.getPeriods()[i].getId(), weekday.getId());
+                }
             }
         }
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "INSERT INTO " + TABLE_WEEKDAY + " VALUES ( " + weekday.getId() + ",NULL, \"" + weekday.getName() + "\")";
 
         try {
             db.execSQL(query);
         } catch (Exception e) {
-            ExceptionHandler.handleDatabaseExceptionForAddingAAlreadyExistingObject(weekday, context);
-            return -1;
+            throw new IllegalAccessException();
         }
         return weekday.getId();
     }
 
-
     /**
-     * inserts {@link Schedule} into database
+     * inserts {@link Schedule} into database, use an ID <= 0 to insert at next unoccupied ID
      *
      * @param schedule {@link Schedule} to be inserted
      * @return the id in the database the {@link Schedule} was inserted
+     * @throws IllegalAccessException if the given ID is already occupied
      */
     @Override
-    public int insertIntoDB(Schedule schedule) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        String query = "INSERT INTO " + TABLE_SCHEDULE + " VALUES ( " + schedule.getId() + ", \"" + schedule.getName() + "\")";
-
+    public int insertIntoDBOrThrow(Schedule schedule) throws IllegalAccessException {
         for (int i = 0; i < schedule.getDays().length; i++) {
             if (schedule.getDays()[i] != null) {
-                insertIntoDB(schedule.getDays()[i]);
-                updateWeekdayScheduleIdAtId(schedule.getDays()[i].getId(), schedule.getId());
+                try {
+                    if ((getWeekdayAtIdOrThrow(schedule.getDays()[i].getId()).match(schedule.getDays()[i]))) {
+                        updateWeekdayScheduleIdAtId(schedule.getDays()[i].getId(), schedule.getId());
+                    }
+                } catch (NoSuchFieldException e) {
+                    insertIntoDBOrThrow(schedule.getDays()[i]);
+                    updateWeekdayScheduleIdAtId(schedule.getDays()[i].getId(), schedule.getId());
+                }
             }
         }
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "INSERT INTO " + TABLE_SCHEDULE + " VALUES ( " + schedule.getId() + ", \"" + schedule.getName() + "\")";
 
         try {
             db.execSQL(query);
         } catch (Exception e) {
-            ExceptionHandler.handleDatabaseExceptionForAddingAAlreadyExistingObject(schedule, context);
-            return -1;
+            throw new IllegalAccessException();
         }
         return schedule.getId();
     }
     //endregion
-
 
     //region deleteObjectAtId
 
@@ -692,9 +1252,10 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      * deletes the {@link Subject} at the given id from database
      *
      * @param id the id the {@link Subject} to delete has
+     * @throws NoSuchFieldException if there is no {@link Subject} at the given id in the Database
      */
     @Override
-    public void deleteSubjectAtId(int id) {
+    public void deleteSubjectAtIdOrThrow(int id) throws NoSuchFieldException {
         SQLiteDatabase db = this.getWritableDatabase();
 
         String query = "DELETE FROM " + TABLE_SUBJECT + " WHERE " + SUBJECT_COLUMN_ID + " = " + id;
@@ -702,7 +1263,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         try {
             db.execSQL(query);
         } catch (Exception e) {
-            ExceptionHandler.handleDatabaseExceptionForDeletingAnNotExistingObject(id, context);
+            throw new NoSuchFieldException();
         }
     }
 
@@ -710,9 +1271,10 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      * deletes the {@link Teacher} at the given id from database
      *
      * @param id the id the {@link Teacher} to delete has
+     * @throws NoSuchFieldException if there is no {@link Teacher} at the given id in the Database
      */
     @Override
-    public void deleteTeacherAtId(int id) {
+    public void deleteTeacherAtIdOrThrow(int id) throws NoSuchFieldException {
         SQLiteDatabase db = this.getWritableDatabase();
 
         String query = "DELETE FROM " + TABLE_TEACHER + " WHERE " + TEACHER_COLUMN_ID + " = " + id;
@@ -720,7 +1282,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         try {
             db.execSQL(query);
         } catch (Exception e) {
-            ExceptionHandler.handleDatabaseExceptionForDeletingAnNotExistingObject(id, context);
+            throw new NoSuchFieldException();
         }
     }
 
@@ -728,9 +1290,10 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      * deletes the {@link Homework} at the given id from database
      *
      * @param id the id the {@link Homework} to delete has
+     * @throws NoSuchFieldException if there is no {@link Homework} at the given id in the Database
      */
     @Override
-    public void deleteHomeworkAtId(int id) {
+    public void deleteHomeworkAtIdOrThrow(int id) throws NoSuchFieldException {
         SQLiteDatabase db = this.getWritableDatabase();
 
         String query = "DELETE FROM " + TABLE_HOMEWORK + " WHERE " + HOMEWORK_COLUMN_ID + " = " + id;
@@ -738,7 +1301,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         try {
             db.execSQL(query);
         } catch (Exception e) {
-            ExceptionHandler.handleDatabaseExceptionForDeletingAnNotExistingObject(id, context);
+            throw new NoSuchFieldException();
         }
     }
 
@@ -746,9 +1309,10 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      * deletes the {@link Exam} at the given id from database
      *
      * @param id the id the {@link Exam} to delete has
+     * @throws NoSuchFieldException if there is no {@link Homework} at the given id in the Database
      */
     @Override
-    public void deleteExamAtId(int id) {
+    public void deleteExamAtIdOrThrow(int id) throws NoSuchFieldException {
         SQLiteDatabase db = this.getWritableDatabase();
 
         String query = "DELETE FROM " + TABLE_EXAM + " WHERE " + EXAM_COLUMN_ID + " = " + id;
@@ -756,7 +1320,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         try {
             db.execSQL(query);
         } catch (Exception e) {
-            ExceptionHandler.handleDatabaseExceptionForDeletingAnNotExistingObject(id, context);
+            throw new NoSuchFieldException();
         }
     }
 
@@ -764,9 +1328,10 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      * deletes the {@link Grade} at the given id from database
      *
      * @param id the id the {@link Grade} to delete has
+     * @throws NoSuchFieldException if there is no {@link Grade} at the given id in the Database
      */
     @Override
-    public void deleteGradeAtId(int id) {
+    public void deleteGradeAtIdOrThrow(int id) throws NoSuchFieldException {
         SQLiteDatabase db = this.getWritableDatabase();
 
         String query = "DELETE FROM " + TABLE_GRADE + " WHERE " + GRADE_COLUMN_ID + " = " + id;
@@ -774,7 +1339,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         try {
             db.execSQL(query);
         } catch (Exception e) {
-            ExceptionHandler.handleDatabaseExceptionForDeletingAnNotExistingObject(id, context);
+            throw new NoSuchFieldException();
         }
     }
 
@@ -782,9 +1347,10 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      * deletes the {@link Period} at the given id from database
      *
      * @param id the id the {@link Period} to delete has
+     * @throws NoSuchFieldException if there is no {@link Period} at the given id in the Database
      */
     @Override
-    public void deletePeriodAtId(int id) {
+    public void deletePeriodAtIdOrThrow(int id) throws NoSuchFieldException {
         SQLiteDatabase db = this.getWritableDatabase();
 
         String query = "DELETE FROM " + TABLE_PERIOD + " WHERE " + PERIOD_COLUMN_ID + " = " + id;
@@ -792,7 +1358,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         try {
             db.execSQL(query);
         } catch (Exception e) {
-            ExceptionHandler.handleDatabaseExceptionForDeletingAnNotExistingObject(id, context);
+            throw new NoSuchFieldException();
         }
     }
 
@@ -800,9 +1366,10 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      * deletes the {@link Weekday} at the given id from database
      *
      * @param id the id the {@link Weekday} to delete has
+     * @throws NoSuchFieldException if there is no {@link Weekday} at the given id in the Database
      */
     @Override
-    public void deleteWeekdayAtId(int id) {
+    public void deleteWeekdayAtIdOrThrow(int id) throws NoSuchFieldException {
         SQLiteDatabase db = this.getWritableDatabase();
 
         String query = "DELETE FROM " + TABLE_WEEKDAY + " WHERE " + WEEKDAY_COLUMN_ID + " = " + id;
@@ -810,7 +1377,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         try {
             db.execSQL(query);
         } catch (Exception e) {
-            ExceptionHandler.handleDatabaseExceptionForDeletingAnNotExistingObject(id, context);
+            throw new NoSuchFieldException();
         }
     }
 
@@ -818,9 +1385,10 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      * deletes the {@link Schedule} at the given id from database
      *
      * @param id the id the {@link Schedule} to delete has
+     * @throws NoSuchFieldException if there is no {@link Schedule} at the given id in the Database
      */
     @Override
-    public void deleteScheduleAtId(int id) {
+    public void deleteScheduleAtIdOrThrow(int id) throws NoSuchFieldException {
         SQLiteDatabase db = this.getWritableDatabase();
 
         String query = "DELETE FROM " + TABLE_SCHEDULE + " WHERE " + SCHEDULE_COLUMN_ID + " = " + id;
@@ -831,6 +1399,8 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
             ExceptionHandler.handleDatabaseExceptionForDeletingAnNotExistingObject(id, context);
         }
     }
+
+    //endregion
     //endregion
 
 
@@ -951,8 +1521,8 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         Grade grade1 = new Grade(1, subject1, "2nd Math test", "13");
         Grade grade2 = new Grade(2, subject2, "3rd German test", "4");
 
-        Homework homework1 = new Homework(1, subject1, "Geometry - draw a rectangle", "2017-06-17", false);
-        Homework homework2 = new Homework(2, subject2, "Characterisation Goethe", "2017-05-03", false);
+        Homework homework1 = new Homework(1, subject1, "Geometry - draw a rectangle", "2017-05-06", false);
+        Homework homework2 = new Homework(2, subject2, "Characterisation Goethe", "2017-06-03", false);
         Homework homework3 = new Homework(3, subject1, "The calculation of probabilities", "2017-05-07", true);
         Homework homework4 = new Homework(4, subject2, "Literature during WW2", "2017-05-05", false);
 
@@ -988,6 +1558,8 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         insertIntoDB(period2);
         insertIntoDB(period3);
         insertIntoDB(period4);
+
+        insertIntoDB(weekday1);
 
         insertIntoDB(schedule1);
 
@@ -1110,7 +1682,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_PERIOD + "(" +
                 PERIOD_COLUMN_ID + " INTEGER PRIMARY KEY NOT NULL, " +
                 PERIOD_COLUMN_SUBJECT_ID + " INTEGER NOT NULL, " +
-                PERIOD_COLUMN_WEEKDAY_ID + " INTEGER NOT NULL, " +
+                PERIOD_COLUMN_WEEKDAY_ID + " INTEGER , " +
                 PERIOD_COLUMN_SCHOOL_HOUR_NO + "INTEGER NOT NULL, " +
                 PERIOD_COLUMN_STARTTIME + " TIME NOT NULL, " +
                 PERIOD_COLUMN_ENDTIME + " TIME NOT NULL )"
@@ -1165,7 +1737,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         cursor.close();
         db.close();
 
-        return (Period[]) periodArrayList.toArray();
+        return periodArrayList.toArray(new Period[0]);
     }
 
 
@@ -1191,7 +1763,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         cursor.close();
         db.close();
 
-        return (Weekday[]) weekdayArrayList.toArray();
+        return weekdayArrayList.toArray(new Weekday[0]);
     }
 
     /**
