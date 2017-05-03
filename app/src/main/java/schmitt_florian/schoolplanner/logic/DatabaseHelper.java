@@ -229,20 +229,6 @@ public interface DatabaseHelper {
     String PERIOD_COLUMN_ID = "period_id";
 
     /**
-     * integer, foreign key, not null
-     * <br> </br>
-     * name of the subjectId column in the period table as String
-     */
-    String PERIOD_COLUMN_SUBJECT_ID = "period_column_subject_id";
-
-    /**
-     * integer, foreign key
-     * <br> </br>
-     * name of the weekdayId column in the period table as String
-     */
-    String PERIOD_COLUMN_WEEKDAY_ID = "period_column_weekday_id";
-
-    /**
      * integer, not null
      * <br> </br>
      * name of the schoolHourNo column in the period table as String
@@ -266,6 +252,39 @@ public interface DatabaseHelper {
      * name of the endTime column in the exam table as String
      */
     String PERIOD_COLUMN_ENDTIME = "period_endtime";
+    //endregion
+
+    //region lesson table
+    String TABLE_LESSON = "lesson";
+
+
+    /**
+     * integer, primary key, not null
+     * <br> </br>
+     * name of the id column in the lesson table as String
+     */
+    String LESSON_COLUMN_ID = "lesson_id";
+
+    /**
+     * integer, foreign key, not null
+     * <br> </br>
+     * name of the subjectId column in the lesson table as String
+     */
+    String LESSON_COLUMN_SUBJECT_ID = "lesson_column_subject_id";
+
+    /**
+     * integer, foreign key, not null
+     * <br> </br>
+     * name of the subjectId column in the lesson table as String
+     */
+    String LESSON_COLUMN_PERIOD_ID = "lesson_column_period_id";
+
+    /**
+     * integer, foreign key
+     * <br> </br>
+     * name of the weekdayId column in the lesson table as String
+     */
+    String LESSON_COLUMN_WEEKDAY_ID = "lesson_column_weekday_id";
     //endregion
 
     //region weekday table
@@ -384,6 +403,16 @@ public interface DatabaseHelper {
     Period getPeriodAtId(int id);
 
     /**
+     * gets the {@link Lesson} at a specific id from database
+     * <br> </br>
+     * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForGettingANotExistingObject(String, Context)} to handle exceptions
+     *
+     * @param id id in database
+     * @return row with given id from db as {@link Lesson}, or null if not existing
+     */
+    Lesson getLessonAtId(int id);
+
+    /**
      * gets the {@link Weekday} at a specific id from database
      * <br> </br>
      * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForGettingANotExistingObject(String, Context)} to handle exceptions
@@ -450,6 +479,15 @@ public interface DatabaseHelper {
      * @param newGrade the new {@link Grade}
      */
     void updateGradeAtId(Grade newGrade);
+
+    /**
+     * updates {@link Lesson} at the given id in database
+     * <br> </br>
+     * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForUpdatingAnNotExistingObject(String, Context)} to handle exceptions
+     *
+     * @param newLesson the new {@link Lesson}
+     */
+    void updateLessonAtId(Lesson newLesson);
 
     /**
      * updates {@link Period} at the given id in database
@@ -537,9 +575,19 @@ public interface DatabaseHelper {
      * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForAddingAAlreadyExistingObject(Object, Context)} to handle exceptions
      *
      * @param period {@link Period} to be inserted
-     * @return the id in the database the {@link Grade} was inserted or -1 if action could not be performed
+     * @return the id in the database the {@link Period} was inserted or -1 if action could not be performed
      */
     int insertIntoDB(Period period);
+
+    /**
+     * inserts {@link Lesson} into database, use an ID <= 0 to insert at next unoccupied ID
+     * <br> </br>
+     * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForAddingAAlreadyExistingObject(Object, Context)} to handle exceptions
+     *
+     * @param lesson {@link Lesson} to be inserted
+     * @return the id in the database the {@link Lesson} was inserted or -1 if action could not be performed
+     */
+    int insertIntoDB(Lesson lesson);
 
     /**
      * inserts {@link Weekday} into database, use an ID <= 0 to insert at next unoccupied ID
@@ -560,7 +608,7 @@ public interface DatabaseHelper {
      * @return the id in the database the {@link Schedule} was inserted or -1 if action could not be performed
      */
     int insertIntoDB(Schedule schedule);
-//endregion
+    //endregion
 
     //region deleteObjectAtId methods
 
@@ -617,6 +665,15 @@ public interface DatabaseHelper {
      * @param id the id the {@link Period} to delete has
      */
     void deletePeriodAtId(int id);
+
+    /**
+     * deletes the {@link Lesson} at the given id from database
+     * <br> </br>
+     * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForDeletingAnNotExistingObject(int, Context)} to handle exceptions
+     *
+     * @param id the id the {@link Lesson} to delete has
+     */
+    void deleteLessonAtId(int id);
 
     /**
      * deletes the {@link Weekday} at the given id from database
@@ -696,11 +753,20 @@ public interface DatabaseHelper {
     Period getPeriodAtIdOrThrow(int id) throws NoSuchFieldException;
 
     /**
+     * gets the {@link Lesson} at a specific id from database
+     *
+     * @param id id in database
+     * @return row with given id from db as {@link Lesson}
+     * @throws NoSuchFieldException if there is no {@link Lesson} at the given id in the Database
+     */
+    Lesson getLessonAtIdOrThrow(int id) throws NoSuchFieldException;
+
+    /**
      * gets the {@link Weekday} at a specific id from database
      *
      * @param id id in database
      * @return row with given id from db as {@link Weekday}
-     * @throws NoSuchFieldException if there is no {@link Homework} at the given id in the Database
+     * @throws NoSuchFieldException if there is no {@link Weekday} at the given id in the Database
      */
     Weekday getWeekdayAtIdOrThrow(int id) throws NoSuchFieldException;
 
@@ -709,7 +775,7 @@ public interface DatabaseHelper {
      *
      * @param id id in database
      * @return row with given id from db as {@link Schedule}
-     * @throws NoSuchFieldException if there is no {@link Homework} at the given id in the Database
+     * @throws NoSuchFieldException if there is no {@link Schedule} at the given id in the Database
      */
     Schedule getScheduleAtIdOrThrow(int id) throws NoSuchFieldException;
     //endregion
@@ -763,6 +829,14 @@ public interface DatabaseHelper {
      * @throws NoSuchFieldException if there is no {@link Period} at the given id in the Database
      */
     void updatePeriodAtIdOrThrow(Period newPeriod) throws NoSuchFieldException;
+
+    /**
+     * updates {@link Lesson} at the given id in database
+     *
+     * @param newLesson the new {@link Lesson}
+     * @throws NoSuchFieldException if there is no {@link Lesson} at the given id in the Database
+     */
+    void updateLessonAtIdOrThrow(Lesson newLesson) throws NoSuchFieldException;
 
     /**
      * updates {@link Weekday} at the given id in database
@@ -832,10 +906,19 @@ public interface DatabaseHelper {
      * inserts {@link Period} into database, use an ID <= 0 to insert at next unoccupied ID
      *
      * @param period {@link Period} to be inserted
-     * @return the id in the database the {@link Grade} was inserted
+     * @return the id in the database the {@link Period} was inserted
      * @throws IllegalAccessException if the given ID is already occupied
      */
     int insertIntoDBOrThrow(Period period) throws IllegalAccessException;
+
+    /**
+     * inserts {@link Lesson} into database, use an ID <= 0 to insert at next unoccupied ID
+     *
+     * @param lesson {@link Lesson} to be inserted
+     * @return the id in the database the {@link Lesson} was inserted
+     * @throws IllegalAccessException if the given ID is already occupied
+     */
+    int insertIntoDBOrThrow(Lesson lesson) throws IllegalAccessException;
 
     /**
      * inserts {@link Weekday} into database, use an ID <= 0 to insert at next unoccupied ID
@@ -854,7 +937,7 @@ public interface DatabaseHelper {
      * @throws IllegalAccessException if the given ID is already occupied
      */
     int insertIntoDBOrThrow(Schedule schedule) throws IllegalAccessException;
-//endregion
+    //endregion
 
     //region deleteObjectAtIdOrThrow methods
 
@@ -886,7 +969,7 @@ public interface DatabaseHelper {
      * deletes the {@link Exam} at the given id from database
      *
      * @param id the id the {@link Exam} to delete has
-     * @throws NoSuchFieldException if there is no {@link Homework} at the given id in the Database
+     * @throws NoSuchFieldException if there is no {@link Exam} at the given id in the Database
      */
     void deleteExamAtIdOrThrow(int id) throws NoSuchFieldException;
 
@@ -905,6 +988,14 @@ public interface DatabaseHelper {
      * @throws NoSuchFieldException if there is no {@link Period} at the given id in the Database
      */
     void deletePeriodAtIdOrThrow(int id) throws NoSuchFieldException;
+
+    /**
+     * deletes the {@link Lesson} at the given id from database
+     *
+     * @param id the id the {@link Lesson} to delete has
+     * @throws NoSuchFieldException if there is no {@link Lesson} at the given id in the Database
+     */
+    void deleteLessonAtIdOrThrow(int id) throws NoSuchFieldException;
 
     /**
      * deletes the {@link Weekday} at the given id from database

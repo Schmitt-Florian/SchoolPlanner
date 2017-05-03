@@ -161,6 +161,24 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     }
 
     /**
+     * gets the {@link Lesson} at a specific id from database
+     * <br> </br>
+     * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForGettingANotExistingObject(String, Context)} to handle exceptions
+     *
+     * @param id id in database
+     * @return row with given id from db as {@link Lesson}, or null if not existing
+     */
+    @Override
+    public Lesson getLessonAtId(int id) {
+        try {
+            return getLessonAtIdOrThrow(id);
+        } catch (NoSuchFieldException e) {
+            ExceptionHandler.handleDatabaseExceptionForGettingANotExistingObject("Lesson", context);
+            return null;
+        }
+    }
+
+    /**
      * gets the {@link Weekday} at a specific id from database
      * <br> </br>
      * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForGettingANotExistingObject(String, Context)} to handle exceptions
@@ -296,6 +314,22 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     }
 
     /**
+     * updates {@link Lesson} at the given id in database
+     * <br> </br>
+     * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForUpdatingAnNotExistingObject(String, Context)} to handle exceptions
+     *
+     * @param newLesson the new {@link Lesson}
+     */
+    @Override
+    public void updateLessonAtId(Lesson newLesson) {
+        try {
+            updateLessonAtIdOrThrow(newLesson);
+        } catch (NoSuchFieldException e) {
+            ExceptionHandler.handleDatabaseExceptionForUpdatingAnNotExistingObject("Lesson", context);
+        }
+    }
+
+    /**
      * updates {@link Weekday} at the given id in database
      * <br> </br>
      * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForUpdatingAnNotExistingObject(String, Context)} to handle exceptions
@@ -426,7 +460,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForAddingAAlreadyExistingObject(Object, Context)} to handle exceptions
      *
      * @param period {@link Period} to be inserted
-     * @return the id in the database the {@link Grade} was inserted or -1 if action could not be performed
+     * @return the id in the database the {@link Period} was inserted or -1 if action could not be performed
      */
     @Override
     public int insertIntoDB(Period period) {
@@ -434,6 +468,24 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
             return insertIntoDBOrThrow(period);
         } catch (IllegalAccessException e) {
             ExceptionHandler.handleDatabaseExceptionForAddingAAlreadyExistingObject(period, context);
+            return -1;
+        }
+    }
+
+    /**
+     * inserts {@link Lesson} into database, use an ID <= 0 to insert at next unoccupied ID
+     * <br> </br>
+     * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForAddingAAlreadyExistingObject(Object, Context)} to handle exceptions
+     *
+     * @param lesson {@link Lesson} to be inserted
+     * @return the id in the database the {@link Lesson} was inserted or -1 if action could not be performed
+     */
+    @Override
+    public int insertIntoDB(Lesson lesson) {
+        try {
+            return insertIntoDBOrThrow(lesson);
+        } catch (IllegalAccessException e) {
+            ExceptionHandler.handleDatabaseExceptionForAddingAAlreadyExistingObject(lesson, context);
             return -1;
         }
     }
@@ -568,6 +620,22 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     public void deletePeriodAtId(int id) {
         try {
             deletePeriodAtIdOrThrow(id);
+        } catch (NoSuchFieldException e) {
+            ExceptionHandler.handleDatabaseExceptionForDeletingAnNotExistingObject(id, context);
+        }
+    }
+
+    /**
+     * deletes the {@link Lesson} at the given id from database
+     * <br> </br>
+     * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForDeletingAnNotExistingObject(int, Context)} to handle exceptions
+     *
+     * @param id the id the {@link Lesson} to delete has
+     */
+    @Override
+    public void deleteLessonAtId(int id) {
+        try {
+            deleteLessonAtIdOrThrow(id);
         } catch (NoSuchFieldException e) {
             ExceptionHandler.handleDatabaseExceptionForDeletingAnNotExistingObject(id, context);
         }
@@ -812,10 +880,42 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
 
             return new Period(
                     cursor.getInt(0),
+                    cursor.getInt(1),
+                    cursor.getString(2),
+                    cursor.getString(3)
+            );
+        } catch (Exception e) {
+            throw new NoSuchFieldException();
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
+    }
+
+    /**
+     * gets the {@link Lesson} at a specific id from database
+     *
+     * @param id id in database
+     * @return row with given id from db as {@link Lesson}
+     * @throws NoSuchFieldException if there is no {@link Lesson} at the given id in the Database
+     */
+    @Override
+    public Lesson getLessonAtIdOrThrow(int id) throws NoSuchFieldException {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+
+        String query = buildQueryToGetRowAtId(TABLE_LESSON, LESSON_COLUMN_ID, id);
+
+        try {
+            cursor = db.rawQuery(query, null);
+            cursor.moveToFirst();
+
+            return new Lesson(
+                    cursor.getInt(0),
                     getSubjectAtIdOrThrow(cursor.getInt(1)),
-                    cursor.getInt(3),
-                    cursor.getString(4),
-                    cursor.getString(5)
+                    getPeriodAtIdOrThrow(cursor.getInt(2))
             );
         } catch (Exception e) {
             throw new NoSuchFieldException();
@@ -832,7 +932,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      *
      * @param id id in database
      * @return row with given id from db as {@link Weekday}
-     * @throws NoSuchFieldException if there is no {@link Homework} at the given id in the Database
+     * @throws NoSuchFieldException if there is no {@link Weekday} at the given id in the Database
      */
     @Override
     public Weekday getWeekdayAtIdOrThrow(int id) throws NoSuchFieldException {
@@ -845,12 +945,11 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
             cursor = db.rawQuery(query, null);
             cursor.moveToFirst();
 
-            Weekday weekday = new Weekday(
+            return new Weekday(
                     cursor.getInt(0),
                     cursor.getString(2),
-                    getPeriodsAtWeekday(id)
+                    getLessonsAtWeekday(id)
             );
-            return weekday;
         } catch (Exception e) {
             throw new NoSuchFieldException();
         } finally {
@@ -866,7 +965,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      *
      * @param id id in database
      * @return row with given id from db as {@link Schedule}
-     * @throws NoSuchFieldException if there is no {@link Homework} at the given id in the Database
+     * @throws NoSuchFieldException if there is no {@link Schedule} at the given id in the Database
      */
     @Override
     public Schedule getScheduleAtIdOrThrow(int id) throws NoSuchFieldException {
@@ -988,6 +1087,22 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         deletePeriodAtIdOrThrow(newPeriod.getId());
         try {
             insertIntoDBOrThrow(newPeriod);
+        } catch (IllegalAccessException e) {
+            //never reach this point
+        }
+    }
+
+    /**
+     * updates {@link Lesson} at the given id in database
+     *
+     * @param newLesson the new {@link Lesson}
+     * @throws NoSuchFieldException if there is no {@link Lesson} at the given id in the Database
+     */
+    @Override
+    public void updateLessonAtIdOrThrow(Lesson newLesson) throws NoSuchFieldException {
+        deleteLessonAtIdOrThrow(newLesson.getId());
+        try {
+            insertIntoDBOrThrow(newLesson);
         } catch (IllegalAccessException e) {
             //never reach this point
         }
@@ -1157,19 +1272,13 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      * inserts {@link Period} into database, use an ID <= 0 to insert at next unoccupied ID
      *
      * @param period {@link Period} to be inserted
-     * @return the id in the database the {@link Grade} was inserted
+     * @return the id in the database the {@link Period} was inserted
      * @throws IllegalAccessException if the given ID is already occupied
      */
     @Override
     public int insertIntoDBOrThrow(Period period) throws IllegalAccessException {
-        try {
-            getSubjectAtIdOrThrow(period.getSubject().getId());
-        } catch (NoSuchFieldException e) {
-            insertIntoDBOrThrow(period.getSubject());
-        }
-
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "INSERT INTO " + TABLE_PERIOD + " VALUES ( " + period.getId() + ", " + period.getSubject().getId() + ",NULL, \"" + period.getSchoolHourNo() + "\", \"" + period.getStartTimeAsString() + "\", \"" + period.getEndTimeAsString() + "\")";
+        String query = "INSERT INTO " + TABLE_PERIOD + " VALUES ( " + period.getId() + ", " + period.getSchoolHourNo() + ", \"" + period.getStartTimeAsString() + "\", \"" + period.getEndTimeAsString() + "\")";
 
         try {
             db.execSQL(query);
@@ -1177,6 +1286,38 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
             throw new IllegalAccessException();
         }
         return period.getId();
+    }
+
+    /**
+     * inserts {@link Lesson} into database, use an ID <= 0 to insert at next unoccupied ID
+     *
+     * @param lesson {@link Lesson} to be inserted
+     * @return the id in the database the {@link Lesson} was inserted
+     * @throws IllegalAccessException if the given ID is already occupied
+     */
+    @Override
+    public int insertIntoDBOrThrow(Lesson lesson) throws IllegalAccessException {
+        try {
+            getSubjectAtIdOrThrow(lesson.getSubject().getId());
+        } catch (NoSuchFieldException e) {
+            insertIntoDBOrThrow(lesson.getSubject());
+        }
+
+        try {
+            getPeriodAtIdOrThrow(lesson.getPeriod().getId());
+        } catch (NoSuchFieldException e) {
+            insertIntoDBOrThrow(lesson.getPeriod());
+        }
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "INSERT INTO " + TABLE_LESSON + " VALUES ( " + lesson.getId() + ", " + lesson.getSubject().getId() + ", " + lesson.getPeriod().getId() + ", NULL)";
+
+        try {
+            db.execSQL(query);
+        } catch (Exception e) {
+            throw new IllegalAccessException();
+        }
+        return lesson.getId();
     }
 
     /**
@@ -1188,15 +1329,15 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public int insertIntoDBOrThrow(Weekday weekday) throws IllegalAccessException {
-        for (int i = 0; i < weekday.getPeriods().length; i++) {
-            if (weekday.getPeriods()[i] != null) {
+        for (int i = 0; i < weekday.getLessons().length; i++) {
+            if (weekday.getLessons()[i] != null) {
                 try {
-                    if ((getPeriodAtIdOrThrow(weekday.getPeriods()[i].getId()).match(weekday.getPeriods()[i]))) {
-                        updatePeriodWeekdayIdAtId(weekday.getPeriods()[i].getId(), weekday.getId());
+                    if ((getLessonAtIdOrThrow(weekday.getLessons()[i].getId()).match(weekday.getLessons()[i]))) {
+                        updateLessonWeekdayIdAtId(weekday.getLessons()[i].getId(), weekday.getId());
                     }
                 } catch (NoSuchFieldException e) {
-                    insertIntoDBOrThrow(weekday.getPeriods()[i]);
-                    updatePeriodWeekdayIdAtId(weekday.getPeriods()[i].getId(), weekday.getId());
+                    insertIntoDBOrThrow(weekday.getLessons()[i]);
+                    updateLessonWeekdayIdAtId(weekday.getLessons()[i].getId(), weekday.getId());
                 }
             }
         }
@@ -1309,7 +1450,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      * deletes the {@link Exam} at the given id from database
      *
      * @param id the id the {@link Exam} to delete has
-     * @throws NoSuchFieldException if there is no {@link Homework} at the given id in the Database
+     * @throws NoSuchFieldException if there is no {@link Exam} at the given id in the Database
      */
     @Override
     public void deleteExamAtIdOrThrow(int id) throws NoSuchFieldException {
@@ -1354,6 +1495,25 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         SQLiteDatabase db = this.getWritableDatabase();
 
         String query = "DELETE FROM " + TABLE_PERIOD + " WHERE " + PERIOD_COLUMN_ID + " = " + id;
+
+        try {
+            db.execSQL(query);
+        } catch (Exception e) {
+            throw new NoSuchFieldException();
+        }
+    }
+
+    /**
+     * deletes the {@link Lesson} at the given id from database
+     *
+     * @param id the id the {@link Lesson} to delete has
+     * @throws NoSuchFieldException if there is no {@link Lesson} at the given id in the Database
+     */
+    @Override
+    public void deleteLessonAtIdOrThrow(int id) throws NoSuchFieldException {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "DELETE FROM " + TABLE_LESSON + " WHERE " + LESSON_COLUMN_ID + " = " + id;
 
         try {
             db.execSQL(query);
@@ -1417,6 +1577,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
                 toString(TABLE_EXAM) + "\n \n" +
                 toString(TABLE_GRADE) + "\n \n" +
                 toString(TABLE_PERIOD) + "\n \n" +
+                toString(TABLE_LESSON) + "\n \n" +
                 toString(TABLE_WEEKDAY) + "\n \n" +
                 toString(TABLE_SCHEDULE);
     }
@@ -1526,12 +1687,17 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         Homework homework3 = new Homework(3, subject1, "The calculation of probabilities", "2017-05-07", true);
         Homework homework4 = new Homework(4, subject2, "Literature during WW2", "2017-05-05", false);
 
-        Period period1 = new Period(1, subject1, 1, "07-45-00", "08-30-00");
-        Period period2 = new Period(2, subject1, 2, "08-35-00", "09-20-00");
-        Period period3 = new Period(3, subject2, 3, "09-35-00", "10-20-00");
-        Period period4 = new Period(4, subject2, 4, "10-25-00", "11-25-00");
+        Period period1 = new Period(1, 1, "07-45-00", "08-30-00");
+        Period period2 = new Period(2, 2, "08-35-00", "09-20-00");
+        Period period3 = new Period(3, 3, "09-35-00", "10-20-00");
+        Period period4 = new Period(4, 4, "10-25-00", "11-25-00");
 
-        Weekday weekday1 = new Weekday(1, "Monday", new Period[]{period1, period2, period3, period4});
+        Lesson lesson1 = new Lesson(1, subject1, period1);
+        Lesson lesson2 = new Lesson(2, subject2, period2);
+        Lesson lesson3 = new Lesson(3, subject1, period3);
+        Lesson lesson4 = new Lesson(4, subject2, period4);
+
+        Weekday weekday1 = new Weekday(1, "Monday", new Lesson[]{lesson1, lesson2, lesson3, lesson4});
 
         Schedule schedule1 = new Schedule(1, "a", new Weekday[]{weekday1, null, null, null, null, null});
 
@@ -1559,6 +1725,11 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         insertIntoDB(period3);
         insertIntoDB(period4);
 
+        insertIntoDB(lesson1);
+        insertIntoDB(lesson2);
+        insertIntoDB(lesson3);
+        insertIntoDB(lesson4);
+
         insertIntoDB(weekday1);
 
         insertIntoDB(schedule1);
@@ -1580,6 +1751,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         sqLiteDatabase.execSQL("DROP TABLE " + TABLE_EXAM);
         sqLiteDatabase.execSQL("DROP TABLE " + TABLE_GRADE);
         sqLiteDatabase.execSQL("DROP TABLE " + TABLE_PERIOD);
+        sqLiteDatabase.execSQL("DROP TABLE " + TABLE_LESSON);
         sqLiteDatabase.execSQL("DROP TABLE " + TABLE_WEEKDAY);
         sqLiteDatabase.execSQL("DROP TABLE " + TABLE_SCHEDULE);
     }
@@ -1596,6 +1768,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         createExamTable(sqLiteDatabase);
         createGradeTable(sqLiteDatabase);
         createPeriodTable(sqLiteDatabase);
+        createLessonTable(sqLiteDatabase);
         createWeekdayTable(sqLiteDatabase);
         createScheduleTable(sqLiteDatabase);
     }
@@ -1681,11 +1854,23 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     private void createPeriodTable(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_PERIOD + "(" +
                 PERIOD_COLUMN_ID + " INTEGER PRIMARY KEY NOT NULL, " +
-                PERIOD_COLUMN_SUBJECT_ID + " INTEGER NOT NULL, " +
-                PERIOD_COLUMN_WEEKDAY_ID + " INTEGER , " +
                 PERIOD_COLUMN_SCHOOL_HOUR_NO + "INTEGER NOT NULL, " +
                 PERIOD_COLUMN_STARTTIME + " TIME NOT NULL, " +
                 PERIOD_COLUMN_ENDTIME + " TIME NOT NULL )"
+        );
+    }
+
+    /**
+     * create lesson table in the schoolPlanner Database
+     *
+     * @param sqLiteDatabase the schoolPlanner Database
+     */
+    private void createLessonTable(SQLiteDatabase sqLiteDatabase) {
+        sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_LESSON + "(" +
+                LESSON_COLUMN_ID + " INTEGER PRIMARY KEY NOT NULL, " +
+                LESSON_COLUMN_SUBJECT_ID + "INTEGER NOT NULL, " +
+                LESSON_COLUMN_PERIOD_ID + " INTEGER NOT NULL, " +
+                LESSON_COLUMN_WEEKDAY_ID + " INTEGER )"
         );
     }
 
@@ -1716,28 +1901,28 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     //endregion
 
     /**
-     * gets the {@link Period}s as array at a specific {@link Weekday}
+     * gets the {@link Lesson}s as array at a specific {@link Weekday}
      *
      * @param weekdayID id of the {@link Weekday}
      * @return Periods at the given Weekday as Array
      * @throws Exception if an error occurs
      */
-    private Period[] getPeriodsAtWeekday(int weekdayID) throws Exception {
+    private Lesson[] getLessonsAtWeekday(int weekdayID) throws Exception {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        String query = buildQueryToGetRowAtId(TABLE_PERIOD, PERIOD_COLUMN_WEEKDAY_ID, weekdayID);
+        String query = buildQueryToGetRowAtId(TABLE_LESSON, LESSON_COLUMN_WEEKDAY_ID, weekdayID);
 
-        ArrayList<Period> periodArrayList = new ArrayList<>();
+        ArrayList<Lesson> lessonArrayList = new ArrayList<>();
         Cursor cursor = db.rawQuery(query, null);
 
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-            periodArrayList.add(getPeriodAtId(cursor.getInt(0)));
+            lessonArrayList.add(getLessonAtIdOrThrow(cursor.getInt(0)));
         }
 
         cursor.close();
         db.close();
 
-        return periodArrayList.toArray(new Period[0]);
+        return lessonArrayList.toArray(new Lesson[0]);
     }
 
 
@@ -1800,15 +1985,15 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     }
 
     /**
-     * updates the PERIOD_COLUMN_WEEKDAY_ID column in the TABLE_PERIOD with the new value for at a given id
+     * updates the LESSON_COLUMN_WEEKDAY_ID column in the TABLE_LESSON with the new value for at a given id
      *
      * @param id        id of the object to update
      * @param weekdayId id of the new schedule
      */
-    private void updatePeriodWeekdayIdAtId(int id, int weekdayId) {
+    private void updateLessonWeekdayIdAtId(int id, int weekdayId) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String query = "UPDATE " + TABLE_PERIOD + " SET " + PERIOD_COLUMN_WEEKDAY_ID + " = " + weekdayId + " WHERE " + PERIOD_COLUMN_ID + " = " + id;
+        String query = "UPDATE " + TABLE_LESSON + " SET " + LESSON_COLUMN_WEEKDAY_ID + " = " + weekdayId + " WHERE " + LESSON_COLUMN_ID + " = " + id;
 
         try {
             db.execSQL(query);

@@ -18,11 +18,6 @@ public class Period implements Comparable<Period> {
     private int id;
 
     /**
-     * the {@link Subject} taught in this period
-     */
-    private Subject subject;
-
-    /**
      * the school hour number the period is, e.g. '1' for the first school hour
      */
     private int schoolHourNo;
@@ -43,14 +38,12 @@ public class Period implements Comparable<Period> {
      * standard c'tor for Period class
      *
      * @param id           numeric id of the period (unique)
-     * @param subject      the {@link Subject} taught in this period
      * @param schoolHourNo the school hour number the period is, e.g. '1' for the first school hour
      * @param startTime    the time the period starts as GregorianCalendar
      * @param endTime      the time the period ends as GregorianCalendar
      */
-    public Period(int id, Subject subject, int schoolHourNo, GregorianCalendar startTime, GregorianCalendar endTime) {
+    public Period(int id, int schoolHourNo, GregorianCalendar startTime, GregorianCalendar endTime) {
         this.id = id;
-        this.subject = subject;
         this.schoolHourNo = schoolHourNo;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -61,14 +54,12 @@ public class Period implements Comparable<Period> {
      * note, that if this c'tor is used the Year, month, dayOfMonth fields in the GregorianCalendars will be initialized with 0 value
      *
      * @param id           numeric id of the period (unique)
-     * @param subject      the {@link Subject} taught in this period
      * @param schoolHourNo the school hour number the period is, e.g. '1' for the first school hour
      * @param startTime    the time the period starts as String separated by '-' to look like HH-MM-SS
      * @param endTime      the time the period ends as String separated by '-' to look like HH-MM-SS
      */
-    public Period(int id, Subject subject, int schoolHourNo, String startTime, String endTime) {
+    public Period(int id, int schoolHourNo, String startTime, String endTime) {
         this.id = id;
-        this.subject = subject;
         this.schoolHourNo = schoolHourNo;
         this.startTime = convertTimeStringToGregorianCalendar(startTime);
         this.endTime = convertTimeStringToGregorianCalendar(endTime);
@@ -86,14 +77,6 @@ public class Period implements Comparable<Period> {
         return id;
     }
 
-    /**
-     * gets the {@link Subject} taught in this period
-     *
-     * @return {@link Subject} taught in this period
-     */
-    public Subject getSubject() {
-        return subject;
-    }
 
     /**
      * the school hour number the period is
@@ -139,8 +122,7 @@ public class Period implements Comparable<Period> {
      * @return true if all fields are the same in both Periods, else false
      */
     public boolean match(Period otherPeriod) {
-        return this.id == otherPeriod.id && this.subject.match(otherPeriod.subject) &&
-                this.schoolHourNo == otherPeriod.schoolHourNo &&
+        return this.id == otherPeriod.id && this.schoolHourNo == otherPeriod.schoolHourNo &&
                 this.startTime.equals(otherPeriod.startTime) && this.endTime.equals(otherPeriod.endTime)
                 ;
     }
@@ -175,7 +157,6 @@ public class Period implements Comparable<Period> {
     public String toString() {
         return "---Period--- \n" +
                 "Id: \t" + id + "\n" +
-                subject.toString() + "\n" +
                 "SchoolHourNo: \t" + schoolHourNo + "\n" +
                 "StartTime: \t" + startTime.get(Calendar.HOUR_OF_DAY) + "-" + startTime.get(Calendar.MINUTE) + "-" + startTime.get(Calendar.SECOND) + "\n" +
                 "EndTime: \t" + endTime.get(Calendar.HOUR_OF_DAY) + "-" + endTime.get(Calendar.MINUTE) + "-" + endTime.get(Calendar.SECOND) + "\n" +

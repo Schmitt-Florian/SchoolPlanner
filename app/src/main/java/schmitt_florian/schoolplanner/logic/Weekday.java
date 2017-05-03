@@ -17,22 +17,22 @@ public class Weekday {
     private String name;
 
     /**
-     * {@link Period}s on that day, sorted by the schoolHourNo
+     * {@link Lesson}s on that day, sorted by the schoolHourNo
      */
-    private Period[] periods;
+    private Lesson[] lessons;
 
     /**
      * standard c'tor for Weekday class
      *
      * @param id      unique numeric id of the Weekday
      * @param name    name of the Weekday as string e.g "Monday"
-     * @param periods {@link Period} on that day, sorted by the schoolHourNo
+     * @param lessons {@link Lesson}s on this day, sorted by the schoolHourNo
      */
-    public Weekday(int id, String name, Period[] periods) {
+    public Weekday(int id, String name, Lesson[] lessons) {
         this.id = id;
         this.name = name;
-        Arrays.sort(periods);
-        this.periods = periods;
+        Arrays.sort(lessons);
+        this.lessons = lessons;
     }
 
     /**
@@ -54,12 +54,12 @@ public class Weekday {
     }
 
     /**
-     * gets {@link Period} on that day
+     * gets {@link Lesson} on that day
      *
-     * @return Period on that day, sorted by the schoolHourNo, as array
+     * @return Lesson on that day, sorted by the schoolHourNo, as array
      */
-    public Period[] getPeriods() {
-        return periods;
+    public Lesson[] getLessons() {
+        return lessons;
     }
 
     /**
@@ -70,7 +70,7 @@ public class Weekday {
      */
     public boolean match(Weekday otherWeekday) {
         return this.id == otherWeekday.id && this.name.equals(otherWeekday.name) &&
-                Period.match(this.periods, otherWeekday.periods);
+                Lesson.match(this.lessons, otherWeekday.lessons);
     }
 
     /**
@@ -83,7 +83,7 @@ public class Weekday {
         return "---Weekday--- \n" +
                 "Id: \t" + id + "\n" +
                 "Name: \t" + name + "\n" +
-                "Periods: \t" + Arrays.toString(periods) + "\n" +
+                "Periods: \t" + Arrays.toString(lessons) + "\n" +
                 "---######---";
     }
 
