@@ -12,6 +12,7 @@ import java.util.Calendar;
 
 import schmitt_florian.schoolplanner.logic.Exam;
 import schmitt_florian.schoolplanner.logic.Homework;
+import schmitt_florian.schoolplanner.logic.Subject;
 
 
 /**
@@ -26,7 +27,7 @@ class GuiHelper {
      * @param id   Resource ID of the {@link TextView}
      * @param text The text to set to the {@link TextView}
      */
-    void setTextToTextView(View view, int id, String text) {
+    static void setTextToTextView(View view, int id, String text) {
         TextView textView = (TextView) view.findViewById(id);
         textView.setText(text);
     }
@@ -38,11 +39,21 @@ class GuiHelper {
      * @param id      Resource ID of the {@link ListView}
      * @param content The content to fill the {@link ListView} with as string array
      */
-    void fillListViewFromArray(View view, int id, String[] content) {
+    static void fillListViewFromArray(View view, int id, String[] content) {
         ListView listView = (ListView) view.findViewById(id);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_list_item_1, content);
 
         listView.setAdapter(adapter);
+    }
+
+    /**
+     * extracts a GUI displayable String from the given {@link Subject}
+     *
+     * @param subject {@link Subject} to extract from
+     * @return the Name of the {@link schmitt_florian.schoolplanner.logic.Subject} the {@link Subject} was given in and the abbreviation of the teacher as String. E.g "Math - SPG"
+     */
+    static String extractGuiString(Subject subject) {
+        return subject.getName() + " - " + subject.getTeacher().getAbbreviation();
     }
 
     /**
@@ -51,15 +62,14 @@ class GuiHelper {
      * @param homework {@link Homework} to extract from
      * @return the Name of the {@link schmitt_florian.schoolplanner.logic.Subject} the {@link Homework} was given in and the deadline as String. E.g "Math - 26.03.2017"
      */
-    String extractGuiString(Homework homework) {
-        String subjectName = homework.getSubject().getName();
+    static String extractGuiString(Homework homework) {
+        Calendar deadline = homework.getDeadline();
         String dateString;
 
-        Calendar deadline = homework.getDeadline();
         //TODO support different date formats
         dateString = deadline.get(Calendar.DAY_OF_MONTH) + "." + String.valueOf(deadline.get(Calendar.MONTH) + 1) + "." + String.valueOf(deadline.get(Calendar.YEAR));
 
-        return subjectName + " - " + dateString;
+        return homework.getSubject().getName() + " - " + dateString;
     }
 
     /**
@@ -68,17 +78,15 @@ class GuiHelper {
      * @param exam {@link Exam} to extract from
      * @return the Name of the {@link schmitt_florian.schoolplanner.logic.Subject} the {@link Exam} is in and the deadline as String. E.g "Math - 26.03.2017"
      */
-    String extractGuiString(Exam exam) {
-        String subjectName = exam.getSubject().getName();
+    static String extractGuiString(Exam exam) {
+        Calendar deadline = exam.getDeadline();
         String dateString;
 
-        Calendar deadline = exam.getDeadline();
         //TODO support different date formats
         dateString = deadline.get(Calendar.DAY_OF_MONTH) + "." + String.valueOf(deadline.get(Calendar.MONTH) + 1) + "." + String.valueOf(deadline.get(Calendar.YEAR));
 
-        return subjectName + " - " + dateString;
+        return exam.getSubject().getName() + " - " + dateString;
     }
-
 
     /**
      * method used to set the {@link View.OnClickListener} of a {@link Button} at a given id
@@ -87,7 +95,7 @@ class GuiHelper {
      * @param id              Resource ID of the {@link Button}
      * @param onClickListener the {@link View.OnClickListener} to set the {@link Button} to
      */
-    void defineButtonOnClickListener(View view, int id, View.OnClickListener onClickListener) {
+    static void defineButtonOnClickListener(View view, int id, View.OnClickListener onClickListener) {
         Button b = (Button) view.findViewById(id);
         b.setOnClickListener(onClickListener);
     }
@@ -99,8 +107,10 @@ class GuiHelper {
      * @param id              Resource ID of the {@link FloatingActionButton}
      * @param onClickListener the {@link View.OnClickListener} to set the {@link FloatingActionButton} to
      */
-    void defineFloatingActionButtonOnClickListener(View view, int id, View.OnClickListener onClickListener) {
+    static void defineFloatingActionButtonOnClickListener(View view, int id, View.OnClickListener onClickListener) {
         FloatingActionButton b = (FloatingActionButton) view.findViewById(id);
         b.setOnClickListener(onClickListener);
     }
+
+
 }

@@ -20,12 +20,10 @@ import schmitt_florian.schoolplanner.R;
 public class CreditsFragment extends Fragment implements View.OnClickListener {
     @SuppressWarnings({"FieldNever", "unused"})
     private OnFragmentInteractionListener mListener;
-    private GuiHelper guiHelper;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        guiHelper = new GuiHelper();
     }
 
     @Override
@@ -85,8 +83,14 @@ public class CreditsFragment extends Fragment implements View.OnClickListener {
     }
 
     //region private methods
+
+    /**
+     * method to initialise components of the GUI
+     *
+     * @param view the view of the fragment
+     */
     private void initGUI(View view) {
-        guiHelper.defineFloatingActionButtonOnClickListener(view, R.id.credits_buttonEmail, this);
+        GuiHelper.defineFloatingActionButtonOnClickListener(view, R.id.credits_buttonEmail, this);
     }
 
     /**

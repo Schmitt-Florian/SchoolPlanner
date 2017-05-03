@@ -28,13 +28,10 @@ import schmitt_florian.schoolplanner.logic.Homework;
 public class HomeFragment extends Fragment {
     @SuppressWarnings({"FieldNever", "unused"})
     private OnFragmentInteractionListener mListener;
-    private GuiHelper guiHelper;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        guiHelper = new GuiHelper();
-
     }
 
     @Override
@@ -42,8 +39,7 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        setDateToLabels(view);
-        fillListViews(view);
+        initGui(view);
         return view;
     }
 
@@ -82,6 +78,18 @@ public class HomeFragment extends Fragment {
     //region private methods
 
     /**
+     * method to initialise components of the GUI
+     *
+     * @param view the view of the fragment
+     */
+    private void initGui(View view) {
+        setDateToLabels(view);
+
+        fillHomeworkListView(view);
+        fillExamListView(view);
+    }
+
+    /**
      * method to initialise the Labels, which show the Date at the home screen
      *
      * @param view the view of the fragment
@@ -91,66 +99,32 @@ public class HomeFragment extends Fragment {
         Calendar calendar = Calendar.getInstance();
         switch (calendar.get(Calendar.DAY_OF_WEEK)) {
             case Calendar.MONDAY:
-                guiHelper.setTextToTextView(view, R.id.home_labelWeekday, getString(R.string.string_day_monday));
+                GuiHelper.setTextToTextView(view, R.id.home_labelWeekday, getString(R.string.string_day_monday));
                 break;
             case Calendar.TUESDAY:
-                guiHelper.setTextToTextView(view, R.id.home_labelWeekday, getString(R.string.string_day_tuesday));
+                GuiHelper.setTextToTextView(view, R.id.home_labelWeekday, getString(R.string.string_day_tuesday));
                 break;
             case Calendar.WEDNESDAY:
-                guiHelper.setTextToTextView(view, R.id.home_labelWeekday, getString(R.string.string_day_wednesday));
+                GuiHelper.setTextToTextView(view, R.id.home_labelWeekday, getString(R.string.string_day_wednesday));
                 break;
             case Calendar.THURSDAY:
-                guiHelper.setTextToTextView(view, R.id.home_labelWeekday, getString(R.string.string_day_thursday));
+                GuiHelper.setTextToTextView(view, R.id.home_labelWeekday, getString(R.string.string_day_thursday));
                 break;
             case Calendar.FRIDAY:
-                guiHelper.setTextToTextView(view, R.id.home_labelWeekday, getString(R.string.string_day_friday));
+                GuiHelper.setTextToTextView(view, R.id.home_labelWeekday, getString(R.string.string_day_friday));
                 break;
             case Calendar.SATURDAY:
-                guiHelper.setTextToTextView(view, R.id.home_labelWeekday, getString(R.string.string_day_saturday));
+                GuiHelper.setTextToTextView(view, R.id.home_labelWeekday, getString(R.string.string_day_saturday));
                 break;
             case Calendar.SUNDAY:
-                guiHelper.setTextToTextView(view, R.id.home_labelWeekday, getString(R.string.string_day_sunday));
+                GuiHelper.setTextToTextView(view, R.id.home_labelWeekday, getString(R.string.string_day_sunday));
                 break;
             default:
-                guiHelper.setTextToTextView(view, R.id.home_labelWeekday, getString(R.string.string_error));
+                GuiHelper.setTextToTextView(view, R.id.home_labelWeekday, getString(R.string.string_error));
                 break;
         }
         //TODO support different date formats
-        guiHelper.setTextToTextView(view, R.id.home_labelDate, calendar.get(Calendar.DAY_OF_MONTH) + "." + String.valueOf(calendar.get(Calendar.MONTH) + 1) + "." + calendar.get(Calendar.YEAR));
-    }
-
-    /**
-     * method to fill the ListViews, which show the {@link Homework} and {@link Exam}s at the home screen
-     *
-     * @param view the view of the fragment
-     */
-    private void fillListViews(View view) {
-        fillHomeworkListView(view);
-        fillExamListView(view);
-    }
-
-    /**
-     * method to fill the ListView, which shows the {@link Homework} at the home screen
-     *
-     * @param view the view of the fragment
-     */
-    private void fillExamListView(View view) {
-        DatabaseHelper dbHelper = new DatabaseHelperImpl(view.getContext());
-
-        ArrayList<String> examStrings = new ArrayList<>();
-        int[] examIndices = dbHelper.getIndices(DatabaseHelper.TABLE_EXAM);
-
-        for (int examIndex : examIndices) {
-            Exam exam = dbHelper.getExamAtId(examIndex);
-
-            if (isDateInThisWeek(exam.getDeadline())) {
-                examStrings.add(guiHelper.extractGuiString(exam));
-            }
-        }
-
-        if (examStrings.size() != 0) {
-            guiHelper.fillListViewFromArray(view, R.id.home_listExams, examStrings.toArray(new String[0]));
-        }
+        GuiHelper.setTextToTextView(view, R.id.home_labelDate, calendar.get(Calendar.DAY_OF_MONTH) + "." + String.valueOf(calendar.get(Calendar.MONTH) + 1) + "." + calendar.get(Calendar.YEAR));
     }
 
     /**
@@ -168,12 +142,36 @@ public class HomeFragment extends Fragment {
             Homework homework = dbHelper.getHomeworkAtId(homeworkIndex);
 
             if (isDateInThisWeek(homework.getDeadline()) && !homework.isDone()) {
-                homeworkStrings.add(guiHelper.extractGuiString(homework));
+                homeworkStrings.add(GuiHelper.extractGuiString(homework));
             }
         }
 
         if (homeworkStrings.size() != 0) {
-            guiHelper.fillListViewFromArray(view, R.id.home_listHomework, homeworkStrings.toArray(new String[0]));
+            GuiHelper.fillListViewFromArray(view, R.id.home_listHomework, homeworkStrings.toArray(new String[0]));
+        }
+    }
+
+    /**
+     * method to fill the ListView, which shows the {@link Homework} at the home screen
+     *
+     * @param view the view of the fragment
+     */
+    private void fillExamListView(View view) {
+        DatabaseHelper dbHelper = new DatabaseHelperImpl(view.getContext());
+
+        ArrayList<String> examStrings = new ArrayList<>();
+        int[] examIndices = dbHelper.getIndices(DatabaseHelper.TABLE_EXAM);
+
+        for (int examIndex : examIndices) {
+            Exam exam = dbHelper.getExamAtId(examIndex);
+
+            if (isDateInThisWeek(exam.getDeadline())) {
+                examStrings.add(GuiHelper.extractGuiString(exam));
+            }
+        }
+
+        if (examStrings.size() != 0) {
+            GuiHelper.fillListViewFromArray(view, R.id.home_listExams, examStrings.toArray(new String[0]));
         }
     }
 
