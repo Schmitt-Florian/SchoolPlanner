@@ -1,26 +1,57 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/homework_main"
+    android:id="@+id/homework_mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.SubjectsFragment">
 
+    <!-- TODO: Update blank fragment layout -->
 
-    <ListView
-        android:id="@+id/homework_listHomework"
+
+    <FrameLayout
+        android:id="@+id/homework_listLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/homework_buttonAddHomework"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_marginBottom="16dp"
-        android:layout_marginRight="16dp"
-        android:clickable="true"
-        app:fabSize="normal"
-        app:srcCompat="@drawable/ic_add" />
+        <ListView
+            android:id="@+id/homework_listHomework"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/homework_floatingActionButton_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            android:clickable="true"
+            android:onClick="onPlusClick"
+            app:fabSize="normal"
+            app:srcCompat="@drawable/ic_add" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/homework_detailsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="100dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="100dp"
+        android:background="@color/divider"
+        android:orientation="horizontal"
+        android:visibility="invisible">
+
+        <Button
+            android:id="@+id/homework_cancelButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onCancelClick"
+            android:text="CANCEL (add to Strings)" />
+
+    </LinearLayout>
 
 </FrameLayout>

@@ -1,6 +1,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/subjetcs_mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.SubjectsFragment">
@@ -8,39 +9,49 @@
     <!-- TODO: Update blank fragment layout -->
 
 
-        <LinearLayout
+    <FrameLayout
+        android:id="@+id/subjects_listLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/subjects_listSubjects"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/subjects_floatingActionButton_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            android:clickable="true"
+            android:onClick="onPlusClick"
+            app:fabSize="normal"
+            app:srcCompat="@drawable/ic_add" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/subjects_detailsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="100dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="100dp"
+        android:background="@color/divider"
+        android:orientation="horizontal"
+        android:visibility="invisible">
+
+        <Button
+            android:id="@+id/subjects_cancelButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="100dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="100dp"
-            android:background="@color/divider"
-            android:orientation="horizontal">
+            android:layout_weight="1"
+            android:onClick="onCancelClick"
+            android:text="CANCEL (add to Strings)" />
 
-            <Button
-                android:id="@+id/button"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="Button" />
-        </LinearLayout>
-
-    <ListView
-        android:id="@+id/subjects_listSubjects"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/subjects_floatingActionButton_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        app:fabSize="normal"
-        app:srcCompat="@drawable/ic_add"
-        />
+    </LinearLayout>
 
 </FrameLayout>

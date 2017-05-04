@@ -1,29 +1,57 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/exams_main"
+    android:id="@+id/exams_mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.ExamsFragment">
+    tools:context=".activities.SubjectsFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
 
-    <ListView
-        android:id="@+id/exams_listExams"
+    <FrameLayout
+        android:id="@+id/exams_listLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/exams_buttonAddExams"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_marginBottom="16dp"
-        android:layout_marginRight="16dp"
-        android:clickable="true"
-        app:fabSize="normal"
-        app:srcCompat="@drawable/ic_add" />
+        <ListView
+            android:id="@+id/exams_listSubjects"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/exams_floatingActionButton_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            android:clickable="true"
+            android:onClick="onPlusClick"
+            app:fabSize="normal"
+            app:srcCompat="@drawable/ic_add" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/exams_detailsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="100dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="100dp"
+        android:background="@color/divider"
+        android:orientation="horizontal"
+        android:visibility="invisible">
+
+        <Button
+            android:id="@+id/exams_cancelButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onCancelClick"
+            android:text="CANCEL (add to Strings)" />
+
+    </LinearLayout>
 
 </FrameLayout>
