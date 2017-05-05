@@ -18,6 +18,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import schmitt_florian.schoolplanner.R;
+import schmitt_florian.schoolplanner.logic.DatabaseHelperImpl;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         HomeFragment.OnFragmentInteractionListener,
@@ -100,13 +101,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fragmentManager = this.getSupportFragmentManager();
 
 
-        //  ----TESTING----
-//            DatabaseHelperImpl testHelper = new DatabaseHelperImpl(this);
-//            testHelper.resetDatabase();
-//            testHelper.fillDatabaseWithExamples();
-//
-//            System.out.println(testHelper.toString());
-        //  ----TESTING----
+//          ----TESTING----
+        DatabaseHelperImpl testHelper = new DatabaseHelperImpl(this);
+        testHelper.resetDatabase();
+        testHelper.fillDatabaseWithExamples();
+
+        System.out.println(testHelper.toString());
+//        ----TESTING----
 
 
         navigationView.getMenu().getItem(0).setChecked(true);
