@@ -13,9 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 
 import schmitt_florian.schoolplanner.R;
 
@@ -28,58 +25,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         CreditsFragment.OnFragmentInteractionListener,
         SettingsFragment.OnFragmentInteractionListener {
 
-    public int plusButtonViewId1 = 2131558571;
-    public int plusButtonViewId2 = 2131558564;
-
-
-    public int cancelButtonViewId1 = 2131558573;
-    public int cancelButtonViewId2 = 2131558566;
-
-
-
     private static final String TAG = "MainActivity";
     FragmentManager fragmentManager;
 
-
-    public void onPlusClick (View view){
-
-        FrameLayout frameLayout = (FrameLayout) view.getParent();
-        frameLayout.setVisibility(View.INVISIBLE);
-
-        int viewId = view.getId();
-
-        if (viewId == plusButtonViewId1){
-            LinearLayout layout = (LinearLayout) findViewById(R.id.subjects_detailsLayout);
-            layout.setVisibility(View.VISIBLE);
-        }else if(viewId == plusButtonViewId2){
-//            LinearLayout layout = (LinearLayout) findViewById(R.id.homework_detailsLayout);
-//            layout.setVisibility(view.VISIBLE);
-        }else {
-            LinearLayout layout = (LinearLayout) findViewById(R.id.exams_detailsLayout);
-            layout.setVisibility(View.VISIBLE);
-        }
-
-    }
-
-    public void onCancelClick (View view){
-
-        LinearLayout linearLayout = (LinearLayout) view.getParent();
-        linearLayout.setVisibility(View.INVISIBLE);
-
-        int viewId = view.getId();
-
-        if (viewId == cancelButtonViewId1){
-            FrameLayout frameLayout = (FrameLayout) findViewById(R.id.subjects_listLayout);
-            frameLayout.setVisibility(View.VISIBLE);
-        }else if(viewId == cancelButtonViewId2){
-//            FrameLayout frameLayout = (FrameLayout) findViewById(R.id.homework_listLayout);
-//            frameLayout.setVisibility(view.VISIBLE);
-        }else {
-            FrameLayout frameLayout = (FrameLayout) findViewById(R.id.exams_listLayout);
-            frameLayout.setVisibility(View.VISIBLE);
-        }
-
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

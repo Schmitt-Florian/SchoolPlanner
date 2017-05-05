@@ -27,31 +27,8 @@
             android:layout_marginBottom="16dp"
             android:layout_marginEnd="16dp"
             android:clickable="true"
-            android:onClick="onPlusClick"
             app:fabSize="normal"
             app:srcCompat="@drawable/ic_add" />
     </FrameLayout>
-
-    <LinearLayout
-        android:id="@+id/subjects_detailsLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="100dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="100dp"
-        android:background="@color/divider"
-        android:orientation="horizontal"
-        android:visibility="invisible">
-
-        <Button
-            android:id="@+id/subjects_cancelButton"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:onClick="onCancelClick"
-            android:text="CANCEL (add to Strings)" />
-
-    </LinearLayout>
 
 </FrameLayout>
