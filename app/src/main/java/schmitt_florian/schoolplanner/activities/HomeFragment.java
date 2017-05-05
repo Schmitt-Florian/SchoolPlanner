@@ -128,7 +128,7 @@ public class HomeFragment extends Fragment {
     }
 
     /**
-     * method to fill the ListView, which shows the {@link Exam}s at the home screen
+     * method to fill the ListView, which shows the {@link Homework}s at the home screen
      *
      * @param view the view of the fragment
      */
@@ -152,7 +152,7 @@ public class HomeFragment extends Fragment {
     }
 
     /**
-     * method to fill the ListView, which shows the {@link Homework} at the home screen
+     * method to fill the ListView, which shows the {@link Exam}s at the home screen
      *
      * @param view the view of the fragment
      */

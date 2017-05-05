@@ -8,7 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+
 import schmitt_florian.schoolplanner.R;
+import schmitt_florian.schoolplanner.logic.DatabaseHelper;
+import schmitt_florian.schoolplanner.logic.DatabaseHelperImpl;
+import schmitt_florian.schoolplanner.logic.Homework;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -90,19 +95,52 @@ public class HomeworkFragment extends Fragment implements View.OnClickListener {
     }
 
     //region private methods
+
+    /**
+     * method to initialise components of the GUI
+     */
     private void initGUI() {
         GuiHelper.defineButtonOnClickListener(view, R.id.homework_buttonToDo, this);
         GuiHelper.defineButtonOnClickListener(view, R.id.homework_buttonDone, this);
         changeTab();
     }
 
+    /**
+     * method to change between the to-do tab and the done tab
+     */
     private void changeTab() {
         if (tabIsToDo) {
             GuiHelper.setColorToButton(view, R.id.homework_buttonToDo, R.color.button_active);
             GuiHelper.setColorToButton(view, R.id.homework_buttonDone, R.color.button_passive);
+            fillListView();
         } else {
             GuiHelper.setColorToButton(view, R.id.homework_buttonToDo, R.color.button_passive);
             GuiHelper.setColorToButton(view, R.id.homework_buttonDone, R.color.button_active);
+            fillListView();
+        }
+    }
+
+    /**
+     * method to fill the ListView, which shows the {@link Homework}s at the homework screen, depending on the activated tab
+     */
+    private void fillListView() {
+        DatabaseHelper dbHelper = new DatabaseHelperImpl(view.getContext());
+
+        ArrayList<String> homeworkStrings = new ArrayList<>();
+        int[] homeworkIndices = dbHelper.getIndices(DatabaseHelper.TABLE_HOMEWORK);
+
+        for (int homeworkIndex : homeworkIndices) {
+            Homework homework = dbHelper.getHomeworkAtId(homeworkIndex);
+
+            if (tabIsToDo && !homework.isDone()) {
+                homeworkStrings.add(GuiHelper.extractGuiString(homework));
+            } else if (!tabIsToDo && homework.isDone()) {
+                homeworkStrings.add(GuiHelper.extractGuiString(homework));
+            }
+        }
+
+        if (homeworkStrings.size() != 0) {
+            GuiHelper.fillListViewFromArray(view, R.id.homework_listHomework, homeworkStrings.toArray(new String[0]));
         }
     }
     //endregion

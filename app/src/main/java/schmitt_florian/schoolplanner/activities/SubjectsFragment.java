@@ -84,11 +84,16 @@ public class SubjectsFragment extends Fragment {
         fillListView(view);
     }
 
+    /**
+     * method to fill the ListView, which shows the {@link Subject}s at the subject screen
+     *
+     * @param view the view of the fragment
+     */
     private void fillListView(View view) {
         DatabaseHelper dbHelper = new DatabaseHelperImpl(view.getContext());
 
         ArrayList<String> subjectStrings = new ArrayList<>();
-        int[] subjectIndices = dbHelper.getIndices(DatabaseHelper.TABLE_EXAM);
+        int[] subjectIndices = dbHelper.getIndices(DatabaseHelper.TABLE_SUBJECT);
 
         for (int subjectIndex : subjectIndices) {
             Subject subject = dbHelper.getSubjectAtId(subjectIndex);
