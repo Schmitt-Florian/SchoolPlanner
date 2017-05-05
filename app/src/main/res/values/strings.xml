@@ -27,7 +27,7 @@
     <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
     <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
     <string name="string_error">Error</string>
-    <string name="project_email" translatable="false">projectschoolplanner@gmail.com</string>
+    <string name="project_email" translatable="false">projectschoolplanner17@gmail.com</string>
     <string name="choose_email_service">Choose Email Service</string>
 
 </resources>
