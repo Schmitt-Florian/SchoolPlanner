@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     app:layout_collapseMode="none"
     app:layout_collapseParallaxMultiplier="1.0"
-    tools:context="schmitt_florian.schoolplanner.activities.MainActivity"
+    tools:context="schmitt_florian.schoolplanner.activities.GradesFragment"
     android:orientation="vertical">
 
     <LinearLayout

@@ -7,7 +7,7 @@
     android:orientation="vertical"
     app:layout_collapseMode="none"
     app:layout_collapseParallaxMultiplier="1.0"
-    tools:context="schmitt_florian.schoolplanner.activities.MainActivity">
+    tools:context=".activities.HomeFragment">
 
     <LinearLayout
         android:id="@+id/home_upperHalf"

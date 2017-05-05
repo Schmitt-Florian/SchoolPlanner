@@ -4,7 +4,7 @@
     android:id="@+id/homework_mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.SubjectsFragment">
+    tools:context=".activities.HomeworkFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -13,13 +13,12 @@
         android:id="@+id/homework_tabLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
         android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/homework_switchButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content "
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <Button
@@ -28,10 +27,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:layout_weight="1"
-                android:background="@color/divider"
-                android:text="Button"
-                android:textAppearance="@style/TextAppearance.AppCompat.Button"
-                tools:text="To Do" />
+                android:text="@string/string_todo"
+                android:textAppearance="@android:style/TextAppearance.Material.Title" />
 
             <Button
                 android:id="@+id/homework_buttonDone"
@@ -39,18 +36,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:layout_weight="1"
-                android:background="@color/secondary_text"
-                android:elevation="0dp"
-                android:text="Button"
-                android:textAppearance="@style/TextAppearance.AppCompat.Button"
-                tools:text="Done" />
+                android:text="@string/string_done"
+                android:textAppearance="@android:style/TextAppearance.Material.Title" />
 
         </LinearLayout>
 
         <ListView
             android:id="@+id/homework_listHomework"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
     </LinearLayout>
 

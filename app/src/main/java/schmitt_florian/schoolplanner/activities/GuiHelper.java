@@ -33,6 +33,18 @@ class GuiHelper {
     }
 
     /**
+     * method to set the background color of a {@link Button} with the resource id of a color
+     *
+     * @param view the view the {@link Button} is in
+     * @param id Resource ID of the {@link Button}
+     * @param colorId Resource ID of the color
+     */
+    static void setColorToButton(View view, int id, int colorId) {
+        Button b = (Button) view.findViewById(id);
+        b.setBackgroundResource(colorId);
+    }
+
+    /**
      * method to set the content of a {@link ListView}
      *
      * @param view    the view the {@link ListView} is in

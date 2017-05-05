@@ -36,5 +36,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="string_todo">To Do</string>
+    <string name="string_done">Done</string>
 
 </resources>
