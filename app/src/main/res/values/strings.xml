@@ -1,22 +1,22 @@
 <resources>
     <string name="app_name">School Planner</string>
+    <string name="app_email" translatable="false">projectschoolplanner17@gmail.com</string>
 
     //Navigation Drawer
-
     <string name="string_homepage">Home</string>
     <string name="string_schedule">Schedule</string>
     <string name="string_subjects">Subjects</string>
     <string name="string_homework">Homework</string>
     <string name="string_exams">Exams</string>
+    <string name="string_grades">Grades</string>
     <string name="string_credits">Credits</string>
     <string name="string_settings">Settings</string>
 
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
+
     //Credits
     <string name="string_credits.developedBy">This Application was developed by:\n Natascha Becker\nDarius Wolkewitz\nKevin Schevaljé\nJan-Nicklas Watz\nMarlon Drolsbach</string>
-
-    //Grades
-    <string name="string_grades.subject">Subject</string>
-    <string name="string_grades.grades">Grades</string>
 
     //Days
     <string name="string_day_monday">Monday</string>
@@ -28,15 +28,9 @@
     <string name="string_day_sunday">Sunday</string>
 
     //Other
-    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
-    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
     <string name="string_error">Error</string>
-    <string name="project_email" translatable="false">projectschoolplanner17@gmail.com</string>
-    <string name="choose_email_service">Choose Email Service</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="string_todo">To Do</string>
+    <string name="string_choose_email_service">Choose Email Service</string>
+    <string name="string_todo">ToDo</string>
     <string name="string_done">Done</string>
 
 </resources>

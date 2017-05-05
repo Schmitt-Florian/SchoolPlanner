@@ -16,4 +16,8 @@
     <string name="string_day_tuesday">Dienstag</string>
     <string name="string_day_wednesday">Mittwoch</string>
     <string name="string_error">Fehler</string>
+    <string name="string_choose_email_service">Wähle E-Mail Dienst</string>
+    <string name="string_done">Fertig</string>
+    <string name="string_todo">ToDo</string>
+    <string name="string_grades">Noten</string>
 </resources>

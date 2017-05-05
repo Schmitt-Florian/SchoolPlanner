@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import schmitt_florian.schoolplanner.R;
 
@@ -107,10 +106,10 @@ public class CreditsFragment extends Fragment implements View.OnClickListener {
      * @param subject the subject of the email
      */
     private void sendEmail(String subject) {
-        Intent emailIntent = new Intent(Intent.ACTION_SEND, Uri.parse("mailto:" + getString(R.string.project_email)));
+        Intent emailIntent = new Intent(Intent.ACTION_SEND, Uri.parse("mailto:" + getString(R.string.app_email)));
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
 
-        startActivity(Intent.createChooser(emailIntent, getString(R.string.choose_email_service)));
+        startActivity(Intent.createChooser(emailIntent, getString(R.string.string_choose_email_service)));
     }
     //endregion
 }
