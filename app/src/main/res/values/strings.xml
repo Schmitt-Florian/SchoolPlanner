@@ -30,4 +30,7 @@
     <string name="project_email" translatable="false">projectschoolplanner17@gmail.com</string>
     <string name="choose_email_service">Choose Email Service</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
