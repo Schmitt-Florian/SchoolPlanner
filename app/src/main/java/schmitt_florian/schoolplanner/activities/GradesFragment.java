@@ -25,7 +25,7 @@ import schmitt_florian.schoolplanner.logic.Subject;
  * {@link GradesFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
  */
-public class GradesFragment extends Fragment {
+public class GradesFragment extends Fragment implements View.OnClickListener {
     @SuppressWarnings({"FieldNever", "unused"})
     private OnFragmentInteractionListener mListener;
     private Grade[] gradesCurrentlyShowing;
@@ -62,6 +62,20 @@ public class GradesFragment extends Fragment {
     }
 
     /**
+     * Called when a view has been clicked.
+     *
+     * @param v The view that was clicked.
+     */
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.grades_floatingActionButton_add:
+                //open input dialog
+                break;
+        }
+    }
+
+    /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
@@ -86,6 +100,8 @@ public class GradesFragment extends Fragment {
     private void initGui(final View view) {
         handleSubjectListOnClick(view, fillSubjectListView(view));
         handleGridViewOnClick(view);
+
+        GuiHelper.defineFloatingActionButtonOnClickListener(view, R.id.grades_floatingActionButton_add, this);
     }
 
     /**
