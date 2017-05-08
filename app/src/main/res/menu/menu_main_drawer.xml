@@ -11,10 +11,6 @@
             android:icon="@drawable/ic_schedule"
             android:title="@string/string_schedule" />
         <item
-            android:id="@+id/nav_subjects"
-            android:icon="@drawable/ic_subjects"
-            android:title="@string/string_subjects" />
-        <item
             android:id="@+id/nav_homework"
             android:icon="@drawable/ic_homework"
             android:title="@string/string_homework" />
@@ -23,6 +19,14 @@
             android:icon="@drawable/ic_exams"
             android:title="@string/string_exams" />
         <item
+            android:id="@+id/nav_grades"
+            android:icon="@drawable/ic_subjects"
+            android:title="@string/string_grades" />
+        <item
+            android:id="@+id/nav_subjects"
+            android:icon="@drawable/ic_subjects"
+            android:title="@string/string_subjects" />
+        <item
             android:id="@+id/nav_credits"
             android:icon="@drawable/ic_credits"
             android:title="@string/string_credits" />
@@ -30,6 +34,7 @@
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_settings"
             android:title="@string/string_settings" />
+
     </group>
 
 

@@ -32,7 +32,6 @@ public class CreditsFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_credits, container, false);
 
         initGUI(view);
-
         return view;
     }
 
