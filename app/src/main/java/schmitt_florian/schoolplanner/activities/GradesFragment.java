@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ import schmitt_florian.schoolplanner.logic.Subject;
 public class GradesFragment extends Fragment {
     @SuppressWarnings({"FieldNever", "unused"})
     private OnFragmentInteractionListener mListener;
+    private Grade[] gradesCurrentlyShowing;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -82,17 +84,47 @@ public class GradesFragment extends Fragment {
      * @param view the view of the fragment
      */
     private void initGui(final View view) {
-        final Subject[] allSubjectsInList = fillSubjectListView(view);
+        handleSubjectListOnClick(view, fillSubjectListView(view));
+        handleGridViewOnClick(view);
+    }
 
+    /**
+     * method to handle Clicks on the ListView, which shows the {@link Subject}s at the grades screen
+     *
+     * @param view              the view of the fragment
+     * @param allSubjectsInList a array of all {@link Subject}s shown in the listView ordered by their position in the listView
+     */
+    private void handleSubjectListOnClick(final View view, final Subject[] allSubjectsInList) {
         ListView subjectList = (ListView) view.findViewById(R.id.grades_listSubjects);
+
         subjectList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
-                fillGridView(view, allSubjectsInList[position]);
+                gradesCurrentlyShowing = fillGridView(view, allSubjectsInList[position]);
             }
         });
+    }
 
+    /**
+     * method to handle Clicks on the GridView, which shows the {@link Grade}s at the grades screen
+     *
+     * @param view the view of the fragment
+     */
+    private void handleGridViewOnClick(View view) {
+        final GridView gridView = (GridView) view.findViewById(R.id.grades_gradesTable);
 
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
+                if (position % 2 == 0) {
+                    //open details with
+                    // gradesCurrentlyShowing[position/2];
+                } else {
+                    //open details with
+                    //gradesCurrentlyShowing[(position-1)/2];
+                }
+            }
+        });
     }
 
     /**
@@ -126,24 +158,30 @@ public class GradesFragment extends Fragment {
      *
      * @param view    the view of the fragment
      * @param subject the subjects the grades to be shown are in
+     * @return returns a array of all {@link Grade}s shown in the gridView ordered by their position in the gridView
      */
-    private void fillGridView(View view, Subject subject) {
+    private Grade[] fillGridView(View view, Subject subject) {
         DatabaseHelper dbHelper = new DatabaseHelperImpl(view.getContext());
 
         ArrayList<String> gridStrings = new ArrayList<>();
+        ArrayList<Grade> gradeArrayList = new ArrayList<>();
         int[] gradeIndices = dbHelper.getIndices(DatabaseHelper.TABLE_GRADE);
 
         for (int gradeIndex : gradeIndices) {
             Grade grade = dbHelper.getGradeAtId(gradeIndex);
+
             if (grade.getSubject().match(subject)) {
                 gridStrings.add(grade.getName());
                 gridStrings.add("\t" + "\t" + "\t" + "\t" + grade.getGrade());
+
+                gradeArrayList.add(grade);
             }
         }
 
         if (gridStrings.size() != 0) {
             GuiHelper.fillGridViewFromArray(view, R.id.grades_gradesTable, gridStrings.toArray(new String[0]));
         }
+        return gradeArrayList.toArray(new Grade[0]);
     }
     //endregion
 }
