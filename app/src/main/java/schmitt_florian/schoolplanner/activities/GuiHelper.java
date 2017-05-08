@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -35,8 +36,8 @@ class GuiHelper {
     /**
      * method to set the background color of a {@link Button} with the resource id of a color
      *
-     * @param view the view the {@link Button} is in
-     * @param id Resource ID of the {@link Button}
+     * @param view    the view the {@link Button} is in
+     * @param id      Resource ID of the {@link Button}
      * @param colorId Resource ID of the color
      */
     static void setColorToButton(View view, int id, int colorId) {
@@ -56,6 +57,23 @@ class GuiHelper {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_list_item_1, content);
 
         listView.setAdapter(adapter);
+    }
+
+    /**
+     * method to set the content of a {@link GridView}
+     *
+     * @param view    the view the {@link GridView} is in
+     * @param id      Resource ID of the {@link GridView}
+     * @param content The content to fill the {@link GridView} with as string array.
+     *                Fills the grid from left to right, so if you have a {@link GridView}
+     *                with the {@link GridView#getNumColumns()} == 2 the content[] indices 0 & 1
+     *                will form the first row in the grid, 2 & 3 the second row and so on.
+     */
+    static void fillGridViewFromArray(View view, int id, String[] content) {
+        GridView gridView = (GridView) view.findViewById(id);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_list_item_1, content);
+
+        gridView.setAdapter(adapter);
     }
 
     /**

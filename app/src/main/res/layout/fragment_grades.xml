@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/grades_main"
@@ -12,10 +12,9 @@
     <LinearLayout
         android:id="@+id/grades_data"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:baselineAligned="false">
+        android:layout_height="match_parent"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/grades_subject"
@@ -32,22 +31,37 @@
                 android:text="@string/string_subjects"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
+            <TextView
+                android:id="@+id/Space"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:background="@color/secondary_text" />
+
             <ListView
                 android:id="@+id/grades_listSubjects"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:choiceMode="singleChoice"
                 android:listSelector="@color/divider" />
+
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/Space2"
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.01"
+            android:background="@color/secondary_text" />
+
         <LinearLayout
-            android:id="@+id/grades_gradesMain"
+            android:id="@+id/grades_grades"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight=".6"
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/grades_topbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -72,6 +86,12 @@
 
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/Space3"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:background="@color/secondary_text" />
+
             <GridView
                 android:id="@+id/grades_gradesTable"
                 android:layout_width="match_parent"
@@ -81,33 +101,15 @@
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/grades_toolbar"
-        android:layout_width="match_parent"
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/grades_floatingActionButton_add"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
+        app:fabSize="normal"
+        app:srcCompat="@drawable/ic_add" />
 
-        <Button
-            android:id="@+id/grades_buttonBack"
-            style="@style/Widget.AppCompat.Button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/string_back" />
-
-        <Button
-            android:id="@+id/grades_buttonDelete"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/string_delete" />
-
-        <Button
-            android:id="@+id/grades_buttonAdd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/string_add" />
-
-    </LinearLayout>
-</LinearLayout>
+</FrameLayout>
