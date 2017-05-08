@@ -1679,8 +1679,10 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         Exam exam1 = new Exam(1, subject1, "A simple Test in Math", "2017-06-13");
         Exam exam2 = new Exam(2, subject2, "German Test", "2017-05-03");
 
-        Grade grade1 = new Grade(1, subject1, "2nd Math test", "13");
-        Grade grade2 = new Grade(2, subject2, "3rd German test", "4");
+        Grade grade1 = new Grade(1, subject1, "2nd test", "13");
+        Grade grade2 = new Grade(2, subject2, "3rd test", "4");
+        Grade grade3 = new Grade(3, subject1, "5th test", "14");
+        Grade grade4 = new Grade(4, subject2, "4th test", "6");
 
         Homework homework1 = new Homework(1, subject1, "Geometry - draw a rectangle", "2017-05-06", false);
         Homework homework2 = new Homework(2, subject2, "Characterisation Goethe", "2017-06-03", false);
@@ -1714,6 +1716,8 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
 
         insertIntoDB(grade1);
         insertIntoDB(grade2);
+        insertIntoDB(grade3);
+        insertIntoDB(grade4);
 
         insertIntoDB(homework1);
         insertIntoDB(homework2);

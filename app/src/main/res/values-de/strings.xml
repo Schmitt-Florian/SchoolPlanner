@@ -20,4 +20,9 @@
     <string name="string_done">Fertig</string>
     <string name="string_todo">ToDo</string>
     <string name="string_grades">Noten</string>
+    <string name="string_add">Hinzufügen</string>
+    <string name="string_back">Zurück</string>
+    <string name="string_delete">Löschen</string>
+    <string name="string_mark">Note</string>
+    <string name="string_name">Name</string>
 </resources>
