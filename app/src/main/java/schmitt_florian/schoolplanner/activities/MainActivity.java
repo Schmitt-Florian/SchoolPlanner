@@ -19,9 +19,10 @@ import schmitt_florian.schoolplanner.R;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         HomeFragment.OnFragmentInteractionListener,
         ScheduleFragment.OnFragmentInteractionListener,
-        SubjectsFragment.OnFragmentInteractionListener,
         HomeworkFragment.OnFragmentInteractionListener,
         ExamsFragment.OnFragmentInteractionListener,
+        GradesFragment.OnFragmentInteractionListener,
+        SubjectsFragment.OnFragmentInteractionListener,
         CreditsFragment.OnFragmentInteractionListener,
         SettingsFragment.OnFragmentInteractionListener {
 
@@ -77,42 +78,63 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_main) {
-            // Goto Home
-            FragmentTransaction ft = fragmentManager.beginTransaction();
-            ft.replace(R.id.containerMain, new HomeFragment());
-            ft.commit();
-        } else if (id == R.id.nav_schedule) {
-            // Goto Schedule
-            FragmentTransaction ft = fragmentManager.beginTransaction();
-            ft.replace(R.id.containerMain, new ScheduleFragment());
-            ft.commit();
-        } else if (id == R.id.nav_subjects) {
-            // Goto Subjects
-            FragmentTransaction ft = fragmentManager.beginTransaction();
-            ft.replace(R.id.containerMain, new SubjectsFragment());
-            ft.commit();
-        } else if (id == R.id.nav_homework) {
-            //Goto Homework
-            FragmentTransaction ft = fragmentManager.beginTransaction();
-            ft.replace(R.id.containerMain, new HomeworkFragment());
-            ft.commit();
-        } else if (id == R.id.nav_exams) {
-            // Goto Exams
-            FragmentTransaction ft = fragmentManager.beginTransaction();
-            ft.replace(R.id.containerMain, new ExamsFragment());
-            ft.commit();
-        } else if (id == R.id.nav_credits) {
-            //Goto Credits
-            FragmentTransaction ft = fragmentManager.beginTransaction();
-            ft.replace(R.id.containerMain, new CreditsFragment());
-            ft.commit();
-        } else if (id == R.id.nav_settings) {
-            // Goto Settings
-            FragmentTransaction ft = fragmentManager.beginTransaction();
-            ft.replace(R.id.containerMain, new SettingsFragment());
-            ft.commit();
-
+        switch (id) {
+            case R.id.nav_main: {
+                // Goto Home
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                ft.replace(R.id.containerMain, new HomeFragment());
+                ft.commit();
+                break;
+            }
+            case R.id.nav_schedule: {
+                // Goto Schedule
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                ft.replace(R.id.containerMain, new ScheduleFragment());
+                ft.commit();
+                break;
+            }
+            case R.id.nav_homework: {
+                //Goto Homework
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                ft.replace(R.id.containerMain, new HomeworkFragment());
+                ft.commit();
+                break;
+            }
+            case R.id.nav_exams: {
+                // Goto Exams
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                ft.replace(R.id.containerMain, new ExamsFragment());
+                ft.commit();
+                break;
+            }
+            case R.id.nav_grades: {
+                // Goto Subjects
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                ft.replace(R.id.containerMain, new GradesFragment());
+                ft.commit();
+                break;
+            }
+            case R.id.nav_subjects: {
+                // Goto Subjects
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                ft.replace(R.id.containerMain, new SubjectsFragment());
+                ft.commit();
+                break;
+            }
+            case R.id.nav_credits: {
+                //Goto Credits
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                ft.replace(R.id.containerMain, new CreditsFragment());
+                ft.commit();
+                break;
+            }
+            case R.id.nav_settings: {
+                // Goto Settings
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                ft.replace(R.id.containerMain, new SettingsFragment());
+                ft.commit();
+                break;
+            }
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
