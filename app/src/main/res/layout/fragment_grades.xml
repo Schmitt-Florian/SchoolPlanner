@@ -10,71 +10,89 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/grades_upperHalf"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight=".5"
+        android:id="@+id/grades_data"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/grades_subject"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight=".5"
+            android:layout_weight=".4"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView7"
+                android:id="@+id/grades_labelSubject"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="@string/string_grades_subject"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
 
             <ListView
+                android:id="@+id/grades_listSubjects"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/grades_grades"
+            android:id="@+id/grades_gradesMain"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight=".5"
+            android:layout_weight=".6"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                />
-
             <LinearLayout
+                android:id="@+id/grades_grades"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight=".5"
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:id="@+id/grades_date"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight=".7"
                     android:orientation="vertical">
 
                     <ListView
+                        android:id="@+id/grades_listExams"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
+
+                    <TextView
+                        android:id="@+id/grades_labelExamDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:text="@string/string_grades_examDate" />
+
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:id="@+id/grades_mark"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight=".3"
                     android:orientation="vertical">
 
+                    <TextView
+                        android:id="@+id/grades_labelMark"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:text="@string/string_grades_mark" />
+
                     <ListView
+                        android:id="@+id/grades_listMarks"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
                 </LinearLayout>
             </LinearLayout>
-
         </LinearLayout>
     </LinearLayout>
 
@@ -82,28 +100,28 @@
         android:id="@+id/grades_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/button3"
-            android:layout_width="wrap_content"
+            android:id="@+id/grades_buttonAdd"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Button" />
+            android:text="@string/string_grades_add" />
 
         <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
+            android:id="@+id/grades_buttonDelete"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Button" />
+            android:text="@string/string_grades_delete" />
 
         <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
+            android:id="@+id/grades_buttonBack"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Button" />
+            android:text="@string/string_grades_back" />
     </LinearLayout>
-
 </LinearLayout>
