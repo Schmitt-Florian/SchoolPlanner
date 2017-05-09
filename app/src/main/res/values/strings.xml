@@ -37,5 +37,7 @@
     <string name="string_delete">Delete</string>
     <string name="string_back">Back</string>
     <string name="string_name">Name</string>
+    <string name="string_close">Close</string>
+    <string name="string_edit">Edit</string>
 
 </resources>
