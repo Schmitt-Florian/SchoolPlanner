@@ -139,12 +139,13 @@ public class Homework {
 
     /**
      * mark a homework is done.
-     * <br> </br>
-     * Note: this action is irreversible
+     *
+     * @param done indicates whether the homework is done or not
      */
-    public void setDone() {
-        this.done = true;
+    public void setDone(boolean done) {
+        this.done = done;
     }
+
 
     /**
      * method to indicate if one Homework matches another one by the values of their fields

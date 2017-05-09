@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import schmitt_florian.schoolplanner.R;
+import schmitt_florian.schoolplanner.logic.DatabaseHelperImpl;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         HomeFragment.OnFragmentInteractionListener,
@@ -50,11 +51,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         //----TESTING----
-//        DatabaseHelperImpl testHelper = new DatabaseHelperImpl(this);
-//        testHelper.resetDatabase();
-//        testHelper.fillDatabaseWithExamples();
-//
-//        System.out.println(testHelper.toString());
+        DatabaseHelperImpl testHelper = new DatabaseHelperImpl(this);
+        testHelper.resetDatabase();
+        testHelper.fillDatabaseWithExamples();
+
+        System.out.println(testHelper.toString());
         //----TESTING----
 
 
