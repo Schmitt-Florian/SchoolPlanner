@@ -18,7 +18,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Name" />
+            android:text="@string/string_name" />
 
         <EditText
             android:id="@+id/homeworkDetails_details"
@@ -27,20 +27,22 @@
             android:layout_weight="1"
             android:ems="10"
             android:inputType="textMultiLine"
-            android:text="Details" />
+            android:text="@string/string_details" />
 
         <Spinner
             android:id="@+id/homeworkDetails_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:spinnerMode="dialog"
+            android:prompt="@string/string_select_subject"/>
 
         <CheckBox
             android:id="@+id/homeworkDetails_checkBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Done"
+            android:text="@string/string_done"
             android:textSize="25sp" />
     </LinearLayout>
 
@@ -60,7 +62,7 @@
             android:layout_gravity="bottom"
             android:layout_weight="0.9"
             android:backgroundTint="@color/accent"
-            android:text="save" />
+            android:text="@string/string_save" />
 
         <Button
             android:id="@+id/homeworkDetails_buttonClose"
@@ -70,7 +72,7 @@
             android:layout_marginBottom="0dp"
             android:layout_weight="0.9"
             android:backgroundTint="@color/accent"
-            android:text="Close" />
+            android:text="@string/string_close" />
 
 
 

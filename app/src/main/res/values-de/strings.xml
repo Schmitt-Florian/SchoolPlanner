@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Schulplanner</string>
+    <string name="app_name">Schulplaner</string>
     <string name="string_credits">Mitwirkende</string>
     <string name="string_exams">Klausuren</string>
     <string name="string_homepage">Startseite</string>

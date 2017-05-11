@@ -39,5 +39,8 @@
     <string name="string_name">Name</string>
     <string name="string_close">Close</string>
     <string name="string_edit">Edit</string>
+    <string name="string_details">Details</string>
+    <string name="string_save">Save</string>
+    <string name="string_select_subject">Select Subject</string>
 
 </resources>
