@@ -9,6 +9,17 @@
     <!-- TODO: Update blank fragment layout -->
 
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/homework_floatingActionButton_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
+        app:fabSize="normal"
+        app:srcCompat="@drawable/ic_add" />
+
     <LinearLayout
         android:id="@+id/homework_tabLayout"
         android:layout_width="match_parent"
@@ -48,16 +59,5 @@
             android:layout_weight="1" />
 
     </LinearLayout>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/homework_floatingActionButton_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
-        android:clickable="true"
-        app:fabSize="normal"
-        app:srcCompat="@drawable/ic_add" />
 
 </FrameLayout>
