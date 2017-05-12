@@ -24,6 +24,7 @@ public class CreditsFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
     @Override
@@ -105,10 +106,12 @@ public class CreditsFragment extends Fragment implements View.OnClickListener {
      * @param subject the subject of the email
      */
     private void sendEmail(String subject) {
-        Intent emailIntent = new Intent(Intent.ACTION_SEND, Uri.parse("mailto:" + getString(R.string.app_email)));
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
-
-        startActivity(Intent.createChooser(emailIntent, getString(R.string.string_choose_email_service)));
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        intent.setData(Uri.parse("mailto:projectschoolplanner17@gmail.com"));
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // this will make sure that when user returns to the app, the app is displayed, instead of the email app.
+        startActivity(intent);
     }
     //endregion
 }
