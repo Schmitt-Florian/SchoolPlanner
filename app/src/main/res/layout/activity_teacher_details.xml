@@ -12,7 +12,7 @@
 
 
         <EditText
-            android:id="@+id/homeworkDetails_name"
+            android:id="@+id/teacherDetails_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -21,27 +21,23 @@
             android:text="Name" />
 
         <EditText
-            android:id="@+id/homeworkDetails_details"
+            android:id="@+id/teacherDetails_abbreviation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
             android:inputType="textMultiLine"
-            android:text="Details" />
+            android:text="Abbreviation" />
 
-        <Spinner
-            android:id="@+id/homeworkDetails_spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <CheckBox
-            android:id="@+id/homeworkDetails_checkBox"
+        <EditText
+            android:id="@+id/teacherDetails_gender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Done"
-            android:textSize="25sp" />
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Gender" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -54,7 +50,7 @@
 
 
         <Button
-            android:id="@+id/homeworkDetails_buttonSave"
+            android:id="@+id/teacherDetails_buttonSave"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
@@ -63,7 +59,7 @@
             android:text="save" />
 
         <Button
-            android:id="@+id/homeworkDetails_buttonClose"
+            android:id="@+id/teacherDetails_buttonClose"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
