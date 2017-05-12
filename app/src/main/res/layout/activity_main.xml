@@ -32,11 +32,10 @@
 
         <LinearLayout
             android:id="@+id/containerMain"
-            android:layout_width="0dp"
-            android:layout_height="6dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-            tools:layout_editor_absoluteY="81dp"
-            tools:layout_editor_absoluteX="8dp">
+            android:layout_marginTop="?attr/actionBarSize">
 
         </LinearLayout>
 
