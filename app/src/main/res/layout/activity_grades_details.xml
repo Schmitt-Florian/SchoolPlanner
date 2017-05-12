@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/gradesDetails_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/gradesDetails_edit"
+        android:layout_width="match_parent"
+        android:layout_height="420dp"
+        android:orientation="vertical">
+
+
+        <EditText
+            android:id="@+id/gradesDetails_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="@string/string_name" />
+
+        <EditText
+            android:id="@+id/gradesDetails_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            android:text="@string/string_grades" />
+
+        <Spinner
+            android:id="@+id/gradesDetails_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:prompt="@string/string_select_subject"
+            android:spinnerMode="dialog" />
+
+        <CheckBox
+            android:id="@+id/gradesDetails_checkBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/string_done"
+            android:textSize="25sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/grades_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="89dp"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="0dp"
+        android:orientation="vertical">
+
+
+        <Button
+            android:id="@+id/gradesDetails_buttonSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="0.9"
+            android:backgroundTint="@color/accent"
+            android:text="@string/string_save" />
+
+        <Button
+            android:id="@+id/gradesDetails_buttonClose"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="0dp"
+            android:layout_weight="0.9"
+            android:backgroundTint="@color/accent"
+            android:text="@string/string_close" />
+
+
+    </LinearLayout>
+
+</LinearLayout>
