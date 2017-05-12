@@ -40,7 +40,7 @@ public class GradesFragment extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_grades, container, false);
 
-        initGui(view);
+//        initGui(view);
         return view;
     }
 
@@ -61,19 +61,24 @@ public class GradesFragment extends Fragment implements View.OnClickListener {
         mListener = null;
     }
 
+    @Override
+    public void onClick(View v) {
+
+    }
+
     /**
      * Called when a view has been clicked.
      *
      * @param v The view that was clicked.
      */
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.grades_floatingActionButton_add:
-                //open input dialog
-                break;
-        }
-    }
+//    @Override
+//    public void onClick(View v) {
+//        switch (v.getId()) {
+//            case R.id.grades_floatingActionButton_add:
+//                //open input dialog
+//                break;
+//        }
+//    }
 
     /**
      * This interface must be implemented by activities that contain this
@@ -97,12 +102,12 @@ public class GradesFragment extends Fragment implements View.OnClickListener {
      *
      * @param view the view of the fragment
      */
-    private void initGui(final View view) {
-        handleSubjectListOnClick(view, fillSubjectListView(view));
-        handleGridViewOnClick(view);
-
-        GuiHelper.defineFloatingActionButtonOnClickListener(view, R.id.grades_floatingActionButton_add, this);
-    }
+//    private void initGui(final View view) {
+//        handleSubjectListOnClick(view, fillSubjectListView(view));
+//        handleGridViewOnClick(view);
+//
+//        GuiHelper.defineFloatingActionButtonOnClickListener(view, R.id.grades_floatingActionButton_add, this);
+//    }
 
     /**
      * method to handle Clicks on the ListView, which shows the {@link Subject}s at the grades screen
