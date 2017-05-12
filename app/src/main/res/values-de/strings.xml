@@ -1,28 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Schulplaner</string>
-    <string name="string_credits">Mitwirkende</string>
-    <string name="string_exams">Klausuren</string>
-    <string name="string_homepage">Startseite</string>
-    <string name="string_homework">Hausaufgaben</string>
+
+    <string name="string_homepage">Home</string>
     <string name="string_schedule">Stundenplan</string>
-    <string name="string_settings">Einstellungen</string>
     <string name="string_subjects">Fächer</string>
-    <string name="string_day_friday">Freitag</string>
+    <string name="string_homework">Hausaufgaben</string>
+    <string name="string_exams">Klausuren</string>
+    <string name="string_grades">Noten</string>
+    <string name="string_credits">Mitwirkende</string>
+    <string name="string_settings">Einstellungen</string>
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
+    <string name="string_credits.developedBy">Diese Applikation wurde entwickelt von:\n Natascha Becker\nDarius Wolkewitz\nKevin Schevaljé\nJan-Nicklas Watz\nMarlon Drolsbach</string>
     <string name="string_day_monday">Montag</string>
-    <string name="string_day_saturday">Samstag</string>
-    <string name="string_day_sunday">Sonntag</string>
-    <string name="string_day_thursday">Donnerstag</string>
     <string name="string_day_tuesday">Dienstag</string>
     <string name="string_day_wednesday">Mittwoch</string>
-    <string name="string_error">Fehler</string>
-    <string name="string_choose_email_service">Wähle E-Mail Dienst</string>
-    <string name="string_done">Fertig</string>
+    <string name="string_day_thursday">Donnerstag</string>
+    <string name="string_day_friday">Freitag</string>
+    <string name="string_day_saturday">Samstag</string>
+    <string name="string_day_sunday">Sonntag</string>
+    <string name="string_teacher">Lehrer</string>
+    <string name="string_room">Raum</string>
+    <string name="string_error">Error</string>
+    <string name="string_choose_email_service">Wähle Email Service aus</string>
     <string name="string_todo">ToDo</string>
-    <string name="string_grades">Noten</string>
-    <string name="string_add">Hinzufügen</string>
-    <string name="string_back">Zurück</string>
-    <string name="string_delete">Löschen</string>
+    <string name="string_done">Fertig</string>
     <string name="string_mark">Note</string>
+    <string name="string_add">Hinzufügen</string>
+    <string name="string_delete">Löschen</string>
+    <string name="string_back">Zurück</string>
     <string name="string_name">Name</string>
+    <string name="string_close">Schließen</string>
+    <string name="string_edit">Bearbeiten</string>
+    <string name="string_details">Details</string>
+    <string name="string_save">Speichern</string>
+    <string name="string_select_subject">Wähle Fach aus</string>
 </resources>
