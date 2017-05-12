@@ -8,6 +8,6 @@
     <color name="secondary_text">#757575</color>
     <color name="icons">#ffffff</color>
     <color name="divider">#bdbdbd</color>
-    <color name="button_active">#FFFF9800</color>
-    <color name="button_passive">#ff6600</color>
+    <color name="button_active">#ff6600</color>
+    <color name="button_passive">#ff9800</color>
 </resources>
