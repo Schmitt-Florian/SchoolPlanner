@@ -27,6 +27,10 @@
     <string name="string_day_saturday">Saturday</string>
     <string name="string_day_sunday">Sunday</string>
 
+    //Subject
+    <string name="string_teacher">Teacher</string>
+    <string name="string_room">Room</string>
+
     //Other
     <string name="string_error">Error</string>
     <string name="string_choose_email_service">Choose Email Service</string>

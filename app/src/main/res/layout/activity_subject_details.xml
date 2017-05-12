@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/homeworkDetails"
+    android:id="@+id/subjectDetails_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/homeworkDetails_edit"
+        android:id="@+id/subjectDetails_edit"
         android:layout_width="match_parent"
         android:layout_height="420dp"
         android:orientation="vertical">
 
 
         <EditText
-            android:id="@+id/homeworkDetails_name"
+            android:id="@+id/subjectDetails_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -23,7 +23,16 @@
             android:text="@string/string_name" />
 
         <EditText
-            android:id="@+id/homeworkDetails_details"
+            android:id="@+id/subjectDetails_teacher"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            android:text="@string/string_teacher" />
+
+        <EditText
+            android:id="@+id/subjectDetails_room"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -31,25 +40,11 @@
             android:inputType="textMultiLine"
             android:text="@string/string_details" />
 
-        <Spinner
-            android:id="@+id/homeworkDetails_spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:prompt="@string/string_select_subject"
-            android:spinnerMode="dialog" />
 
-        <CheckBox
-            android:id="@+id/homeworkDetails_checkBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/string_done"
-            android:textSize="25sp" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/homeworkDetails_buttons"
+        android:id="@+id/subjectDetails_buttons"
         android:layout_width="match_parent"
         android:layout_height="89dp"
         android:layout_gravity="bottom"
@@ -58,7 +53,7 @@
 
 
         <Button
-            android:id="@+id/homeworkDetails_buttonSave"
+            android:id="@+id/subjectDetails_buttonSave"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
@@ -67,7 +62,7 @@
             android:text="@string/string_save" />
 
         <Button
-            android:id="@+id/homeworkDetails_buttonClose"
+            android:id="@+id/subjectDetails_buttonClose"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
