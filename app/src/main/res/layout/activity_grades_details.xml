@@ -23,7 +23,7 @@
             android:text="@string/string_name" />
 
         <EditText
-            android:id="@+id/gradesDetails_details"
+            android:id="@+id/gradesDetails_grade"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -39,13 +39,6 @@
             android:prompt="@string/string_select_subject"
             android:spinnerMode="dialog" />
 
-        <CheckBox
-            android:id="@+id/gradesDetails_checkBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/string_done"
-            android:textSize="25sp" />
     </LinearLayout>
 
     <LinearLayout
