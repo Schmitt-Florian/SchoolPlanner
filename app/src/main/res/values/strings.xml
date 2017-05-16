@@ -47,4 +47,7 @@
     <string name="string_save">Save</string>
     <string name="string_select_subject">Select Subject</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

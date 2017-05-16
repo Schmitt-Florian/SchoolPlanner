@@ -1,47 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/subjectDetails_main"
+    android:id="@+id/examsDetails_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/subjectDetails_edit"
+        android:id="@+id/examsDetails_edit"
         android:layout_width="match_parent"
         android:layout_height="420dp"
         android:orientation="vertical">
 
 
         <EditText
-            android:id="@+id/subjectDetails_name"
+            android:id="@+id/examsDetails_subject"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="@string/string_name" />
+            android:text="Subject" />
 
         <EditText
-            android:id="@+id/subjectDetails_room"
+            android:id="@+id/examsDetails_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
             android:inputType="textMultiLine"
-            android:text="@string/string_details" />
+            android:text="Date" />
 
-        <Spinner
-            android:id="@+id/spinner"
+        <EditText
+            android:id="@+id/examsDetails_room"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Details" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/subjectDetails_buttons"
+        android:id="@+id/examsDetails_buttons"
         android:layout_width="match_parent"
         android:layout_height="89dp"
         android:layout_gravity="bottom"
@@ -50,23 +52,23 @@
 
 
         <Button
-            android:id="@+id/subjectDetails_buttonSave"
+            android:id="@+id/teacherDetails_buttonSave"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_weight="0.9"
             android:backgroundTint="@color/accent"
-            android:text="@string/string_save" />
+            android:text="save" />
 
         <Button
-            android:id="@+id/subjectDetails_buttonClose"
+            android:id="@+id/teacherDetails_buttonClose"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginBottom="0dp"
             android:layout_weight="0.9"
             android:backgroundTint="@color/accent"
-            android:text="@string/string_close" />
+            android:text="Close" />
 
 
     </LinearLayout>
