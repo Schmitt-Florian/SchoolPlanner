@@ -23,6 +23,23 @@
             android:text="@string/string_name" />
 
         <EditText
+            android:id="@+id/homeworkDeatils_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="date"
+            android:text="Date"/>
+
+        <Spinner
+            android:id="@+id/homeworkDetails_spinnerSubjects"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.97"
+            android:prompt="@string/string_select_subject"
+            android:spinnerMode="dialog" />
+
+        <EditText
             android:id="@+id/homeworkDetails_details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,21 +48,15 @@
             android:inputType="textMultiLine"
             android:text="@string/string_details" />
 
-        <Spinner
-            android:id="@+id/homeworkDetails_spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.97"
-            android:prompt="@string/string_select_subject"
-            android:spinnerMode="dialog" />
-
-        <CheckBox
-            android:id="@+id/homeworkDetails_checkBox"
+        <Switch
+            android:id="@+id/switch1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/string_done"
-            android:textSize="25sp" />
+            android:text="Done"
+            android:textSize="19sp"/>
+
+
     </LinearLayout>
 
     <LinearLayout
