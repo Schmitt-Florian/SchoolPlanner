@@ -23,15 +23,6 @@
             android:text="@string/string_name" />
 
         <EditText
-            android:id="@+id/subjectDetails_teacher"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="textMultiLine"
-            android:text="@string/string_teacher" />
-
-        <EditText
             android:id="@+id/subjectDetails_room"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -39,6 +30,12 @@
             android:ems="10"
             android:inputType="textMultiLine"
             android:text="@string/string_details" />
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
 
     </LinearLayout>
