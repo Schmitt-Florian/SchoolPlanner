@@ -5,18 +5,6 @@
     android:layout_height="match_parent"
     tools:context=".activities.CreditsFragment">
 
-    <TextView
-        android:id="@+id/credits_developedBy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/string_credits.developedBy"
-        android:textAlignment="center"
-        android:textColor="@color/accent"
-        android:textSize="35sp"
-        android:textStyle="italic"
-        android:layout_marginTop="12dp"
-        />
-
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/credits_buttonEmail"
         android:layout_width="wrap_content"
@@ -27,5 +15,10 @@
         android:clickable="true"
         app:fabSize="normal"
         app:srcCompat="@android:drawable/ic_dialog_email" />
+
+    <Spinner
+        android:id="@+id/spinnerTest"
+        android:layout_width="match_parent"
+        android:layout_height="79dp" />
 
 </FrameLayout>

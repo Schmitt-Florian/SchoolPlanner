@@ -13,11 +13,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import java.util.ArrayList;
+import java.util.List;
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemSelectedListener;
 
 import schmitt_florian.schoolplanner.R;
 import schmitt_florian.schoolplanner.logic.DatabaseHelperImpl;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
+public class MainActivity extends AppCompatActivity implements
+
+        NavigationView.OnNavigationItemSelectedListener,
         HomeFragment.OnFragmentInteractionListener,
         ScheduleFragment.OnFragmentInteractionListener,
         HomeworkFragment.OnFragmentInteractionListener,
@@ -25,7 +38,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         GradesFragment.OnFragmentInteractionListener,
         SubjectsFragment.OnFragmentInteractionListener,
         CreditsFragment.OnFragmentInteractionListener,
-        SettingsFragment.OnFragmentInteractionListener {
+        SettingsFragment.OnFragmentInteractionListener,
+        AdapterView.OnItemSelectedListener{
 
     private static final String TAG = "MainActivity";
     FragmentManager fragmentManager;
@@ -33,6 +47,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Spinner spinner = (Spinner) findViewById(R.id.spinnerTest);
+        spinner.setOnItemSelectedListener(this);
+        List<String> subjects = new ArrayList<String>();
+        subjects.add("Maths");
+        subjects.add("Swag");
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, subjects);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(dataAdapter);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -146,5 +170,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onFragmentInteraction(Uri uri) {
         Log.d(TAG, "onFragmentInteraction");
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }
