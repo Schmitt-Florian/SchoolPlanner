@@ -1,5 +1,7 @@
 package schmitt_florian.schoolplanner.activities;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -29,11 +31,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private static final String TAG = "MainActivity";
     FragmentManager fragmentManager;
+    private int lastFragment = 0;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences preferences = this.getSharedPreferences(this.getApplicationContext().toString(), Context.MODE_PRIVATE);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -58,9 +62,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         System.out.println(testHelper.toString());
         //----TESTING----
 
+        lastFragment = preferences.getInt("lastFragment", 0);
+        navigationView.getMenu().getItem(lastFragment).setChecked(true);
 
-        navigationView.getMenu().getItem(0).setChecked(true);
-        onNavigationItemSelected(navigationView.getMenu().getItem(0));
+        onNavigationItemSelected(navigationView.getMenu().getItem(lastFragment));
 
     }
 
@@ -78,13 +83,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
+        SharedPreferences preferences = this.getSharedPreferences(this.getApplicationContext().toString(), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
         switch (id) {
+
             case R.id.nav_main: {
                 // Goto Home
                 FragmentTransaction ft = fragmentManager.beginTransaction();
                 ft.replace(R.id.containerMain, new HomeFragment());
                 ft.commit();
+                editor.putInt("lastFragment", 0);
                 break;
             }
             case R.id.nav_schedule: {
@@ -92,6 +100,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 FragmentTransaction ft = fragmentManager.beginTransaction();
                 ft.replace(R.id.containerMain, new ScheduleFragment());
                 ft.commit();
+                editor.putInt("lastFragment", 1);
                 break;
             }
             case R.id.nav_homework: {
@@ -99,6 +108,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 FragmentTransaction ft = fragmentManager.beginTransaction();
                 ft.replace(R.id.containerMain, new HomeworkFragment());
                 ft.commit();
+                editor.putInt("lastFragment", 2);
                 break;
             }
             case R.id.nav_exams: {
@@ -106,6 +116,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 FragmentTransaction ft = fragmentManager.beginTransaction();
                 ft.replace(R.id.containerMain, new ExamsFragment());
                 ft.commit();
+                editor.putInt("lastFragment", 3);
                 break;
             }
             case R.id.nav_grades: {
@@ -113,6 +124,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 FragmentTransaction ft = fragmentManager.beginTransaction();
                 ft.replace(R.id.containerMain, new GradesFragment());
                 ft.commit();
+                editor.putInt("lastFragment", 4);
                 break;
             }
             case R.id.nav_subjects: {
@@ -120,6 +132,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 FragmentTransaction ft = fragmentManager.beginTransaction();
                 ft.replace(R.id.containerMain, new SubjectsFragment());
                 ft.commit();
+                editor.putInt("lastFragment", 5);
                 break;
             }
             case R.id.nav_credits: {
@@ -127,6 +140,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 FragmentTransaction ft = fragmentManager.beginTransaction();
                 ft.replace(R.id.containerMain, new CreditsFragment());
                 ft.commit();
+                editor.putInt("lastFragment", 6);
                 break;
             }
             case R.id.nav_settings: {
@@ -134,10 +148,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 FragmentTransaction ft = fragmentManager.beginTransaction();
                 ft.replace(R.id.containerMain, new SettingsFragment());
                 ft.commit();
+                editor.putInt("lastFragment", 7);
                 break;
             }
-        }
 
+        }
+        editor.apply();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -146,5 +162,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onFragmentInteraction(Uri uri) {
         Log.d(TAG, "onFragmentInteraction");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
     }
 }
