@@ -113,8 +113,8 @@ public class GradesFragment extends Fragment implements View.OnClickListener {
      * @param view the view of the fragment
      */
     private void initGui(final View view) {
-        handleSubjectListOnClick(view, fillSubjectListView(view));
-        handleGridViewOnClick(view);
+        defineSubjectListOnClick(view, fillSubjectListView(view));
+        defineGridViewOnClick(view);
 
         GuiHelper.defineButtonOnClickListener(view, R.id.grades_buttonAdd, this);
     }
@@ -125,7 +125,7 @@ public class GradesFragment extends Fragment implements View.OnClickListener {
      * @param view              the view of the fragment
      * @param allSubjectsInList a array of all {@link Subject}s shown in the listView ordered by their position in the listView
      */
-    private void handleSubjectListOnClick(final View view, final Subject[] allSubjectsInList) {
+    private void defineSubjectListOnClick(final View view, final Subject[] allSubjectsInList) {
         ListView subjectList = (ListView) view.findViewById(R.id.grades_listSubjects);
 
         subjectList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -141,7 +141,7 @@ public class GradesFragment extends Fragment implements View.OnClickListener {
      *
      * @param view the view of the fragment
      */
-    private void handleGridViewOnClick(View view) {
+    private void defineGridViewOnClick(View view) {
         final GridView gridView = (GridView) view.findViewById(R.id.grades_gradesTable);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
