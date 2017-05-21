@@ -50,8 +50,8 @@ class ExceptionHandler {
      * when trying to delete an object in the database that does not exist
      * by showing a Toast with an error message
      *
-     * @param objectId       id of the object type you were deleting
-     * @param context        the context of the app
+     * @param objectId id of the object type you were deleting
+     * @param context  the context of the app
      */
     static void handleDatabaseExceptionForDeletingAnNotExistingObject(int objectId, Context context) {
         Toast.makeText(context, "Could not delete " + objectId + " in Database. Maybe you have not created this " + objectId + " before.", Toast.LENGTH_LONG).show();

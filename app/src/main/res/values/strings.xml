@@ -46,8 +46,13 @@
     <string name="string_details">Details</string>
     <string name="string_save">Save</string>
     <string name="string_select_subject">Select Subject</string>
+    <string name="string_grade">Grade</string>
+    <string name="string_subject">Subject</string>
+    <string name="string_mandatory_field">Mandatory Field</string>
+    <string name="string_add_subjects_first">Add Subjects First</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
 
 </resources>

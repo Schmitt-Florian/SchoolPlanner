@@ -37,6 +37,27 @@ public class Lesson implements Comparable<Lesson> {
     }
 
     /**
+     * method to indicate if one Lesson[] matches another one by the values of their fields
+     *
+     * @param lessons      one Lesson[]
+     * @param otherLessons the other Lesson[]
+     * @return true if all fields are the same in both Lesson[]s, else false
+     */
+    public static boolean match(Lesson[] lessons, Lesson[] otherLessons) {
+        if (lessons.length != otherLessons.length) {
+            return false;
+        }
+
+        for (int i = 0; i < lessons.length; i++) {
+            if (!lessons[i].match(otherLessons[i])) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
      * gets the id of the lesson
      *
      * @return numeric id of the lesson (unique)
@@ -73,27 +94,6 @@ public class Lesson implements Comparable<Lesson> {
         return this.id == otherLesson.id && this.subject.match(otherLesson.subject) &&
                 this.period.match(otherLesson.period)
                 ;
-    }
-
-    /**
-     * method to indicate if one Lesson[] matches another one by the values of their fields
-     *
-     * @param lessons      one Lesson[]
-     * @param otherLessons the other Lesson[]
-     * @return true if all fields are the same in both Lesson[]s, else false
-     */
-    public static boolean match(Lesson[] lessons, Lesson[] otherLessons) {
-        if (lessons.length != otherLessons.length) {
-            return false;
-        }
-
-        for (int i = 0; i < lessons.length; i++) {
-            if (!lessons[i].match(otherLessons[i])) {
-                return false;
-            }
-        }
-
-        return true;
     }
 
     /**

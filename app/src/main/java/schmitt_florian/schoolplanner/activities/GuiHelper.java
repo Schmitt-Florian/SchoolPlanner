@@ -1,16 +1,20 @@
 package schmitt_florian.schoolplanner.activities;
 
 
+import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.Calendar;
 
+import schmitt_florian.schoolplanner.R;
 import schmitt_florian.schoolplanner.logic.Exam;
 import schmitt_florian.schoolplanner.logic.Homework;
 import schmitt_florian.schoolplanner.logic.Subject;
@@ -20,6 +24,25 @@ import schmitt_florian.schoolplanner.logic.Subject;
  * A basic auxiliary class containing simple methods for GUI interaction
  */
 class GuiHelper {
+
+    /**
+     * gets the input of a mandatory {@link EditText} as String
+     *
+     * @param view the view the {@link EditText} is in
+     * @param id   Resource ID of the {@link EditText}
+     * @return the input of a {@link EditText} as String or if the {@link EditText} is empty "" and calls the {@link GuiHelper#handleEmptyMandatoryEditText) method
+     */
+    static String getInputFromMandatoryEditText(View view, int id) {
+        EditText editText = (EditText) view.findViewById(id);
+
+        String input = editText.getText().toString();
+        if (input.replaceAll("\\s+", "").isEmpty()) {
+            handleEmptyMandatoryEditText(view, id);
+            return "";
+        } else {
+            return input;
+        }
+    }
 
     /**
      * method to set the text of a {@link TextView}
@@ -43,6 +66,19 @@ class GuiHelper {
     static void setColorToButton(View view, int id, int colorId) {
         Button b = (Button) view.findViewById(id);
         b.setBackgroundResource(colorId);
+    }
+
+    /**
+     * method to set the visibility of a {@link View}
+     *
+     * @param view       the view the {@link View} is in
+     * @param id         Resource ID of the {@link View}
+     * @param visibility The visibility to set to the {@link View},
+     *                   must be one of {@link View#VISIBLE} , {@link View#INVISIBLE} , {@link View#GONE}
+     */
+    static void setVisibility(View view, int id, int visibility) {
+        View v = view.findViewById(id);
+        v.setVisibility(visibility);
     }
 
     /**
@@ -75,6 +111,23 @@ class GuiHelper {
 
         gridView.setAdapter(adapter);
     }
+
+    /**
+     * method to set the content of a {@link Spinner}
+     *
+     * @param view    the view the {@link Spinner} is in
+     * @param id      Resource ID of the {@link Spinner}
+     * @param content The content to fill the {@link Spinner} with as string array
+     */
+    static void fillSpinnerFromArray(View view, int id, String[] content) {
+        Spinner spinner = (Spinner) view.findViewById(id);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_item, content);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinner.setAdapter(adapter);
+    }
+
+    //region GUI string
 
     /**
      * extracts a GUI displayable String from the given {@link Subject}
@@ -117,6 +170,7 @@ class GuiHelper {
 
         return exam.getSubject().getName() + " - " + dateString;
     }
+    //endregion
 
     /**
      * method used to set the {@link View.OnClickListener} of a {@link Button} at a given id
@@ -140,6 +194,18 @@ class GuiHelper {
     static void defineFloatingActionButtonOnClickListener(View view, int id, View.OnClickListener onClickListener) {
         FloatingActionButton b = (FloatingActionButton) view.findViewById(id);
         b.setOnClickListener(onClickListener);
+    }
+
+    /**
+     * can be used to indicate that a {@link EditText} in the GUI must not be empty
+     *
+     * @param view the view the {@link EditText} is in
+     * @param id   the ResourceID of the EditText
+     */
+    static void handleEmptyMandatoryEditText(View view, int id) {
+        EditText editText = (EditText) view.findViewById(id);
+        editText.setHint(view.getContext().getResources().getString(R.string.string_mandatory_field));
+        editText.setHintTextColor(Color.RED);
     }
 
 

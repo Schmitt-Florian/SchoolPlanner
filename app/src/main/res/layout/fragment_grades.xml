@@ -4,17 +4,17 @@
     android:id="@+id/grades_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     app:layout_collapseMode="none"
     app:layout_collapseParallaxMultiplier="1.0"
-    tools:context="schmitt_florian.schoolplanner.activities.GradesFragment"
-    android:orientation="vertical">
+    tools:context="schmitt_florian.schoolplanner.activities.GradesFragment">
 
     <LinearLayout
         android:id="@+id/grades_data"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:baselineAligned="false"
         android:layout_weight="1"
+        android:baselineAligned="false"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -107,15 +107,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight=".1"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <Button
-            android:id="@+id/grades_buttonEdit"
+            android:id="@+id/grades_buttonAdd"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/string_edit"
-            android:backgroundTint="@color/accent"/>
+            android:backgroundTint="@color/accent"
+            android:text="@string/string_add" />
     </LinearLayout>
 
 </LinearLayout>

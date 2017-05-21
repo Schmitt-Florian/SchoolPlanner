@@ -69,6 +69,27 @@ public class Period implements Comparable<Period> {
     //region getters
 
     /**
+     * method to indicate if one Period[] matches another one by the values of their fields
+     *
+     * @param periods      one period[]
+     * @param otherPeriods the other Period[]
+     * @return true if all fields are the same in both Period[]s, else false
+     */
+    public static boolean match(Period[] periods, Period[] otherPeriods) {
+        if (periods.length != otherPeriods.length) {
+            return false;
+        }
+
+        for (int i = 0; i < periods.length; i++) {
+            if (!periods[i].match(otherPeriods[i])) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
      * gets id of the period
      *
      * @return numeric id of the period (unique)
@@ -76,7 +97,6 @@ public class Period implements Comparable<Period> {
     public int getId() {
         return id;
     }
-
 
     /**
      * the school hour number the period is
@@ -86,7 +106,6 @@ public class Period implements Comparable<Period> {
     public int getSchoolHourNo() {
         return schoolHourNo;
     }
-
 
     /**
      * gets the time the period starts
@@ -109,11 +128,11 @@ public class Period implements Comparable<Period> {
     public GregorianCalendar getEndTime() {
         return endTime;
     }
+    //endregion
 
     public String getEndTimeAsString() {
         return endTime.get(Calendar.HOUR_OF_DAY) + "-" + endTime.get(Calendar.MINUTE) + "-" + endTime.get(Calendar.SECOND);
     }
-    //endregion
 
     /**
      * method to indicate if one Period matches another one by the values of their fields
@@ -125,27 +144,6 @@ public class Period implements Comparable<Period> {
         return this.id == otherPeriod.id && this.schoolHourNo == otherPeriod.schoolHourNo &&
                 this.startTime.equals(otherPeriod.startTime) && this.endTime.equals(otherPeriod.endTime)
                 ;
-    }
-
-    /**
-     * method to indicate if one Period[] matches another one by the values of their fields
-     *
-     * @param periods      one period[]
-     * @param otherPeriods the other Period[]
-     * @return true if all fields are the same in both Period[]s, else false
-     */
-    public static boolean match(Period[] periods, Period[] otherPeriods) {
-        if (periods.length != otherPeriods.length) {
-            return false;
-        }
-
-        for (int i = 0; i < periods.length; i++) {
-            if (!periods[i].match(otherPeriods[i])) {
-                return false;
-            }
-        }
-
-        return true;
     }
 
     /**

@@ -60,23 +60,6 @@ public class SubjectsFragment extends Fragment {
     }
 
     /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    interface OnFragmentInteractionListener {
-        @SuppressWarnings({"FieldNever", "unused"})
-        void onFragmentInteraction(Uri uri);
-    }
-
-    //region private methods
-
-    /**
      * method to initialise components of the GUI
      *
      * @param view the view of the fragment
@@ -84,6 +67,8 @@ public class SubjectsFragment extends Fragment {
     private void initGui(View view) {
         fillListView(view);
     }
+
+    //region private methods
 
     /**
      * method to fill the ListView, which shows the {@link Subject}s at the subject screen
@@ -105,6 +90,21 @@ public class SubjectsFragment extends Fragment {
         if (subjectStrings.size() != 0) {
             GuiHelper.fillListViewFromArray(view, R.id.subjects_listSubjects, subjectStrings.toArray(new String[0]));
         }
+    }
+
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     * <p>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
+     */
+    interface OnFragmentInteractionListener {
+        @SuppressWarnings({"FieldNever", "unused"})
+        void onFragmentInteraction(Uri uri);
     }
     //endregion
 }
