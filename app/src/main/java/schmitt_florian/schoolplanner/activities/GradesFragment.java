@@ -85,7 +85,7 @@ public class GradesFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.grades_buttonAdd:
-                startActivity(new Intent(getContext(), GradeDetailsActivity.class));
+                startActivity(new Intent(getContext(), GradesDetailsActivity.class));
                 break;
         }
     }
@@ -147,7 +147,7 @@ public class GradesFragment extends Fragment implements View.OnClickListener {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
-                Intent intent = new Intent(getContext(), GradeDetailsActivity.class);
+                Intent intent = new Intent(getContext(), GradesDetailsActivity.class);
                 if (position % 2 == 0) {
                     intent.putExtra("GradeID", gradesCurrentlyShowing[position / 2].getId());
 
