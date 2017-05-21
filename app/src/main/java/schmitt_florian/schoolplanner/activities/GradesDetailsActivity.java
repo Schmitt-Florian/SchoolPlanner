@@ -87,8 +87,10 @@ public class GradesDetailsActivity extends AppCompatActivity {
         } else {
             GuiHelper.setVisibility(findViewById(R.id.gradesDetails_main), R.id.gradesDetails_buttonDelete, View.GONE);
         }
+
         subjectsInSpinner = fillSpinner();
 
+        //preselect spinner
         if (!addMode) {
             for (int i = 0; i < subjectsInSpinner.length; i++) {
                 if (subjectsInSpinner[i].match(showingGrade.getSubject())) {

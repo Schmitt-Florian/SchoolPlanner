@@ -38,4 +38,6 @@
     <string name="string_subject">Fach</string>
     <string name="string_mandatory_field">Pflichtfeld</string>
     <string name="string_add_subjects_first">Füge zuerst Fächer hinzu</string>
+    <string name="string_mr">Herr</string>
+    <string name="string_mrs">Frau</string>
 </resources>

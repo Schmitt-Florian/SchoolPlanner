@@ -1,6 +1,7 @@
 package schmitt_florian.schoolplanner.activities;
 
 
+import android.content.Context;
 import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
@@ -18,6 +19,7 @@ import schmitt_florian.schoolplanner.R;
 import schmitt_florian.schoolplanner.logic.Exam;
 import schmitt_florian.schoolplanner.logic.Homework;
 import schmitt_florian.schoolplanner.logic.Subject;
+import schmitt_florian.schoolplanner.logic.Teacher;
 
 
 /**
@@ -130,20 +132,26 @@ class GuiHelper {
     //region GUI string
 
     /**
-     * extracts a GUI displayable String from the given {@link Subject}
+     * extracts a GUI displayable String from the given {@link Exam}
      *
-     * @param subject {@link Subject} to extract from
-     * @return the Name of the {@link schmitt_florian.schoolplanner.logic.Subject} the {@link Subject} was given in and the abbreviation of the teacher as String. E.g "Math - SPG"
+     * @param exam {@link Exam} to extract from
+     * @return the Name of the {@link Subject} the {@link Exam} is in and the deadline as String. E.g "Math - 26.03.2017"
      */
-    static String extractGuiString(Subject subject) {
-        return subject.getName() + " - " + subject.getTeacher().getAbbreviation();
+    static String extractGuiString(Exam exam) {
+        Calendar deadline = exam.getDeadline();
+        String dateString;
+
+        //TODO support different date formats
+        dateString = deadline.get(Calendar.DAY_OF_MONTH) + "." + String.valueOf(deadline.get(Calendar.MONTH) + 1) + "." + String.valueOf(deadline.get(Calendar.YEAR));
+
+        return exam.getSubject().getName() + " - " + dateString;
     }
 
     /**
      * extracts a GUI displayable String from the given {@link Homework}
      *
      * @param homework {@link Homework} to extract from
-     * @return the Name of the {@link schmitt_florian.schoolplanner.logic.Subject} the {@link Homework} was given in and the deadline as String. E.g "Math - 26.03.2017"
+     * @return the Name of the {@link Subject} the {@link Homework} was given in and the deadline as String. E.g "Math - 26.03.2017"
      */
     static String extractGuiString(Homework homework) {
         Calendar deadline = homework.getDeadline();
@@ -156,20 +164,37 @@ class GuiHelper {
     }
 
     /**
-     * extracts a GUI displayable String from the given {@link Exam}
+     * extracts a GUI displayable String from the given {@link Subject}
      *
-     * @param exam {@link Exam} to extract from
-     * @return the Name of the {@link schmitt_florian.schoolplanner.logic.Subject} the {@link Exam} is in and the deadline as String. E.g "Math - 26.03.2017"
+     * @param subject {@link Subject} to extract from
+     * @return the Name of the {@link Subject} and the abbreviation of the {@link Teacher} as String. E.g "Math - SMT"
      */
-    static String extractGuiString(Exam exam) {
-        Calendar deadline = exam.getDeadline();
-        String dateString;
-
-        //TODO support different date formats
-        dateString = deadline.get(Calendar.DAY_OF_MONTH) + "." + String.valueOf(deadline.get(Calendar.MONTH) + 1) + "." + String.valueOf(deadline.get(Calendar.YEAR));
-
-        return exam.getSubject().getName() + " - " + dateString;
+    static String extractGuiString(Subject subject) {
+        return subject.getName() + " - " + subject.getTeacher().getAbbreviation();
     }
+
+    /**
+     * extracts a GUI displayable String from the given {@link Teacher}
+     *
+     * @param teacher {@link Teacher} to extract from
+     * @return the Name of the {@link Teacher} and the abbreviation of the {@link Teacher} as String. E.g "Mr. Smith - SMT"
+     */
+    static String extractGuiString(Teacher teacher, Context context) {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        if (teacher.getGender() == Teacher.MALE) {
+            stringBuilder.append(context.getResources().getString(R.string.string_mr));
+        } else {
+            stringBuilder.append(context.getResources().getString(R.string.string_mrs));
+        }
+
+        stringBuilder.append(" ").append(teacher.getName());
+        stringBuilder.append(" - ").append(teacher.getAbbreviation());
+
+        return stringBuilder.toString();
+    }
+
+
     //endregion
 
     /**
