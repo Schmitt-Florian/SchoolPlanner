@@ -50,6 +50,7 @@
     <string name="string_subject">Subject</string>
     <string name="string_mandatory_field">Mandatory Field</string>
     <string name="string_add_subjects_first">Add Subjects First</string>
+    <string name="string_add_teachers_first">Add Teachers First</string>
     <string name="string_mr">Mr.</string>
     <string name="string_mrs">Mrs.</string>
 

@@ -40,4 +40,5 @@
     <string name="string_add_subjects_first">Füge zuerst Fächer hinzu</string>
     <string name="string_mr">Herr</string>
     <string name="string_mrs">Frau</string>
+    <string name="string_add_teachers_first">Füge zuerst Lehrer hinzu</string>
 </resources>
