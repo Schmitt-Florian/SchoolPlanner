@@ -1,6 +1,8 @@
 package schmitt_florian.schoolplanner.activities;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -31,7 +33,7 @@ public class HomeworkFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         tabIsToDo = true;
     }
 
@@ -77,6 +79,9 @@ public class HomeworkFragment extends Fragment implements View.OnClickListener {
                 tabIsToDo = false;
                 changeTab();
                 break;
+            case R.id.homework_floatingActionButton_add:
+                startActivity(new Intent(getContext(), HomeworkDetailsActivity.class));
+                break;
         }
     }
 
@@ -86,6 +91,7 @@ public class HomeworkFragment extends Fragment implements View.OnClickListener {
     private void initGUI() {
         GuiHelper.defineButtonOnClickListener(view, R.id.homework_buttonToDo, this);
         GuiHelper.defineButtonOnClickListener(view, R.id.homework_buttonDone, this);
+        GuiHelper.defineFloatingActionButtonOnClickListener(view, R.id.homework_floatingActionButton_add, this);
         changeTab();
     }
 

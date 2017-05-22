@@ -1,69 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/homeworkDetails"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/homeworkDetails_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="1"
+    tools:context=".activities.HomeworkDetailsActivity">
 
     <LinearLayout
         android:id="@+id/homeworkDetails_edit"
         android:layout_width="match_parent"
-        android:layout_height="420dp"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:isScrollContainer="false"
+        android:orientation="vertical"
+        android:weightSum="1">
 
-
-        <EditText
-            android:id="@+id/homeworkDetails_name"
+        <TextView
+            android:id="@+id/homeworkDetails_labelDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="@string/string_name" />
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:layout_marginRight="@dimen/fab_margin"
+            android:layout_marginTop="@dimen/fab_margin"
+            android:text="@string/string_description"
+            android:textAlignment="viewStart"
+            android:textAllCaps="false"
+            android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/homeworkDeatils_date"
+            android:id="@+id/homeworkDetails_textDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginBottom="@dimen/fab_margin"
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:layout_marginRight="@dimen/fab_margin"
             android:ems="10"
-            android:inputType="date"
-            android:text="Date" />
+            android:hint="@string/string_description"
+            android:inputType="textMultiLine" />
+
+        <TextView
+            android:id="@+id/homeworkDetails_labelDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:layout_marginRight="@dimen/fab_margin"
+            android:layout_marginTop="@dimen/fab_margin"
+            android:text="@string/string_due_date"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/homeworkDetails_textDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/fab_margin"
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:layout_marginRight="@dimen/fab_margin"
+            android:ems="10"
+            android:hint="@string/string_due_date"
+            android:inputType="date" />
+
+        <TextView
+            android:id="@+id/homeworkDetails_labelSubject"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:layout_marginRight="@dimen/fab_margin"
+            android:layout_marginTop="@dimen/fab_margin"
+            android:text="@string/string_subject"
+            android:textAlignment="viewStart"
+            android:textAllCaps="false"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/homeworkDetails_labelSpinnerError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:text="@string/string_add_subjects_first"
+            android:textAlignment="textStart"
+            android:textColor="@android:color/holo_red_dark"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/Spacer"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/divider"
+            android:elevation="0dp" />
 
         <Spinner
-            android:id="@+id/homeworkDetails_spinnerSubjects"
+            android:id="@+id/homeworkDetails_spinnerSubject"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.97"
-            android:prompt="@string/string_select_subject"
-            android:spinnerMode="dialog" />
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight=".5"
+            android:prompt="@string/string_select_subject" />
 
-        <EditText
-            android:id="@+id/homeworkDetails_details"
+        <TextView
+            android:id="@+id/Spacer2"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginBottom="@dimen/fab_margin"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/divider" />
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/homeworkDetails_switchDone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="textMultiLine"
-            android:text="@string/string_details" />
-
-        <Switch
-            android:id="@+id/switch1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Done"
-            android:textSize="19sp" />
-
+            android:layout_margin="@dimen/fab_margin"
+            android:checked="false"
+            android:text="@string/string_done"
+            android:textAppearance="@android:style/TextAppearance.Material.Small"
+            android:textColor="@color/secondary_text"
+            android:textStyle="bold"
+            app:switchMinWidth="60dp"
+            android:layout_weight="0.02" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/homeworkDetails_buttons"
+        android:id="@+id/homework_buttons"
         android:layout_width="match_parent"
-        android:layout_height="89dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="0dp"
         android:orientation="vertical">
 
 
@@ -72,20 +142,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_weight="0.9"
             android:backgroundTint="@color/accent"
+            android:onClick="onSaveClick"
             android:text="@string/string_save" />
+
+        <Button
+            android:id="@+id/homeworkDetails_buttonDelete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/accent"
+            android:onClick="onDeleteClick"
+            android:text="@string/string_delete" />
 
         <Button
             android:id="@+id/homeworkDetails_buttonClose"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginBottom="0dp"
-            android:layout_weight="0.9"
             android:backgroundTint="@color/accent"
+            android:onClick="onCloseClick"
             android:text="@string/string_close" />
-
 
     </LinearLayout>
 

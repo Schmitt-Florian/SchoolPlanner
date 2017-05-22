@@ -14,6 +14,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import schmitt_florian.schoolplanner.R;
 import schmitt_florian.schoolplanner.logic.Exam;
@@ -32,18 +33,62 @@ class GuiHelper {
      *
      * @param view the view the {@link EditText} is in
      * @param id   Resource ID of the {@link EditText}
-     * @return the input of a {@link EditText} as String or if the {@link EditText} is empty "" and calls the {@link GuiHelper#handleEmptyMandatoryEditText) method
+     * @return the input of a {@link EditText} as String
+     * @throws IllegalArgumentException if input is empty
      */
-    static String getInputFromMandatoryEditText(View view, int id) {
+    static String getInputFromMandatoryEditText(View view, int id) throws IllegalArgumentException {
         EditText editText = (EditText) view.findViewById(id);
 
         String input = editText.getText().toString();
-        if (input.replaceAll("\\s+", "").isEmpty()) {
+        if (input.replaceAll("\\s+", "").replaceAll("\\s", "").isEmpty()) {
             handleEmptyMandatoryEditText(view, id);
-            return "";
+            throw new IllegalArgumentException();
         } else {
             return input;
         }
+    }
+
+    /**
+     * gets the input of a {@link EditText} as String
+     *
+     * @param view the view the {@link EditText} is in
+     * @param id   Resource ID of the {@link EditText}
+     * @return the input of a {@link EditText} as String
+     */
+    static String getInputFromEditText(View view, int id) {
+        EditText editText = (EditText) view.findViewById(id);
+        return editText.getText().toString();
+    }
+
+    /**
+     * gets the date input of a mandatory {@link EditText} as String
+     *
+     * @param view the view the {@link EditText} is in
+     * @param id   Resource ID of the {@link EditText}
+     * @return the input of a {@link EditText} as {@link GregorianCalendar}
+     * @throws IllegalArgumentException if input is invalid date
+     */
+    static GregorianCalendar getDateFromMandatoryEditText(View view, int id) throws IllegalArgumentException {
+        //todo date formats
+        EditText editText = (EditText) view.findViewById(id);
+        String str = editText.getText().toString();
+        str = str.replaceAll("\\.", "-");
+        String date[];
+        if (str.contains("-")) {
+            date = str.split("-");
+        } else if (str.contains(",")) {
+            date = str.split(",");
+        } else if (str.contains(":")) {
+            date = str.split(":");
+        } else {
+            handleEmptyMandatoryEditText(view, id);
+            throw new IllegalArgumentException();
+        }
+        return new GregorianCalendar(
+                Integer.parseInt(date[2]),
+                Integer.parseInt(date[1]) - 1,
+                Integer.parseInt(date[0])
+        );
     }
 
     /**

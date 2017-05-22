@@ -53,8 +53,10 @@
     <string name="string_add_teachers_first">Add Teachers First</string>
     <string name="string_mr">Mr.</string>
     <string name="string_mrs">Mrs.</string>
+    <string name="string_due_date">Due Date</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="string_description">Description</string>
 
 </resources>

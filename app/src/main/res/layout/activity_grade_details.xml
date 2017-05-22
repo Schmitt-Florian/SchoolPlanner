@@ -102,7 +102,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_weight="0.15"
+            android:layout_weight="0.2"
             android:prompt="@string/string_select_subject" />
 
         <TextView

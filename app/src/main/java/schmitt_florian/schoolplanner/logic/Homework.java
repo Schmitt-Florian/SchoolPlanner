@@ -1,8 +1,6 @@
 package schmitt_florian.schoolplanner.logic;
 
 
-import android.support.annotation.Nullable;
-
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -21,12 +19,12 @@ public class Homework {
     private Subject subject;
 
     /**
-     * description/details of the homework, can be null if not available
+     * description/details of the homework
      */
     private String description;
 
     /**
-     * due date / deadline for the homework, can be null if not available
+     * due date / deadline for the homework
      */
     private GregorianCalendar deadline;
 
@@ -41,11 +39,11 @@ public class Homework {
      *
      * @param id          numeric id of the homework (unique)
      * @param subject     {@link Subject} the homework is for
-     * @param description description/details of the homework, can be null if not available
-     * @param deadline    due date / deadline for the homework, can be null if not available
+     * @param description description/details of the homework
+     * @param deadline    due date / deadline for the homework
      * @param done        indicates whether the homework is done or not
      */
-    public Homework(int id, Subject subject, @Nullable String description, @Nullable GregorianCalendar deadline, boolean done) {
+    public Homework(int id, Subject subject, String description, GregorianCalendar deadline, boolean done) {
         this.id = id;
         this.subject = subject;
         this.description = description;
@@ -58,11 +56,11 @@ public class Homework {
      *
      * @param id          numeric id of the homework (unique)
      * @param subject     {@link Subject} the homework is for
-     * @param description description/details of the homework, can be null if not available
-     * @param deadline    due date / deadline for the homework as String in YYYY-MM-DD format, can be null if not available
+     * @param description description/details of the homework
+     * @param deadline    due date / deadline for the homework as String in YYYY-MM-DD format
      * @param done        indicates whether the homework is done or not
      */
-    public Homework(int id, Subject subject, @Nullable String description, @Nullable String deadline, boolean done) {
+    public Homework(int id, Subject subject, String description, String deadline, boolean done) {
         this.id = id;
         this.subject = subject;
         this.description = description;
@@ -91,7 +89,7 @@ public class Homework {
     /**
      * gets description/details of the homework
      *
-     * @return description/details of the homework, returns null if not available
+     * @return description/details of the homework
      */
     public String getDescription() {
         return description;
@@ -100,7 +98,7 @@ public class Homework {
     /**
      * gets deadline for the homework
      *
-     * @return deadline for the homework, returns null if not available
+     * @return deadline for the homework
      */
     public GregorianCalendar getDeadline() {
         return deadline;
@@ -186,6 +184,7 @@ public class Homework {
      */
     private GregorianCalendar convertDateStringToGregorianCalendar(String source) {
         String[] date = source.split("-");
+
         return new GregorianCalendar(
                 Integer.parseInt(date[0]),
                 Integer.parseInt(date[1]) - 1,

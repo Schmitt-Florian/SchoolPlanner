@@ -41,4 +41,6 @@
     <string name="string_mr">Herr</string>
     <string name="string_mrs">Frau</string>
     <string name="string_add_teachers_first">Füge zuerst Lehrer hinzu</string>
+    <string name="string_due_date">Abgabe Datum</string>
+    <string name="string_description">Beschreibung</string>
 </resources>
