@@ -15,9 +15,9 @@ import schmitt_florian.schoolplanner.logic.Grade;
 import schmitt_florian.schoolplanner.logic.Subject;
 
 /**
- * bound class to activity_grades_details.xml to show, change attributes of a choose {@link Grade}, delete a choose {@link Grade} or add a new one
+ * bound class to activity_grade_detailsxml to show, change attributes of a choose {@link Grade}, delete a choose {@link Grade} or add a new one
  */
-public class GradesDetailsActivity extends AppCompatActivity {
+public class GradeDetailsActivity extends AppCompatActivity {
     private DatabaseHelper dbHelper;
     private Grade showingGrade;
     private Subject[] subjectsInSpinner;
@@ -26,7 +26,7 @@ public class GradesDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_grades_details);
+        setContentView(R.layout.activity_grade_details);
 
         dbHelper = new DatabaseHelperImpl(this);
         int gradeId = getIntent().getIntExtra("GradeID", -1);
@@ -80,12 +80,12 @@ public class GradesDetailsActivity extends AppCompatActivity {
      */
     private void initGUI() {
         if (!addMode) {
-            GuiHelper.setTextToTextView(findViewById(R.id.gradesDetails_main), R.id.gradesDetails_textName, showingGrade.getName());
-            GuiHelper.setTextToTextView(findViewById(R.id.gradesDetails_main), R.id.gradesDetails_textGrade, showingGrade.getGrade());
+            GuiHelper.setTextToTextView(findViewById(R.id.gradeDetails_main), R.id.gradeDetails_textName, showingGrade.getName());
+            GuiHelper.setTextToTextView(findViewById(R.id.gradeDetails_main), R.id.gradeDetails_textGrade, showingGrade.getGrade());
 
-            GuiHelper.setVisibility(findViewById(R.id.gradesDetails_main), R.id.gradesDetails_buttonDelete, View.VISIBLE);
+            GuiHelper.setVisibility(findViewById(R.id.gradeDetails_main), R.id.gradeDetails_buttonDelete, View.VISIBLE);
         } else {
-            GuiHelper.setVisibility(findViewById(R.id.gradesDetails_main), R.id.gradesDetails_buttonDelete, View.GONE);
+            GuiHelper.setVisibility(findViewById(R.id.gradeDetails_main), R.id.gradeDetails_buttonDelete, View.GONE);
         }
 
         subjectsInSpinner = fillSpinner();
@@ -94,7 +94,7 @@ public class GradesDetailsActivity extends AppCompatActivity {
         if (!addMode) {
             for (int i = 0; i < subjectsInSpinner.length; i++) {
                 if (subjectsInSpinner[i].match(showingGrade.getSubject())) {
-                    Spinner spinner = (Spinner) findViewById(R.id.gradesDetails_spinnerSubject);
+                    Spinner spinner = (Spinner) findViewById(R.id.gradeDetails_spinnerSubject);
                     spinner.setSelection(i);
                 }
             }
@@ -120,10 +120,10 @@ public class GradesDetailsActivity extends AppCompatActivity {
         }
 
         if (subjectStrings.size() != 0) {
-            GuiHelper.fillSpinnerFromArray(findViewById(R.id.gradesDetails_main), R.id.gradesDetails_spinnerSubject, subjectStrings.toArray(new String[0]));
+            GuiHelper.fillSpinnerFromArray(findViewById(R.id.gradeDetails_main), R.id.gradeDetails_spinnerSubject, subjectStrings.toArray(new String[0]));
         } else {
-            GuiHelper.setVisibility(findViewById(R.id.gradesDetails_main), R.id.gradeDetails_lableSpinnerError, View.VISIBLE);
-            findViewById(R.id.gradesDetails_buttonSave).setEnabled(false);
+            GuiHelper.setVisibility(findViewById(R.id.gradeDetails_main), R.id.gradeDetails_lableSpinnerError, View.VISIBLE);
+            findViewById(R.id.gradeDetails_buttonSave).setEnabled(false);
         }
         return subjectArrayList.toArray(new Subject[0]);
     }
@@ -134,21 +134,21 @@ public class GradesDetailsActivity extends AppCompatActivity {
      * @return the generated {@link Grade}, or null if
      **/
     private Grade readGradeFromGUI() {
-        Spinner spinner = (Spinner) findViewById(R.id.gradesDetails_spinnerSubject);
+        Spinner spinner = (Spinner) findViewById(R.id.gradeDetails_spinnerSubject);
         try {
             if (addMode) {
                 return new Grade(
                         -1,
                         subjectsInSpinner[spinner.getSelectedItemPosition()],
-                        GuiHelper.getInputFromMandatoryEditText(findViewById(R.id.gradesDetails_main), R.id.gradesDetails_textName),
-                        GuiHelper.getInputFromMandatoryEditText(findViewById(R.id.gradesDetails_main), R.id.gradesDetails_textGrade)
+                        GuiHelper.getInputFromMandatoryEditText(findViewById(R.id.gradeDetails_main), R.id.gradeDetails_textName),
+                        GuiHelper.getInputFromMandatoryEditText(findViewById(R.id.gradeDetails_main), R.id.gradeDetails_textGrade)
                 );
             } else {
                 return new Grade(
                         showingGrade.getId(),
                         subjectsInSpinner[spinner.getSelectedItemPosition()],
-                        GuiHelper.getInputFromMandatoryEditText(findViewById(R.id.gradesDetails_main), R.id.gradesDetails_textName),
-                        GuiHelper.getInputFromMandatoryEditText(findViewById(R.id.gradesDetails_main), R.id.gradesDetails_textGrade)
+                        GuiHelper.getInputFromMandatoryEditText(findViewById(R.id.gradeDetails_main), R.id.gradeDetails_textName),
+                        GuiHelper.getInputFromMandatoryEditText(findViewById(R.id.gradeDetails_main), R.id.gradeDetails_textGrade)
                 );
             }
         } catch (ArrayIndexOutOfBoundsException ex) {

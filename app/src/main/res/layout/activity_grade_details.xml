@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/gradesDetails_main"
+    android:id="@+id/gradeDetails_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="1"
-    tools:context=".activities.GradesDetailsActivity">
+    tools:context=".activities.GradeDetailsActivity">
 
     <LinearLayout
-        android:id="@+id/gradesDetails_edit"
+        android:id="@+id/gradeDetails_edit"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -17,7 +17,7 @@
         android:weightSum="1">
 
         <TextView
-            android:id="@+id/gradesDetails_lableName"
+            android:id="@+id/gradeDetails_lableName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/fab_margin"
@@ -29,7 +29,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/gradesDetails_textName"
+            android:id="@+id/gradeDetails_textName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/fab_margin"
@@ -40,7 +40,7 @@
             android:inputType="textPersonName" />
 
         <TextView
-            android:id="@+id/gradesDetails_lableGrade"
+            android:id="@+id/gradeDetails_lableGrade"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/fab_margin"
@@ -52,7 +52,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/gradesDetails_textGrade"
+            android:id="@+id/gradeDetails_textGrade"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/fab_margin"
@@ -63,7 +63,7 @@
             android:inputType="textCapCharacters" />
 
         <TextView
-            android:id="@+id/gradesDetails_lableSubject"
+            android:id="@+id/gradeDetails_lableSubject"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
@@ -97,7 +97,7 @@
             android:elevation="0dp" />
 
         <Spinner
-            android:id="@+id/gradesDetails_spinnerSubject"
+            android:id="@+id/gradeDetails_spinnerSubject"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -117,7 +117,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/grades_buttons"
+        android:id="@+id/grade_buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
@@ -125,7 +125,7 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/gradesDetails_buttonSave"
+            android:id="@+id/gradeDetails_buttonSave"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
@@ -134,7 +134,7 @@
             android:text="@string/string_save" />
 
         <Button
-            android:id="@+id/gradesDetails_buttonDelete"
+            android:id="@+id/gradeDetails_buttonDelete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/accent"
@@ -142,7 +142,7 @@
             android:text="@string/string_delete" />
 
         <Button
-            android:id="@+id/gradesDetails_buttonClose"
+            android:id="@+id/gradeDetails_buttonClose"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
