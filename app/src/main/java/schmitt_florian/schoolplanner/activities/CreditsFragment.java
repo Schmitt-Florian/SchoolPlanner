@@ -67,6 +67,23 @@ public class CreditsFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     * <p>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
+     */
+    interface OnFragmentInteractionListener {
+        @SuppressWarnings({"FieldNever", "unused"})
+        void onFragmentInteraction(Uri uri);
+    }
+
+    //region private methods
     /**
      * method to initialise components of the GUI
      *
@@ -75,8 +92,6 @@ public class CreditsFragment extends Fragment implements View.OnClickListener {
     private void initGUI(View view) {
         GuiHelper.defineFloatingActionButtonOnClickListener(view, R.id.credits_buttonEmail, this);
     }
-
-    //region private methods
 
     /**
      * method to handle a click at the email button
@@ -99,19 +114,5 @@ public class CreditsFragment extends Fragment implements View.OnClickListener {
         startActivity(intent);
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    interface OnFragmentInteractionListener {
-        @SuppressWarnings({"FieldNever", "unused"})
-        void onFragmentInteraction(Uri uri);
-    }
     //endregion
 }

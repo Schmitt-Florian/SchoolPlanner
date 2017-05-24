@@ -15,7 +15,7 @@ import schmitt_florian.schoolplanner.logic.Grade;
 import schmitt_florian.schoolplanner.logic.Subject;
 
 /**
- * bound class to activity_grade_detailsxml to show, change attributes of a choose {@link Grade}, delete a choose {@link Grade} or add a new one
+ * bound class to activity_grade_details.xml to show, change attributes of a choose {@link Grade}, delete a choose {@link Grade} or add a new one
  */
 public class GradeDetailsActivity extends AppCompatActivity {
     private DatabaseHelper dbHelper;
