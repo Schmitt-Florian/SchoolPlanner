@@ -20,7 +20,6 @@ import schmitt_florian.schoolplanner.R;
 import schmitt_florian.schoolplanner.logic.DatabaseHelperImpl;
 
 public class MainActivity extends AppCompatActivity implements
-
         NavigationView.OnNavigationItemSelectedListener,
         HomeFragment.OnFragmentInteractionListener,
         ScheduleFragment.OnFragmentInteractionListener,

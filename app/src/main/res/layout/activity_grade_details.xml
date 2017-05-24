@@ -1,69 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/homeworkDetails_main"
+    android:id="@+id/gradeDetails_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="1"
-    tools:context=".activities.HomeworkDetailsActivity">
+    tools:context=".activities.GradeDetailsActivity">
 
     <LinearLayout
-        android:id="@+id/homeworkDetails_edit"
+        android:id="@+id/gradeDetails_edit"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:isScrollContainer="false"
         android:orientation="vertical"
         android:weightSum="1">
 
         <TextView
-            android:id="@+id/homeworkDetails_labelDescription"
+            android:id="@+id/gradeDetails_lableName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/fab_margin"
             android:layout_marginRight="@dimen/fab_margin"
             android:layout_marginTop="@dimen/fab_margin"
-            android:text="@string/string_description"
+            android:text="@string/string_name"
             android:textAlignment="viewStart"
             android:textAllCaps="false"
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/homeworkDetails_textDescription"
+            android:id="@+id/gradeDetails_textName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/fab_margin"
             android:layout_marginLeft="@dimen/fab_margin"
             android:layout_marginRight="@dimen/fab_margin"
             android:ems="10"
-            android:hint="@string/string_description"
-            android:inputType="textMultiLine" />
+            android:hint="@string/string_name"
+            android:inputType="textPersonName" />
 
         <TextView
-            android:id="@+id/homeworkDetails_labelDate"
+            android:id="@+id/gradeDetails_lableGrade"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/fab_margin"
             android:layout_marginRight="@dimen/fab_margin"
             android:layout_marginTop="@dimen/fab_margin"
-            android:text="@string/string_due_date"
+            android:text="@string/string_grade"
+            android:textAlignment="viewStart"
+            android:textAllCaps="false"
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/homeworkDetails_textDate"
+            android:id="@+id/gradeDetails_textGrade"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/fab_margin"
             android:layout_marginLeft="@dimen/fab_margin"
             android:layout_marginRight="@dimen/fab_margin"
             android:ems="10"
-            android:hint="@string/string_due_date"
-            android:inputType="date" />
+            android:hint="@string/string_grade"
+            android:inputType="textCapCharacters" />
 
         <TextView
-            android:id="@+id/homeworkDetails_labelSubject"
+            android:id="@+id/gradeDetails_lableSubject"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
@@ -76,7 +76,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/homeworkDetails_labelSpinnerError"
+            android:id="@+id/gradeDetails_lableSpinnerError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
@@ -97,12 +97,12 @@
             android:elevation="0dp" />
 
         <Spinner
-            android:id="@+id/homeworkDetails_spinnerSubject"
+            android:id="@+id/gradeDetails_spinnerSubject"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_weight=".5"
+            android:layout_weight="0.2"
             android:prompt="@string/string_select_subject" />
 
         <TextView
@@ -114,31 +114,18 @@
             android:layout_marginRight="20dp"
             android:background="@color/divider" />
 
-        <android.support.v7.widget.SwitchCompat
-            android:id="@+id/homeworkDetails_switchDone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/fab_margin"
-            android:checked="false"
-            android:text="@string/string_done"
-            android:textAppearance="@android:style/TextAppearance.Material.Small"
-            android:textColor="@color/secondary_text"
-            android:textStyle="bold"
-            app:switchMinWidth="60dp"
-            android:layout_weight="0.02" />
-
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/homework_buttons"
+        android:id="@+id/grade_buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:layout_marginBottom="0dp"
         android:orientation="vertical">
 
-
         <Button
-            android:id="@+id/homeworkDetails_buttonSave"
+            android:id="@+id/gradeDetails_buttonSave"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
@@ -147,7 +134,7 @@
             android:text="@string/string_save" />
 
         <Button
-            android:id="@+id/homeworkDetails_buttonDelete"
+            android:id="@+id/gradeDetails_buttonDelete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/accent"
@@ -155,7 +142,7 @@
             android:text="@string/string_delete" />
 
         <Button
-            android:id="@+id/homeworkDetails_buttonClose"
+            android:id="@+id/gradeDetails_buttonClose"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"

@@ -1,6 +1,9 @@
 package schmitt_florian.schoolplanner.activities;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
@@ -42,8 +45,19 @@ public class GradesFragment extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_grades, container, false);
 
-//        initGui(view);
+        initGui(view);
         return view;
+    }
+
+    /**
+     * Called when the Fragment is visible to the user.  This is generally
+     * tied to {@link Activity#onStart() Activity.onStart} of the containing
+     * Activity's lifecycle.
+     */
+    @Override
+    public void onStart() {
+        super.onStart();
+        initGui(getView());
     }
 
     @Override
@@ -63,24 +77,19 @@ public class GradesFragment extends Fragment implements View.OnClickListener {
         mListener = null;
     }
 
-    @Override
-    public void onClick(View v) {
-
-    }
-
     /**
      * Called when a view has been clicked.
      *
      * @param v The view that was clicked.
      */
-//    @Override
-//    public void onClick(View v) {
-//        switch (v.getId()) {
-//            case R.id.grades_floatingActionButton_add:
-//                //open input dialog
-//                break;
-//        }
-//    }
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.grades_buttonAdd:
+                startActivity(new Intent(getContext(), GradeDetailsActivity.class));
+                break;
+        }
+    }
 
     /**
      * This interface must be implemented by activities that contain this
@@ -104,12 +113,12 @@ public class GradesFragment extends Fragment implements View.OnClickListener {
      *
      * @param view the view of the fragment
      */
-//    private void initGui(final View view) {
-//        handleSubjectListOnClick(view, fillSubjectListView(view));
-//        handleGridViewOnClick(view);
-//
-//        GuiHelper.defineFloatingActionButtonOnClickListener(view, R.id.grades_floatingActionButton_add, this);
-//    }
+    private void initGui(final View view) {
+        defineSubjectListOnClick(view, fillSubjectListView(view));
+        defineGridViewOnClick(view);
+
+        GuiHelper.defineButtonOnClickListener(view, R.id.grades_buttonAdd, this);
+    }
 
     /**
      * method to handle Clicks on the ListView, which shows the {@link Subject}s at the grades screen
@@ -117,7 +126,7 @@ public class GradesFragment extends Fragment implements View.OnClickListener {
      * @param view              the view of the fragment
      * @param allSubjectsInList a array of all {@link Subject}s shown in the listView ordered by their position in the listView
      */
-    private void handleSubjectListOnClick(final View view, final Subject[] allSubjectsInList) {
+    private void defineSubjectListOnClick(final View view, final Subject[] allSubjectsInList) {
         ListView subjectList = (ListView) view.findViewById(R.id.grades_listSubjects);
 
         subjectList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -133,19 +142,20 @@ public class GradesFragment extends Fragment implements View.OnClickListener {
      *
      * @param view the view of the fragment
      */
-    private void handleGridViewOnClick(View view) {
+    private void defineGridViewOnClick(View view) {
         final GridView gridView = (GridView) view.findViewById(R.id.grades_gradesTable);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
+                Intent intent = new Intent(getContext(), GradeDetailsActivity.class);
                 if (position % 2 == 0) {
-                    //open details with
-                    // gradesCurrentlyShowing[position/2];
+                    intent.putExtra("GradeID", gradesCurrentlyShowing[position / 2].getId());
+
                 } else {
-                    //open details with
-                    //gradesCurrentlyShowing[(position-1)/2];
+                    intent.putExtra("GradeID", gradesCurrentlyShowing[(position - 1) / 2].getId());
                 }
+                startActivity(intent);
             }
         });
     }

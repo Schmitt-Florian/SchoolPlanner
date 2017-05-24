@@ -1159,7 +1159,12 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         }
 
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "INSERT INTO " + TABLE_SUBJECT + " VALUES ( " + subject.getId() + ", " + subject.getTeacher().getId() + ", \"" + subject.getName() + "\", \"" + subject.getRoom() + "\")";
+        String query;
+        if (subject.getId() <= 0) {
+            query = "INSERT INTO " + TABLE_SUBJECT + " VALUES ( " + getNewID(TABLE_SUBJECT, SUBJECT_COLUMN_ID) + ", " + subject.getTeacher().getId() + ", \"" + subject.getName() + "\", \"" + subject.getRoom() + "\")";
+        } else {
+            query = "INSERT INTO " + TABLE_SUBJECT + " VALUES ( " + subject.getId() + ", " + subject.getTeacher().getId() + ", \"" + subject.getName() + "\", \"" + subject.getRoom() + "\")";
+        }
 
         try {
             db.execSQL(query);
@@ -1179,7 +1184,12 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     @Override
     public int insertIntoDBOrThrow(Teacher teacher) throws IllegalAccessException {
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "INSERT INTO " + TABLE_TEACHER + " VALUES ( " + teacher.getId() + ", \"" + teacher.getName() + "\", \"" + teacher.getAbbreviation() + "\", \"" + teacher.getGender() + "\")";
+        String query;
+        if (teacher.getId() <= 0) {
+            query = "INSERT INTO " + TABLE_TEACHER + " VALUES ( " + getNewID(TABLE_TEACHER, TEACHER_COLUMN_ID) + ", \"" + teacher.getName() + "\", \"" + teacher.getAbbreviation() + "\", \"" + teacher.getGender() + "\")";
+        } else {
+            query = "INSERT INTO " + TABLE_TEACHER + " VALUES ( " + teacher.getId() + ", \"" + teacher.getName() + "\", \"" + teacher.getAbbreviation() + "\", \"" + teacher.getGender() + "\")";
+        }
 
         try {
             db.execSQL(query);
@@ -1205,7 +1215,12 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         }
 
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "INSERT INTO " + TABLE_HOMEWORK + " VALUES ( " + homework.getId() + ", " + homework.getSubject().getId() + ", \"" + homework.getDescription() + "\", \"" + homework.getDeadlineAsString() + "\", " + homework.getDone() + ")";
+        String query;
+        if (homework.getId() <= 0) {
+            query = "INSERT INTO " + TABLE_HOMEWORK + " VALUES ( " + getNewID(TABLE_HOMEWORK, HOMEWORK_COLUMN_ID) + ", " + homework.getSubject().getId() + ", \"" + homework.getDescription() + "\", \"" + homework.getDeadlineAsString() + "\", " + homework.getDone() + ")";
+        } else {
+            query = "INSERT INTO " + TABLE_HOMEWORK + " VALUES ( " + homework.getId() + ", " + homework.getSubject().getId() + ", \"" + homework.getDescription() + "\", \"" + homework.getDeadlineAsString() + "\", " + homework.getDone() + ")";
+        }
 
         try {
             db.execSQL(query);
@@ -1232,7 +1247,12 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         }
 
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "INSERT INTO " + TABLE_EXAM + " VALUES ( " + exam.getId() + ", " + exam.getSubject().getId() + ", \"" + exam.getDescription() + "\", \"" + exam.getDeadlineAsString() + "\")";
+        String query;
+        if (exam.getId() <= 0) {
+            query = "INSERT INTO " + TABLE_EXAM + " VALUES ( " + getNewID(TABLE_EXAM, EXAM_COLUMN_ID) + ", " + exam.getSubject().getId() + ", \"" + exam.getDescription() + "\", \"" + exam.getDeadlineAsString() + "\")";
+        } else {
+            query = "INSERT INTO " + TABLE_EXAM + " VALUES ( " + exam.getId() + ", " + exam.getSubject().getId() + ", \"" + exam.getDescription() + "\", \"" + exam.getDeadlineAsString() + "\")";
+        }
 
         try {
             db.execSQL(query);
@@ -1258,7 +1278,12 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         }
 
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "INSERT INTO " + TABLE_GRADE + " VALUES ( " + grade.getId() + ", " + grade.getSubject().getId() + ", \"" + grade.getName() + "\", \"" + grade.getGrade() + "\")";
+        String query;
+        if (grade.getId() <= 0) {
+            query = "INSERT INTO " + TABLE_GRADE + " VALUES ( " + getNewID(TABLE_GRADE, GRADE_COLUMN_ID) + ", " + grade.getSubject().getId() + ", \"" + grade.getName() + "\", \"" + grade.getGrade() + "\")";
+        } else {
+            query = "INSERT INTO " + TABLE_GRADE + " VALUES ( " + grade.getId() + ", " + grade.getSubject().getId() + ", \"" + grade.getName() + "\", \"" + grade.getGrade() + "\")";
+        }
 
         try {
             db.execSQL(query);
@@ -1278,7 +1303,12 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     @Override
     public int insertIntoDBOrThrow(Period period) throws IllegalAccessException {
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "INSERT INTO " + TABLE_PERIOD + " VALUES ( " + period.getId() + ", " + period.getSchoolHourNo() + ", \"" + period.getStartTimeAsString() + "\", \"" + period.getEndTimeAsString() + "\")";
+        String query;
+        if (period.getId() <= 0) {
+            query = "INSERT INTO " + TABLE_PERIOD + " VALUES ( " + getNewID(TABLE_PERIOD, PERIOD_COLUMN_ID) + ", " + period.getSchoolHourNo() + ", \"" + period.getStartTimeAsString() + "\", \"" + period.getEndTimeAsString() + "\")";
+        } else {
+            query = "INSERT INTO " + TABLE_PERIOD + " VALUES ( " + period.getId() + ", " + period.getSchoolHourNo() + ", \"" + period.getStartTimeAsString() + "\", \"" + period.getEndTimeAsString() + "\")";
+        }
 
         try {
             db.execSQL(query);
@@ -1310,7 +1340,12 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         }
 
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "INSERT INTO " + TABLE_LESSON + " VALUES ( " + lesson.getId() + ", " + lesson.getSubject().getId() + ", " + lesson.getPeriod().getId() + ", NULL)";
+        String query;
+        if (lesson.getId() <= 0) {
+            query = "INSERT INTO " + TABLE_LESSON + " VALUES ( " + getNewID(TABLE_LESSON, LESSON_COLUMN_ID) + ", " + lesson.getSubject().getId() + ", " + lesson.getPeriod().getId() + ", NULL)";
+        } else {
+            query = "INSERT INTO " + TABLE_LESSON + " VALUES ( " + lesson.getId() + ", " + lesson.getSubject().getId() + ", " + lesson.getPeriod().getId() + ", NULL)";
+        }
 
         try {
             db.execSQL(query);
@@ -1343,7 +1378,12 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         }
 
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "INSERT INTO " + TABLE_WEEKDAY + " VALUES ( " + weekday.getId() + ",NULL, \"" + weekday.getName() + "\")";
+        String query;
+        if (weekday.getId() <= 0) {
+            query = "INSERT INTO " + TABLE_WEEKDAY + " VALUES ( " + getNewID(TABLE_WEEKDAY, WEEKDAY_COLUMN_ID) + ",NULL, \"" + weekday.getName() + "\")";
+        } else {
+            query = "INSERT INTO " + TABLE_WEEKDAY + " VALUES ( " + weekday.getId() + ",NULL, \"" + weekday.getName() + "\")";
+        }
 
         try {
             db.execSQL(query);
@@ -1376,7 +1416,12 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         }
 
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "INSERT INTO " + TABLE_SCHEDULE + " VALUES ( " + schedule.getId() + ", \"" + schedule.getName() + "\")";
+        String query;
+        if (schedule.getId() <= 0) {
+            query = "INSERT INTO " + TABLE_SCHEDULE + " VALUES ( " + getNewID(TABLE_SCHEDULE, SCHEDULE_COLUMN_ID) + ", \"" + schedule.getName() + "\")";
+        } else {
+            query = "INSERT INTO " + TABLE_SCHEDULE + " VALUES ( " + schedule.getId() + ", \"" + schedule.getName() + "\")";
+        }
 
         try {
             db.execSQL(query);
@@ -1585,7 +1630,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     /**
      * represents the given Table from the database as String
      *
-     * @param tableName name of the table to convert tzo String, choose from the TABLE_XXX constants of {@link DatabaseHelper}
+     * @param tableName name of the table to convert tzo String, choose from the TABLE_XXX constants in {@link DatabaseHelper}
      * @return database as String
      */
     @Override
@@ -1612,8 +1657,8 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     /**
      * returns the size of the given Table in the Database
      *
-     * @param tableName name of the table, choose from the TABLE_XXX constants of {@link DatabaseHelper}
-     * @return the size of the table. 0 if table has no elements, 0 if table has one element and so on
+     * @param tableName name of the table, choose from the TABLE_XXX constants in {@link DatabaseHelper}
+     * @return the size of the table. 0 if table has no elements, 1 if table has one element and so on
      */
     @Override
     public int size(String tableName) {
@@ -1634,7 +1679,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     /**
      * returns all indices of the given Table in the Database
      *
-     * @param tableName name of the table, choose from the TABLE_XXX constants of {@link DatabaseHelper}
+     * @param tableName name of the table, choose from the TABLE_XXX constants in {@link DatabaseHelper}
      * @return all indices of the given Table in the Database as array
      */
     @Override
@@ -1669,6 +1714,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         onUpgrade(this.getWritableDatabase(), 1, 1);
     }
 
+    //todo remove
     public void fillDatabaseWithExamples() {
         Teacher teacher1 = new Teacher(1, "Bräuer", "BRÄ", Teacher.MALE);
         Teacher teacher2 = new Teacher(2, "Dickens", "DICK", Teacher.FEMALE);
@@ -1903,6 +1949,24 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         );
     }
     //endregion
+
+    /**
+     * returns the highest id in the given Table in the Database + 1
+     *
+     * @param tableName    name of the table, choose from the TABLE_XXX constants of {@link DatabaseHelper}
+     * @param idColumnName name of the column containing the id's, choose from the XXX_COLUMN_ID constants in {@link DatabaseHelper}
+     * @return the highest id in the Table + 1
+     */
+    private int getNewID(String tableName, String idColumnName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT MAX(" + idColumnName + ") FROM " + tableName;
+
+        try (Cursor cursor = db.rawQuery(query, null)) {
+            cursor.moveToFirst();
+
+            return cursor.getInt(0) + 1;
+        }
+    }
 
     /**
      * gets the {@link Lesson}s as array at a specific {@link Weekday}

@@ -1,6 +1,8 @@
 package schmitt_florian.schoolplanner.activities;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
@@ -78,25 +80,11 @@ public class HomeworkFragment extends Fragment implements View.OnClickListener {
                 tabIsToDo = false;
                 changeTab();
                 break;
+            case R.id.homework_floatingActionButton_add:
+                startActivity(new Intent(getContext(), HomeworkDetailsActivity.class));
+                break;
         }
     }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    interface OnFragmentInteractionListener {
-        @SuppressWarnings({"FieldNever", "unused"})
-        void onFragmentInteraction(Uri uri);
-    }
-
-    //region private methods
 
     /**
      * method to initialise components of the GUI
@@ -104,8 +92,11 @@ public class HomeworkFragment extends Fragment implements View.OnClickListener {
     private void initGUI() {
         GuiHelper.defineButtonOnClickListener(view, R.id.homework_buttonToDo, this);
         GuiHelper.defineButtonOnClickListener(view, R.id.homework_buttonDone, this);
+        GuiHelper.defineFloatingActionButtonOnClickListener(view, R.id.homework_floatingActionButton_add, this);
         changeTab();
     }
+
+    //region private methods
 
     /**
      * method to change between the to-do tab and the done tab
@@ -144,6 +135,21 @@ public class HomeworkFragment extends Fragment implements View.OnClickListener {
         if (homeworkStrings.size() != 0) {
             GuiHelper.fillListViewFromArray(view, R.id.homework_listHomework, homeworkStrings.toArray(new String[0]));
         }
+    }
+
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     * <p>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
+     */
+    interface OnFragmentInteractionListener {
+        @SuppressWarnings({"FieldNever", "unused"})
+        void onFragmentInteraction(Uri uri);
     }
     //endregion
 }
