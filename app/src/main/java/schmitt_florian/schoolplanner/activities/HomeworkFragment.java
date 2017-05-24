@@ -172,9 +172,9 @@ public class HomeworkFragment extends Fragment implements View.OnClickListener {
      * @param view the view of the fragment
      */
     private void defineHomeworkListOnClick(final View view) {
-        ListView subjectList = (ListView) view.findViewById(R.id.homework_listHomework);
+        ListView homeworkList = (ListView) view.findViewById(R.id.homework_listHomework);
 
-        subjectList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        homeworkList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
                 Intent intent = new Intent(getContext(), HomeworkDetailsActivity.class);

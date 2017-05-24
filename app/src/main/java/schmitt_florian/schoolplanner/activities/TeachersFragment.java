@@ -136,9 +136,9 @@ public class TeachersFragment extends Fragment implements View.OnClickListener {
      * @param view the view of the fragment
      */
     private void defineTeacherListOnClick(final View view) {
-        ListView subjectList = (ListView) view.findViewById(R.id.teachers_listTeachers);
+        ListView teacherList = (ListView) view.findViewById(R.id.teachers_listTeachers);
 
-        subjectList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        teacherList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
                 Intent intent = new Intent(getContext(), TeacherDetailsActivity.class);
