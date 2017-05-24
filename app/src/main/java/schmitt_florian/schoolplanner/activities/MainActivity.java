@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements
         HomeworkFragment.OnFragmentInteractionListener,
         ExamsFragment.OnFragmentInteractionListener,
         GradesFragment.OnFragmentInteractionListener,
+        TeachersFragment.OnFragmentInteractionListener,
         SubjectsFragment.OnFragmentInteractionListener,
         CreditsFragment.OnFragmentInteractionListener,
         SettingsFragment.OnFragmentInteractionListener {
@@ -113,6 +114,13 @@ public class MainActivity extends AppCompatActivity implements
                 // Goto Subjects
                 FragmentTransaction ft = fragmentManager.beginTransaction();
                 ft.replace(R.id.containerMain, new GradesFragment());
+                ft.commit();
+                break;
+            }
+            case R.id.nav_teachers: {
+                // Goto Subjects
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                ft.replace(R.id.containerMain, new TeachersFragment());
                 ft.commit();
                 break;
             }

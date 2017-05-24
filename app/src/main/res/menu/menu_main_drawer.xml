@@ -22,6 +22,12 @@
             android:id="@+id/nav_grades"
             android:icon="@drawable/ic_subjects"
             android:title="@string/string_grades" />
+
+        <item
+            android:id="@+id/nav_teachers"
+            android:icon="@drawable/ic_subjects"
+            android:title="@string/string_teachers" />
+
         <item
             android:id="@+id/nav_subjects"
             android:icon="@drawable/ic_subjects"
