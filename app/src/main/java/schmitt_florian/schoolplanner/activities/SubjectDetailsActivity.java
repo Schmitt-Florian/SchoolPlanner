@@ -127,9 +127,9 @@ public class SubjectDetailsActivity extends AppCompatActivity {
         }
 
         if (teacherStrings.size() != 0) {
-            GuiHelper.fillSpinnerFromArray(findViewById(R.id.subjectDetails_main), R.id.subjectDetails_spinnerTeacher, teacherStrings.toArray(new String[0]));
+            GuiHelper.fillSpinnerFromArray(rootView, R.id.subjectDetails_spinnerTeacher, teacherStrings.toArray(new String[0]));
         } else {
-            GuiHelper.setVisibility(findViewById(R.id.subjectDetails_main), R.id.subjectDetails_lableSpinnerError, View.VISIBLE);
+            GuiHelper.setVisibility(rootView, R.id.subjectDetails_lableSpinnerError, View.VISIBLE);
             findViewById(R.id.subjectDetails_buttonSave).setEnabled(false);
         }
         return teacherArrayList.toArray(new Teacher[0]);
@@ -138,29 +138,26 @@ public class SubjectDetailsActivity extends AppCompatActivity {
     /**
      * read the values in the Gui and builds a {@link Subject} from it
      *
-     * @return the generated {@link Subject}, or null if
+     * @return the generated {@link Subject}
      * @throws IllegalArgumentException if input is empty or illegal
      **/
     private Subject readGradeFromGUI() throws IllegalArgumentException {
         Spinner spinner = (Spinner) findViewById(R.id.subjectDetails_spinnerTeacher);
-        try {
-            if (addMode) {
-                return new Subject(
-                        -1,
-                        teachersInSpinner[spinner.getSelectedItemPosition()],
-                        GuiHelper.getInputFromMandatoryEditText(rootView, R.id.subjectDetails_textName),
-                        GuiHelper.getInputFromMandatoryEditText(rootView, R.id.subjectDetails_textRoom)
-                );
-            } else {
-                return new Subject(
-                        showingSubject.getId(),
-                        teachersInSpinner[spinner.getSelectedItemPosition()],
-                        GuiHelper.getInputFromMandatoryEditText(rootView, R.id.subjectDetails_textName),
-                        GuiHelper.getInputFromMandatoryEditText(rootView, R.id.subjectDetails_textRoom)
-                );
-            }
-        } catch (ArrayIndexOutOfBoundsException ex) {
-            return null;
+
+        if (addMode) {
+            return new Subject(
+                    -1,
+                    teachersInSpinner[spinner.getSelectedItemPosition()],
+                    GuiHelper.getInputFromMandatoryEditText(rootView, R.id.subjectDetails_textName),
+                    GuiHelper.getInputFromMandatoryEditText(rootView, R.id.subjectDetails_textRoom)
+            );
+        } else {
+            return new Subject(
+                    showingSubject.getId(),
+                    teachersInSpinner[spinner.getSelectedItemPosition()],
+                    GuiHelper.getInputFromMandatoryEditText(rootView, R.id.subjectDetails_textName),
+                    GuiHelper.getInputFromMandatoryEditText(rootView, R.id.subjectDetails_textRoom)
+            );
         }
     }
     //endregion

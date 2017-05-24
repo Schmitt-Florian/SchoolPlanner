@@ -136,7 +136,7 @@ public class HomeworkDetailsActivity extends AppCompatActivity {
     /**
      * read the values in the Gui and builds a {@link Homework} from it
      *
-     * @return the generated {@link Homework},
+     * @return the generated {@link Homework}
      * @throws IllegalArgumentException if input is empty or illegal
      **/
     private Homework readHomeworkFromGUI() throws IllegalArgumentException {

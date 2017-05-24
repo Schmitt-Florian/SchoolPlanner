@@ -136,7 +136,7 @@ public class GradeDetailsActivity extends AppCompatActivity {
     /**
      * read the values in the Gui and builds a {@link Grade} from it
      *
-     * @return the generated {@link Grade}, or null if
+     * @return the generated {@link Grade}
      * @throws IllegalArgumentException if input is empty or illegal
      **/
     private Grade readGradeFromGUI() throws IllegalArgumentException {
