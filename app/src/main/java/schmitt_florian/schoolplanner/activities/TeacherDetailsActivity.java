@@ -1,5 +1,6 @@
 package schmitt_florian.schoolplanner.activities;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -11,7 +12,9 @@ import schmitt_florian.schoolplanner.logic.DatabaseHelper;
 import schmitt_florian.schoolplanner.logic.DatabaseHelperImpl;
 import schmitt_florian.schoolplanner.logic.Teacher;
 
-
+/**
+ * bound class to activity_teacher_details.xml to show, change attributes of a choose {@link Teacher}, delete a choose {@link Teacher} or add a new one
+ */
 public class TeacherDetailsActivity extends AppCompatActivity {
     private DatabaseHelper dbHelper;
     private View rootView;
@@ -23,6 +26,7 @@ public class TeacherDetailsActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_details);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         dbHelper = new DatabaseHelperImpl(this);
         int teacherID = getIntent().getIntExtra("TeacherID", -1);

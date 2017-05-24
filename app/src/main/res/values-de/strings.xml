@@ -49,4 +49,5 @@
     <string name="string_female">Weiblich</string>
     <string name="string_select_gender">Wähle Geschlecht aus</string>
     <string name="string_select_teacher">Wähle Lehrer aus</string>
+    <string name="string_exam_date">Klausurtermin</string>
 </resources>

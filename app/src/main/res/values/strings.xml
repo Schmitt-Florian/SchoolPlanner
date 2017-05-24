@@ -60,6 +60,7 @@
     <string name="string_female">Female</string>
     <string name="string_select_teacher">Select Teacher</string>
     <string name="string_select_gender">Select Gender</string>
+    <string name="string_exam_date">Exam Date</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>

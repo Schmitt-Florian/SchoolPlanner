@@ -1,5 +1,6 @@
 package schmitt_florian.schoolplanner.activities;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -15,7 +16,9 @@ import schmitt_florian.schoolplanner.logic.DatabaseHelperImpl;
 import schmitt_florian.schoolplanner.logic.Homework;
 import schmitt_florian.schoolplanner.logic.Subject;
 
-
+/**
+ * bound class to activity_homework_details.xml to show, change attributes of a choose {@link Homework}, delete a choose {@link Homework} or add a new one
+ */
 public class HomeworkDetailsActivity extends AppCompatActivity {
     private DatabaseHelper dbHelper;
     private View rootView;
@@ -27,6 +30,7 @@ public class HomeworkDetailsActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homework_details);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         dbHelper = new DatabaseHelperImpl(this);
         int homeworkID = getIntent().getIntExtra("HomeworkID", -1);

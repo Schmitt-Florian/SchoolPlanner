@@ -1,6 +1,7 @@
 package schmitt_florian.schoolplanner.activities;
 
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -16,7 +17,7 @@ import schmitt_florian.schoolplanner.logic.Subject;
 import schmitt_florian.schoolplanner.logic.Teacher;
 
 /**
- * bound class to activity_grade_details.xmlto show, change attributes of a choose {@link Subject}, delete a choose {@link Subject} or add a new one
+ * bound class to activity_subject_details.xml to show, change attributes of a choose {@link Subject}, delete a choose {@link Subject} or add a new one
  */
 public class SubjectDetailsActivity extends AppCompatActivity {
     private DatabaseHelper dbHelper;
@@ -29,6 +30,7 @@ public class SubjectDetailsActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subject_details);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         dbHelper = new DatabaseHelperImpl(this);
         int subjectId = getIntent().getIntExtra("SubjectID", -1);
@@ -129,7 +131,7 @@ public class SubjectDetailsActivity extends AppCompatActivity {
         if (teacherStrings.size() != 0) {
             GuiHelper.fillSpinnerFromArray(rootView, R.id.subjectDetails_spinnerTeacher, teacherStrings.toArray(new String[0]));
         } else {
-            GuiHelper.setVisibility(rootView, R.id.subjectDetails_lableSpinnerError, View.VISIBLE);
+            GuiHelper.setVisibility(rootView, R.id.subjectDetails_labelSpinnerError, View.VISIBLE);
             findViewById(R.id.subjectDetails_buttonSave).setEnabled(false);
         }
         return teacherArrayList.toArray(new Teacher[0]);
