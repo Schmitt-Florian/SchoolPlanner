@@ -43,4 +43,10 @@
     <string name="string_due_date">Abgabe Datum</string>
     <string name="string_description">Beschreibung</string>
     <string name="string_teachers">Lehrer</string>
+    <string name="string_abbreviation">Abkürzung</string>
+    <string name="string_male">Männlich</string>
+    <string name="string_gender">Geschlecht</string>
+    <string name="string_female">Weiblich</string>
+    <string name="string_select_gender">Wähle Geschlecht aus</string>
+    <string name="string_select_teacher">Wähle Lehrer aus</string>
 </resources>
