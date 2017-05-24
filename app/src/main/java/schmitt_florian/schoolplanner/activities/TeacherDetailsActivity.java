@@ -49,9 +49,9 @@ public class TeacherDetailsActivity extends AppCompatActivity {
     public void onSaveClick(View view) {
         try {
             if (addMode) {
-                dbHelper.insertIntoDB(readGradeFromGUI());
+                dbHelper.insertIntoDB(readTeacherFromGUI());
             } else {
-                dbHelper.updateTeacherAtId(readGradeFromGUI());
+                dbHelper.updateTeacherAtId(readTeacherFromGUI());
             }
             finish();
         } catch (IllegalArgumentException ignored) {
@@ -132,21 +132,21 @@ public class TeacherDetailsActivity extends AppCompatActivity {
      * @return the generated {@link Teacher}
      * @throws IllegalArgumentException if input is empty or illegal
      **/
-    private Teacher readGradeFromGUI() throws IllegalArgumentException {
+    private Teacher readTeacherFromGUI() throws IllegalArgumentException {
         Spinner spinner = (Spinner) findViewById(R.id.teacherDetails_spinnerGender);
 
         if (addMode) {
             return new Teacher(
                     -1,
                     GuiHelper.getInputFromMandatoryEditText(rootView, R.id.teacherDetails_textName),
-                    GuiHelper.getInputFromMandatoryEditText(rootView, R.id.teacherDetails_textAbbreviation),
+                    GuiHelper.getInputFromEditText(rootView, R.id.teacherDetails_textAbbreviation),
                     gendersInSpinner[spinner.getSelectedItemPosition()]
             );
         } else {
             return new Teacher(
                     showingTeacher.getId(),
                     GuiHelper.getInputFromMandatoryEditText(rootView, R.id.teacherDetails_textName),
-                    GuiHelper.getInputFromMandatoryEditText(rootView, R.id.teacherDetails_textAbbreviation),
+                    GuiHelper.getInputFromEditText(rootView, R.id.teacherDetails_textAbbreviation),
                     gendersInSpinner[spinner.getSelectedItemPosition()]
             );
         }

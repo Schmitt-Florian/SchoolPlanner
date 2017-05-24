@@ -53,9 +53,9 @@ public class SubjectDetailsActivity extends AppCompatActivity {
     public void onSaveClick(View view) {
         try {
             if (addMode) {
-                dbHelper.insertIntoDB(readGradeFromGUI());
+                dbHelper.insertIntoDB(readSubjectFromGUI());
             } else {
-                dbHelper.updateSubjectAtId(readGradeFromGUI());
+                dbHelper.updateSubjectAtId(readSubjectFromGUI());
             }
             finish();
         } catch (IllegalArgumentException ignored) {
@@ -143,7 +143,7 @@ public class SubjectDetailsActivity extends AppCompatActivity {
      * @return the generated {@link Subject}
      * @throws IllegalArgumentException if input is empty or illegal
      **/
-    private Subject readGradeFromGUI() throws IllegalArgumentException {
+    private Subject readSubjectFromGUI() throws IllegalArgumentException {
         Spinner spinner = (Spinner) findViewById(R.id.subjectDetails_spinnerTeacher);
 
         if (addMode) {

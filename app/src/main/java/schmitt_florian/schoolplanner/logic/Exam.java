@@ -1,8 +1,6 @@
 package schmitt_florian.schoolplanner.logic;
 
 
-import android.support.annotation.Nullable;
-
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -21,12 +19,12 @@ public class Exam {
     private Subject subject;
 
     /**
-     * description/details of the exam, can be null if not available
+     * description/details of the exam
      */
     private String description;
 
     /**
-     * due date / deadline for the exam, can be null if not available
+     * due date / deadline for the exam
      */
     private GregorianCalendar deadline;
 
@@ -38,7 +36,7 @@ public class Exam {
      * @param description description/details of the exam, can be null if not available
      * @param deadline    due date / deadline for the exam, can be null if not available
      */
-    public Exam(int id, Subject subject, @Nullable String description, @Nullable GregorianCalendar deadline) {
+    public Exam(int id, Subject subject, String description, GregorianCalendar deadline) {
         this.id = id;
         this.subject = subject;
         this.description = description;
@@ -50,10 +48,10 @@ public class Exam {
      *
      * @param id          numeric id of the exam (unique)
      * @param subject     {@link Subject} the exam is in
-     * @param description description/details of the exam, can be null if not available
-     * @param deadline    due date / deadline for the exam as String in YYYY-MM-DD format, can be null if not available
+     * @param description description/details of the exam
+     * @param deadline    due date / deadline for the exam as String in YYYY-MM-DD format
      */
-    public Exam(int id, Subject subject, @Nullable String description, @Nullable String deadline) {
+    public Exam(int id, Subject subject, String description, String deadline) {
         this.id = id;
         this.subject = subject;
         this.description = description;
@@ -86,7 +84,7 @@ public class Exam {
     /**
      * gets description/details of the exam as String
      *
-     * @return description/details of the exam, returns null if not available
+     * @return description/details of the exam
      */
     public String getDescription() {
         return description;
@@ -95,18 +93,18 @@ public class Exam {
     /**
      * gets deadline for the exam as String
      *
-     * @return deadline for the exam, returns null if not available
+     * @return deadline for the exam
      */
     public GregorianCalendar getDeadline() {
         return deadline;
     }
 
     /**
-     * gets the Deadline as String in YYYY-MM-DD format
+     * gets the Deadline as String in YYYY-MM-DD format for use in databases
      *
      * @return Deadline as String
      */
-    public String getDeadlineAsString() {
+    public String getDeadlineAsDatabaseString() {
         return deadline.get(Calendar.YEAR) + "-" + String.valueOf(deadline.get(Calendar.MONTH) + 1) + "-" + deadline.get(Calendar.DAY_OF_MONTH);
     }
 
@@ -134,7 +132,7 @@ public class Exam {
                 "Id: \t" + id + "\n" +
                 subject.toString() + "\n" +
                 "Description: \t" + description + "\n" +
-                "Deadline: \t" + getDeadlineAsString() + "\n" +
+                "Deadline: \t" + getDeadlineAsDatabaseString() + "\n" +
                 "---####---";
     }
 

@@ -34,7 +34,7 @@ class GuiHelper {
      * @param view the view the {@link EditText} is in
      * @param id   Resource ID of the {@link EditText}
      * @return the input of a {@link EditText} as String
-     * @throws IllegalArgumentException if input is empty
+     * @throws IllegalArgumentException if input is empty and calls {@link GuiHelper#handleEmptyMandatoryEditText;} method to do things to the text field
      */
     static String getInputFromMandatoryEditText(View view, int id) throws IllegalArgumentException {
         EditText editText = (EditText) view.findViewById(id);
@@ -53,11 +53,17 @@ class GuiHelper {
      *
      * @param view the view the {@link EditText} is in
      * @param id   Resource ID of the {@link EditText}
-     * @return the input of a {@link EditText} as String
+     * @return the input of a {@link EditText} as String or "NULL" if the input was empty
      */
     static String getInputFromEditText(View view, int id) {
         EditText editText = (EditText) view.findViewById(id);
-        return editText.getText().toString();
+        String input = editText.getText().toString();
+
+        if (input.matches("")) {
+            return "NULL";
+        } else {
+            return input;
+        }
     }
 
     /**
@@ -66,7 +72,7 @@ class GuiHelper {
      * @param view the view the {@link EditText} is in
      * @param id   Resource ID of the {@link EditText}
      * @return the input of a {@link EditText} as {@link GregorianCalendar}
-     * @throws IllegalArgumentException if input is invalid date
+     * @throws IllegalArgumentException if input is invalid date and calls {@link GuiHelper#handleEmptyMandatoryEditText;} method to do things to the text field
      */
     static GregorianCalendar getDateFromMandatoryEditText(View view, int id) throws IllegalArgumentException {
         //todo date formats
@@ -213,16 +219,21 @@ class GuiHelper {
      *
      * @param subject {@link Subject} to extract from
      * @return the Name of the {@link Subject} and the abbreviation of the {@link Teacher} as String. E.g "Math - SMT"
+     * or if the abbreviation wasn't provided the name of the {@link Teacher}
      */
     static String extractGuiString(Subject subject) {
-        return subject.getName() + " - " + subject.getTeacher().getAbbreviation();
+        if (subject.getTeacher().getAbbreviation().matches("NULL")) {
+            return subject.getName() + " - " + subject.getTeacher().getName();
+        } else {
+            return subject.getName() + " - " + subject.getTeacher().getAbbreviation();
+        }
     }
 
     /**
      * extracts a GUI displayable String from the given {@link Teacher}
      *
      * @param teacher {@link Teacher} to extract from
-     * @return the Name of the {@link Teacher} and the abbreviation of the {@link Teacher} as String. E.g "Mr. Smith - SMT"
+     * @return the Name of the {@link Teacher} and if provided the abbreviation of the {@link Teacher} as String. E.g "Mr. Smith - SMT"
      */
     static String extractGuiString(Teacher teacher, Context context) {
         StringBuilder stringBuilder = new StringBuilder();
@@ -234,7 +245,9 @@ class GuiHelper {
         }
 
         stringBuilder.append(" ").append(teacher.getName());
-        stringBuilder.append(" - ").append(teacher.getAbbreviation());
+        if (!teacher.getAbbreviation().matches("NULL")) {
+            stringBuilder.append(" - ").append(teacher.getAbbreviation());
+        }
 
         return stringBuilder.toString();
     }
@@ -267,7 +280,7 @@ class GuiHelper {
     }
 
     /**
-     * can be used to indicate that a {@link EditText} in the GUI must not be empty
+     * can be used to indicate for the user that a {@link EditText} in the GUI must not be empty by displaying a Red hint "Mandatory Field"
      *
      * @param view the view the {@link EditText} is in
      * @param id   the ResourceID of the EditText

@@ -1217,9 +1217,9 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         SQLiteDatabase db = this.getWritableDatabase();
         String query;
         if (homework.getId() <= 0) {
-            query = "INSERT INTO " + TABLE_HOMEWORK + " VALUES ( " + getNewID(TABLE_HOMEWORK, HOMEWORK_COLUMN_ID) + ", " + homework.getSubject().getId() + ", \"" + homework.getDescription() + "\", \"" + homework.getDeadlineAsString() + "\", " + homework.getDone() + ")";
+            query = "INSERT INTO " + TABLE_HOMEWORK + " VALUES ( " + getNewID(TABLE_HOMEWORK, HOMEWORK_COLUMN_ID) + ", " + homework.getSubject().getId() + ", \"" + homework.getDescription() + "\", \"" + homework.getDeadlineAsDatabaseString() + "\", " + homework.getDone() + ")";
         } else {
-            query = "INSERT INTO " + TABLE_HOMEWORK + " VALUES ( " + homework.getId() + ", " + homework.getSubject().getId() + ", \"" + homework.getDescription() + "\", \"" + homework.getDeadlineAsString() + "\", " + homework.getDone() + ")";
+            query = "INSERT INTO " + TABLE_HOMEWORK + " VALUES ( " + homework.getId() + ", " + homework.getSubject().getId() + ", \"" + homework.getDescription() + "\", \"" + homework.getDeadlineAsDatabaseString() + "\", " + homework.getDone() + ")";
         }
 
         try {
@@ -1249,9 +1249,9 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         SQLiteDatabase db = this.getWritableDatabase();
         String query;
         if (exam.getId() <= 0) {
-            query = "INSERT INTO " + TABLE_EXAM + " VALUES ( " + getNewID(TABLE_EXAM, EXAM_COLUMN_ID) + ", " + exam.getSubject().getId() + ", \"" + exam.getDescription() + "\", \"" + exam.getDeadlineAsString() + "\")";
+            query = "INSERT INTO " + TABLE_EXAM + " VALUES ( " + getNewID(TABLE_EXAM, EXAM_COLUMN_ID) + ", " + exam.getSubject().getId() + ", \"" + exam.getDescription() + "\", \"" + exam.getDeadlineAsDatabaseString() + "\")";
         } else {
-            query = "INSERT INTO " + TABLE_EXAM + " VALUES ( " + exam.getId() + ", " + exam.getSubject().getId() + ", \"" + exam.getDescription() + "\", \"" + exam.getDeadlineAsString() + "\")";
+            query = "INSERT INTO " + TABLE_EXAM + " VALUES ( " + exam.getId() + ", " + exam.getSubject().getId() + ", \"" + exam.getDescription() + "\", \"" + exam.getDeadlineAsDatabaseString() + "\")";
         }
 
         try {
@@ -1862,9 +1862,9 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_HOMEWORK + "(" +
                 HOMEWORK_COLUMN_ID + " INTEGER PRIMARY KEY NOT NULL, " +
                 HOMEWORK_COLUMN_SUBJECT_ID + " INTEGER NOT NULL, " +
-                HOMEWORK_COLUMN_DESCRIPTION + " TEXT, " +
-                HOMEWORK_COLUMN_DEADLINE + " DATE, " +
-                HOMEWORK_COLUMN_DONE + "INTEGER )"
+                HOMEWORK_COLUMN_DESCRIPTION + " TEXT NOT NULL, " +
+                HOMEWORK_COLUMN_DEADLINE + " DATE NOT NULL, " +
+                HOMEWORK_COLUMN_DONE + " INTEGER )"
         );
     }
 
@@ -1877,8 +1877,8 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_EXAM + "(" +
                 EXAM_COLUMN_ID + " INTEGER PRIMARY KEY NOT NULL, " +
                 EXAM_COLUMN_SUBJECT_ID + " INTEGER NOT NULL, " +
-                EXAM_COLUMN_DESCRIPTION + " TEXT, " +
-                EXAM_COLUMN_DEADLINE + " DATE )"
+                EXAM_COLUMN_DESCRIPTION + " TEXT NOT NULL, " +
+                EXAM_COLUMN_DEADLINE + " DATE NOT NULL)"
         );
     }
 
