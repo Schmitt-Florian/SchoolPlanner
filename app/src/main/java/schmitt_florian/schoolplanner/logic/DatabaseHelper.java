@@ -117,14 +117,14 @@ public interface DatabaseHelper {
     String HOMEWORK_COLUMN_SUBJECT_ID = "homework_subject_id";
 
     /**
-     * text
+     * text, not null
      * <br> </br>
      * name of the description column in the homework table as String
      */
     String HOMEWORK_COLUMN_DESCRIPTION = "homework_description";
 
     /**
-     * date
+     * date, not null
      * <br> </br>
      * YYYY-MM-DD
      * <br> </br>
@@ -133,7 +133,7 @@ public interface DatabaseHelper {
     String HOMEWORK_COLUMN_DEADLINE = "homework_deadline";
 
     /**
-     * boolean
+     * boolean, not null
      * <br> </br>
      * name of the description column in the homework table as String
      */
@@ -162,14 +162,14 @@ public interface DatabaseHelper {
     String EXAM_COLUMN_SUBJECT_ID = "exam_subject_id";
 
     /**
-     * text
+     * text, not null
      * <br> </br>
      * name of the description column in the exam table as String
      */
     String EXAM_COLUMN_DESCRIPTION = "exam_description";
 
     /**
-     * date
+     * date, not null
      * <br> </br>
      * YYYY-MM-DD
      * <br> </br>

@@ -63,6 +63,22 @@ public class HomeFragment extends Fragment {
     }
 
     /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     * <p>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
+     */
+    interface OnFragmentInteractionListener {
+        @SuppressWarnings({"FieldNever", "unused"})
+        void onFragmentInteraction(Uri uri);
+    }
+
+    //region private methods
+    /**
      * method to initialise components of the GUI
      *
      * @param view the view of the fragment
@@ -73,8 +89,6 @@ public class HomeFragment extends Fragment {
         fillHomeworkListView(view);
         fillExamListView(view);
     }
-
-    //region private methods
 
     /**
      * method to initialise the Labels, which show the Date at the home screen
@@ -180,20 +194,6 @@ public class HomeFragment extends Fragment {
                 date.get(Calendar.YEAR) == calendar.get(Calendar.YEAR);
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    interface OnFragmentInteractionListener {
-        @SuppressWarnings({"FieldNever", "unused"})
-        void onFragmentInteraction(Uri uri);
-    }
     //endregion
 
 }

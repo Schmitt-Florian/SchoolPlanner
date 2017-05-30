@@ -10,6 +10,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 
@@ -29,6 +31,7 @@ public class HomeworkFragment extends Fragment implements View.OnClickListener {
     private OnFragmentInteractionListener mListener;
     private View view;
     private boolean tabIsToDo;
+    private Homework[] allHomeworkInList;
 
 
     @Override
@@ -86,56 +89,6 @@ public class HomeworkFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    /**
-     * method to initialise components of the GUI
-     */
-    private void initGUI() {
-        GuiHelper.defineButtonOnClickListener(view, R.id.homework_buttonToDo, this);
-        GuiHelper.defineButtonOnClickListener(view, R.id.homework_buttonDone, this);
-        GuiHelper.defineFloatingActionButtonOnClickListener(view, R.id.homework_floatingActionButton_add, this);
-        changeTab();
-    }
-
-    //region private methods
-
-    /**
-     * method to change between the to-do tab and the done tab
-     */
-    private void changeTab() {
-        if (tabIsToDo) {
-            GuiHelper.setColorToButton(view, R.id.homework_buttonToDo, R.color.button_active);
-            GuiHelper.setColorToButton(view, R.id.homework_buttonDone, R.color.button_passive);
-            fillListView();
-        } else {
-            GuiHelper.setColorToButton(view, R.id.homework_buttonToDo, R.color.button_passive);
-            GuiHelper.setColorToButton(view, R.id.homework_buttonDone, R.color.button_active);
-            fillListView();
-        }
-    }
-
-    /**
-     * method to fill the ListView, which shows the {@link Homework}s at the homework screen, depending on the activated tab
-     */
-    private void fillListView() {
-        DatabaseHelper dbHelper = new DatabaseHelperImpl(view.getContext());
-
-        ArrayList<String> homeworkStrings = new ArrayList<>();
-        int[] homeworkIndices = dbHelper.getIndices(DatabaseHelper.TABLE_HOMEWORK);
-
-        for (int homeworkIndex : homeworkIndices) {
-            Homework homework = dbHelper.getHomeworkAtId(homeworkIndex);
-
-            if (tabIsToDo && !homework.isDone()) {
-                homeworkStrings.add(GuiHelper.extractGuiString(homework));
-            } else if (!tabIsToDo && homework.isDone()) {
-                homeworkStrings.add(GuiHelper.extractGuiString(homework));
-            }
-        }
-
-        if (homeworkStrings.size() != 0) {
-            GuiHelper.fillListViewFromArray(view, R.id.homework_listHomework, homeworkStrings.toArray(new String[0]));
-        }
-    }
 
     /**
      * This interface must be implemented by activities that contain this
@@ -150,6 +103,86 @@ public class HomeworkFragment extends Fragment implements View.OnClickListener {
     interface OnFragmentInteractionListener {
         @SuppressWarnings({"FieldNever", "unused"})
         void onFragmentInteraction(Uri uri);
+    }
+
+    //region private methods
+
+    /**
+     * method to initialise components of the GUI
+     */
+    private void initGUI() {
+        GuiHelper.defineButtonOnClickListener(view, R.id.homework_buttonToDo, this);
+        GuiHelper.defineButtonOnClickListener(view, R.id.homework_buttonDone, this);
+        GuiHelper.defineFloatingActionButtonOnClickListener(view, R.id.homework_floatingActionButton_add, this);
+
+        allHomeworkInList = changeTab();
+        defineHomeworkListOnClick(view);
+    }
+
+    /**
+     * method to change between the to-do tab and the done tab
+     *
+     * @return returns a array of all {@link Homework}s shown in the listView ordered by their position in the listView
+     */
+    private Homework[] changeTab() {
+        if (tabIsToDo) {
+            GuiHelper.setColorToButton(view, R.id.homework_buttonToDo, R.color.button_active);
+            GuiHelper.setColorToButton(view, R.id.homework_buttonDone, R.color.button_passive);
+            return fillListView();
+        } else {
+            GuiHelper.setColorToButton(view, R.id.homework_buttonToDo, R.color.button_passive);
+            GuiHelper.setColorToButton(view, R.id.homework_buttonDone, R.color.button_active);
+            return fillListView();
+        }
+    }
+
+    /**
+     * method to fill the ListView, which shows the {@link Homework}s at the homework screen, depending on the activated tab
+     *
+     * @return returns a array of all {@link Homework}s shown in the listView ordered by their position in the listView
+     */
+    private Homework[] fillListView() {
+        DatabaseHelper dbHelper = new DatabaseHelperImpl(view.getContext());
+
+        ArrayList<String> homeworkStrings = new ArrayList<>();
+        ArrayList<Homework> homeworkArrayList = new ArrayList<>();
+        int[] homeworkIndices = dbHelper.getIndices(DatabaseHelper.TABLE_HOMEWORK);
+
+        for (int homeworkIndex : homeworkIndices) {
+            Homework homework = dbHelper.getHomeworkAtId(homeworkIndex);
+
+            if (tabIsToDo && !homework.isDone()) {
+                homeworkStrings.add(GuiHelper.extractGuiString(homework));
+                homeworkArrayList.add(homework);
+            } else if (!tabIsToDo && homework.isDone()) {
+                homeworkStrings.add(GuiHelper.extractGuiString(homework));
+                homeworkArrayList.add(homework);
+            }
+        }
+
+        if (homeworkStrings.size() != 0) {
+            GuiHelper.fillListViewFromArray(view, R.id.homework_listHomework, homeworkStrings.toArray(new String[0]));
+        }
+
+        return homeworkArrayList.toArray(new Homework[0]);
+    }
+
+    /**
+     * method to handle Clicks on the ListView, which shows the {@link Homework}s at the homework screen
+     *
+     * @param view the view of the fragment
+     */
+    private void defineHomeworkListOnClick(final View view) {
+        ListView homeworkList = (ListView) view.findViewById(R.id.homework_listHomework);
+
+        homeworkList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
+                Intent intent = new Intent(getContext(), HomeworkDetailsActivity.class);
+                intent.putExtra("HomeworkID", allHomeworkInList[position].getId());
+                startActivity(intent);
+            }
+        });
     }
     //endregion
 }

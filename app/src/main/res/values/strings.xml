@@ -5,10 +5,11 @@
     //Navigation Drawer
     <string name="string_homepage">Home</string>
     <string name="string_schedule">Schedule</string>
-    <string name="string_subjects">Subjects</string>
     <string name="string_homework">Homework</string>
     <string name="string_exams">Exams</string>
     <string name="string_grades">Grades</string>
+    <string name="string_teachers">Teachers</string>
+    <string name="string_subjects">Subjects</string>
     <string name="string_credits">Credits</string>
     <string name="string_settings">Settings</string>
 
@@ -36,7 +37,6 @@
     <string name="string_choose_email_service">Choose Email Service</string>
     <string name="string_todo">ToDo</string>
     <string name="string_done">Done</string>
-    <string name="string_mark">Mark</string>
     <string name="string_add">Add</string>
     <string name="string_delete">Delete</string>
     <string name="string_back">Back</string>
@@ -54,6 +54,13 @@
     <string name="string_mr">Mr.</string>
     <string name="string_mrs">Mrs.</string>
     <string name="string_due_date">Due Date</string>
+    <string name="string_abbreviation">Abbreviation</string>
+    <string name="string_gender">Gender</string>
+    <string name="string_male">Male</string>
+    <string name="string_female">Female</string>
+    <string name="string_select_teacher">Select Teacher</string>
+    <string name="string_select_gender">Select Gender</string>
+    <string name="string_exam_date">Exam Date</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>

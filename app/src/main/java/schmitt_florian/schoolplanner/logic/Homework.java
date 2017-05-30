@@ -105,13 +105,14 @@ public class Homework {
     }
 
     /**
-     * gets the Deadline as String in YYYY-MM-DD format
+     * gets the Deadline as String in YYYY-MM-DD format for use in databases
      *
      * @return Deadline as String
      */
-    public String getDeadlineAsString() {
+    public String getDeadlineAsDatabaseString() {
         return deadline.get(Calendar.YEAR) + "-" + String.valueOf(deadline.get(Calendar.MONTH) + 1) + "-" + deadline.get(Calendar.DAY_OF_MONTH);
     }
+
 
     /**
      * indicates whether the homework is done or not
@@ -169,7 +170,7 @@ public class Homework {
                 "Id: \t" + id + "\n" +
                 subject.toString() + "\n" +
                 "Description: \t" + description + "\n" +
-                "Deadline: \t" + getDeadlineAsString() + "\n" +
+                "Deadline: \t" + getDeadlineAsDatabaseString() + "\n" +
                 "Done: \t" + done + "\n" +
                 "---####---";
     }

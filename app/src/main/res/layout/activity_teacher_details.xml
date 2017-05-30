@@ -1,74 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/teacherDetails_main"
-    android:layout_width="match_parent"
+        android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="1"
+    tools:context=".activities.TeacherDetailsActivity">
 
     <LinearLayout
         android:id="@+id/teacherDetails_edit"
-        android:layout_width="match_parent"
-        android:layout_height="420dp"
-        android:orientation="vertical">
+            android:layout_width="match_parent"
+        android:layout_height="0dp"
+            android:layout_weight="1"
+        android:orientation="vertical"
+        android:weightSum="1">
 
-
-        <EditText
-            android:id="@+id/teacherDetails_name"
+        <TextView
+            android:id="@+id/teacherDetails_labelName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Name" />
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:layout_marginRight="@dimen/fab_margin"
+            android:layout_marginTop="@dimen/fab_margin"
+            android:text="@string/string_name"
+            android:textAlignment="viewStart"
+            android:textAllCaps="false"
+            android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/teacherDetails_abbreviation"
+            android:id="@+id/teacherDetails_textName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginBottom="@dimen/fab_margin"
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:layout_marginRight="@dimen/fab_margin"
             android:ems="10"
-            android:inputType="textMultiLine"
-            android:text="Abbreviation" />
+            android:hint="@string/string_name"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/teacherDetails_labelAbbreviation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:layout_marginRight="@dimen/fab_margin"
+            android:layout_marginTop="@dimen/fab_margin"
+            android:text="@string/string_abbreviation"
+            android:textAlignment="viewStart"
+            android:textAllCaps="false"
+            android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/teacherDetails_gender"
+            android:id="@+id/teacherDetails_textAbbreviation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginBottom="@dimen/fab_margin"
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:layout_marginRight="@dimen/fab_margin"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Gender" />
+            android:hint="@string/string_abbreviation"
+            android:inputType="textCapCharacters" />
+
+        <TextView
+            android:id="@+id/teacherDetails_labelGender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:layout_marginRight="@dimen/fab_margin"
+            android:layout_marginTop="@dimen/fab_margin"
+            android:text="@string/string_gender"
+            android:textAlignment="viewStart"
+            android:textAllCaps="false"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/Spacer"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/divider"
+            android:elevation="0dp" />
+
+        <Spinner
+            android:id="@+id/teacherDetails_spinnerGender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="0.2"
+            android:prompt="@string/string_select_gender" />
+
+        <TextView
+            android:id="@+id/Spacer2"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginBottom="@dimen/fab_margin"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/divider" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/teacherDetails_buttons"
-        android:layout_width="match_parent"
-        android:layout_height="89dp"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="0dp"
+        android:id="@+id/teacher_buttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="0dp"
         android:orientation="vertical">
-
 
         <Button
             android:id="@+id/teacherDetails_buttonSave"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_weight="0.9"
             android:backgroundTint="@color/accent"
-            android:text="save" />
+            android:onClick="onSaveClick"
+            android:text="@string/string_save" />
+
+        <Button
+            android:id="@+id/teacherDetails_buttonDelete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/accent"
+            android:onClick="onDeleteClick"
+            android:text="@string/string_delete" />
 
         <Button
             android:id="@+id/teacherDetails_buttonClose"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginBottom="0dp"
-            android:layout_weight="0.9"
             android:backgroundTint="@color/accent"
-            android:text="Close" />
-
+            android:onClick="onCloseClick"
+            android:text="@string/string_close" />
 
     </LinearLayout>
 

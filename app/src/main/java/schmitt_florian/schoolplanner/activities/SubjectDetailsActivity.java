@@ -1,6 +1,7 @@
 package schmitt_florian.schoolplanner.activities;
 
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -16,7 +17,7 @@ import schmitt_florian.schoolplanner.logic.Subject;
 import schmitt_florian.schoolplanner.logic.Teacher;
 
 /**
- * bound class to activity_grade_details.xmlto show, change attributes of a choose {@link Subject}, delete a choose {@link Subject} or add a new one
+ * bound class to activity_subject_details.xml to show, change attributes of a choose {@link Subject}, delete a choose {@link Subject} or add a new one
  */
 public class SubjectDetailsActivity extends AppCompatActivity {
     private DatabaseHelper dbHelper;
@@ -29,6 +30,7 @@ public class SubjectDetailsActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subject_details);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         dbHelper = new DatabaseHelperImpl(this);
         int subjectId = getIntent().getIntExtra("SubjectID", -1);
@@ -51,9 +53,9 @@ public class SubjectDetailsActivity extends AppCompatActivity {
     public void onSaveClick(View view) {
         try {
             if (addMode) {
-                dbHelper.insertIntoDB(readGradeFromGUI());
+                dbHelper.insertIntoDB(readSubjectFromGUI());
             } else {
-                dbHelper.updateSubjectAtId(readGradeFromGUI());
+                dbHelper.updateSubjectAtId(readSubjectFromGUI());
             }
             finish();
         } catch (IllegalArgumentException ignored) {
@@ -127,9 +129,9 @@ public class SubjectDetailsActivity extends AppCompatActivity {
         }
 
         if (teacherStrings.size() != 0) {
-            GuiHelper.fillSpinnerFromArray(findViewById(R.id.subjectDetails_main), R.id.subjectDetails_spinnerTeacher, teacherStrings.toArray(new String[0]));
+            GuiHelper.fillSpinnerFromArray(rootView, R.id.subjectDetails_spinnerTeacher, teacherStrings.toArray(new String[0]));
         } else {
-            GuiHelper.setVisibility(findViewById(R.id.subjectDetails_main), R.id.subjectDetails_lableSpinnerError, View.VISIBLE);
+            GuiHelper.setVisibility(rootView, R.id.subjectDetails_labelSpinnerError, View.VISIBLE);
             findViewById(R.id.subjectDetails_buttonSave).setEnabled(false);
         }
         return teacherArrayList.toArray(new Teacher[0]);
@@ -138,29 +140,26 @@ public class SubjectDetailsActivity extends AppCompatActivity {
     /**
      * read the values in the Gui and builds a {@link Subject} from it
      *
-     * @return the generated {@link Subject}, or null if
+     * @return the generated {@link Subject}
      * @throws IllegalArgumentException if input is empty or illegal
      **/
-    private Subject readGradeFromGUI() throws IllegalArgumentException {
+    private Subject readSubjectFromGUI() throws IllegalArgumentException {
         Spinner spinner = (Spinner) findViewById(R.id.subjectDetails_spinnerTeacher);
-        try {
-            if (addMode) {
-                return new Subject(
-                        -1,
-                        teachersInSpinner[spinner.getSelectedItemPosition()],
-                        GuiHelper.getInputFromMandatoryEditText(rootView, R.id.subjectDetails_textName),
-                        GuiHelper.getInputFromMandatoryEditText(rootView, R.id.subjectDetails_textRoom)
-                );
-            } else {
-                return new Subject(
-                        showingSubject.getId(),
-                        teachersInSpinner[spinner.getSelectedItemPosition()],
-                        GuiHelper.getInputFromMandatoryEditText(rootView, R.id.subjectDetails_textName),
-                        GuiHelper.getInputFromMandatoryEditText(rootView, R.id.subjectDetails_textRoom)
-                );
-            }
-        } catch (ArrayIndexOutOfBoundsException ex) {
-            return null;
+
+        if (addMode) {
+            return new Subject(
+                    -1,
+                    teachersInSpinner[spinner.getSelectedItemPosition()],
+                    GuiHelper.getInputFromMandatoryEditText(rootView, R.id.subjectDetails_textName),
+                    GuiHelper.getInputFromMandatoryEditText(rootView, R.id.subjectDetails_textRoom)
+            );
+        } else {
+            return new Subject(
+                    showingSubject.getId(),
+                    teachersInSpinner[spinner.getSelectedItemPosition()],
+                    GuiHelper.getInputFromMandatoryEditText(rootView, R.id.subjectDetails_textName),
+                    GuiHelper.getInputFromMandatoryEditText(rootView, R.id.subjectDetails_textRoom)
+            );
         }
     }
     //endregion

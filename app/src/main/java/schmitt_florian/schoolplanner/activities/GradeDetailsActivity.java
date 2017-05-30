@@ -1,5 +1,6 @@
 package schmitt_florian.schoolplanner.activities;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -15,7 +16,7 @@ import schmitt_florian.schoolplanner.logic.Grade;
 import schmitt_florian.schoolplanner.logic.Subject;
 
 /**
- * bound class to activity_grade_detailsxml to show, change attributes of a choose {@link Grade}, delete a choose {@link Grade} or add a new one
+ * bound class to activity_grade_details.xml to show, change attributes of a choose {@link Grade}, delete a choose {@link Grade} or add a new one
  */
 public class GradeDetailsActivity extends AppCompatActivity {
     private DatabaseHelper dbHelper;
@@ -28,6 +29,7 @@ public class GradeDetailsActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grade_details);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         dbHelper = new DatabaseHelperImpl(this);
         int gradeId = getIntent().getIntExtra("GradeID", -1);
@@ -127,7 +129,7 @@ public class GradeDetailsActivity extends AppCompatActivity {
         if (subjectStrings.size() != 0) {
             GuiHelper.fillSpinnerFromArray(rootView, R.id.gradeDetails_spinnerSubject, subjectStrings.toArray(new String[0]));
         } else {
-            GuiHelper.setVisibility(rootView, R.id.gradeDetails_lableSpinnerError, View.VISIBLE);
+            GuiHelper.setVisibility(rootView, R.id.gradeDetails_labelSpinnerError, View.VISIBLE);
             findViewById(R.id.gradeDetails_buttonSave).setEnabled(false);
         }
         return subjectArrayList.toArray(new Subject[0]);
@@ -136,7 +138,7 @@ public class GradeDetailsActivity extends AppCompatActivity {
     /**
      * read the values in the Gui and builds a {@link Grade} from it
      *
-     * @return the generated {@link Grade}, or null if
+     * @return the generated {@link Grade}
      * @throws IllegalArgumentException if input is empty or illegal
      **/
     private Grade readGradeFromGUI() throws IllegalArgumentException {

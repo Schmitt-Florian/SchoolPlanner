@@ -17,7 +17,7 @@
         android:weightSum="1">
 
         <TextView
-            android:id="@+id/gradeDetails_lableName"
+            android:id="@+id/gradeDetails_labelName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/fab_margin"
@@ -40,7 +40,7 @@
             android:inputType="textPersonName" />
 
         <TextView
-            android:id="@+id/gradeDetails_lableGrade"
+            android:id="@+id/gradeDetails_labelGrade"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/fab_margin"
@@ -63,7 +63,7 @@
             android:inputType="textCapCharacters" />
 
         <TextView
-            android:id="@+id/gradeDetails_lableSubject"
+            android:id="@+id/gradeDetails_labelSubject"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
@@ -76,7 +76,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/gradeDetails_lableSpinnerError"
+            android:id="@+id/gradeDetails_labelSpinnerError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"

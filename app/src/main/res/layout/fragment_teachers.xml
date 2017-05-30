@@ -1,23 +1,23 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/teacher_mainLayout"
+    android:id="@+id/teachers_mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.TeacherFragment">
+    tools:context=".activities.TeachersFragment">
 
     <FrameLayout
-        android:id="@+id/teacher_listLayout"
+        android:id="@+id/teachers_listLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <ListView
-            android:id="@+id/teacher_listSubjects"
+            android:id="@+id/teachers_listTeachers"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/teacher_floatingActionButton_add"
+            android:id="@+id/teachers_floatingActionButton_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"

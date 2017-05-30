@@ -17,19 +17,18 @@ import java.util.ArrayList;
 import schmitt_florian.schoolplanner.R;
 import schmitt_florian.schoolplanner.logic.DatabaseHelper;
 import schmitt_florian.schoolplanner.logic.DatabaseHelperImpl;
-import schmitt_florian.schoolplanner.logic.Exam;
+import schmitt_florian.schoolplanner.logic.Teacher;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ExamsFragment.OnFragmentInteractionListener} interface
+ * {@link TeachersFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
  */
-public class ExamsFragment extends Fragment implements View.OnClickListener {
+public class TeachersFragment extends Fragment implements View.OnClickListener {
     @SuppressWarnings({"FieldNever", "unused"})
     private OnFragmentInteractionListener mListener;
-    private View view;
-    private Exam[] allExamsInList;
+    private Teacher[] allTeachersInList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,9 +39,9 @@ public class ExamsFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_exams, container, false);
+        View view = inflater.inflate(R.layout.fragment_teachers, container, false);
 
-        initGUI();
+        initGui(view);
         return view;
     }
 
@@ -71,8 +70,8 @@ public class ExamsFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.exams_floatingActionButton_add:
-                startActivity(new Intent(getContext(), ExamDetailsActivity.class));
+            case R.id.teachers_floatingActionButton_add:
+                startActivity(new Intent(getContext(), TeacherDetailsActivity.class));
                 break;
         }
     }
@@ -96,56 +95,58 @@ public class ExamsFragment extends Fragment implements View.OnClickListener {
 
     /**
      * method to initialise components of the GUI
-     */
-    private void initGUI() {
-        GuiHelper.defineFloatingActionButtonOnClickListener(view, R.id.exams_floatingActionButton_add, this);
-
-        allExamsInList = fillListView();
-        defineExamListOnClick(view);
-    }
-
-    /**
-     * method to fill the ListView, which shows the {@link Exam}s at the exams screen
-     *
-     * @return returns a array of all {@link Exam}s shown in the listView ordered by their position in the listView
-     */
-    private Exam[] fillListView() {
-        DatabaseHelper dbHelper = new DatabaseHelperImpl(view.getContext());
-
-        ArrayList<String> examStrings = new ArrayList<>();
-        ArrayList<Exam> examArrayList = new ArrayList<>();
-        int[] examIndices = dbHelper.getIndices(DatabaseHelper.TABLE_EXAM);
-
-        for (int examIndex : examIndices) {
-            Exam exam = dbHelper.getExamAtId(examIndex);
-
-            examStrings.add(GuiHelper.extractGuiString(exam));
-            examArrayList.add(exam);
-        }
-
-        if (examStrings.size() != 0) {
-            GuiHelper.fillListViewFromArray(view, R.id.exams_listExams, examStrings.toArray(new String[0]));
-        }
-
-        return examArrayList.toArray(new Exam[0]);
-    }
-
-    /**
-     * method to handle Clicks on the ListView, which shows the {@link Exam}s at the exams screen
      *
      * @param view the view of the fragment
      */
-    private void defineExamListOnClick(final View view) {
-        ListView subjectList = (ListView) view.findViewById(R.id.exams_listExams);
+    private void initGui(View view) {
+        allTeachersInList = fillListView(view);
+        GuiHelper.defineFloatingActionButtonOnClickListener(view, R.id.teachers_floatingActionButton_add, this);
+        defineTeacherListOnClick(view);
+    }
 
-        subjectList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    /**
+     * method to fill the ListView, which shows the {@link Teacher}s at the teachers screen
+     *
+     * @param view the view of the fragment
+     * @return returns a array of all {@link Teacher}s shown in the listView ordered by their position in the listView
+     */
+    private Teacher[] fillListView(View view) {
+        DatabaseHelper dbHelper = new DatabaseHelperImpl(view.getContext());
+
+        ArrayList<String> teacherStrings = new ArrayList<>();
+        ArrayList<Teacher> teacherArrayList = new ArrayList<>();
+        int[] teacherIndices = dbHelper.getIndices(DatabaseHelper.TABLE_TEACHER);
+
+        for (int teacherIndex : teacherIndices) {
+            Teacher teacher = dbHelper.getTeacherAtId(teacherIndex);
+
+            teacherStrings.add(GuiHelper.extractGuiString(teacher, getContext()));
+            teacherArrayList.add(teacher);
+        }
+
+        if (teacherStrings.size() != 0) {
+            GuiHelper.fillListViewFromArray(view, R.id.teachers_listTeachers, teacherStrings.toArray(new String[0]));
+        }
+        return teacherArrayList.toArray(new Teacher[0]);
+    }
+
+    /**
+     * method to handle Clicks on the ListView, which shows the {@link Teacher}s at the teachers screen
+     *
+     * @param view the view of the fragment
+     */
+    private void defineTeacherListOnClick(final View view) {
+        ListView teacherList = (ListView) view.findViewById(R.id.teachers_listTeachers);
+
+        teacherList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
-                Intent intent = new Intent(getContext(), ExamDetailsActivity.class);
-                intent.putExtra("ExamID", allExamsInList[position].getId());
+                Intent intent = new Intent(getContext(), TeacherDetailsActivity.class);
+                intent.putExtra("TeacherID", allTeachersInList[position].getId());
                 startActivity(intent);
             }
         });
     }
-    //endregion
+//endregion
+
 }

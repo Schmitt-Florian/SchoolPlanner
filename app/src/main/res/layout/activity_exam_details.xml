@@ -1,82 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/subjectDetails_main"
+    android:id="@+id/examDetails_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="1"
-    tools:context=".activities.SubjectDetailsActivity">
+    tools:context=".activities.ExamDetailsActivity">
 
     <LinearLayout
-        android:id="@+id/subjectDetails_edit"
+        android:id="@+id/examDetails_edit"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:isScrollContainer="false"
         android:orientation="vertical"
         android:weightSum="1">
 
         <TextView
-            android:id="@+id/subjectDetails_labelName"
+            android:id="@+id/examDetails_labelDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/fab_margin"
             android:layout_marginRight="@dimen/fab_margin"
             android:layout_marginTop="@dimen/fab_margin"
-            android:text="@string/string_name"
+            android:text="@string/string_description"
             android:textAlignment="viewStart"
             android:textAllCaps="false"
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/subjectDetails_textName"
+            android:id="@+id/examDetails_textDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/fab_margin"
             android:layout_marginLeft="@dimen/fab_margin"
             android:layout_marginRight="@dimen/fab_margin"
             android:ems="10"
-            android:hint="@string/string_name"
-            android:inputType="textPersonName" />
+            android:hint="@string/string_description"
+            android:inputType="textMultiLine" />
 
         <TextView
-            android:id="@+id/subjectDetails_labelRoom"
+            android:id="@+id/examDetails_labelDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/fab_margin"
             android:layout_marginRight="@dimen/fab_margin"
             android:layout_marginTop="@dimen/fab_margin"
-            android:text="@string/string_room"
-            android:textAlignment="viewStart"
-            android:textAllCaps="false"
+            android:text="@string/string_exam_date"
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/subjectDetails_textRoom"
+            android:id="@+id/examDetails_textDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/fab_margin"
             android:layout_marginLeft="@dimen/fab_margin"
             android:layout_marginRight="@dimen/fab_margin"
             android:ems="10"
-            android:hint="@string/string_room"
-            android:inputType="textCapCharacters" />
+            android:hint="@string/string_exam_date"
+            android:inputType="date" />
 
         <TextView
-            android:id="@+id/subjectDetails_labelTeacher"
+            android:id="@+id/examDetails_labelSubject"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="@dimen/fab_margin"
             android:layout_marginRight="@dimen/fab_margin"
             android:layout_marginTop="@dimen/fab_margin"
-            android:text="@string/string_teacher"
+            android:text="@string/string_subject"
             android:textAlignment="viewStart"
             android:textAllCaps="false"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/subjectDetails_labelSpinnerError"
+            android:id="@+id/examDetails_labelSpinnerError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
@@ -97,12 +96,12 @@
             android:elevation="0dp" />
 
         <Spinner
-            android:id="@+id/subjectDetails_spinnerTeacher"
+            android:id="@+id/examDetails_spinnerSubject"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_weight="0.2"
+            android:layout_weight=".15"
             android:prompt="@string/string_select_subject" />
 
         <TextView
@@ -117,15 +116,15 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/subject_buttons"
+        android:id="@+id/exam_buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="0dp"
         android:orientation="vertical">
 
+
         <Button
-            android:id="@+id/subjectDetails_buttonSave"
+            android:id="@+id/examDetails_buttonSave"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
@@ -134,7 +133,7 @@
             android:text="@string/string_save" />
 
         <Button
-            android:id="@+id/subjectDetails_buttonDelete"
+            android:id="@+id/examDetails_buttonDelete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/accent"
@@ -142,7 +141,7 @@
             android:text="@string/string_delete" />
 
         <Button
-            android:id="@+id/subjectDetails_buttonClose"
+            android:id="@+id/examDetails_buttonClose"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
