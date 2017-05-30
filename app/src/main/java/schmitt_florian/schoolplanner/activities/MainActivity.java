@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -30,27 +31,16 @@ public class MainActivity extends AppCompatActivity implements
         SettingsFragment.OnFragmentInteractionListener {
 
     private static final String TAG = "MainActivity";
-    FragmentManager fragmentManager;
+    private Fragment loadedFragment;
+    private FragmentManager fragmentManager;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
+        initDrawer();
         fragmentManager = this.getSupportFragmentManager();
-
 
         //----TESTING----
         DatabaseHelperImpl testHelper = new DatabaseHelperImpl(this);
@@ -59,11 +49,26 @@ public class MainActivity extends AppCompatActivity implements
 
         System.out.println(testHelper.toString());
         //----TESTING----
+    }
 
+    /**
+     * Method called when starting or resuming the activity to reload the fragment to take care of may occurred changes.
+     * Method also preselects the {@link HomeFragment} at app start
+     */
+    @Override
+    protected void onResumeFragments() {
+        super.onResumeFragments();
+        if (loadedFragment != null) {
+            FragmentTransaction ft = fragmentManager.beginTransaction();
+            ft.replace(R.id.containerMain, loadedFragment);
+            ft.commit();
+        } else {
+            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            navigationView.getMenu().getItem(0).setChecked(true);
 
-        navigationView.getMenu().getItem(0).setChecked(true);
-        onNavigationItemSelected(navigationView.getMenu().getItem(0));
-
+            loadedFragment = new HomeFragment();
+            onResumeFragments();
+        }
     }
 
     @Override
@@ -84,68 +89,57 @@ public class MainActivity extends AppCompatActivity implements
         switch (id) {
             case R.id.nav_main: {
                 // Goto Home
-                FragmentTransaction ft = fragmentManager.beginTransaction();
-                ft.replace(R.id.containerMain, new HomeFragment());
-                ft.commit();
+                loadedFragment = new HomeFragment();
                 break;
             }
             case R.id.nav_schedule: {
                 // Goto Schedule
-                FragmentTransaction ft = fragmentManager.beginTransaction();
-                ft.replace(R.id.containerMain, new ScheduleFragment());
-                ft.commit();
+                loadedFragment = new ScheduleFragment();
                 break;
             }
             case R.id.nav_homework: {
                 //Goto Homework
-                FragmentTransaction ft = fragmentManager.beginTransaction();
-                ft.replace(R.id.containerMain, new HomeworkFragment());
-                ft.commit();
+                loadedFragment = new HomeworkFragment();
                 break;
             }
             case R.id.nav_exams: {
                 // Goto Exams
-                FragmentTransaction ft = fragmentManager.beginTransaction();
-                ft.replace(R.id.containerMain, new ExamsFragment());
-                ft.commit();
+                loadedFragment = new ExamsFragment();
                 break;
             }
             case R.id.nav_grades: {
                 // Goto Subjects
-                FragmentTransaction ft = fragmentManager.beginTransaction();
-                ft.replace(R.id.containerMain, new GradesFragment());
-                ft.commit();
+                loadedFragment = new GradesFragment();
                 break;
             }
             case R.id.nav_teachers: {
                 // Goto Subjects
-                FragmentTransaction ft = fragmentManager.beginTransaction();
-                ft.replace(R.id.containerMain, new TeachersFragment());
-                ft.commit();
+                loadedFragment = new TeachersFragment();
                 break;
             }
             case R.id.nav_subjects: {
                 // Goto Subjects
-                FragmentTransaction ft = fragmentManager.beginTransaction();
-                ft.replace(R.id.containerMain, new SubjectsFragment());
-                ft.commit();
+                loadedFragment = new SubjectsFragment();
                 break;
             }
             case R.id.nav_credits: {
                 //Goto Credits
-                FragmentTransaction ft = fragmentManager.beginTransaction();
-                ft.replace(R.id.containerMain, new CreditsFragment());
-                ft.commit();
+                loadedFragment = new CreditsFragment();
                 break;
             }
             case R.id.nav_settings: {
                 // Goto Settings
-                FragmentTransaction ft = fragmentManager.beginTransaction();
-                ft.replace(R.id.containerMain, new SettingsFragment());
-                ft.commit();
+                loadedFragment = new SettingsFragment();
                 break;
             }
+            default: {
+                return false;
+            }
         }
+
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        ft.replace(R.id.containerMain, loadedFragment);
+        ft.commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -156,4 +150,17 @@ public class MainActivity extends AppCompatActivity implements
     public void onFragmentInteraction(Uri uri) {
         Log.d(TAG, "onFragmentInteraction");
     }
+
+    //region private methods
+    private void initDrawer() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, (Toolbar) findViewById(R.id.toolbar), R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+    }
+    //endregion
 }
