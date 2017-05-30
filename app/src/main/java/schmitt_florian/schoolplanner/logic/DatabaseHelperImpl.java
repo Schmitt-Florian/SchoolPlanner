@@ -8,6 +8,16 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 
+import schmitt_florian.schoolplanner.logic.objects.Exam;
+import schmitt_florian.schoolplanner.logic.objects.Grade;
+import schmitt_florian.schoolplanner.logic.objects.Homework;
+import schmitt_florian.schoolplanner.logic.objects.Lesson;
+import schmitt_florian.schoolplanner.logic.objects.Period;
+import schmitt_florian.schoolplanner.logic.objects.Schedule;
+import schmitt_florian.schoolplanner.logic.objects.Subject;
+import schmitt_florian.schoolplanner.logic.objects.Teacher;
+import schmitt_florian.schoolplanner.logic.objects.Weekday;
+
 /**
  * Implementation of DatabaseHelper interface to create and interact with the schoolPlanner SQLite Database.
  */

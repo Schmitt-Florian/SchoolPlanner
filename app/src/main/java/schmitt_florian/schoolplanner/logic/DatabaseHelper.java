@@ -2,6 +2,16 @@ package schmitt_florian.schoolplanner.logic;
 
 import android.content.Context;
 
+import schmitt_florian.schoolplanner.logic.objects.Exam;
+import schmitt_florian.schoolplanner.logic.objects.Grade;
+import schmitt_florian.schoolplanner.logic.objects.Homework;
+import schmitt_florian.schoolplanner.logic.objects.Lesson;
+import schmitt_florian.schoolplanner.logic.objects.Period;
+import schmitt_florian.schoolplanner.logic.objects.Schedule;
+import schmitt_florian.schoolplanner.logic.objects.Subject;
+import schmitt_florian.schoolplanner.logic.objects.Teacher;
+import schmitt_florian.schoolplanner.logic.objects.Weekday;
+
 /**
  * storage for table & column names and other information's for Database,
  * as well as overview for public methods of DatabaseHelperImpl class

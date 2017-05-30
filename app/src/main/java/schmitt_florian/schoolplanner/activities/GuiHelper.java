@@ -17,10 +17,10 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import schmitt_florian.schoolplanner.R;
-import schmitt_florian.schoolplanner.logic.Exam;
-import schmitt_florian.schoolplanner.logic.Homework;
-import schmitt_florian.schoolplanner.logic.Subject;
-import schmitt_florian.schoolplanner.logic.Teacher;
+import schmitt_florian.schoolplanner.logic.objects.Exam;
+import schmitt_florian.schoolplanner.logic.objects.Homework;
+import schmitt_florian.schoolplanner.logic.objects.Subject;
+import schmitt_florian.schoolplanner.logic.objects.Teacher;
 
 
 /**

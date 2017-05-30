@@ -16,8 +16,8 @@ import java.util.GregorianCalendar;
 import schmitt_florian.schoolplanner.R;
 import schmitt_florian.schoolplanner.logic.DatabaseHelper;
 import schmitt_florian.schoolplanner.logic.DatabaseHelperImpl;
-import schmitt_florian.schoolplanner.logic.Exam;
-import schmitt_florian.schoolplanner.logic.Homework;
+import schmitt_florian.schoolplanner.logic.objects.Exam;
+import schmitt_florian.schoolplanner.logic.objects.Homework;
 
 /**
  * A simple {@link Fragment} subclass.

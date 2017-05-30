@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements
     protected void onResumeFragments() {
         super.onResumeFragments();
         if (loadedFragment != null) {
+            reloadFragment();
             FragmentTransaction ft = fragmentManager.beginTransaction();
             ft.replace(R.id.containerMain, loadedFragment);
             ft.commit();
@@ -152,6 +153,10 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     //region private methods
+
+    /**
+     * method to configure the navigation drawer
+     */
     private void initDrawer() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -161,6 +166,31 @@ public class MainActivity extends AppCompatActivity implements
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    /**
+     * method to reload the loaded fragment
+     */
+    private void reloadFragment() {
+        if (loadedFragment instanceof CreditsFragment) {
+            loadedFragment = new CreditsFragment();
+        } else if (loadedFragment instanceof ExamsFragment) {
+            loadedFragment = new ExamsFragment();
+        } else if (loadedFragment instanceof GradesFragment) {
+            loadedFragment = new GradesFragment();
+        } else if (loadedFragment instanceof HomeFragment) {
+            loadedFragment = new HomeFragment();
+        } else if (loadedFragment instanceof HomeworkFragment) {
+            loadedFragment = new HomeworkFragment();
+        } else if (loadedFragment instanceof ScheduleFragment) {
+            loadedFragment = new ScheduleFragment();
+        } else if (loadedFragment instanceof SettingsFragment) {
+            loadedFragment = new SettingsFragment();
+        } else if (loadedFragment instanceof SubjectsFragment) {
+            loadedFragment = new SubjectsFragment();
+        } else if (loadedFragment instanceof TeachersFragment) {
+            loadedFragment = new TeachersFragment();
+        }
     }
     //endregion
 }

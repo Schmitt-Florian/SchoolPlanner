@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import schmitt_florian.schoolplanner.R;
 import schmitt_florian.schoolplanner.logic.DatabaseHelper;
 import schmitt_florian.schoolplanner.logic.DatabaseHelperImpl;
-import schmitt_florian.schoolplanner.logic.Subject;
-import schmitt_florian.schoolplanner.logic.Teacher;
+import schmitt_florian.schoolplanner.logic.objects.Subject;
+import schmitt_florian.schoolplanner.logic.objects.Teacher;
 
 /**
  * bound class to activity_subject_details.xml to show, change attributes of a choose {@link Subject}, delete a choose {@link Subject} or add a new one
