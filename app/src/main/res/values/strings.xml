@@ -61,6 +61,9 @@
     <string name="string_select_teacher">Select Teacher</string>
     <string name="string_select_gender">Select Gender</string>
     <string name="string_exam_date">Exam Date</string>
+    <string name="string_confirm_delete">Confirm Delete</string>
+    <string name="string_do_you_really_want_to_delete_this_object_this_will_also_lead_to_the_deletion_of">Do you really want to delete this object? This will also lead to the deletion of</string>
+    <string name="string_related_objects">related objects.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>

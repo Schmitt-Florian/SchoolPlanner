@@ -1445,7 +1445,8 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     //region deleteObjectAtId
 
     /**
-     * deletes the {@link Subject} at the given id from database
+     * deletes the {@link Subject} at the given id from database,
+     * calls {@link ExceptionHandler#askForConfirmationToDeleteObjectsRecursive(int, Context)} if more than this object would be affected by the delete
      *
      * @param id the id the {@link Subject} to delete has
      * @throws NoSuchFieldException if there is no {@link Subject} at the given id in the Database
@@ -1457,14 +1458,22 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         String query = "DELETE FROM " + TABLE_SUBJECT + " WHERE " + SUBJECT_COLUMN_ID + " = " + id;
 
         try {
-            db.execSQL(query);
+            if (getCountOfRowsWhichUseSubjectAsForeignKey(id)<=0) {
+                db.execSQL(query);
+            }else{
+                if (ExceptionHandler.askForConfirmationToDeleteObjectsRecursive(getCountOfRowsWhichUseSubjectAsForeignKey(id),context)){
+                    db.execSQL(query);
+                }
+            }
         } catch (Exception e) {
+            e.printStackTrace();
             throw new NoSuchFieldException();
         }
     }
 
     /**
-     * deletes the {@link Teacher} at the given id from database
+     * deletes the {@link Teacher} at the given id from database,
+     * calls {@link ExceptionHandler#askForConfirmationToDeleteObjectsRecursive(int, Context)} if more than this object would be affected by the delete
      *
      * @param id the id the {@link Teacher} to delete has
      * @throws NoSuchFieldException if there is no {@link Teacher} at the given id in the Database
@@ -1476,7 +1485,13 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         String query = "DELETE FROM " + TABLE_TEACHER + " WHERE " + TEACHER_COLUMN_ID + " = " + id;
 
         try {
-            db.execSQL(query);
+            if (getCountOfRowsWhichUseTeacherAsForeignKey(id)<=0) {
+                db.execSQL(query);
+            }else{
+                if (ExceptionHandler.askForConfirmationToDeleteObjectsRecursive(getCountOfRowsWhichUseTeacherAsForeignKey(id),context)){
+                    db.execSQL(query);
+                }
+            }
         } catch (Exception e) {
             throw new NoSuchFieldException();
         }
@@ -1540,7 +1555,8 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     }
 
     /**
-     * deletes the {@link Period} at the given id from database
+     * deletes the {@link Period} at the given id from database,
+     * calls {@link ExceptionHandler#askForConfirmationToDeleteObjectsRecursive(int, Context)} if more than this object would be affected by the delete
      *
      * @param id the id the {@link Period} to delete has
      * @throws NoSuchFieldException if there is no {@link Period} at the given id in the Database
@@ -1552,7 +1568,13 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         String query = "DELETE FROM " + TABLE_PERIOD + " WHERE " + PERIOD_COLUMN_ID + " = " + id;
 
         try {
-            db.execSQL(query);
+            if (getCountOfRowsWhichUsePeriodAsForeignKey(id)<=0) {
+                db.execSQL(query);
+            }else{
+                if (ExceptionHandler.askForConfirmationToDeleteObjectsRecursive(getCountOfRowsWhichUsePeriodAsForeignKey(id),context)){
+                    db.execSQL(query);
+                }
+            }
         } catch (Exception e) {
             throw new NoSuchFieldException();
         }
@@ -1578,7 +1600,8 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     }
 
     /**
-     * deletes the {@link Weekday} at the given id from database
+     * deletes the {@link Weekday} at the given id from database,
+     * calls {@link ExceptionHandler#askForConfirmationToDeleteObjectsRecursive(int, Context)} if more than this object would be affected by the delete
      *
      * @param id the id the {@link Weekday} to delete has
      * @throws NoSuchFieldException if there is no {@link Weekday} at the given id in the Database
@@ -1590,14 +1613,21 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         String query = "DELETE FROM " + TABLE_WEEKDAY + " WHERE " + WEEKDAY_COLUMN_ID + " = " + id;
 
         try {
-            db.execSQL(query);
+            if (getCountOfRowsWhichUseWeekdayAsForeignKey(id)<=0) {
+                db.execSQL(query);
+            }else{
+                if (ExceptionHandler.askForConfirmationToDeleteObjectsRecursive(getCountOfRowsWhichUseWeekdayAsForeignKey(id),context)){
+                    db.execSQL(query);
+                }
+            }
         } catch (Exception e) {
             throw new NoSuchFieldException();
         }
     }
 
     /**
-     * deletes the {@link Schedule} at the given id from database
+     * deletes the {@link Schedule} at the given id from database,
+     * calls {@link ExceptionHandler#askForConfirmationToDeleteObjectsRecursive(int, Context)} if more than this object would be affected by the delete
      *
      * @param id the id the {@link Schedule} to delete has
      * @throws NoSuchFieldException if there is no {@link Schedule} at the given id in the Database
@@ -1609,7 +1639,13 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         String query = "DELETE FROM " + TABLE_SCHEDULE + " WHERE " + SCHEDULE_COLUMN_ID + " = " + id;
 
         try {
-            db.execSQL(query);
+            if (getCountOfRowsWhichUseScheduleAsForeignKey(id)<=0) {
+                db.execSQL(query);
+            }else{
+                if (ExceptionHandler.askForConfirmationToDeleteObjectsRecursive(getCountOfRowsWhichUseScheduleAsForeignKey(id),context)){
+                    db.execSQL(query);
+                }
+            }
         } catch (Exception e) {
             ExceptionHandler.handleDatabaseExceptionForDeletingAnNotExistingObject(id, context);
         }
@@ -1914,7 +1950,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     private void createPeriodTable(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_PERIOD + "(" +
                 PERIOD_COLUMN_ID + " INTEGER PRIMARY KEY NOT NULL, " +
-                PERIOD_COLUMN_SCHOOL_HOUR_NO + "INTEGER NOT NULL, " +
+                PERIOD_COLUMN_SCHOOL_HOUR_NO + " INTEGER NOT NULL, " +
                 PERIOD_COLUMN_STARTTIME + " TIME NOT NULL, " +
                 PERIOD_COLUMN_ENDTIME + " TIME NOT NULL )"
         );
@@ -1928,7 +1964,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     private void createLessonTable(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_LESSON + "(" +
                 LESSON_COLUMN_ID + " INTEGER PRIMARY KEY NOT NULL, " +
-                LESSON_COLUMN_SUBJECT_ID + "INTEGER NOT NULL, " +
+                LESSON_COLUMN_SUBJECT_ID + " INTEGER NOT NULL, " +
                 LESSON_COLUMN_PERIOD_ID + " INTEGER NOT NULL, " +
                 LESSON_COLUMN_WEEKDAY_ID + " INTEGER )"
         );
@@ -2079,6 +2115,160 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
             ExceptionHandler.handleDatabaseExceptionForUpdatingAnNotExistingObject(WEEKDAY_COLUMN_SCHEDULE_ID + " in WEEKDAY", context);
         }
     }
+
+    //region getCountOfRowsWhichUseObjectAsForeignKey
+
+    /**
+     * method to read the count of objects from database which contains a specific {@link Subject} at the given id
+     * @param id the id of the {@link Subject}
+     * @return count of objects from database which contains a specific {@link Subject} at the given id
+     */
+    private int getCountOfRowsWhichUseSubjectAsForeignKey(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+
+        String queryExam = "SELECT COUNT(*) FROM (SELECT * FROM " + TABLE_EXAM + " WHERE " + EXAM_COLUMN_SUBJECT_ID + " = " +id + " )";
+        String queryHomework = "SELECT COUNT(*) FROM (SELECT * FROM " + TABLE_HOMEWORK + " WHERE " + HOMEWORK_COLUMN_SUBJECT_ID + " = " + id + " )";
+        String queryGrade = "SELECT COUNT(*) FROM (SELECT * FROM " + TABLE_GRADE + " WHERE " + GRADE_COLUMN_SUBJECT_ID + " = " + id + " )";
+        String queryLesson = "SELECT COUNT(*) FROM (SELECT * FROM " + TABLE_LESSON + " WHERE " + LESSON_COLUMN_SUBJECT_ID + " = " + id + " )";
+
+        int usingElementsCount = 0;
+
+        try {
+            cursor = db.rawQuery(queryExam, null);
+            cursor.moveToFirst();
+            usingElementsCount += cursor.getInt(0);
+
+            cursor = db.rawQuery(queryHomework, null);
+            cursor.moveToFirst();
+            usingElementsCount += cursor.getInt(0);
+
+            cursor = db.rawQuery(queryGrade, null);
+            cursor.moveToFirst();
+            usingElementsCount += cursor.getInt(0);
+
+            cursor = db.rawQuery(queryLesson, null);
+            cursor.moveToFirst();
+            usingElementsCount += cursor.getInt(0);
+
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
+        return usingElementsCount;
+    }
+
+    /**
+     * method to read the count of objects from database which contains a specific {@link Teacher} at the given id
+     * @param id the id of the {@link Teacher}
+     * @return count of objects from database which contains a specific {@link Teacher} at the given id
+     */
+    private int getCountOfRowsWhichUseTeacherAsForeignKey(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+
+        String querySubject = "SELECT COUNT(*) FROM (SELECT * FROM " + TABLE_SUBJECT + " WHERE " + SUBJECT_COLUMN_TEACHER_ID + " = " + id + " )";
+
+        int usingElementsCount = 0;
+
+        try {
+            cursor = db.rawQuery(querySubject, null);
+            cursor.moveToFirst();
+            usingElementsCount += cursor.getInt(0);
+
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
+        return usingElementsCount;
+    }
+
+    /**
+     * method to read the count of objects from database which contains a specific {@link Period} at the given id
+     * @param id the id of the {@link Period}
+     * @return count of objects from database which contains a specific {@link Period} at the given id
+     */
+    private int getCountOfRowsWhichUsePeriodAsForeignKey(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+
+        String queryLesson = "SELECT COUNT(*) FROM (SELECT * FROM " + TABLE_LESSON + " WHERE " + LESSON_COLUMN_PERIOD_ID + " = " + id + " )";
+
+        int usingElementsCount = 0;
+
+        try {
+            cursor = db.rawQuery(queryLesson, null);
+            cursor.moveToFirst();
+            usingElementsCount += cursor.getInt(0);
+
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
+        return usingElementsCount;
+    }
+
+    /**
+     * method to read the count of objects from database which contains a specific {@link Weekday} at the given id
+     * @param id the id of the {@link Weekday}
+     * @return count of objects from database which contains a specific {@link Weekday} at the given id
+     */
+    private int getCountOfRowsWhichUseWeekdayAsForeignKey(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+
+        String queryLesson = "SELECT COUNT(*) FROM (SELECT * FROM " + TABLE_LESSON + " WHERE " + LESSON_COLUMN_WEEKDAY_ID + " = " + id + " )";
+
+        int usingElementsCount = 0;
+
+        try {
+            cursor = db.rawQuery(queryLesson, null);
+            cursor.moveToFirst();
+            usingElementsCount += cursor.getInt(0);
+
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
+        return usingElementsCount;
+    }
+
+    /**
+     * method to read the count of objects from database which contains a specific {@link Schedule} at the given id
+     * @param id the id of the {@link Schedule}
+     * @return count of objects from database which contains a specific {@link Schedule} at the given id
+     */
+    private int getCountOfRowsWhichUseScheduleAsForeignKey(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+
+        String queryWeekday = "SELECT COUNT(*) FROM (SELECT * FROM " + TABLE_WEEKDAY + " WHERE " + WEEKDAY_COLUMN_SCHEDULE_ID + " = " + id + " )";
+
+        int usingElementsCount = 0;
+
+        try {
+            cursor = db.rawQuery(queryWeekday, null);
+            cursor.moveToFirst();
+            usingElementsCount += cursor.getInt(0);
+
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
+        return usingElementsCount;
+    }
+    //endregion
+
     //endregion
 
 }
