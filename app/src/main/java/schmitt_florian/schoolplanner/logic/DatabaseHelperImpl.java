@@ -1458,10 +1458,10 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         String query = "DELETE FROM " + TABLE_SUBJECT + " WHERE " + SUBJECT_COLUMN_ID + " = " + id;
 
         try {
-            if (getCountOfRowsWhichUseSubjectAsForeignKey(id)<=0) {
+            if (getCountOfRowsWhichUseSubjectAsForeignKey(id) <= 0) {
                 db.execSQL(query);
-            }else{
-                if (ExceptionHandler.askForConfirmationToDeleteObjectsRecursive(getCountOfRowsWhichUseSubjectAsForeignKey(id),context)){
+            } else {
+                if (ExceptionHandler.askForConfirmationToDeleteObjectsRecursive(getCountOfRowsWhichUseSubjectAsForeignKey(id), context)) {
                     db.execSQL(query);
                 }
             }
@@ -1485,10 +1485,10 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         String query = "DELETE FROM " + TABLE_TEACHER + " WHERE " + TEACHER_COLUMN_ID + " = " + id;
 
         try {
-            if (getCountOfRowsWhichUseTeacherAsForeignKey(id)<=0) {
+            if (getCountOfRowsWhichUseTeacherAsForeignKey(id) <= 0) {
                 db.execSQL(query);
-            }else{
-                if (ExceptionHandler.askForConfirmationToDeleteObjectsRecursive(getCountOfRowsWhichUseTeacherAsForeignKey(id),context)){
+            } else {
+                if (ExceptionHandler.askForConfirmationToDeleteObjectsRecursive(getCountOfRowsWhichUseTeacherAsForeignKey(id), context)) {
                     db.execSQL(query);
                 }
             }
@@ -1568,10 +1568,10 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         String query = "DELETE FROM " + TABLE_PERIOD + " WHERE " + PERIOD_COLUMN_ID + " = " + id;
 
         try {
-            if (getCountOfRowsWhichUsePeriodAsForeignKey(id)<=0) {
+            if (getCountOfRowsWhichUsePeriodAsForeignKey(id) <= 0) {
                 db.execSQL(query);
-            }else{
-                if (ExceptionHandler.askForConfirmationToDeleteObjectsRecursive(getCountOfRowsWhichUsePeriodAsForeignKey(id),context)){
+            } else {
+                if (ExceptionHandler.askForConfirmationToDeleteObjectsRecursive(getCountOfRowsWhichUsePeriodAsForeignKey(id), context)) {
                     db.execSQL(query);
                 }
             }
@@ -1613,10 +1613,10 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         String query = "DELETE FROM " + TABLE_WEEKDAY + " WHERE " + WEEKDAY_COLUMN_ID + " = " + id;
 
         try {
-            if (getCountOfRowsWhichUseWeekdayAsForeignKey(id)<=0) {
+            if (getCountOfRowsWhichUseWeekdayAsForeignKey(id) <= 0) {
                 db.execSQL(query);
-            }else{
-                if (ExceptionHandler.askForConfirmationToDeleteObjectsRecursive(getCountOfRowsWhichUseWeekdayAsForeignKey(id),context)){
+            } else {
+                if (ExceptionHandler.askForConfirmationToDeleteObjectsRecursive(getCountOfRowsWhichUseWeekdayAsForeignKey(id), context)) {
                     db.execSQL(query);
                 }
             }
@@ -1639,10 +1639,10 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         String query = "DELETE FROM " + TABLE_SCHEDULE + " WHERE " + SCHEDULE_COLUMN_ID + " = " + id;
 
         try {
-            if (getCountOfRowsWhichUseScheduleAsForeignKey(id)<=0) {
+            if (getCountOfRowsWhichUseScheduleAsForeignKey(id) <= 0) {
                 db.execSQL(query);
-            }else{
-                if (ExceptionHandler.askForConfirmationToDeleteObjectsRecursive(getCountOfRowsWhichUseScheduleAsForeignKey(id),context)){
+            } else {
+                if (ExceptionHandler.askForConfirmationToDeleteObjectsRecursive(getCountOfRowsWhichUseScheduleAsForeignKey(id), context)) {
                     db.execSQL(query);
                 }
             }
@@ -1879,7 +1879,8 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     private void createSubjectTable(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_SUBJECT + "(" +
                 SUBJECT_COLUMN_ID + " INTEGER PRIMARY KEY NOT NULL, " +
-                SUBJECT_COLUMN_TEACHER_ID + " INTEGER NOT NULL, " +
+                SUBJECT_COLUMN_TEACHER_ID + " INTEGER NOT NULL " +
+                "REFERENCES " + TABLE_TEACHER + "(" + TEACHER_COLUMN_ID + ") ON DELETE CASCADE ON UPDATE CASCADE, " +
                 SUBJECT_COLUMN_NAME + " VARCHAR NOT NULL, " +
                 SUBJECT_COLUMN_ROOM + " VARCHAR NOT NULL )"
         );
@@ -1907,7 +1908,8 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     private void createHomeworkTable(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_HOMEWORK + "(" +
                 HOMEWORK_COLUMN_ID + " INTEGER PRIMARY KEY NOT NULL, " +
-                HOMEWORK_COLUMN_SUBJECT_ID + " INTEGER NOT NULL, " +
+                HOMEWORK_COLUMN_SUBJECT_ID + " INTEGER NOT NULL " +
+                "REFERENCES " + TABLE_SUBJECT + "(" + SUBJECT_COLUMN_ID + ") ON DELETE CASCADE ON UPDATE CASCADE, " +
                 HOMEWORK_COLUMN_DESCRIPTION + " TEXT NOT NULL, " +
                 HOMEWORK_COLUMN_DEADLINE + " DATE NOT NULL, " +
                 HOMEWORK_COLUMN_DONE + " INTEGER )"
@@ -1922,7 +1924,8 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     private void createExamTable(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_EXAM + "(" +
                 EXAM_COLUMN_ID + " INTEGER PRIMARY KEY NOT NULL, " +
-                EXAM_COLUMN_SUBJECT_ID + " INTEGER NOT NULL, " +
+                EXAM_COLUMN_SUBJECT_ID + " INTEGER NOT NULL " +
+                "REFERENCES " + TABLE_SUBJECT + "(" + SUBJECT_COLUMN_ID + ") ON DELETE CASCADE ON UPDATE CASCADE, " +
                 EXAM_COLUMN_DESCRIPTION + " TEXT NOT NULL, " +
                 EXAM_COLUMN_DEADLINE + " DATE NOT NULL)"
         );
@@ -1936,7 +1939,8 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     private void createGradeTable(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_GRADE + "(" +
                 GRADE_COLUMN_ID + " INTEGER PRIMARY KEY NOT NULL, " +
-                GRADE_COLUMN_SUBJECT_ID + " INTEGER NOT NULL, " +
+                GRADE_COLUMN_SUBJECT_ID + " INTEGER NOT NULL " +
+                "REFERENCES " + TABLE_SUBJECT + "(" + SUBJECT_COLUMN_ID + ") ON DELETE CASCADE ON UPDATE CASCADE, " +
                 GRADE_COLUMN_NAME + " VARCHAR NOT NULL, " +
                 GRADE_COLUMN_GRADE + " VARCHAR NOT NULL )"
         );
@@ -1964,9 +1968,12 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     private void createLessonTable(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_LESSON + "(" +
                 LESSON_COLUMN_ID + " INTEGER PRIMARY KEY NOT NULL, " +
-                LESSON_COLUMN_SUBJECT_ID + " INTEGER NOT NULL, " +
-                LESSON_COLUMN_PERIOD_ID + " INTEGER NOT NULL, " +
-                LESSON_COLUMN_WEEKDAY_ID + " INTEGER )"
+                LESSON_COLUMN_SUBJECT_ID + " INTEGER NOT NULL " +
+                "REFERENCES " + TABLE_SUBJECT + "(" + SUBJECT_COLUMN_ID + ") ON DELETE CASCADE ON UPDATE CASCADE, " +
+                LESSON_COLUMN_PERIOD_ID + " INTEGER NOT NULL " +
+                "REFERENCES " + TABLE_PERIOD + "(" + PERIOD_COLUMN_ID + ") ON DELETE CASCADE ON UPDATE CASCADE, " +
+                LESSON_COLUMN_WEEKDAY_ID + " INTEGER  " +
+                "REFERENCES " + TABLE_WEEKDAY + "(" + WEEKDAY_COLUMN_ID + ") ON DELETE CASCADE ON UPDATE CASCADE)"
         );
     }
 
@@ -1978,7 +1985,8 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     private void createWeekdayTable(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_WEEKDAY + "(" +
                 WEEKDAY_COLUMN_ID + " INTEGER PRIMARY KEY NOT NULL, " +
-                WEEKDAY_COLUMN_SCHEDULE_ID + " INTEGER, " +
+                WEEKDAY_COLUMN_SCHEDULE_ID + " INTEGER " +
+                "REFERENCES " + TABLE_SCHEDULE + "(" + SCHEDULE_COLUMN_ID + ") ON DELETE CASCADE ON UPDATE CASCADE, " +
                 WEEKDAY_COLUMN_NAME + " VARCHAR NOT NULL )"
         );
     }
@@ -2120,6 +2128,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
 
     /**
      * method to read the count of objects from database which contains a specific {@link Subject} at the given id
+     *
      * @param id the id of the {@link Subject}
      * @return count of objects from database which contains a specific {@link Subject} at the given id
      */
@@ -2127,7 +2136,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = null;
 
-        String queryExam = "SELECT COUNT(*) FROM (SELECT * FROM " + TABLE_EXAM + " WHERE " + EXAM_COLUMN_SUBJECT_ID + " = " +id + " )";
+        String queryExam = "SELECT COUNT(*) FROM (SELECT * FROM " + TABLE_EXAM + " WHERE " + EXAM_COLUMN_SUBJECT_ID + " = " + id + " )";
         String queryHomework = "SELECT COUNT(*) FROM (SELECT * FROM " + TABLE_HOMEWORK + " WHERE " + HOMEWORK_COLUMN_SUBJECT_ID + " = " + id + " )";
         String queryGrade = "SELECT COUNT(*) FROM (SELECT * FROM " + TABLE_GRADE + " WHERE " + GRADE_COLUMN_SUBJECT_ID + " = " + id + " )";
         String queryLesson = "SELECT COUNT(*) FROM (SELECT * FROM " + TABLE_LESSON + " WHERE " + LESSON_COLUMN_SUBJECT_ID + " = " + id + " )";
@@ -2162,6 +2171,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
 
     /**
      * method to read the count of objects from database which contains a specific {@link Teacher} at the given id
+     *
      * @param id the id of the {@link Teacher}
      * @return count of objects from database which contains a specific {@link Teacher} at the given id
      */
@@ -2189,6 +2199,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
 
     /**
      * method to read the count of objects from database which contains a specific {@link Period} at the given id
+     *
      * @param id the id of the {@link Period}
      * @return count of objects from database which contains a specific {@link Period} at the given id
      */
@@ -2216,6 +2227,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
 
     /**
      * method to read the count of objects from database which contains a specific {@link Weekday} at the given id
+     *
      * @param id the id of the {@link Weekday}
      * @return count of objects from database which contains a specific {@link Weekday} at the given id
      */
@@ -2243,6 +2255,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
 
     /**
      * method to read the count of objects from database which contains a specific {@link Schedule} at the given id
+     *
      * @param id the id of the {@link Schedule}
      * @return count of objects from database which contains a specific {@link Schedule} at the given id
      */
