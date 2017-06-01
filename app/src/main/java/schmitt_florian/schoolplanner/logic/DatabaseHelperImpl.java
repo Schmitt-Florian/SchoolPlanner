@@ -1014,11 +1014,15 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public void updateSubjectAtIdOrThrow(Subject newSubject) throws NoSuchFieldException {
-        deleteSubjectAtIdOrThrow(newSubject.getId());
-        try {
-            insertIntoDBOrThrow(newSubject);
-        } catch (IllegalAccessException e) {
-            //never reach this point
+        try (SQLiteDatabase db = this.getWritableDatabase()) {
+            db.execSQL("UPDATE " + TABLE_SUBJECT + " SET " +
+                    SUBJECT_COLUMN_TEACHER_ID + " = " + newSubject.getTeacher().getId() + ", " +
+                    SUBJECT_COLUMN_NAME + " = \"" + newSubject.getName() + "\", " +
+                    SUBJECT_COLUMN_ROOM + " = \"" + newSubject.getRoom() + "\" " +
+                    "WHERE " + SUBJECT_COLUMN_ID + " = " + newSubject.getId()
+            );
+        } catch (Exception e) {
+            throw new NoSuchFieldException();
         }
     }
 
@@ -1030,11 +1034,15 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public void updateTeacherAtIdOrThrow(Teacher newTeacher) throws NoSuchFieldException {
-        deleteTeacherAtIdOrThrow(newTeacher.getId());
-        try {
-            insertIntoDBOrThrow(newTeacher);
-        } catch (IllegalAccessException e) {
-            //never reach this point
+        try (SQLiteDatabase db = this.getWritableDatabase()) {
+            db.execSQL("UPDATE " + TABLE_TEACHER + " SET " +
+                    TEACHER_COLUMN_NAME + " = \"" + newTeacher.getName() + "\", " +
+                    TEACHER_COLUMN_ABBREVIATION + " = \"" + newTeacher.getAbbreviation() + "\", " +
+                    TEACHER_COLUMN_GENDER + " = \"" + newTeacher.getGender() + "\" " +
+                    "WHERE " + TEACHER_COLUMN_ID + " = " + newTeacher.getId()
+            );
+        } catch (Exception e) {
+            throw new NoSuchFieldException();
         }
     }
 
@@ -1046,11 +1054,16 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public void updateHomeworkAtIdOrThrow(Homework newHomework) throws NoSuchFieldException {
-        deleteHomeworkAtIdOrThrow(newHomework.getId());
-        try {
-            insertIntoDBOrThrow(newHomework);
-        } catch (IllegalAccessException e) {
-            //never reach this point
+        try (SQLiteDatabase db = this.getWritableDatabase()) {
+            db.execSQL("UPDATE " + TABLE_HOMEWORK + " SET " +
+                    HOMEWORK_COLUMN_SUBJECT_ID + " = " + newHomework.getSubject().getId() + ", " +
+                    HOMEWORK_COLUMN_DESCRIPTION + " = \"" + newHomework.getDescription() + "\", " +
+                    HOMEWORK_COLUMN_DEADLINE + " = \"" + newHomework.getDeadlineAsDatabaseString() + "\", " +
+                    HOMEWORK_COLUMN_DONE + " = " + newHomework.getDone() + " " +
+                    "WHERE " + HOMEWORK_COLUMN_ID + " = " + newHomework.getId()
+            );
+        } catch (Exception e) {
+            throw new NoSuchFieldException();
         }
     }
 
@@ -1062,11 +1075,15 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public void updateExamAtIdOrThrow(Exam newExam) throws NoSuchFieldException {
-        deleteExamAtIdOrThrow(newExam.getId());
-        try {
-            insertIntoDBOrThrow(newExam);
-        } catch (IllegalAccessException e) {
-            //never reach this point
+        try (SQLiteDatabase db = this.getWritableDatabase()) {
+            db.execSQL("UPDATE " + TABLE_EXAM + " SET " +
+                    EXAM_COLUMN_SUBJECT_ID + " = " + newExam.getSubject().getId() + ", " +
+                    EXAM_COLUMN_DESCRIPTION + " = \"" + newExam.getDescription() + "\", " +
+                    EXAM_COLUMN_DEADLINE + " = \"" + newExam.getDeadlineAsDatabaseString() + "\" " +
+                    "WHERE " + EXAM_COLUMN_ID + " = " + newExam.getId()
+            );
+        } catch (Exception e) {
+            throw new NoSuchFieldException();
         }
     }
 
@@ -1078,11 +1095,15 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public void updateGradeAtIdOrThrow(Grade newGrade) throws NoSuchFieldException {
-        deleteGradeAtIdOrThrow(newGrade.getId());
-        try {
-            insertIntoDBOrThrow(newGrade);
-        } catch (IllegalAccessException e) {
-            //never reach this point
+        try (SQLiteDatabase db = this.getWritableDatabase()) {
+            db.execSQL("UPDATE " + TABLE_GRADE + " SET " +
+                    GRADE_COLUMN_SUBJECT_ID + " = " + newGrade.getSubject().getId() + ", " +
+                    GRADE_COLUMN_NAME + " = \"" + newGrade.getName() + "\", " +
+                    GRADE_COLUMN_GRADE + " = \"" + newGrade.getGrade() + "\" " +
+                    "WHERE " + GRADE_COLUMN_ID + " = " + newGrade.getId()
+            );
+        } catch (Exception e) {
+            throw new NoSuchFieldException();
         }
     }
 
@@ -1094,11 +1115,15 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public void updatePeriodAtIdOrThrow(Period newPeriod) throws NoSuchFieldException {
-        deletePeriodAtIdOrThrow(newPeriod.getId());
-        try {
-            insertIntoDBOrThrow(newPeriod);
-        } catch (IllegalAccessException e) {
-            //never reach this point
+        try (SQLiteDatabase db = this.getWritableDatabase()) {
+            db.execSQL("UPDATE " + TABLE_PERIOD + " SET " +
+                    PERIOD_COLUMN_SCHOOL_HOUR_NO + " = " + newPeriod.getSchoolHourNo() + ", " +
+                    PERIOD_COLUMN_STARTTIME + " = \"" + newPeriod.getStartTimeAsString() + "\", " +
+                    PERIOD_COLUMN_ENDTIME + " = \"" + newPeriod.getEndTimeAsString() + "\" " +
+                    "WHERE " + PERIOD_COLUMN_ID + " = " + newPeriod.getId()
+            );
+        } catch (Exception e) {
+            throw new NoSuchFieldException();
         }
     }
 
@@ -1110,11 +1135,14 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public void updateLessonAtIdOrThrow(Lesson newLesson) throws NoSuchFieldException {
-        deleteLessonAtIdOrThrow(newLesson.getId());
-        try {
-            insertIntoDBOrThrow(newLesson);
-        } catch (IllegalAccessException e) {
-            //never reach this point
+        try (SQLiteDatabase db = this.getWritableDatabase()) {
+            db.execSQL("UPDATE " + TABLE_LESSON + " SET " +
+                    LESSON_COLUMN_SUBJECT_ID + " = " + newLesson.getSubject().getId() + ", " +
+                    LESSON_COLUMN_PERIOD_ID + " = " + newLesson.getPeriod().getId() + " " +
+                    "WHERE " + LESSON_COLUMN_ID + " = " + newLesson.getId()
+            );
+        } catch (Exception e) {
+            throw new NoSuchFieldException();
         }
     }
 
@@ -1126,11 +1154,17 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public void updateWeekdayAtIdOrThrow(Weekday newWeekday) throws NoSuchFieldException {
-        deleteWeekdayAtIdOrThrow(newWeekday.getId());
-        try {
-            insertIntoDBOrThrow(newWeekday);
-        } catch (IllegalAccessException e) {
-            //never reach this point
+        try (SQLiteDatabase db = this.getWritableDatabase()) {
+            db.execSQL("UPDATE " + TABLE_WEEKDAY + " SET " +
+                    WEEKDAY_COLUMN_NAME + " = \"" + newWeekday.getName() + "\" " +
+                    "WHERE " + WEEKDAY_COLUMN_ID + " = " + newWeekday.getId()
+            );
+
+            for (Lesson lesson : newWeekday.getLessons()) {
+                updateLessonWeekdayIdAtId(lesson.getId(), newWeekday.getId());
+            }
+        } catch (Exception e) {
+            throw new NoSuchFieldException();
         }
     }
 
@@ -1142,11 +1176,17 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public void updateScheduleAtIdOrThrow(Schedule newSchedule) throws NoSuchFieldException {
-        deleteScheduleAtIdOrThrow(newSchedule.getId());
-        try {
-            insertIntoDBOrThrow(newSchedule);
-        } catch (IllegalAccessException e) {
-            //never reach this point
+        try (SQLiteDatabase db = this.getWritableDatabase()) {
+            db.execSQL("UPDATE " + TABLE_SCHEDULE + " SET " +
+                    SCHEDULE_COLUMN_NAME + " = \"" + newSchedule.getName() + "\" " +
+                    "WHERE " + SCHEDULE_COLUMN_ID + " = " + newSchedule.getId()
+            );
+
+            for (Weekday weekday : newSchedule.getDays()) {
+                updateWeekdayScheduleIdAtId(weekday.getId(), newSchedule.getId());
+            }
+        } catch (Exception e) {
+            throw new NoSuchFieldException();
         }
     }
     //endregion
