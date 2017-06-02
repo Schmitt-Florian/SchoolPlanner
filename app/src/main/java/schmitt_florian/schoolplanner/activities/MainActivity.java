@@ -78,7 +78,15 @@ public class MainActivity extends AppCompatActivity implements
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+            if(loadedFragment.equals(new HomeFragment())){
             super.onBackPressed();
+            } else {
+                NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+                navigationView.getMenu().getItem(0).setChecked(true);
+
+                loadedFragment = new HomeFragment();
+                onResumeFragments();
+            }
         }
     }
 
@@ -146,6 +154,8 @@ public class MainActivity extends AppCompatActivity implements
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 
     @Override
     public void onFragmentInteraction(Uri uri) {
