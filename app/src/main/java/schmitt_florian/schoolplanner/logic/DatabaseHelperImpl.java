@@ -1,9 +1,11 @@
 package schmitt_florian.schoolplanner.logic;
 
 
+import android.content.ContentProvider;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
@@ -43,6 +45,56 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         createTables(sqLiteDatabase);
+    }
+
+    /**
+     * Called when the database connection is being configured, to enable features
+     * such as write-ahead logging or foreign key support.
+     * <p>
+     * This method is called before {@link #onCreate}, {@link #onUpgrade},
+     * {@link #onDowngrade}, or {@link #onOpen} are called.  It should not modify
+     * the database except to configure the database connection as required.
+     * </p><p>
+     * This method should only call methods that configure the parameters of the
+     * database connection, such as {@link SQLiteDatabase#enableWriteAheadLogging}
+     * {@link SQLiteDatabase#setForeignKeyConstraintsEnabled},
+     * {@link SQLiteDatabase#setLocale}, {@link SQLiteDatabase#setMaximumSize},
+     * or executing PRAGMA statements.
+     * </p>
+     *
+     * @param db The database.
+     */
+    @Override
+    public void onConfigure(SQLiteDatabase db) {
+        super.onConfigure(db);
+        //   db.setForeignKeyConstraintsEnabled(true);
+    }
+
+    /**
+     * Create and/or open a database that will be used for reading and writing with enabled foreign key support.
+     * The first time this is called, the database will be opened and
+     * {@link #onCreate}, {@link #onUpgrade} and/or {@link #onOpen} will be
+     * called.
+     * <p>
+     * <p>Once opened successfully, the database is cached, so you can
+     * call this method every time you need to write to the database.
+     * (Make sure to call {@link #close} when you no longer need the database.)
+     * Errors such as bad permissions or a full disk may cause this method
+     * to fail, but future attempts may succeed if the problem is fixed.</p>
+     * <p>
+     * <p class="caution">Database upgrade may take a long time, you
+     * should not call this method from the application main thread, including
+     * from {@link ContentProvider#onCreate ContentProvider.onCreate()}.
+     *
+     * @return a read/write database object valid until {@link #close} is called
+     * @throws SQLiteException if the database cannot be opened for writing
+     */
+    @Override
+    public SQLiteDatabase getWritableDatabase() {
+        SQLiteDatabase database = super.getWritableDatabase();
+        database.setForeignKeyConstraintsEnabled(true);
+
+        return database;
     }
 
     /**
@@ -1797,7 +1849,10 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      * resets the database, onUpgrade can also called instead
      */
     public void resetDatabase() {
-        onUpgrade(this.getWritableDatabase(), 1, 1);
+        //    onUpgrade(this.getWritableDatabase(), 1, 1);
+        SQLiteDatabase db = this.getWritableDatabase();
+        dropAllTables(db);
+        onCreate(db);
     }
 
     //todo remove
@@ -1881,6 +1936,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      * @param sqLiteDatabase the schoolPlanner Database
      */
     private void dropAllTables(SQLiteDatabase sqLiteDatabase) {
+        sqLiteDatabase.setForeignKeyConstraintsEnabled(false);
         sqLiteDatabase.execSQL("DROP TABLE " + TABLE_SUBJECT);
         sqLiteDatabase.execSQL("DROP TABLE " + TABLE_TEACHER);
         sqLiteDatabase.execSQL("DROP TABLE " + TABLE_HOMEWORK);
@@ -2136,6 +2192,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     private void updateWeekdayScheduleIdAtId(int id, int scheduleId) {
         SQLiteDatabase db = this.getWritableDatabase();
+        db.setForeignKeyConstraintsEnabled(false);
 
         String query = "UPDATE " + TABLE_WEEKDAY + " SET " + WEEKDAY_COLUMN_SCHEDULE_ID + " = " + scheduleId + " WHERE " + WEEKDAY_COLUMN_ID + " = " + id;
 
@@ -2154,6 +2211,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     private void updateLessonWeekdayIdAtId(int id, int weekdayId) {
         SQLiteDatabase db = this.getWritableDatabase();
+        db.setForeignKeyConstraintsEnabled(false);
 
         String query = "UPDATE " + TABLE_LESSON + " SET " + LESSON_COLUMN_WEEKDAY_ID + " = " + weekdayId + " WHERE " + LESSON_COLUMN_ID + " = " + id;
 
