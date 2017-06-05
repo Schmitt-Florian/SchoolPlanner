@@ -2383,13 +2383,21 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         Cursor cursor = null;
 
         String querySubject = "SELECT COUNT(*) FROM (SELECT * FROM " + TABLE_SUBJECT + " WHERE " + SUBJECT_COLUMN_TEACHER_ID + " = " + id + " )";
+        String querySubjectIDs = "SELECT " + SUBJECT_COLUMN_ID + " FROM (SELECT * FROM " + TABLE_SUBJECT + " WHERE " + SUBJECT_COLUMN_TEACHER_ID + " = " + id + " )";
 
         int usingElementsCount = 0;
 
         try {
+            //teacher using subjects count
             cursor = db.rawQuery(querySubject, null);
             cursor.moveToFirst();
             usingElementsCount += cursor.getInt(0);
+
+            //things which use teacher using subjects count
+            cursor = db.rawQuery(querySubjectIDs, null);
+            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                usingElementsCount += getCountOfRowsWhichUseSubjectAsForeignKey(cursor.getInt(0));
+            }
 
         } finally {
             if (cursor != null) {
