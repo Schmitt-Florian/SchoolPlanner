@@ -59,13 +59,12 @@ public class TeacherDetailsActivity extends AppCompatActivity {
     }
 
     /**
-     * deletes grade from database
+     * deletes grade from database & finishes the activity if deletion successful
      *
      * @param view the button
      */
     public void onDeleteClick(View view) {
         dbHelper.deleteTeacherAtId(showingTeacher.getId());
-        finish();
     }
 
     /**

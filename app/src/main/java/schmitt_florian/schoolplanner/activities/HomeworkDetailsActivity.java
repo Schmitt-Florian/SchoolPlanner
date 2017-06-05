@@ -63,13 +63,12 @@ public class HomeworkDetailsActivity extends AppCompatActivity {
     }
 
     /**
-     * deletes homework from database
+     * deletes homework from database & finishes the activity if deletion successful
      *
      * @param view the button
      */
     public void onDeleteClick(View view) {
         dbHelper.deleteHomeworkAtId(showingHomework.getId());
-        finish();
     }
 
     /**

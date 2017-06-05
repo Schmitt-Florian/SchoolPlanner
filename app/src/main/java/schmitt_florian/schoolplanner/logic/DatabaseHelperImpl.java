@@ -1,13 +1,18 @@
 package schmitt_florian.schoolplanner.logic;
 
 
+import android.app.Activity;
+import android.content.ContentProvider;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 
+import schmitt_florian.schoolplanner.activities.DatabaseCascadeDeleteConfirmDialog;
 import schmitt_florian.schoolplanner.logic.objects.Exam;
 import schmitt_florian.schoolplanner.logic.objects.Grade;
 import schmitt_florian.schoolplanner.logic.objects.Homework;
@@ -22,8 +27,8 @@ import schmitt_florian.schoolplanner.logic.objects.Weekday;
  * Implementation of DatabaseHelper interface to create and interact with the schoolPlanner SQLite Database.
  */
 public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelper {
-
     private Context context = null;
+    private Activity activity = null;
 
     /**
      * standard c'tor for DatabaseHelperImpl
@@ -36,6 +41,20 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     }
 
     /**
+     * c'tor for DatabaseHelperImpl using the current {@link Activity}.
+     * <br> </br>
+     * Note: if this c'tor is used all delete methods will finish the {@link Activity} after successful delete
+     *
+     * @param activity activity which is using the Database
+     */
+    public DatabaseHelperImpl(Activity activity) {
+        super(activity, DATABASE_NAME, null, DATABASE_VERSION);
+        this.context = activity;
+        this.activity = activity;
+
+    }
+
+    /**
      * method inherited from SQLiteOpenHelper to create and setup the schoolPlanner Database
      *
      * @param sqLiteDatabase the schoolPlanner Database
@@ -43,6 +62,56 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         createTables(sqLiteDatabase);
+    }
+
+    /**
+     * Called when the database connection is being configured, to enable features
+     * such as write-ahead logging or foreign key support.
+     * <p>
+     * This method is called before {@link #onCreate}, {@link #onUpgrade},
+     * {@link #onDowngrade}, or {@link #onOpen} are called.  It should not modify
+     * the database except to configure the database connection as required.
+     * </p><p>
+     * This method should only call methods that configure the parameters of the
+     * database connection, such as {@link SQLiteDatabase#enableWriteAheadLogging}
+     * {@link SQLiteDatabase#setForeignKeyConstraintsEnabled},
+     * {@link SQLiteDatabase#setLocale}, {@link SQLiteDatabase#setMaximumSize},
+     * or executing PRAGMA statements.
+     * </p>
+     *
+     * @param db The database.
+     */
+    @Override
+    public void onConfigure(SQLiteDatabase db) {
+        super.onConfigure(db);
+        //   db.setForeignKeyConstraintsEnabled(true);
+    }
+
+    /**
+     * Create and/or open a database that will be used for reading and writing with enabled foreign key support.
+     * The first time this is called, the database will be opened and
+     * {@link #onCreate}, {@link #onUpgrade} and/or {@link #onOpen} will be
+     * called.
+     * <p>
+     * <p>Once opened successfully, the database is cached, so you can
+     * call this method every time you need to write to the database.
+     * (Make sure to call {@link #close} when you no longer need the database.)
+     * Errors such as bad permissions or a full disk may cause this method
+     * to fail, but future attempts may succeed if the problem is fixed.</p>
+     * <p>
+     * <p class="caution">Database upgrade may take a long time, you
+     * should not call this method from the application main thread, including
+     * from {@link ContentProvider#onCreate ContentProvider.onCreate()}.
+     *
+     * @return a read/write database object valid until {@link #close} is called
+     * @throws SQLiteException if the database cannot be opened for writing
+     */
+    @Override
+    public SQLiteDatabase getWritableDatabase() {
+        SQLiteDatabase database = super.getWritableDatabase();
+        database.setForeignKeyConstraintsEnabled(true);
+
+        return database;
     }
 
     /**
@@ -540,7 +609,10 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     //region deleteObjectAtId
 
     /**
-     * deletes the {@link Subject} at the given id from database
+     * deletes the {@link Subject} at the given id from database,
+     * uses {@link DatabaseCascadeDeleteConfirmDialog} for user confirmation if more than this object would be affected by the delete
+     * <br> </br>
+     * Note: if {@link DatabaseHelperImpl#DatabaseHelperImpl(Activity)} c'tor is used this methods will finish the {@link Activity} after successful delete
      * <br> </br>
      * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForDeletingAnNotExistingObject(int, Context)} to handle exceptions
      *
@@ -556,7 +628,10 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     }
 
     /**
-     * deletes the {@link Teacher} at the given id from database
+     * deletes the {@link Teacher} at the given id from database,
+     * uses {@link DatabaseCascadeDeleteConfirmDialog} for user confirmation if more than this object would be affected by the delete
+     * <br> </br>
+     * Note: if {@link DatabaseHelperImpl#DatabaseHelperImpl(Activity)} c'tor is used this methods will finish the {@link Activity} after successful delete
      * <br> </br>
      * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForDeletingAnNotExistingObject(int, Context)} to handle exceptions
      *
@@ -590,6 +665,8 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     /**
      * deletes the {@link Exam} at the given id from database
      * <br> </br>
+     * Note: if {@link DatabaseHelperImpl#DatabaseHelperImpl(Activity)} c'tor is used this methods will finish the {@link Activity} after successful delete
+     * <br> </br>
      * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForDeletingAnNotExistingObject(int, Context)} to handle exceptions
      *
      * @param id the id the {@link Exam} to delete has
@@ -606,6 +683,8 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     /**
      * deletes the {@link Grade} at the given id from database
      * <br> </br>
+     * Note: if {@link DatabaseHelperImpl#DatabaseHelperImpl(Activity)} c'tor is used this methods will finish the {@link Activity} after successful delete
+     * <br> </br>
      * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForDeletingAnNotExistingObject(int, Context)} to handle exceptions
      *
      * @param id the id the {@link Grade} to delete has
@@ -620,7 +699,10 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     }
 
     /**
-     * deletes the {@link Period} at the given id from database
+     * deletes the {@link Period} at the given id from database,
+     * uses {@link DatabaseCascadeDeleteConfirmDialog} for user confirmation if more than this object would be affected by the delete
+     * <br> </br>
+     * Note: if {@link DatabaseHelperImpl#DatabaseHelperImpl(Activity)} c'tor is used this methods will finish the {@link Activity} after successful delete
      * <br> </br>
      * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForDeletingAnNotExistingObject(int, Context)} to handle exceptions
      *
@@ -638,6 +720,8 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     /**
      * deletes the {@link Lesson} at the given id from database
      * <br> </br>
+     * Note: if {@link DatabaseHelperImpl#DatabaseHelperImpl(Activity)} c'tor is used this methods will finish the {@link Activity} after successful delete
+     * <br> </br>
      * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForDeletingAnNotExistingObject(int, Context)} to handle exceptions
      *
      * @param id the id the {@link Lesson} to delete has
@@ -652,7 +736,10 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     }
 
     /**
-     * deletes the {@link Weekday} at the given id from database
+     * deletes the {@link Weekday} at the given id from database,
+     * uses {@link DatabaseCascadeDeleteConfirmDialog} for user confirmation if more than this object would be affected by the delete
+     * <br> </br>
+     * Note: if {@link DatabaseHelperImpl#DatabaseHelperImpl(Activity)} c'tor is used this methods will finish the {@link Activity} after successful delete
      * <br> </br>
      * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForDeletingAnNotExistingObject(int, Context)} to handle exceptions
      *
@@ -668,7 +755,10 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     }
 
     /**
-     * deletes the {@link Schedule} at the given id from database
+     * deletes the {@link Schedule} at the given id from database,
+     * uses {@link DatabaseCascadeDeleteConfirmDialog} for user confirmation if more than this object would be affected by the delete
+     * <br> </br>
+     * Note: if {@link DatabaseHelperImpl#DatabaseHelperImpl(Activity)} c'tor is used this methods will finish the {@link Activity} after successful delete
      * <br> </br>
      * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForDeletingAnNotExistingObject(int, Context)} to handle exceptions
      *
@@ -1014,11 +1104,15 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public void updateSubjectAtIdOrThrow(Subject newSubject) throws NoSuchFieldException {
-        deleteSubjectAtIdOrThrow(newSubject.getId());
-        try {
-            insertIntoDBOrThrow(newSubject);
-        } catch (IllegalAccessException e) {
-            //never reach this point
+        try (SQLiteDatabase db = this.getWritableDatabase()) {
+            db.execSQL("UPDATE " + TABLE_SUBJECT + " SET " +
+                    SUBJECT_COLUMN_TEACHER_ID + " = " + newSubject.getTeacher().getId() + ", " +
+                    SUBJECT_COLUMN_NAME + " = \"" + newSubject.getName() + "\", " +
+                    SUBJECT_COLUMN_ROOM + " = \"" + newSubject.getRoom() + "\" " +
+                    "WHERE " + SUBJECT_COLUMN_ID + " = " + newSubject.getId()
+            );
+        } catch (Exception e) {
+            throw new NoSuchFieldException();
         }
     }
 
@@ -1030,11 +1124,15 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public void updateTeacherAtIdOrThrow(Teacher newTeacher) throws NoSuchFieldException {
-        deleteTeacherAtIdOrThrow(newTeacher.getId());
-        try {
-            insertIntoDBOrThrow(newTeacher);
-        } catch (IllegalAccessException e) {
-            //never reach this point
+        try (SQLiteDatabase db = this.getWritableDatabase()) {
+            db.execSQL("UPDATE " + TABLE_TEACHER + " SET " +
+                    TEACHER_COLUMN_NAME + " = \"" + newTeacher.getName() + "\", " +
+                    TEACHER_COLUMN_ABBREVIATION + " = \"" + newTeacher.getAbbreviation() + "\", " +
+                    TEACHER_COLUMN_GENDER + " = \"" + newTeacher.getGender() + "\" " +
+                    "WHERE " + TEACHER_COLUMN_ID + " = " + newTeacher.getId()
+            );
+        } catch (Exception e) {
+            throw new NoSuchFieldException();
         }
     }
 
@@ -1046,11 +1144,16 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public void updateHomeworkAtIdOrThrow(Homework newHomework) throws NoSuchFieldException {
-        deleteHomeworkAtIdOrThrow(newHomework.getId());
-        try {
-            insertIntoDBOrThrow(newHomework);
-        } catch (IllegalAccessException e) {
-            //never reach this point
+        try (SQLiteDatabase db = this.getWritableDatabase()) {
+            db.execSQL("UPDATE " + TABLE_HOMEWORK + " SET " +
+                    HOMEWORK_COLUMN_SUBJECT_ID + " = " + newHomework.getSubject().getId() + ", " +
+                    HOMEWORK_COLUMN_DESCRIPTION + " = \"" + newHomework.getDescription() + "\", " +
+                    HOMEWORK_COLUMN_DEADLINE + " = \"" + newHomework.getDeadlineAsDatabaseString() + "\", " +
+                    HOMEWORK_COLUMN_DONE + " = " + newHomework.getDone() + " " +
+                    "WHERE " + HOMEWORK_COLUMN_ID + " = " + newHomework.getId()
+            );
+        } catch (Exception e) {
+            throw new NoSuchFieldException();
         }
     }
 
@@ -1062,11 +1165,15 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public void updateExamAtIdOrThrow(Exam newExam) throws NoSuchFieldException {
-        deleteExamAtIdOrThrow(newExam.getId());
-        try {
-            insertIntoDBOrThrow(newExam);
-        } catch (IllegalAccessException e) {
-            //never reach this point
+        try (SQLiteDatabase db = this.getWritableDatabase()) {
+            db.execSQL("UPDATE " + TABLE_EXAM + " SET " +
+                    EXAM_COLUMN_SUBJECT_ID + " = " + newExam.getSubject().getId() + ", " +
+                    EXAM_COLUMN_DESCRIPTION + " = \"" + newExam.getDescription() + "\", " +
+                    EXAM_COLUMN_DEADLINE + " = \"" + newExam.getDeadlineAsDatabaseString() + "\" " +
+                    "WHERE " + EXAM_COLUMN_ID + " = " + newExam.getId()
+            );
+        } catch (Exception e) {
+            throw new NoSuchFieldException();
         }
     }
 
@@ -1078,11 +1185,15 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public void updateGradeAtIdOrThrow(Grade newGrade) throws NoSuchFieldException {
-        deleteGradeAtIdOrThrow(newGrade.getId());
-        try {
-            insertIntoDBOrThrow(newGrade);
-        } catch (IllegalAccessException e) {
-            //never reach this point
+        try (SQLiteDatabase db = this.getWritableDatabase()) {
+            db.execSQL("UPDATE " + TABLE_GRADE + " SET " +
+                    GRADE_COLUMN_SUBJECT_ID + " = " + newGrade.getSubject().getId() + ", " +
+                    GRADE_COLUMN_NAME + " = \"" + newGrade.getName() + "\", " +
+                    GRADE_COLUMN_GRADE + " = \"" + newGrade.getGrade() + "\" " +
+                    "WHERE " + GRADE_COLUMN_ID + " = " + newGrade.getId()
+            );
+        } catch (Exception e) {
+            throw new NoSuchFieldException();
         }
     }
 
@@ -1094,11 +1205,15 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public void updatePeriodAtIdOrThrow(Period newPeriod) throws NoSuchFieldException {
-        deletePeriodAtIdOrThrow(newPeriod.getId());
-        try {
-            insertIntoDBOrThrow(newPeriod);
-        } catch (IllegalAccessException e) {
-            //never reach this point
+        try (SQLiteDatabase db = this.getWritableDatabase()) {
+            db.execSQL("UPDATE " + TABLE_PERIOD + " SET " +
+                    PERIOD_COLUMN_SCHOOL_HOUR_NO + " = " + newPeriod.getSchoolHourNo() + ", " +
+                    PERIOD_COLUMN_STARTTIME + " = \"" + newPeriod.getStartTimeAsString() + "\", " +
+                    PERIOD_COLUMN_ENDTIME + " = \"" + newPeriod.getEndTimeAsString() + "\" " +
+                    "WHERE " + PERIOD_COLUMN_ID + " = " + newPeriod.getId()
+            );
+        } catch (Exception e) {
+            throw new NoSuchFieldException();
         }
     }
 
@@ -1110,11 +1225,14 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public void updateLessonAtIdOrThrow(Lesson newLesson) throws NoSuchFieldException {
-        deleteLessonAtIdOrThrow(newLesson.getId());
-        try {
-            insertIntoDBOrThrow(newLesson);
-        } catch (IllegalAccessException e) {
-            //never reach this point
+        try (SQLiteDatabase db = this.getWritableDatabase()) {
+            db.execSQL("UPDATE " + TABLE_LESSON + " SET " +
+                    LESSON_COLUMN_SUBJECT_ID + " = " + newLesson.getSubject().getId() + ", " +
+                    LESSON_COLUMN_PERIOD_ID + " = " + newLesson.getPeriod().getId() + " " +
+                    "WHERE " + LESSON_COLUMN_ID + " = " + newLesson.getId()
+            );
+        } catch (Exception e) {
+            throw new NoSuchFieldException();
         }
     }
 
@@ -1126,11 +1244,17 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public void updateWeekdayAtIdOrThrow(Weekday newWeekday) throws NoSuchFieldException {
-        deleteWeekdayAtIdOrThrow(newWeekday.getId());
-        try {
-            insertIntoDBOrThrow(newWeekday);
-        } catch (IllegalAccessException e) {
-            //never reach this point
+        try (SQLiteDatabase db = this.getWritableDatabase()) {
+            db.execSQL("UPDATE " + TABLE_WEEKDAY + " SET " +
+                    WEEKDAY_COLUMN_NAME + " = \"" + newWeekday.getName() + "\" " +
+                    "WHERE " + WEEKDAY_COLUMN_ID + " = " + newWeekday.getId()
+            );
+
+            for (Lesson lesson : newWeekday.getLessons()) {
+                updateLessonWeekdayIdAtId(lesson.getId(), newWeekday.getId());
+            }
+        } catch (Exception e) {
+            throw new NoSuchFieldException();
         }
     }
 
@@ -1142,11 +1266,17 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public void updateScheduleAtIdOrThrow(Schedule newSchedule) throws NoSuchFieldException {
-        deleteScheduleAtIdOrThrow(newSchedule.getId());
-        try {
-            insertIntoDBOrThrow(newSchedule);
-        } catch (IllegalAccessException e) {
-            //never reach this point
+        try (SQLiteDatabase db = this.getWritableDatabase()) {
+            db.execSQL("UPDATE " + TABLE_SCHEDULE + " SET " +
+                    SCHEDULE_COLUMN_NAME + " = \"" + newSchedule.getName() + "\" " +
+                    "WHERE " + SCHEDULE_COLUMN_ID + " = " + newSchedule.getId()
+            );
+
+            for (Weekday weekday : newSchedule.getDays()) {
+                updateWeekdayScheduleIdAtId(weekday.getId(), newSchedule.getId());
+            }
+        } catch (Exception e) {
+            throw new NoSuchFieldException();
         }
     }
     //endregion
@@ -1445,7 +1575,10 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     //region deleteObjectAtId
 
     /**
-     * deletes the {@link Subject} at the given id from database
+     * deletes the {@link Subject} at the given id from database,
+     * uses {@link DatabaseCascadeDeleteConfirmDialog} for user confirmation if more than this object would be affected by the delete
+     * <br> </br>
+     * Note: if {@link DatabaseHelperImpl#DatabaseHelperImpl(Activity)} c'tor is used this methods will finish the {@link Activity} after successful delete
      *
      * @param id the id the {@link Subject} to delete has
      * @throws NoSuchFieldException if there is no {@link Subject} at the given id in the Database
@@ -1453,18 +1586,41 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     @Override
     public void deleteSubjectAtIdOrThrow(int id) throws NoSuchFieldException {
         SQLiteDatabase db = this.getWritableDatabase();
-
-        String query = "DELETE FROM " + TABLE_SUBJECT + " WHERE " + SUBJECT_COLUMN_ID + " = " + id;
+        final String query = "DELETE FROM " + TABLE_SUBJECT + " WHERE " + SUBJECT_COLUMN_ID + " = " + id;
 
         try {
-            db.execSQL(query);
+            if (getCountOfRowsWhichUseSubjectAsForeignKey(id) <= 0) {
+                db.execSQL(query);
+
+                if (activity != null) {
+                    activity.finish();
+                }
+            } else {
+                DatabaseCascadeDeleteConfirmDialog dialog = new DatabaseCascadeDeleteConfirmDialog(context, getCountOfRowsWhichUseSubjectAsForeignKey(id));
+                dialog.positiveButton(new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        SQLiteDatabase db = new DatabaseHelperImpl(context).getWritableDatabase();
+                        db.execSQL(query);
+
+                        if (activity != null) {
+                            activity.finish();
+                        }
+                    }
+                });
+                dialog.show();
+            }
         } catch (Exception e) {
+            e.printStackTrace();
             throw new NoSuchFieldException();
         }
     }
 
     /**
-     * deletes the {@link Teacher} at the given id from database
+     * deletes the {@link Teacher} at the given id from database,
+     * uses {@link DatabaseCascadeDeleteConfirmDialog} for user confirmation if more than this object would be affected by the delete
+     * <br> </br>
+     * Note: if {@link DatabaseHelperImpl#DatabaseHelperImpl(Activity)} c'tor is used this methods will finish the {@link Activity} after successful delete
      *
      * @param id the id the {@link Teacher} to delete has
      * @throws NoSuchFieldException if there is no {@link Teacher} at the given id in the Database
@@ -1472,18 +1628,40 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     @Override
     public void deleteTeacherAtIdOrThrow(int id) throws NoSuchFieldException {
         SQLiteDatabase db = this.getWritableDatabase();
-
-        String query = "DELETE FROM " + TABLE_TEACHER + " WHERE " + TEACHER_COLUMN_ID + " = " + id;
+        final String query = "DELETE FROM " + TABLE_TEACHER + " WHERE " + TEACHER_COLUMN_ID + " = " + id;
 
         try {
-            db.execSQL(query);
+            if (getCountOfRowsWhichUseTeacherAsForeignKey(id) <= 0) {
+                db.execSQL(query);
+
+                if (activity != null) {
+                    activity.finish();
+                }
+            } else {
+                DatabaseCascadeDeleteConfirmDialog dialog = new DatabaseCascadeDeleteConfirmDialog(context, getCountOfRowsWhichUseTeacherAsForeignKey(id));
+                dialog.positiveButton(new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        SQLiteDatabase db = new DatabaseHelperImpl(context).getWritableDatabase();
+                        db.execSQL(query);
+
+                        if (activity != null) {
+                            activity.finish();
+                        }
+                    }
+                });
+                dialog.show();
+            }
         } catch (Exception e) {
+            e.printStackTrace();
             throw new NoSuchFieldException();
         }
     }
 
     /**
      * deletes the {@link Homework} at the given id from database
+     * <br> </br>
+     * Note: if {@link DatabaseHelperImpl#DatabaseHelperImpl(Activity)} c'tor is used this methods will finish the {@link Activity} after successful delete
      *
      * @param id the id the {@link Homework} to delete has
      * @throws NoSuchFieldException if there is no {@link Homework} at the given id in the Database
@@ -1491,11 +1669,14 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     @Override
     public void deleteHomeworkAtIdOrThrow(int id) throws NoSuchFieldException {
         SQLiteDatabase db = this.getWritableDatabase();
-
         String query = "DELETE FROM " + TABLE_HOMEWORK + " WHERE " + HOMEWORK_COLUMN_ID + " = " + id;
 
         try {
             db.execSQL(query);
+
+            if (activity != null) {
+                activity.finish();
+            }
         } catch (Exception e) {
             throw new NoSuchFieldException();
         }
@@ -1503,6 +1684,8 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
 
     /**
      * deletes the {@link Exam} at the given id from database
+     * <br> </br>
+     * Note: if {@link DatabaseHelperImpl#DatabaseHelperImpl(Activity)} c'tor is used this methods will finish the {@link Activity} after successful delete
      *
      * @param id the id the {@link Exam} to delete has
      * @throws NoSuchFieldException if there is no {@link Exam} at the given id in the Database
@@ -1510,11 +1693,14 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     @Override
     public void deleteExamAtIdOrThrow(int id) throws NoSuchFieldException {
         SQLiteDatabase db = this.getWritableDatabase();
-
         String query = "DELETE FROM " + TABLE_EXAM + " WHERE " + EXAM_COLUMN_ID + " = " + id;
 
         try {
             db.execSQL(query);
+
+            if (activity != null) {
+                activity.finish();
+            }
         } catch (Exception e) {
             throw new NoSuchFieldException();
         }
@@ -1522,6 +1708,8 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
 
     /**
      * deletes the {@link Grade} at the given id from database
+     * <br> </br>
+     * Note: if {@link DatabaseHelperImpl#DatabaseHelperImpl(Activity)} c'tor is used this methods will finish the {@link Activity} after successful delete
      *
      * @param id the id the {@link Grade} to delete has
      * @throws NoSuchFieldException if there is no {@link Grade} at the given id in the Database
@@ -1529,18 +1717,24 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     @Override
     public void deleteGradeAtIdOrThrow(int id) throws NoSuchFieldException {
         SQLiteDatabase db = this.getWritableDatabase();
-
         String query = "DELETE FROM " + TABLE_GRADE + " WHERE " + GRADE_COLUMN_ID + " = " + id;
 
         try {
             db.execSQL(query);
+
+            if (activity!=null){
+                activity.finish();
+            }
         } catch (Exception e) {
             throw new NoSuchFieldException();
         }
     }
 
     /**
-     * deletes the {@link Period} at the given id from database
+     * deletes the {@link Period} at the given id from database,
+     * uses {@link DatabaseCascadeDeleteConfirmDialog} for user confirmation if more than this object would be affected by the delete
+     * <br> </br>
+     * Note: if {@link DatabaseHelperImpl#DatabaseHelperImpl(Activity)} c'tor is used this methods will finish the {@link Activity} after successful delete
      *
      * @param id the id the {@link Period} to delete has
      * @throws NoSuchFieldException if there is no {@link Period} at the given id in the Database
@@ -1548,18 +1742,39 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     @Override
     public void deletePeriodAtIdOrThrow(int id) throws NoSuchFieldException {
         SQLiteDatabase db = this.getWritableDatabase();
-
-        String query = "DELETE FROM " + TABLE_PERIOD + " WHERE " + PERIOD_COLUMN_ID + " = " + id;
+        final String query = "DELETE FROM " + TABLE_PERIOD + " WHERE " + PERIOD_COLUMN_ID + " = " + id;
 
         try {
-            db.execSQL(query);
+            if (getCountOfRowsWhichUsePeriodAsForeignKey(id) <= 0) {
+                db.execSQL(query);
+
+                if (activity != null) {
+                    activity.finish();
+                }
+            } else {
+                DatabaseCascadeDeleteConfirmDialog dialog = new DatabaseCascadeDeleteConfirmDialog(context, getCountOfRowsWhichUsePeriodAsForeignKey(id));
+                dialog.positiveButton(new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        SQLiteDatabase db = new DatabaseHelperImpl(context).getWritableDatabase();
+                        db.execSQL(query);
+
+                        if (activity != null) {
+                            activity.finish();
+                        }
+                    }
+                });
+                dialog.show();
+            }
         } catch (Exception e) {
             throw new NoSuchFieldException();
         }
     }
 
     /**
-     * deletes the {@link Lesson} at the given id from database
+     * deletes the {@link Lesson} at the given id from database#
+     * <br> </br>
+     * Note: if {@link DatabaseHelperImpl#DatabaseHelperImpl(Activity)} c'tor is used this methods will finish the {@link Activity} after successful delete
      *
      * @param id the id the {@link Lesson} to delete has
      * @throws NoSuchFieldException if there is no {@link Lesson} at the given id in the Database
@@ -1567,18 +1782,24 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     @Override
     public void deleteLessonAtIdOrThrow(int id) throws NoSuchFieldException {
         SQLiteDatabase db = this.getWritableDatabase();
-
         String query = "DELETE FROM " + TABLE_LESSON + " WHERE " + LESSON_COLUMN_ID + " = " + id;
 
         try {
             db.execSQL(query);
+
+            if (activity!=null){
+                activity.finish();
+            }
         } catch (Exception e) {
             throw new NoSuchFieldException();
         }
     }
 
     /**
-     * deletes the {@link Weekday} at the given id from database
+     * deletes the {@link Weekday} at the given id from database,
+     * uses {@link DatabaseCascadeDeleteConfirmDialog} for user confirmation if more than this object would be affected by the delete
+     * <br> </br>
+     * Note: if {@link DatabaseHelperImpl#DatabaseHelperImpl(Activity)} c'tor is used this methods will finish the {@link Activity} after successful delete
      *
      * @param id the id the {@link Weekday} to delete has
      * @throws NoSuchFieldException if there is no {@link Weekday} at the given id in the Database
@@ -1586,18 +1807,40 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     @Override
     public void deleteWeekdayAtIdOrThrow(int id) throws NoSuchFieldException {
         SQLiteDatabase db = this.getWritableDatabase();
-
-        String query = "DELETE FROM " + TABLE_WEEKDAY + " WHERE " + WEEKDAY_COLUMN_ID + " = " + id;
+        final String query = "DELETE FROM " + TABLE_WEEKDAY + " WHERE " + WEEKDAY_COLUMN_ID + " = " + id;
 
         try {
-            db.execSQL(query);
+            if (getCountOfRowsWhichUseWeekdayAsForeignKey(id) <= 0) {
+                db.execSQL(query);
+
+                if (activity != null) {
+                    activity.finish();
+                }
+            } else {
+                DatabaseCascadeDeleteConfirmDialog dialog = new DatabaseCascadeDeleteConfirmDialog(context, getCountOfRowsWhichUseWeekdayAsForeignKey(id));
+                dialog.positiveButton(new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        SQLiteDatabase db = new DatabaseHelperImpl(context).getWritableDatabase();
+                        db.execSQL(query);
+
+                        if (activity != null) {
+                            activity.finish();
+                        }
+                    }
+                });
+                dialog.show();
+            }
         } catch (Exception e) {
             throw new NoSuchFieldException();
         }
     }
 
     /**
-     * deletes the {@link Schedule} at the given id from database
+     * deletes the {@link Schedule} at the given id from database,
+     * uses {@link DatabaseCascadeDeleteConfirmDialog} for user confirmation if more than this object would be affected by the delete
+     * <br> </br>
+     * Note: if {@link DatabaseHelperImpl#DatabaseHelperImpl(Activity)} c'tor is used this methods will finish the {@link Activity} after successful delete
      *
      * @param id the id the {@link Schedule} to delete has
      * @throws NoSuchFieldException if there is no {@link Schedule} at the given id in the Database
@@ -1605,11 +1848,30 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     @Override
     public void deleteScheduleAtIdOrThrow(int id) throws NoSuchFieldException {
         SQLiteDatabase db = this.getWritableDatabase();
-
-        String query = "DELETE FROM " + TABLE_SCHEDULE + " WHERE " + SCHEDULE_COLUMN_ID + " = " + id;
+        final String query = "DELETE FROM " + TABLE_SCHEDULE + " WHERE " + SCHEDULE_COLUMN_ID + " = " + id;
 
         try {
-            db.execSQL(query);
+            if (getCountOfRowsWhichUseScheduleAsForeignKey(id) <= 0) {
+                db.execSQL(query);
+
+                if (activity != null) {
+                    activity.finish();
+                }
+            } else {
+                DatabaseCascadeDeleteConfirmDialog dialog = new DatabaseCascadeDeleteConfirmDialog(context, getCountOfRowsWhichUseScheduleAsForeignKey(id));
+                dialog.positiveButton(new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        SQLiteDatabase db = new DatabaseHelperImpl(context).getWritableDatabase();
+                        db.execSQL(query);
+
+                        if (activity != null) {
+                            activity.finish();
+                        }
+                    }
+                });
+                dialog.show();
+            }
         } catch (Exception e) {
             ExceptionHandler.handleDatabaseExceptionForDeletingAnNotExistingObject(id, context);
         }
@@ -1721,7 +1983,10 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      * resets the database, onUpgrade can also called instead
      */
     public void resetDatabase() {
-        onUpgrade(this.getWritableDatabase(), 1, 1);
+        //    onUpgrade(this.getWritableDatabase(), 1, 1);
+        SQLiteDatabase db = this.getWritableDatabase();
+        dropAllTables(db);
+        onCreate(db);
     }
 
     //todo remove
@@ -1805,6 +2070,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      * @param sqLiteDatabase the schoolPlanner Database
      */
     private void dropAllTables(SQLiteDatabase sqLiteDatabase) {
+        sqLiteDatabase.setForeignKeyConstraintsEnabled(false);
         sqLiteDatabase.execSQL("DROP TABLE " + TABLE_SUBJECT);
         sqLiteDatabase.execSQL("DROP TABLE " + TABLE_TEACHER);
         sqLiteDatabase.execSQL("DROP TABLE " + TABLE_HOMEWORK);
@@ -1843,7 +2109,8 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     private void createSubjectTable(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_SUBJECT + "(" +
                 SUBJECT_COLUMN_ID + " INTEGER PRIMARY KEY NOT NULL, " +
-                SUBJECT_COLUMN_TEACHER_ID + " INTEGER NOT NULL, " +
+                SUBJECT_COLUMN_TEACHER_ID + " INTEGER NOT NULL " +
+                "REFERENCES " + TABLE_TEACHER + "(" + TEACHER_COLUMN_ID + ") ON DELETE CASCADE ON UPDATE CASCADE, " +
                 SUBJECT_COLUMN_NAME + " VARCHAR NOT NULL, " +
                 SUBJECT_COLUMN_ROOM + " VARCHAR NOT NULL )"
         );
@@ -1871,7 +2138,8 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     private void createHomeworkTable(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_HOMEWORK + "(" +
                 HOMEWORK_COLUMN_ID + " INTEGER PRIMARY KEY NOT NULL, " +
-                HOMEWORK_COLUMN_SUBJECT_ID + " INTEGER NOT NULL, " +
+                HOMEWORK_COLUMN_SUBJECT_ID + " INTEGER NOT NULL " +
+                "REFERENCES " + TABLE_SUBJECT + "(" + SUBJECT_COLUMN_ID + ") ON DELETE CASCADE ON UPDATE CASCADE, " +
                 HOMEWORK_COLUMN_DESCRIPTION + " TEXT NOT NULL, " +
                 HOMEWORK_COLUMN_DEADLINE + " DATE NOT NULL, " +
                 HOMEWORK_COLUMN_DONE + " INTEGER )"
@@ -1886,7 +2154,8 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     private void createExamTable(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_EXAM + "(" +
                 EXAM_COLUMN_ID + " INTEGER PRIMARY KEY NOT NULL, " +
-                EXAM_COLUMN_SUBJECT_ID + " INTEGER NOT NULL, " +
+                EXAM_COLUMN_SUBJECT_ID + " INTEGER NOT NULL " +
+                "REFERENCES " + TABLE_SUBJECT + "(" + SUBJECT_COLUMN_ID + ") ON DELETE CASCADE ON UPDATE CASCADE, " +
                 EXAM_COLUMN_DESCRIPTION + " TEXT NOT NULL, " +
                 EXAM_COLUMN_DEADLINE + " DATE NOT NULL)"
         );
@@ -1900,7 +2169,8 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     private void createGradeTable(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_GRADE + "(" +
                 GRADE_COLUMN_ID + " INTEGER PRIMARY KEY NOT NULL, " +
-                GRADE_COLUMN_SUBJECT_ID + " INTEGER NOT NULL, " +
+                GRADE_COLUMN_SUBJECT_ID + " INTEGER NOT NULL " +
+                "REFERENCES " + TABLE_SUBJECT + "(" + SUBJECT_COLUMN_ID + ") ON DELETE CASCADE ON UPDATE CASCADE, " +
                 GRADE_COLUMN_NAME + " VARCHAR NOT NULL, " +
                 GRADE_COLUMN_GRADE + " VARCHAR NOT NULL )"
         );
@@ -1914,7 +2184,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     private void createPeriodTable(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_PERIOD + "(" +
                 PERIOD_COLUMN_ID + " INTEGER PRIMARY KEY NOT NULL, " +
-                PERIOD_COLUMN_SCHOOL_HOUR_NO + "INTEGER NOT NULL, " +
+                PERIOD_COLUMN_SCHOOL_HOUR_NO + " INTEGER NOT NULL, " +
                 PERIOD_COLUMN_STARTTIME + " TIME NOT NULL, " +
                 PERIOD_COLUMN_ENDTIME + " TIME NOT NULL )"
         );
@@ -1928,9 +2198,12 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     private void createLessonTable(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_LESSON + "(" +
                 LESSON_COLUMN_ID + " INTEGER PRIMARY KEY NOT NULL, " +
-                LESSON_COLUMN_SUBJECT_ID + "INTEGER NOT NULL, " +
-                LESSON_COLUMN_PERIOD_ID + " INTEGER NOT NULL, " +
-                LESSON_COLUMN_WEEKDAY_ID + " INTEGER )"
+                LESSON_COLUMN_SUBJECT_ID + " INTEGER NOT NULL " +
+                "REFERENCES " + TABLE_SUBJECT + "(" + SUBJECT_COLUMN_ID + ") ON DELETE CASCADE ON UPDATE CASCADE, " +
+                LESSON_COLUMN_PERIOD_ID + " INTEGER NOT NULL " +
+                "REFERENCES " + TABLE_PERIOD + "(" + PERIOD_COLUMN_ID + ") ON DELETE CASCADE ON UPDATE CASCADE, " +
+                LESSON_COLUMN_WEEKDAY_ID + " INTEGER  " +
+                "REFERENCES " + TABLE_WEEKDAY + "(" + WEEKDAY_COLUMN_ID + ") ON DELETE CASCADE ON UPDATE CASCADE)"
         );
     }
 
@@ -1942,7 +2215,8 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     private void createWeekdayTable(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_WEEKDAY + "(" +
                 WEEKDAY_COLUMN_ID + " INTEGER PRIMARY KEY NOT NULL, " +
-                WEEKDAY_COLUMN_SCHEDULE_ID + " INTEGER, " +
+                WEEKDAY_COLUMN_SCHEDULE_ID + " INTEGER " +
+                "REFERENCES " + TABLE_SCHEDULE + "(" + SCHEDULE_COLUMN_ID + ") ON DELETE CASCADE ON UPDATE CASCADE, " +
                 WEEKDAY_COLUMN_NAME + " VARCHAR NOT NULL )"
         );
     }
@@ -2052,6 +2326,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     private void updateWeekdayScheduleIdAtId(int id, int scheduleId) {
         SQLiteDatabase db = this.getWritableDatabase();
+        db.setForeignKeyConstraintsEnabled(false);
 
         String query = "UPDATE " + TABLE_WEEKDAY + " SET " + WEEKDAY_COLUMN_SCHEDULE_ID + " = " + scheduleId + " WHERE " + WEEKDAY_COLUMN_ID + " = " + id;
 
@@ -2070,6 +2345,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     private void updateLessonWeekdayIdAtId(int id, int weekdayId) {
         SQLiteDatabase db = this.getWritableDatabase();
+        db.setForeignKeyConstraintsEnabled(false);
 
         String query = "UPDATE " + TABLE_LESSON + " SET " + LESSON_COLUMN_WEEKDAY_ID + " = " + weekdayId + " WHERE " + LESSON_COLUMN_ID + " = " + id;
 
@@ -2079,6 +2355,165 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
             ExceptionHandler.handleDatabaseExceptionForUpdatingAnNotExistingObject(WEEKDAY_COLUMN_SCHEDULE_ID + " in WEEKDAY", context);
         }
     }
+
+    //region getCountOfRowsWhichUseObjectAsForeignKey
+
+    /**
+     * method to read the count of objects from database which contains a specific {@link Subject} at the given id
+     *
+     * @param id the id of the {@link Subject}
+     * @return count of objects from database which contains a specific {@link Subject} at the given id
+     */
+    private int getCountOfRowsWhichUseSubjectAsForeignKey(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+
+        String queryExam = "SELECT COUNT(*) FROM (SELECT * FROM " + TABLE_EXAM + " WHERE " + EXAM_COLUMN_SUBJECT_ID + " = " + id + " )";
+        String queryHomework = "SELECT COUNT(*) FROM (SELECT * FROM " + TABLE_HOMEWORK + " WHERE " + HOMEWORK_COLUMN_SUBJECT_ID + " = " + id + " )";
+        String queryGrade = "SELECT COUNT(*) FROM (SELECT * FROM " + TABLE_GRADE + " WHERE " + GRADE_COLUMN_SUBJECT_ID + " = " + id + " )";
+        String queryLesson = "SELECT COUNT(*) FROM (SELECT * FROM " + TABLE_LESSON + " WHERE " + LESSON_COLUMN_SUBJECT_ID + " = " + id + " )";
+
+        int usingElementsCount = 0;
+
+        try {
+            cursor = db.rawQuery(queryExam, null);
+            cursor.moveToFirst();
+            usingElementsCount += cursor.getInt(0);
+
+            cursor = db.rawQuery(queryHomework, null);
+            cursor.moveToFirst();
+            usingElementsCount += cursor.getInt(0);
+
+            cursor = db.rawQuery(queryGrade, null);
+            cursor.moveToFirst();
+            usingElementsCount += cursor.getInt(0);
+
+            cursor = db.rawQuery(queryLesson, null);
+            cursor.moveToFirst();
+            usingElementsCount += cursor.getInt(0);
+
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
+        return usingElementsCount;
+    }
+
+    /**
+     * method to read the count of objects from database which contains a specific {@link Teacher} at the given id
+     *
+     * @param id the id of the {@link Teacher}
+     * @return count of objects from database which contains a specific {@link Teacher} at the given id
+     */
+    private int getCountOfRowsWhichUseTeacherAsForeignKey(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+
+        String querySubject = "SELECT COUNT(*) FROM (SELECT * FROM " + TABLE_SUBJECT + " WHERE " + SUBJECT_COLUMN_TEACHER_ID + " = " + id + " )";
+
+        int usingElementsCount = 0;
+
+        try {
+            cursor = db.rawQuery(querySubject, null);
+            cursor.moveToFirst();
+            usingElementsCount += cursor.getInt(0);
+
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
+        return usingElementsCount;
+    }
+
+    /**
+     * method to read the count of objects from database which contains a specific {@link Period} at the given id
+     *
+     * @param id the id of the {@link Period}
+     * @return count of objects from database which contains a specific {@link Period} at the given id
+     */
+    private int getCountOfRowsWhichUsePeriodAsForeignKey(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+
+        String queryLesson = "SELECT COUNT(*) FROM (SELECT * FROM " + TABLE_LESSON + " WHERE " + LESSON_COLUMN_PERIOD_ID + " = " + id + " )";
+
+        int usingElementsCount = 0;
+
+        try {
+            cursor = db.rawQuery(queryLesson, null);
+            cursor.moveToFirst();
+            usingElementsCount += cursor.getInt(0);
+
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
+        return usingElementsCount;
+    }
+
+    /**
+     * method to read the count of objects from database which contains a specific {@link Weekday} at the given id
+     *
+     * @param id the id of the {@link Weekday}
+     * @return count of objects from database which contains a specific {@link Weekday} at the given id
+     */
+    private int getCountOfRowsWhichUseWeekdayAsForeignKey(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+
+        String queryLesson = "SELECT COUNT(*) FROM (SELECT * FROM " + TABLE_LESSON + " WHERE " + LESSON_COLUMN_WEEKDAY_ID + " = " + id + " )";
+
+        int usingElementsCount = 0;
+
+        try {
+            cursor = db.rawQuery(queryLesson, null);
+            cursor.moveToFirst();
+            usingElementsCount += cursor.getInt(0);
+
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
+        return usingElementsCount;
+    }
+
+    /**
+     * method to read the count of objects from database which contains a specific {@link Schedule} at the given id
+     *
+     * @param id the id of the {@link Schedule}
+     * @return count of objects from database which contains a specific {@link Schedule} at the given id
+     */
+    private int getCountOfRowsWhichUseScheduleAsForeignKey(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+
+        String queryWeekday = "SELECT COUNT(*) FROM (SELECT * FROM " + TABLE_WEEKDAY + " WHERE " + WEEKDAY_COLUMN_SCHEDULE_ID + " = " + id + " )";
+
+        int usingElementsCount = 0;
+
+        try {
+            cursor = db.rawQuery(queryWeekday, null);
+            cursor.moveToFirst();
+            usingElementsCount += cursor.getInt(0);
+
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
+        return usingElementsCount;
+    }
+    //endregion
+
     //endregion
 
 }

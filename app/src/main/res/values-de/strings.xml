@@ -50,4 +50,7 @@
     <string name="string_select_gender">Wähle Geschlecht aus</string>
     <string name="string_select_teacher">Wähle Lehrer aus</string>
     <string name="string_exam_date">Klausurtermin</string>
+    <string name="string_confirm_delete">Bestätige Löschen</string>
+    <string name="string_do_you_really_want_to_delete_this_object_this_will_also_lead_to_the_deletion_of">Möchten sie dieses Objekt wirklich löschen? Dies würde auch zur Löschung von</string>
+    <string name="string_related_objects">verbundenen Objekten führen.</string>
 </resources>
