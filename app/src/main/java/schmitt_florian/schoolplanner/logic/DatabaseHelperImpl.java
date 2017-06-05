@@ -1,8 +1,10 @@
 package schmitt_florian.schoolplanner.logic;
 
 
+import android.app.Activity;
 import android.content.ContentProvider;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
@@ -10,6 +12,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 
+import schmitt_florian.schoolplanner.activities.DatabaseCascadeDeleteConfirmDialog;
 import schmitt_florian.schoolplanner.logic.objects.Exam;
 import schmitt_florian.schoolplanner.logic.objects.Grade;
 import schmitt_florian.schoolplanner.logic.objects.Homework;
@@ -24,8 +27,8 @@ import schmitt_florian.schoolplanner.logic.objects.Weekday;
  * Implementation of DatabaseHelper interface to create and interact with the schoolPlanner SQLite Database.
  */
 public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelper {
-
     private Context context = null;
+    private Activity activity = null;
 
     /**
      * standard c'tor for DatabaseHelperImpl
@@ -35,6 +38,20 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     public DatabaseHelperImpl(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
+    }
+
+    /**
+     * c'tor for DatabaseHelperImpl using the current {@link Activity}.
+     * <br> </br>
+     * Note: if this c'tor is used all delete methods will finish the {@link Activity} after successful delete
+     *
+     * @param activity activity which is using the Database
+     */
+    public DatabaseHelperImpl(Activity activity) {
+        super(activity, DATABASE_NAME, null, DATABASE_VERSION);
+        this.context = activity;
+        this.activity = activity;
+
     }
 
     /**
@@ -592,7 +609,10 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     //region deleteObjectAtId
 
     /**
-     * deletes the {@link Subject} at the given id from database
+     * deletes the {@link Subject} at the given id from database,
+     * uses {@link DatabaseCascadeDeleteConfirmDialog} for user confirmation if more than this object would be affected by the delete
+     * <br> </br>
+     * Note: if {@link DatabaseHelperImpl#DatabaseHelperImpl(Activity)} c'tor is used this methods will finish the {@link Activity} after successful delete
      * <br> </br>
      * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForDeletingAnNotExistingObject(int, Context)} to handle exceptions
      *
@@ -608,7 +628,10 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     }
 
     /**
-     * deletes the {@link Teacher} at the given id from database
+     * deletes the {@link Teacher} at the given id from database,
+     * uses {@link DatabaseCascadeDeleteConfirmDialog} for user confirmation if more than this object would be affected by the delete
+     * <br> </br>
+     * Note: if {@link DatabaseHelperImpl#DatabaseHelperImpl(Activity)} c'tor is used this methods will finish the {@link Activity} after successful delete
      * <br> </br>
      * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForDeletingAnNotExistingObject(int, Context)} to handle exceptions
      *
@@ -642,6 +665,8 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     /**
      * deletes the {@link Exam} at the given id from database
      * <br> </br>
+     * Note: if {@link DatabaseHelperImpl#DatabaseHelperImpl(Activity)} c'tor is used this methods will finish the {@link Activity} after successful delete
+     * <br> </br>
      * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForDeletingAnNotExistingObject(int, Context)} to handle exceptions
      *
      * @param id the id the {@link Exam} to delete has
@@ -658,6 +683,8 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     /**
      * deletes the {@link Grade} at the given id from database
      * <br> </br>
+     * Note: if {@link DatabaseHelperImpl#DatabaseHelperImpl(Activity)} c'tor is used this methods will finish the {@link Activity} after successful delete
+     * <br> </br>
      * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForDeletingAnNotExistingObject(int, Context)} to handle exceptions
      *
      * @param id the id the {@link Grade} to delete has
@@ -672,7 +699,10 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     }
 
     /**
-     * deletes the {@link Period} at the given id from database
+     * deletes the {@link Period} at the given id from database,
+     * uses {@link DatabaseCascadeDeleteConfirmDialog} for user confirmation if more than this object would be affected by the delete
+     * <br> </br>
+     * Note: if {@link DatabaseHelperImpl#DatabaseHelperImpl(Activity)} c'tor is used this methods will finish the {@link Activity} after successful delete
      * <br> </br>
      * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForDeletingAnNotExistingObject(int, Context)} to handle exceptions
      *
@@ -690,6 +720,8 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     /**
      * deletes the {@link Lesson} at the given id from database
      * <br> </br>
+     * Note: if {@link DatabaseHelperImpl#DatabaseHelperImpl(Activity)} c'tor is used this methods will finish the {@link Activity} after successful delete
+     * <br> </br>
      * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForDeletingAnNotExistingObject(int, Context)} to handle exceptions
      *
      * @param id the id the {@link Lesson} to delete has
@@ -704,7 +736,10 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     }
 
     /**
-     * deletes the {@link Weekday} at the given id from database
+     * deletes the {@link Weekday} at the given id from database,
+     * uses {@link DatabaseCascadeDeleteConfirmDialog} for user confirmation if more than this object would be affected by the delete
+     * <br> </br>
+     * Note: if {@link DatabaseHelperImpl#DatabaseHelperImpl(Activity)} c'tor is used this methods will finish the {@link Activity} after successful delete
      * <br> </br>
      * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForDeletingAnNotExistingObject(int, Context)} to handle exceptions
      *
@@ -720,7 +755,10 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     }
 
     /**
-     * deletes the {@link Schedule} at the given id from database
+     * deletes the {@link Schedule} at the given id from database,
+     * uses {@link DatabaseCascadeDeleteConfirmDialog} for user confirmation if more than this object would be affected by the delete
+     * <br> </br>
+     * Note: if {@link DatabaseHelperImpl#DatabaseHelperImpl(Activity)} c'tor is used this methods will finish the {@link Activity} after successful delete
      * <br> </br>
      * Note: Method naturally uses {@link ExceptionHandler#handleDatabaseExceptionForDeletingAnNotExistingObject(int, Context)} to handle exceptions
      *
@@ -1538,7 +1576,9 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
 
     /**
      * deletes the {@link Subject} at the given id from database,
-     * calls {@link ExceptionHandler#askForConfirmationToDeleteObjectsRecursive(int, Context)} if more than this object would be affected by the delete
+     * uses {@link DatabaseCascadeDeleteConfirmDialog} for user confirmation if more than this object would be affected by the delete
+     * <br> </br>
+     * Note: if {@link DatabaseHelperImpl#DatabaseHelperImpl(Activity)} c'tor is used this methods will finish the {@link Activity} after successful delete
      *
      * @param id the id the {@link Subject} to delete has
      * @throws NoSuchFieldException if there is no {@link Subject} at the given id in the Database
@@ -1546,16 +1586,29 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     @Override
     public void deleteSubjectAtIdOrThrow(int id) throws NoSuchFieldException {
         SQLiteDatabase db = this.getWritableDatabase();
-
-        String query = "DELETE FROM " + TABLE_SUBJECT + " WHERE " + SUBJECT_COLUMN_ID + " = " + id;
+        final String query = "DELETE FROM " + TABLE_SUBJECT + " WHERE " + SUBJECT_COLUMN_ID + " = " + id;
 
         try {
             if (getCountOfRowsWhichUseSubjectAsForeignKey(id) <= 0) {
                 db.execSQL(query);
-            } else {
-                if (ExceptionHandler.askForConfirmationToDeleteObjectsRecursive(getCountOfRowsWhichUseSubjectAsForeignKey(id), context)) {
-                    db.execSQL(query);
+
+                if (activity != null) {
+                    activity.finish();
                 }
+            } else {
+                DatabaseCascadeDeleteConfirmDialog dialog = new DatabaseCascadeDeleteConfirmDialog(context, getCountOfRowsWhichUseSubjectAsForeignKey(id));
+                dialog.positiveButton(new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        SQLiteDatabase db = new DatabaseHelperImpl(context).getWritableDatabase();
+                        db.execSQL(query);
+
+                        if (activity != null) {
+                            activity.finish();
+                        }
+                    }
+                });
+                dialog.show();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -1565,7 +1618,9 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
 
     /**
      * deletes the {@link Teacher} at the given id from database,
-     * calls {@link ExceptionHandler#askForConfirmationToDeleteObjectsRecursive(int, Context)} if more than this object would be affected by the delete
+     * uses {@link DatabaseCascadeDeleteConfirmDialog} for user confirmation if more than this object would be affected by the delete
+     * <br> </br>
+     * Note: if {@link DatabaseHelperImpl#DatabaseHelperImpl(Activity)} c'tor is used this methods will finish the {@link Activity} after successful delete
      *
      * @param id the id the {@link Teacher} to delete has
      * @throws NoSuchFieldException if there is no {@link Teacher} at the given id in the Database
@@ -1573,24 +1628,40 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     @Override
     public void deleteTeacherAtIdOrThrow(int id) throws NoSuchFieldException {
         SQLiteDatabase db = this.getWritableDatabase();
-
-        String query = "DELETE FROM " + TABLE_TEACHER + " WHERE " + TEACHER_COLUMN_ID + " = " + id;
+        final String query = "DELETE FROM " + TABLE_TEACHER + " WHERE " + TEACHER_COLUMN_ID + " = " + id;
 
         try {
             if (getCountOfRowsWhichUseTeacherAsForeignKey(id) <= 0) {
                 db.execSQL(query);
-            } else {
-                if (ExceptionHandler.askForConfirmationToDeleteObjectsRecursive(getCountOfRowsWhichUseTeacherAsForeignKey(id), context)) {
-                    db.execSQL(query);
+
+                if (activity != null) {
+                    activity.finish();
                 }
+            } else {
+                DatabaseCascadeDeleteConfirmDialog dialog = new DatabaseCascadeDeleteConfirmDialog(context, getCountOfRowsWhichUseTeacherAsForeignKey(id));
+                dialog.positiveButton(new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        SQLiteDatabase db = new DatabaseHelperImpl(context).getWritableDatabase();
+                        db.execSQL(query);
+
+                        if (activity != null) {
+                            activity.finish();
+                        }
+                    }
+                });
+                dialog.show();
             }
         } catch (Exception e) {
+            e.printStackTrace();
             throw new NoSuchFieldException();
         }
     }
 
     /**
      * deletes the {@link Homework} at the given id from database
+     * <br> </br>
+     * Note: if {@link DatabaseHelperImpl#DatabaseHelperImpl(Activity)} c'tor is used this methods will finish the {@link Activity} after successful delete
      *
      * @param id the id the {@link Homework} to delete has
      * @throws NoSuchFieldException if there is no {@link Homework} at the given id in the Database
@@ -1598,74 +1669,13 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     @Override
     public void deleteHomeworkAtIdOrThrow(int id) throws NoSuchFieldException {
         SQLiteDatabase db = this.getWritableDatabase();
-
         String query = "DELETE FROM " + TABLE_HOMEWORK + " WHERE " + HOMEWORK_COLUMN_ID + " = " + id;
 
         try {
             db.execSQL(query);
-        } catch (Exception e) {
-            throw new NoSuchFieldException();
-        }
-    }
 
-    /**
-     * deletes the {@link Exam} at the given id from database
-     *
-     * @param id the id the {@link Exam} to delete has
-     * @throws NoSuchFieldException if there is no {@link Exam} at the given id in the Database
-     */
-    @Override
-    public void deleteExamAtIdOrThrow(int id) throws NoSuchFieldException {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        String query = "DELETE FROM " + TABLE_EXAM + " WHERE " + EXAM_COLUMN_ID + " = " + id;
-
-        try {
-            db.execSQL(query);
-        } catch (Exception e) {
-            throw new NoSuchFieldException();
-        }
-    }
-
-    /**
-     * deletes the {@link Grade} at the given id from database
-     *
-     * @param id the id the {@link Grade} to delete has
-     * @throws NoSuchFieldException if there is no {@link Grade} at the given id in the Database
-     */
-    @Override
-    public void deleteGradeAtIdOrThrow(int id) throws NoSuchFieldException {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        String query = "DELETE FROM " + TABLE_GRADE + " WHERE " + GRADE_COLUMN_ID + " = " + id;
-
-        try {
-            db.execSQL(query);
-        } catch (Exception e) {
-            throw new NoSuchFieldException();
-        }
-    }
-
-    /**
-     * deletes the {@link Period} at the given id from database,
-     * calls {@link ExceptionHandler#askForConfirmationToDeleteObjectsRecursive(int, Context)} if more than this object would be affected by the delete
-     *
-     * @param id the id the {@link Period} to delete has
-     * @throws NoSuchFieldException if there is no {@link Period} at the given id in the Database
-     */
-    @Override
-    public void deletePeriodAtIdOrThrow(int id) throws NoSuchFieldException {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        String query = "DELETE FROM " + TABLE_PERIOD + " WHERE " + PERIOD_COLUMN_ID + " = " + id;
-
-        try {
-            if (getCountOfRowsWhichUsePeriodAsForeignKey(id) <= 0) {
-                db.execSQL(query);
-            } else {
-                if (ExceptionHandler.askForConfirmationToDeleteObjectsRecursive(getCountOfRowsWhichUsePeriodAsForeignKey(id), context)) {
-                    db.execSQL(query);
-                }
+            if (activity != null) {
+                activity.finish();
             }
         } catch (Exception e) {
             throw new NoSuchFieldException();
@@ -1673,7 +1683,98 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     }
 
     /**
-     * deletes the {@link Lesson} at the given id from database
+     * deletes the {@link Exam} at the given id from database
+     * <br> </br>
+     * Note: if {@link DatabaseHelperImpl#DatabaseHelperImpl(Activity)} c'tor is used this methods will finish the {@link Activity} after successful delete
+     *
+     * @param id the id the {@link Exam} to delete has
+     * @throws NoSuchFieldException if there is no {@link Exam} at the given id in the Database
+     */
+    @Override
+    public void deleteExamAtIdOrThrow(int id) throws NoSuchFieldException {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "DELETE FROM " + TABLE_EXAM + " WHERE " + EXAM_COLUMN_ID + " = " + id;
+
+        try {
+            db.execSQL(query);
+
+            if (activity != null) {
+                activity.finish();
+            }
+        } catch (Exception e) {
+            throw new NoSuchFieldException();
+        }
+    }
+
+    /**
+     * deletes the {@link Grade} at the given id from database
+     * <br> </br>
+     * Note: if {@link DatabaseHelperImpl#DatabaseHelperImpl(Activity)} c'tor is used this methods will finish the {@link Activity} after successful delete
+     *
+     * @param id the id the {@link Grade} to delete has
+     * @throws NoSuchFieldException if there is no {@link Grade} at the given id in the Database
+     */
+    @Override
+    public void deleteGradeAtIdOrThrow(int id) throws NoSuchFieldException {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "DELETE FROM " + TABLE_GRADE + " WHERE " + GRADE_COLUMN_ID + " = " + id;
+
+        try {
+            db.execSQL(query);
+
+            if (activity!=null){
+                activity.finish();
+            }
+        } catch (Exception e) {
+            throw new NoSuchFieldException();
+        }
+    }
+
+    /**
+     * deletes the {@link Period} at the given id from database,
+     * uses {@link DatabaseCascadeDeleteConfirmDialog} for user confirmation if more than this object would be affected by the delete
+     * <br> </br>
+     * Note: if {@link DatabaseHelperImpl#DatabaseHelperImpl(Activity)} c'tor is used this methods will finish the {@link Activity} after successful delete
+     *
+     * @param id the id the {@link Period} to delete has
+     * @throws NoSuchFieldException if there is no {@link Period} at the given id in the Database
+     */
+    @Override
+    public void deletePeriodAtIdOrThrow(int id) throws NoSuchFieldException {
+        SQLiteDatabase db = this.getWritableDatabase();
+        final String query = "DELETE FROM " + TABLE_PERIOD + " WHERE " + PERIOD_COLUMN_ID + " = " + id;
+
+        try {
+            if (getCountOfRowsWhichUsePeriodAsForeignKey(id) <= 0) {
+                db.execSQL(query);
+
+                if (activity != null) {
+                    activity.finish();
+                }
+            } else {
+                DatabaseCascadeDeleteConfirmDialog dialog = new DatabaseCascadeDeleteConfirmDialog(context, getCountOfRowsWhichUsePeriodAsForeignKey(id));
+                dialog.positiveButton(new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        SQLiteDatabase db = new DatabaseHelperImpl(context).getWritableDatabase();
+                        db.execSQL(query);
+
+                        if (activity != null) {
+                            activity.finish();
+                        }
+                    }
+                });
+                dialog.show();
+            }
+        } catch (Exception e) {
+            throw new NoSuchFieldException();
+        }
+    }
+
+    /**
+     * deletes the {@link Lesson} at the given id from database#
+     * <br> </br>
+     * Note: if {@link DatabaseHelperImpl#DatabaseHelperImpl(Activity)} c'tor is used this methods will finish the {@link Activity} after successful delete
      *
      * @param id the id the {@link Lesson} to delete has
      * @throws NoSuchFieldException if there is no {@link Lesson} at the given id in the Database
@@ -1681,11 +1782,14 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     @Override
     public void deleteLessonAtIdOrThrow(int id) throws NoSuchFieldException {
         SQLiteDatabase db = this.getWritableDatabase();
-
         String query = "DELETE FROM " + TABLE_LESSON + " WHERE " + LESSON_COLUMN_ID + " = " + id;
 
         try {
             db.execSQL(query);
+
+            if (activity!=null){
+                activity.finish();
+            }
         } catch (Exception e) {
             throw new NoSuchFieldException();
         }
@@ -1693,7 +1797,9 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
 
     /**
      * deletes the {@link Weekday} at the given id from database,
-     * calls {@link ExceptionHandler#askForConfirmationToDeleteObjectsRecursive(int, Context)} if more than this object would be affected by the delete
+     * uses {@link DatabaseCascadeDeleteConfirmDialog} for user confirmation if more than this object would be affected by the delete
+     * <br> </br>
+     * Note: if {@link DatabaseHelperImpl#DatabaseHelperImpl(Activity)} c'tor is used this methods will finish the {@link Activity} after successful delete
      *
      * @param id the id the {@link Weekday} to delete has
      * @throws NoSuchFieldException if there is no {@link Weekday} at the given id in the Database
@@ -1701,16 +1807,29 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     @Override
     public void deleteWeekdayAtIdOrThrow(int id) throws NoSuchFieldException {
         SQLiteDatabase db = this.getWritableDatabase();
-
-        String query = "DELETE FROM " + TABLE_WEEKDAY + " WHERE " + WEEKDAY_COLUMN_ID + " = " + id;
+        final String query = "DELETE FROM " + TABLE_WEEKDAY + " WHERE " + WEEKDAY_COLUMN_ID + " = " + id;
 
         try {
             if (getCountOfRowsWhichUseWeekdayAsForeignKey(id) <= 0) {
                 db.execSQL(query);
-            } else {
-                if (ExceptionHandler.askForConfirmationToDeleteObjectsRecursive(getCountOfRowsWhichUseWeekdayAsForeignKey(id), context)) {
-                    db.execSQL(query);
+
+                if (activity != null) {
+                    activity.finish();
                 }
+            } else {
+                DatabaseCascadeDeleteConfirmDialog dialog = new DatabaseCascadeDeleteConfirmDialog(context, getCountOfRowsWhichUseWeekdayAsForeignKey(id));
+                dialog.positiveButton(new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        SQLiteDatabase db = new DatabaseHelperImpl(context).getWritableDatabase();
+                        db.execSQL(query);
+
+                        if (activity != null) {
+                            activity.finish();
+                        }
+                    }
+                });
+                dialog.show();
             }
         } catch (Exception e) {
             throw new NoSuchFieldException();
@@ -1719,7 +1838,9 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
 
     /**
      * deletes the {@link Schedule} at the given id from database,
-     * calls {@link ExceptionHandler#askForConfirmationToDeleteObjectsRecursive(int, Context)} if more than this object would be affected by the delete
+     * uses {@link DatabaseCascadeDeleteConfirmDialog} for user confirmation if more than this object would be affected by the delete
+     * <br> </br>
+     * Note: if {@link DatabaseHelperImpl#DatabaseHelperImpl(Activity)} c'tor is used this methods will finish the {@link Activity} after successful delete
      *
      * @param id the id the {@link Schedule} to delete has
      * @throws NoSuchFieldException if there is no {@link Schedule} at the given id in the Database
@@ -1727,16 +1848,29 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     @Override
     public void deleteScheduleAtIdOrThrow(int id) throws NoSuchFieldException {
         SQLiteDatabase db = this.getWritableDatabase();
-
-        String query = "DELETE FROM " + TABLE_SCHEDULE + " WHERE " + SCHEDULE_COLUMN_ID + " = " + id;
+        final String query = "DELETE FROM " + TABLE_SCHEDULE + " WHERE " + SCHEDULE_COLUMN_ID + " = " + id;
 
         try {
             if (getCountOfRowsWhichUseScheduleAsForeignKey(id) <= 0) {
                 db.execSQL(query);
-            } else {
-                if (ExceptionHandler.askForConfirmationToDeleteObjectsRecursive(getCountOfRowsWhichUseScheduleAsForeignKey(id), context)) {
-                    db.execSQL(query);
+
+                if (activity != null) {
+                    activity.finish();
                 }
+            } else {
+                DatabaseCascadeDeleteConfirmDialog dialog = new DatabaseCascadeDeleteConfirmDialog(context, getCountOfRowsWhichUseScheduleAsForeignKey(id));
+                dialog.positiveButton(new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        SQLiteDatabase db = new DatabaseHelperImpl(context).getWritableDatabase();
+                        db.execSQL(query);
+
+                        if (activity != null) {
+                            activity.finish();
+                        }
+                    }
+                });
+                dialog.show();
             }
         } catch (Exception e) {
             ExceptionHandler.handleDatabaseExceptionForDeletingAnNotExistingObject(id, context);
