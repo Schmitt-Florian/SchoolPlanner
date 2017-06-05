@@ -51,7 +51,6 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         super(activity, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = activity;
         this.activity = activity;
-
     }
 
     /**
@@ -62,29 +61,6 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         createTables(sqLiteDatabase);
-    }
-
-    /**
-     * Called when the database connection is being configured, to enable features
-     * such as write-ahead logging or foreign key support.
-     * <p>
-     * This method is called before {@link #onCreate}, {@link #onUpgrade},
-     * {@link #onDowngrade}, or {@link #onOpen} are called.  It should not modify
-     * the database except to configure the database connection as required.
-     * </p><p>
-     * This method should only call methods that configure the parameters of the
-     * database connection, such as {@link SQLiteDatabase#enableWriteAheadLogging}
-     * {@link SQLiteDatabase#setForeignKeyConstraintsEnabled},
-     * {@link SQLiteDatabase#setLocale}, {@link SQLiteDatabase#setMaximumSize},
-     * or executing PRAGMA statements.
-     * </p>
-     *
-     * @param db The database.
-     */
-    @Override
-    public void onConfigure(SQLiteDatabase db) {
-        super.onConfigure(db);
-        //   db.setForeignKeyConstraintsEnabled(true);
     }
 
     /**
@@ -1585,11 +1561,11 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public void deleteSubjectAtIdOrThrow(int id) throws NoSuchFieldException {
-        SQLiteDatabase db = this.getWritableDatabase();
         final String query = "DELETE FROM " + TABLE_SUBJECT + " WHERE " + SUBJECT_COLUMN_ID + " = " + id;
 
         try {
             if (getCountOfRowsWhichUseSubjectAsForeignKey(id) <= 0) {
+                SQLiteDatabase db = this.getWritableDatabase();
                 db.execSQL(query);
 
                 if (activity != null) {
@@ -1611,7 +1587,6 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
                 dialog.show();
             }
         } catch (Exception e) {
-            e.printStackTrace();
             throw new NoSuchFieldException();
         }
     }
@@ -1627,11 +1602,11 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public void deleteTeacherAtIdOrThrow(int id) throws NoSuchFieldException {
-        SQLiteDatabase db = this.getWritableDatabase();
         final String query = "DELETE FROM " + TABLE_TEACHER + " WHERE " + TEACHER_COLUMN_ID + " = " + id;
 
         try {
             if (getCountOfRowsWhichUseTeacherAsForeignKey(id) <= 0) {
+                SQLiteDatabase db = this.getWritableDatabase();
                 db.execSQL(query);
 
                 if (activity != null) {
@@ -1653,7 +1628,6 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
                 dialog.show();
             }
         } catch (Exception e) {
-            e.printStackTrace();
             throw new NoSuchFieldException();
         }
     }
@@ -1722,7 +1696,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         try {
             db.execSQL(query);
 
-            if (activity!=null){
+            if (activity != null) {
                 activity.finish();
             }
         } catch (Exception e) {
@@ -1741,11 +1715,11 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public void deletePeriodAtIdOrThrow(int id) throws NoSuchFieldException {
-        SQLiteDatabase db = this.getWritableDatabase();
         final String query = "DELETE FROM " + TABLE_PERIOD + " WHERE " + PERIOD_COLUMN_ID + " = " + id;
 
         try {
             if (getCountOfRowsWhichUsePeriodAsForeignKey(id) <= 0) {
+                SQLiteDatabase db = this.getWritableDatabase();
                 db.execSQL(query);
 
                 if (activity != null) {
@@ -1787,7 +1761,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         try {
             db.execSQL(query);
 
-            if (activity!=null){
+            if (activity != null) {
                 activity.finish();
             }
         } catch (Exception e) {
@@ -1806,11 +1780,11 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public void deleteWeekdayAtIdOrThrow(int id) throws NoSuchFieldException {
-        SQLiteDatabase db = this.getWritableDatabase();
         final String query = "DELETE FROM " + TABLE_WEEKDAY + " WHERE " + WEEKDAY_COLUMN_ID + " = " + id;
 
         try {
             if (getCountOfRowsWhichUseWeekdayAsForeignKey(id) <= 0) {
+                SQLiteDatabase db = this.getWritableDatabase();
                 db.execSQL(query);
 
                 if (activity != null) {
@@ -1847,11 +1821,11 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public void deleteScheduleAtIdOrThrow(int id) throws NoSuchFieldException {
-        SQLiteDatabase db = this.getWritableDatabase();
         final String query = "DELETE FROM " + TABLE_SCHEDULE + " WHERE " + SCHEDULE_COLUMN_ID + " = " + id;
 
         try {
             if (getCountOfRowsWhichUseScheduleAsForeignKey(id) <= 0) {
+                SQLiteDatabase db = this.getWritableDatabase();
                 db.execSQL(query);
 
                 if (activity != null) {
@@ -1873,7 +1847,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
                 dialog.show();
             }
         } catch (Exception e) {
-            ExceptionHandler.handleDatabaseExceptionForDeletingAnNotExistingObject(id, context);
+            throw new NoSuchFieldException();
         }
     }
 
@@ -1983,10 +1957,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      * resets the database, onUpgrade can also called instead
      */
     public void resetDatabase() {
-        //    onUpgrade(this.getWritableDatabase(), 1, 1);
-        SQLiteDatabase db = this.getWritableDatabase();
-        dropAllTables(db);
-        onCreate(db);
+        onUpgrade(this.getWritableDatabase(), 1, 1);
     }
 
     //todo remove
