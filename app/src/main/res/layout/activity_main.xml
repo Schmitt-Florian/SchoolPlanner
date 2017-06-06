@@ -23,18 +23,14 @@
             android:id="@+id/include2"
             layout="@layout/app_bar_main"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            tools:layout_editor_absoluteY="25dp"
-            tools:layout_editor_absoluteX="0dp" />
+            android:layout_height="wrap_content" />
 
         <LinearLayout
             android:id="@+id/containerMain"
-            android:layout_width="0dp"
-            android:layout_height="6dp"
-            android:orientation="vertical"
-            tools:layout_editor_absoluteY="81dp"
-            tools:layout_editor_absoluteX="8dp">
-
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:orientation="vertical">
         </LinearLayout>
 
     </android.support.constraint.ConstraintLayout>

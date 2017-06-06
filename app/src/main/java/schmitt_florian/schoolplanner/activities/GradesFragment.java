@@ -2,7 +2,6 @@ package schmitt_florian.schoolplanner.activities;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.pm.ActivityInfo;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
@@ -85,7 +84,7 @@ public class GradesFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.grades_buttonAdd:
+            case R.id.grades_floatingActionButton_add:
                 startActivity(new Intent(getContext(), GradeDetailsActivity.class));
                 break;
         }
@@ -117,7 +116,7 @@ public class GradesFragment extends Fragment implements View.OnClickListener {
         defineSubjectListOnClick(view, fillSubjectListView(view));
         defineGridViewOnClick(view);
 
-        GuiHelper.defineButtonOnClickListener(view, R.id.grades_buttonAdd, this);
+        GuiHelper.defineFloatingActionButtonOnClickListener(view, R.id.grades_floatingActionButton_add, this);
     }
 
     /**
