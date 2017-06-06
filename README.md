@@ -25,12 +25,12 @@ Please read CONTRIBUTING.md for details on our code of conduct, and the process 
 
 ## Authors
 
-Natascha Becker - GUI-Interactions - [NatiBckr´s github profile](https://github.com/NatiBckr)
-Marlon Drolsbach - GUI-Interactions - [professionellername´s github profile](https://github.com/professionellername)
-Kevin Schevaljé - GUI-Design - [KevinTheLivingGod´s github profile](https://github.com/KevinTheLivingGod)
-Florian Schmitt - Database - [Schmitt-Florian´s github profile](https://github.com/Schmitt-Florian)
-Jan-Nicklas Watz - GUI-Design -[JN-Watz´s github profile](https://github.com/JN-Watz)
-Darius Wolkewitz - Project Manager & Database - [Darius´s github profile](https://github.com/DWolkewitz)
+Natascha Becker - GUI-Interactions - [NatiBckr´s github profile](https://github.com/NatiBckr)  
+Marlon Drolsbach - GUI-Interactions - [professionellername´s github profile](https://github.com/professionellername)  
+Kevin Schevaljé - GUI-Design - [KevinTheLivingGod´s github profile](https://github.com/KevinTheLivingGod)  
+Florian Schmitt - Database - [Schmitt-Florian´s github profile](https://github.com/Schmitt-Florian)  
+Jan-Nicklas Watz - GUI-Design -[JN-Watz´s github profile](https://github.com/JN-Watz)  
+Darius Wolkewitz - Project Manager & Database - [Darius´s github profile](https://github.com/DWolkewitz)  
 
 See also the [list of contributors](https://github.com/Schmitt-Florian/SchoolPlanner/graphs/contributors) who participated in this project.
 

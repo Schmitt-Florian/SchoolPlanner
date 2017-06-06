@@ -1,6 +1,7 @@
 package schmitt_florian.schoolplanner.activities;
 
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;

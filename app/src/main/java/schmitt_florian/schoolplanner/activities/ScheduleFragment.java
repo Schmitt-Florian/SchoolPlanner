@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TableRow;
 
 import schmitt_florian.schoolplanner.R;
 
@@ -31,9 +32,13 @@ public class ScheduleFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    private TableRow[] rows = new TableRow[15];
+    private int visibleRowCount = 6;
+
     public ScheduleFragment() {
-        // Required empty public constructor
     }
+    // Required empty public constructor
+
 
     /**
      * Use this factory method to create a new instance of
@@ -66,7 +71,10 @@ public class ScheduleFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_schedule, container, false);
+        View view = inflater.inflate(R.layout.fragment_schedule, container, false);
+//        Switch editSwitch = (Switch) view.findViewById(R.id.switch_edit_schedule);
+//        editSwitch.setVisibility(View.VISIBLE);
+        return view;
 
     }
 
@@ -108,4 +116,16 @@ public class ScheduleFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+    private void setVisibilityforSchedule() {
+        for (int i = 0; i < visibleRowCount; i++) {
+            rows[i].setVisibility(View.VISIBLE);
+        }
+        for (int i = rows.length; i > visibleRowCount; i++) {
+            rows[i].setVisibility(View.GONE);
+        }
+
+
+    }
+
 }
