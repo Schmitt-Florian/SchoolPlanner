@@ -1,21 +1,93 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/settings_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.SettingsFragment">
+    android:orientation="vertical"
+    app:layout_collapseMode="none"
+    app:layout_collapseParallaxMultiplier="1.0">
 
-    <!-- TODO: Update blank fragment layout -->
-
-    <LinearLayout
+    <TextView
+        android:id="@+id/settings_labelDatabase"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/string_database_settings"
+        android:textStyle="italic" />
 
-    </LinearLayout>
-
-    <ListView
+    <TextView
+        android:id="@+id/settings_labelPeriods"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/fab_margin"
+        android:layout_marginRight="@dimen/fab_margin"
+        android:layout_marginTop="@dimen/fab_margin"
+        android:text="@string/string_amount_of_periods"
+        android:textStyle="bold" />
 
-</FrameLayout>
+    <SeekBar
+        android:id="@+id/settings_seekbarPeriods"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:max="15" />
+
+    <TextView
+        android:id="@+id/settings_labelDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/fab_margin"
+        android:layout_marginRight="@dimen/fab_margin"
+        android:layout_marginTop="@dimen/fab_margin"
+        android:text="@string/string_select_date_format"
+        android:textStyle="bold" />
+
+    <Spinner
+        android:id="@+id/settings_spinnerDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp" />
+
+    <TextView
+        android:id="@+id/settings_labelPersonalisation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/string_personalisation"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/settings_labelLanguage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/fab_margin"
+        android:layout_marginRight="@dimen/fab_margin"
+        android:layout_marginTop="@dimen/fab_margin"
+        android:textStyle="bold"
+        android:text="@string/string_select_language" />
+
+    <Spinner
+        android:id="@+id/settings_spinnerLanguage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:id="@+id/settings_labelColor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/fab_margin"
+        android:layout_marginRight="@dimen/fab_margin"
+        android:layout_marginTop="@dimen/fab_margin"
+        android:textStyle="bold"
+        android:text="@string/string_select_theme_color" />
+
+    <Spinner
+        android:id="@+id/settings_spinnerColor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"/>
+</LinearLayout>
