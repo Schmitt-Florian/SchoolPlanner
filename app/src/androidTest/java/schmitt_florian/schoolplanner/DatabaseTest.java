@@ -4,14 +4,14 @@
 import org.junit.Test;
 
 import schmitt_florian.schoolplanner.logic.DatabaseHelperImpl;
-import schmitt_florian.schoolplanner.logic.Exam;
-import schmitt_florian.schoolplanner.logic.Grade;
-import schmitt_florian.schoolplanner.logic.Homework;
-import schmitt_florian.schoolplanner.logic.Period;
-import schmitt_florian.schoolplanner.logic.Schedule;
-import schmitt_florian.schoolplanner.logic.Subject;
-import schmitt_florian.schoolplanner.logic.Teacher;
-import schmitt_florian.schoolplanner.logic.Weekday;
+import schmitt_florian.schoolplanner.logic.objects.Exam;
+import schmitt_florian.schoolplanner.logic.objects.Grade;
+import schmitt_florian.schoolplanner.logic.objects.Homework;
+import schmitt_florian.schoolplanner.logic.objects.Period;
+import schmitt_florian.schoolplanner.logic.objects.Schedule;
+import schmitt_florian.schoolplanner.logic.objects.Subject;
+import schmitt_florian.schoolplanner.logic.objects.Teacher;
+import schmitt_florian.schoolplanner.logic.objects.Weekday;
 
 import static android.support.test.InstrumentationRegistry.getContext;
 import static org.junit.Assert.assertTrue;

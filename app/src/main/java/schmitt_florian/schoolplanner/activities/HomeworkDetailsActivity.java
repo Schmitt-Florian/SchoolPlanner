@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import schmitt_florian.schoolplanner.R;
 import schmitt_florian.schoolplanner.logic.DatabaseHelper;
 import schmitt_florian.schoolplanner.logic.DatabaseHelperImpl;
-import schmitt_florian.schoolplanner.logic.Homework;
-import schmitt_florian.schoolplanner.logic.Subject;
+import schmitt_florian.schoolplanner.logic.objects.Homework;
+import schmitt_florian.schoolplanner.logic.objects.Subject;
 
 /**
  * bound class to activity_homework_details.xml to show, change attributes of a choose {@link Homework}, delete a choose {@link Homework} or add a new one
@@ -63,13 +63,12 @@ public class HomeworkDetailsActivity extends AppCompatActivity {
     }
 
     /**
-     * deletes homework from database
+     * deletes homework from database & finishes the activity if deletion successful
      *
      * @param view the button
      */
     public void onDeleteClick(View view) {
         dbHelper.deleteHomeworkAtId(showingHomework.getId());
-        finish();
     }
 
     /**

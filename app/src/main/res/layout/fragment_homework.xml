@@ -34,7 +34,7 @@
 
             <Button
                 android:id="@+id/homework_buttonToDo"
-                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="47dp"
                 android:layout_weight="1"
@@ -43,7 +43,7 @@
 
             <Button
                 android:id="@+id/homework_buttonDone"
-                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="47dp"
                 android:layout_weight="1"

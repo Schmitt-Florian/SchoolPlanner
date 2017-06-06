@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import schmitt_florian.schoolplanner.R;
 import schmitt_florian.schoolplanner.logic.DatabaseHelper;
 import schmitt_florian.schoolplanner.logic.DatabaseHelperImpl;
-import schmitt_florian.schoolplanner.logic.Exam;
+import schmitt_florian.schoolplanner.logic.objects.Exam;
 
 /**
  * A simple {@link Fragment} subclass.

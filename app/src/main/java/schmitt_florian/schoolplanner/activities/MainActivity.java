@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -32,8 +33,10 @@ public class MainActivity extends AppCompatActivity implements
         SettingsFragment.OnFragmentInteractionListener {
 
     private static final String TAG = "MainActivity";
-    FragmentManager fragmentManager;
+    private Fragment loadedFragment;
+    private FragmentManager fragmentManager;
     private int lastFragment = 0;
+
 
 
     @Override
@@ -43,20 +46,8 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         SharedPreferences preferences = this.getSharedPreferences(this.getApplicationContext().toString(), Context.MODE_PRIVATE);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
+        initDrawer();
         fragmentManager = this.getSupportFragmentManager();
-
 
         //----TESTING----
         DatabaseHelperImpl testHelper = new DatabaseHelperImpl(this);
@@ -65,12 +56,29 @@ public class MainActivity extends AppCompatActivity implements
 
         System.out.println(testHelper.toString());
         //----TESTING----
+    }
 
+    /**
+     * Method called when starting or resuming the activity to reload the fragment to take care of may occurred changes.
+     * Method also preselects the {@link HomeFragment} at app start
+     */
         lastFragment = preferences.getInt("lastFragment", 0);
-        navigationView.getMenu().getItem(lastFragment).setChecked(true);
 
-        onNavigationItemSelected(navigationView.getMenu().getItem(lastFragment));
+    @Override
+    protected void onResumeFragments() {
+        super.onResumeFragments();
+        if (loadedFragment != null) {
+            reloadFragment();
+            FragmentTransaction ft = fragmentManager.beginTransaction();
+            ft.replace(R.id.containerMain, loadedFragment);
+            ft.commit();
+        } else {
+            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            navigationView.getMenu().getItem(lastFragment).setChecked(true);
 
+            loadedFragment = new HomeFragment();
+            onResumeFragments();
+        }
     }
 
     @Override
@@ -79,7 +87,15 @@ public class MainActivity extends AppCompatActivity implements
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+            if(loadedFragment.equals(new HomeFragment())){
             super.onBackPressed();
+            } else {
+                NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+                navigationView.getMenu().getItem(0).setChecked(true);
+
+                loadedFragment = new HomeFragment();
+                onResumeFragments();
+            }
         }
     }
 
@@ -89,79 +105,71 @@ public class MainActivity extends AppCompatActivity implements
         int id = item.getItemId();
         SharedPreferences preferences = this.getSharedPreferences(this.getApplicationContext().toString(), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
+
         switch (id) {
 
             case R.id.nav_main: {
                 // Goto Home
-                FragmentTransaction ft = fragmentManager.beginTransaction();
-                ft.replace(R.id.containerMain, new HomeFragment());
-                ft.commit();
+                loadedFragment = new HomeFragment();
                 editor.putInt("lastFragment", 0);
                 break;
             }
             case R.id.nav_schedule: {
                 // Goto Schedule
-                FragmentTransaction ft = fragmentManager.beginTransaction();
-                ft.replace(R.id.containerMain, new ScheduleFragment());
-                ft.commit();
+                loadedFragment = new ScheduleFragment();
                 editor.putInt("lastFragment", 1);
                 break;
             }
             case R.id.nav_homework: {
                 //Goto Homework
-                FragmentTransaction ft = fragmentManager.beginTransaction();
-                ft.replace(R.id.containerMain, new HomeworkFragment());
-                ft.commit();
+                loadedFragment = new HomeworkFragment();
                 editor.putInt("lastFragment", 2);
                 break;
             }
             case R.id.nav_exams: {
                 // Goto Exams
-                FragmentTransaction ft = fragmentManager.beginTransaction();
-                ft.replace(R.id.containerMain, new ExamsFragment());
-                ft.commit();
+                loadedFragment = new ExamsFragment();
                 editor.putInt("lastFragment", 3);
                 break;
             }
             case R.id.nav_grades: {
                 // Goto Subjects
-                FragmentTransaction ft = fragmentManager.beginTransaction();
-                ft.replace(R.id.containerMain, new GradesFragment());
-                ft.commit();
+                loadedFragment = new GradesFragment();
                 editor.putInt("lastFragment", 4);
                 break;
             }
             case R.id.nav_teachers: {
                 // Goto Subjects
-                FragmentTransaction ft = fragmentManager.beginTransaction();
-                ft.replace(R.id.containerMain, new TeachersFragment());
-                ft.commit();
+                loadedFragment = new TeachersFragment();
+                editor.putInt("lastFragment", 5);
                 break;
             }
             case R.id.nav_subjects: {
                 // Goto Subjects
-                FragmentTransaction ft = fragmentManager.beginTransaction();
-                ft.replace(R.id.containerMain, new SubjectsFragment());
-                ft.commit();
-                editor.putInt("lastFragment", 5);
+                loadedFragment = new SubjectsFragment();
+                editor.putInt("lastFragment", 6);
                 break;
             }
             case R.id.nav_credits: {
                 //Goto Credits
-                FragmentTransaction ft = fragmentManager.beginTransaction();
-                ft.replace(R.id.containerMain, new CreditsFragment());
-                ft.commit();
-                editor.putInt("lastFragment", 6);
+                loadedFragment = new CreditsFragment();
+                editor.putInt("lastFragment", 7);
                 break;
             }
             case R.id.nav_settings: {
                 // Goto Settings
-                FragmentTransaction ft = fragmentManager.beginTransaction();
-                ft.replace(R.id.containerMain, new SettingsFragment());
-                ft.commit();
-                editor.putInt("lastFragment", 7);
+                loadedFragment = new SettingsFragment();
+                editor.putInt("lastFragment", 8);
                 break;
             }
+            default: {
+                return false;
+            }
+        }
+
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        ft.replace(R.id.containerMain, loadedFragment);
+        ft.commit();
 
         }
         editor.apply();
@@ -170,16 +178,52 @@ public class MainActivity extends AppCompatActivity implements
         return true;
     }
 
+
+
     @Override
     public void onFragmentInteraction(Uri uri) {
         Log.d(TAG, "onFragmentInteraction");
     }
 
+    //region private methods
 
+    /**
+     * method to configure the navigation drawer
+     */
+    private void initDrawer() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, (Toolbar) findViewById(R.id.toolbar), R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
     }
+
+    /**
+     * method to reload the loaded fragment
+     */
+    private void reloadFragment() {
+        if (loadedFragment instanceof CreditsFragment) {
+            loadedFragment = new CreditsFragment();
+        } else if (loadedFragment instanceof ExamsFragment) {
+            loadedFragment = new ExamsFragment();
+        } else if (loadedFragment instanceof GradesFragment) {
+            loadedFragment = new GradesFragment();
+        } else if (loadedFragment instanceof HomeFragment) {
+            loadedFragment = new HomeFragment();
+        } else if (loadedFragment instanceof HomeworkFragment) {
+            loadedFragment = new HomeworkFragment();
+        } else if (loadedFragment instanceof ScheduleFragment) {
+            loadedFragment = new ScheduleFragment();
+        } else if (loadedFragment instanceof SettingsFragment) {
+            loadedFragment = new SettingsFragment();
+        } else if (loadedFragment instanceof SubjectsFragment) {
+            loadedFragment = new SubjectsFragment();
+        } else if (loadedFragment instanceof TeachersFragment) {
+            loadedFragment = new TeachersFragment();
+        }
+    }
+    //endregion
 }

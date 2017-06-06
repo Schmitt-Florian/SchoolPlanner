@@ -1,4 +1,4 @@
-package schmitt_florian.schoolplanner.logic;
+package schmitt_florian.schoolplanner.logic.objects;
 
 /**
  * The Subject Class represents an Object in the Subject SQL table and is usually returned by methods from the DatabaseHelper Interface

@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import schmitt_florian.schoolplanner.R;
 import schmitt_florian.schoolplanner.logic.DatabaseHelper;
 import schmitt_florian.schoolplanner.logic.DatabaseHelperImpl;
-import schmitt_florian.schoolplanner.logic.Exam;
-import schmitt_florian.schoolplanner.logic.Subject;
+import schmitt_florian.schoolplanner.logic.objects.Exam;
+import schmitt_florian.schoolplanner.logic.objects.Subject;
 
 /**
  * bound class to activity_exam_details.xml to show, change attributes of a choose {@link Exam}, delete a choose {@link Exam} or add a new one
@@ -62,13 +62,12 @@ public class ExamDetailsActivity extends AppCompatActivity {
     }
 
     /**
-     * deletes homework from database
+     * deletes homework from database & finishes the activity if deletion successful
      *
      * @param view the button
      */
     public void onDeleteClick(View view) {
         dbHelper.deleteExamAtId(showingExam.getId());
-        finish();
     }
 
     /**

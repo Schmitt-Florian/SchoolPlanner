@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import schmitt_florian.schoolplanner.R;
 import schmitt_florian.schoolplanner.logic.DatabaseHelper;
 import schmitt_florian.schoolplanner.logic.DatabaseHelperImpl;
-import schmitt_florian.schoolplanner.logic.Grade;
-import schmitt_florian.schoolplanner.logic.Subject;
+import schmitt_florian.schoolplanner.logic.objects.Grade;
+import schmitt_florian.schoolplanner.logic.objects.Subject;
 
 /**
  * bound class to activity_grade_details.xml to show, change attributes of a choose {@link Grade}, delete a choose {@link Grade} or add a new one
@@ -62,13 +62,12 @@ public class GradeDetailsActivity extends AppCompatActivity {
     }
 
     /**
-     * deletes grade from database
+     * deletes grade from database  & finishes the activity if deletion successful
      *
      * @param view the button
      */
     public void onDeleteClick(View view) {
         dbHelper.deleteGradeAtId(showingGrade.getId());
-        finish();
     }
 
     /**

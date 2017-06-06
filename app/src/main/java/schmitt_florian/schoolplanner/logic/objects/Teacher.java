@@ -1,4 +1,4 @@
-package schmitt_florian.schoolplanner.logic;
+package schmitt_florian.schoolplanner.logic.objects;
 
 
 import android.support.annotation.Nullable;
