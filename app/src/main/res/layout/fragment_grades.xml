@@ -1,13 +1,10 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/grades_main"
+    android:id="@+id/grades_mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    app:layout_collapseMode="none"
-    app:layout_collapseParallaxMultiplier="1.0"
-    tools:context="schmitt_florian.schoolplanner.activities.GradesFragment">
+    tools:context=".activities.TeachersFragment">
 
     <LinearLayout
         android:id="@+id/grades_data"
@@ -27,16 +24,10 @@
             <TextView
                 android:id="@+id/grades_labelSubject"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="47dp"
                 android:gravity="center"
                 android:text="@string/string_subjects"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title" />
-
-            <TextView
-                android:id="@+id/Space"
-                android:layout_width="match_parent"
-                android:layout_height="4dp"
-                android:background="@color/secondary_text" />
 
             <ListView
                 android:id="@+id/grades_listSubjects"
@@ -46,13 +37,6 @@
                 android:listSelector="@color/divider" />
 
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/Space2"
-            android:layout_width="0.5dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.01"
-            android:background="@color/secondary_text" />
 
         <LinearLayout
             android:id="@+id/grades_grades"
@@ -70,7 +54,7 @@
                 <TextView
                     android:id="@+id/grades_labelName"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="47dp"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="@string/string_name"
@@ -79,19 +63,13 @@
                 <TextView
                     android:id="@+id/grades_labelMark"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="47dp"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="@string/string_grade"
                     android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/Space3"
-                android:layout_width="match_parent"
-                android:layout_height="4dp"
-                android:background="@color/secondary_text" />
 
             <GridView
                 android:id="@+id/grades_gradesTable"
@@ -102,19 +80,15 @@
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/grades_toolbar"
-        android:layout_width="match_parent"
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/grades_floatingActionButton_add"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight=".1"
-        android:orientation="horizontal">
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
+        app:fabSize="normal"
+        app:srcCompat="@drawable/ic_add" />
 
-        <Button
-            android:id="@+id/grades_buttonAdd"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:backgroundTint="@color/accent"
-            android:text="@string/string_add" />
-    </LinearLayout>
-
-</LinearLayout>
+</FrameLayout>
