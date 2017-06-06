@@ -25,7 +25,7 @@
 
         <item
             android:id="@+id/nav_teachers"
-            android:icon="@drawable/ic_subjects"
+            android:icon="@drawable/ic_teachers"
             android:title="@string/string_teachers" />
 
         <item

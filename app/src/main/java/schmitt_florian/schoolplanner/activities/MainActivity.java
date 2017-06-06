@@ -1,5 +1,7 @@
 package schmitt_florian.schoolplanner.activities;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -53,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements
 
     /**
      * Method called when starting or resuming the activity to reload the fragment to take care of may occurred changes.
-     * Method also preselects the {@link HomeFragment} at app start
+     * Method also preselects the last loaded Fragment at app start
      */
     @Override
     protected void onResumeFragments() {
@@ -64,11 +66,13 @@ public class MainActivity extends AppCompatActivity implements
             ft.replace(R.id.containerMain, loadedFragment);
             ft.commit();
         } else {
+            SharedPreferences preferences = this.getSharedPreferences(this.getApplicationContext().toString(), Context.MODE_PRIVATE);
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-            navigationView.getMenu().getItem(0).setChecked(true);
 
-            loadedFragment = new HomeFragment();
-            onResumeFragments();
+            int lastFragmentMenuItemId = preferences.getInt("lastFragment", 0);
+            MenuItem lastFragmentMenuItem = navigationView.getMenu().getItem(lastFragmentMenuItemId);
+
+            onNavigationItemSelected(lastFragmentMenuItem);
         }
     }
 
@@ -94,7 +98,6 @@ public class MainActivity extends AppCompatActivity implements
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
         switch (id) {
             case R.id.nav_main: {
                 // Goto Home
@@ -155,6 +158,19 @@ public class MainActivity extends AppCompatActivity implements
         return true;
     }
 
+    /**
+     * calls {@link AppCompatActivity#onDestroy()} and saves loaded fragment's menu item id into {@link SharedPreferences}
+     */
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SharedPreferences preferences = this.getSharedPreferences(this.getApplicationContext().toString(), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        if (!(reloadFragment() < 0)) {
+            editor.putInt("lastFragment", reloadFragment());
+            editor.apply();
+        }
+    }
 
 
     @Override
@@ -180,27 +196,40 @@ public class MainActivity extends AppCompatActivity implements
 
     /**
      * method to reload the loaded fragment
+     * @return return id of the loaded fragment in menu_main_drawer.xml file, or -1 if loaded fragment is not in
+     * in list
      */
-    private void reloadFragment() {
+    private int reloadFragment() {
+        int temp = -1;
         if (loadedFragment instanceof CreditsFragment) {
             loadedFragment = new CreditsFragment();
+            temp = 7;
         } else if (loadedFragment instanceof ExamsFragment) {
             loadedFragment = new ExamsFragment();
+            temp = 3;
         } else if (loadedFragment instanceof GradesFragment) {
             loadedFragment = new GradesFragment();
+            temp = 4;
         } else if (loadedFragment instanceof HomeFragment) {
             loadedFragment = new HomeFragment();
+            temp = 0;
         } else if (loadedFragment instanceof HomeworkFragment) {
             loadedFragment = new HomeworkFragment();
+            temp = 2;
         } else if (loadedFragment instanceof ScheduleFragment) {
             loadedFragment = new ScheduleFragment();
+            temp = 1;
         } else if (loadedFragment instanceof SettingsFragment) {
             loadedFragment = new SettingsFragment();
+            temp = 8;
         } else if (loadedFragment instanceof SubjectsFragment) {
             loadedFragment = new SubjectsFragment();
+            temp = 6;
         } else if (loadedFragment instanceof TeachersFragment) {
             loadedFragment = new TeachersFragment();
+            temp = 5;
         }
+        return temp;
     }
     //endregion
 }
