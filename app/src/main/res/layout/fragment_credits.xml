@@ -16,9 +16,26 @@
         app:fabSize="normal"
         app:srcCompat="@android:drawable/ic_dialog_email" />
 
-    <Spinner
-        android:id="@+id/spinnerTest"
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="79dp" />
+        android:layout_height="match_parent"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="" />
+
+
+
 
 </FrameLayout>
