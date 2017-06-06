@@ -35,16 +35,11 @@ public class MainActivity extends AppCompatActivity implements
     private static final String TAG = "MainActivity";
     private Fragment loadedFragment;
     private FragmentManager fragmentManager;
-    private int lastFragment = 0;
-
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
-        SharedPreferences preferences = this.getSharedPreferences(this.getApplicationContext().toString(), Context.MODE_PRIVATE);
         setContentView(R.layout.activity_main);
         initDrawer();
         fragmentManager = this.getSupportFragmentManager();
@@ -60,10 +55,8 @@ public class MainActivity extends AppCompatActivity implements
 
     /**
      * Method called when starting or resuming the activity to reload the fragment to take care of may occurred changes.
-     * Method also preselects the {@link HomeFragment} at app start
+     * Method also preselects the last loaded Fragment at app start
      */
-        lastFragment = preferences.getInt("lastFragment", 0);
-
     @Override
     protected void onResumeFragments() {
         super.onResumeFragments();
@@ -73,11 +66,13 @@ public class MainActivity extends AppCompatActivity implements
             ft.replace(R.id.containerMain, loadedFragment);
             ft.commit();
         } else {
+            SharedPreferences preferences = this.getSharedPreferences(this.getApplicationContext().toString(), Context.MODE_PRIVATE);
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-            navigationView.getMenu().getItem(lastFragment).setChecked(true);
 
-            loadedFragment = new HomeFragment();
-            onResumeFragments();
+            int lastFragmentMenuItemId = preferences.getInt("lastFragment", 0);
+            MenuItem lastFragmentMenuItem = navigationView.getMenu().getItem(lastFragmentMenuItemId);
+
+            onNavigationItemSelected(lastFragmentMenuItem);
         }
     }
 
@@ -103,63 +98,50 @@ public class MainActivity extends AppCompatActivity implements
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        SharedPreferences preferences = this.getSharedPreferences(this.getApplicationContext().toString(), Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-
         switch (id) {
-
             case R.id.nav_main: {
                 // Goto Home
                 loadedFragment = new HomeFragment();
-                editor.putInt("lastFragment", 0);
                 break;
             }
             case R.id.nav_schedule: {
                 // Goto Schedule
                 loadedFragment = new ScheduleFragment();
-                editor.putInt("lastFragment", 1);
                 break;
             }
             case R.id.nav_homework: {
                 //Goto Homework
                 loadedFragment = new HomeworkFragment();
-                editor.putInt("lastFragment", 2);
                 break;
             }
             case R.id.nav_exams: {
                 // Goto Exams
                 loadedFragment = new ExamsFragment();
-                editor.putInt("lastFragment", 3);
                 break;
             }
             case R.id.nav_grades: {
                 // Goto Subjects
                 loadedFragment = new GradesFragment();
-                editor.putInt("lastFragment", 4);
                 break;
             }
             case R.id.nav_teachers: {
                 // Goto Subjects
                 loadedFragment = new TeachersFragment();
-                editor.putInt("lastFragment", 5);
                 break;
             }
             case R.id.nav_subjects: {
                 // Goto Subjects
                 loadedFragment = new SubjectsFragment();
-                editor.putInt("lastFragment", 6);
                 break;
             }
             case R.id.nav_credits: {
                 //Goto Credits
                 loadedFragment = new CreditsFragment();
-                editor.putInt("lastFragment", 7);
                 break;
             }
             case R.id.nav_settings: {
                 // Goto Settings
                 loadedFragment = new SettingsFragment();
-                editor.putInt("lastFragment", 8);
                 break;
             }
             default: {
@@ -171,13 +153,24 @@ public class MainActivity extends AppCompatActivity implements
         ft.replace(R.id.containerMain, loadedFragment);
         ft.commit();
 
-        }
-        editor.apply();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
+    /**
+     * calls {@link AppCompatActivity#onDestroy()} and saves loaded fragment's menu item id into {@link SharedPreferences}
+     */
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SharedPreferences preferences = this.getSharedPreferences(this.getApplicationContext().toString(), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        if (!(reloadFragment() < 0)) {
+            editor.putInt("lastFragment", reloadFragment());
+            editor.apply();
+        }
+    }
 
 
     @Override
@@ -203,27 +196,40 @@ public class MainActivity extends AppCompatActivity implements
 
     /**
      * method to reload the loaded fragment
+     * @return return id of the loaded fragment in menu_main_drawer.xml file, or -1 if loaded fragment is not in
+     * in list
      */
-    private void reloadFragment() {
+    private int reloadFragment() {
+        int temp = -1;
         if (loadedFragment instanceof CreditsFragment) {
             loadedFragment = new CreditsFragment();
+            temp = 7;
         } else if (loadedFragment instanceof ExamsFragment) {
             loadedFragment = new ExamsFragment();
+            temp = 3;
         } else if (loadedFragment instanceof GradesFragment) {
             loadedFragment = new GradesFragment();
+            temp = 4;
         } else if (loadedFragment instanceof HomeFragment) {
             loadedFragment = new HomeFragment();
+            temp = 0;
         } else if (loadedFragment instanceof HomeworkFragment) {
             loadedFragment = new HomeworkFragment();
+            temp = 2;
         } else if (loadedFragment instanceof ScheduleFragment) {
             loadedFragment = new ScheduleFragment();
+            temp = 1;
         } else if (loadedFragment instanceof SettingsFragment) {
             loadedFragment = new SettingsFragment();
+            temp = 8;
         } else if (loadedFragment instanceof SubjectsFragment) {
             loadedFragment = new SubjectsFragment();
+            temp = 6;
         } else if (loadedFragment instanceof TeachersFragment) {
             loadedFragment = new TeachersFragment();
+            temp = 5;
         }
+        return temp;
     }
     //endregion
 }
