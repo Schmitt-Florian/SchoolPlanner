@@ -8,73 +8,40 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SeekBar;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import schmitt_florian.schoolplanner.R;
+import schmitt_florian.schoolplanner.logic.Settings;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
  * {@link SettingsFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link SettingsFragment#newInstance} factory method to
- * create an instance of this fragment.
  */
-public class SettingsFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
+public class SettingsFragment extends Fragment implements View.OnClickListener {
+    @SuppressWarnings({"FieldNever", "unused"})
     private OnFragmentInteractionListener mListener;
+    private Settings settings;
+    private View view;
 
-    public SettingsFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SettingsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static SettingsFragment newInstance(String param1, String param2) {
-        SettingsFragment fragment = new SettingsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false);
-    }
+        view = inflater.inflate(R.layout.fragment_settings, container, false);
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+        settings = Settings.getInstance(view.getContext());
+        initGui();
+        return view;
     }
 
     @Override
@@ -95,6 +62,22 @@ public class SettingsFragment extends Fragment {
     }
 
     /**
+     * Called when a view has been clicked.
+     *
+     * @param v The view that was clicked.
+     */
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.settings_buttonSave:
+                readGui();
+                settings.saveSettings();
+                Toast.makeText(getContext(), R.string.string_settings_saved, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
@@ -105,7 +88,73 @@ public class SettingsFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
+        @SuppressWarnings({"FieldNever", "unused"})
         void onFragmentInteraction(Uri uri);
     }
+
+    //region private methods
+
+    /**
+     * method to initialise components of the GUI
+     */
+    private void initGui() {
+        initSeekBar();
+        initDateFormatSpinner();
+        GuiHelper.defineButtonOnClickListener(view, R.id.settings_buttonSave, this);
+
+    }
+
+    /**
+     * initialises the {@link SeekBar} which displays the {@link Settings#periodsAtDay}
+     */
+    private void initSeekBar() {
+        GuiHelper.defineSeekBarOnChangeListener(view, R.id.settings_seekbarPeriods,
+                new SeekBar.OnSeekBarChangeListener() {
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                        GuiHelper.setTextToTextView(view, R.id.settings_textviewSeekbarPeriodsPos, String.valueOf(progress));
+                    }
+
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) {
+                        //ignore
+                    }
+
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) {
+                        //ignore
+                    }
+                }
+        ).setProgress(settings.getPeriodsAtDay());
+    }
+
+    /**
+     * initialises the {@link Settings#DATE_FORMAT} {@link Spinner}
+     */
+    private void initDateFormatSpinner() {
+        Spinner spinner = GuiHelper.fillSpinnerFromArray(view, R.id.settings_spinnerDate,
+                new String[]{Settings.DATE_FORMAT_DDMMYYYY, Settings.DATE_FORMAT_MMDDYYYY, Settings.DATE_FORMAT_YYYYMMDD});
+        switch (settings.getActiveDateFormat()) {
+            case Settings.DATE_FORMAT_DDMMYYYY:
+                spinner.setSelection(0);
+                break;
+            case Settings.DATE_FORMAT_MMDDYYYY:
+                spinner.setSelection(1);
+                break;
+            case Settings.DATE_FORMAT_YYYYMMDD:
+                spinner.setSelection(2);
+        }
+    }
+
+    /**
+     * updates {@link SettingsFragment#settings} with values in GUI
+     */
+    private void readGui() {
+        SeekBar seekBar = (SeekBar) view.findViewById(R.id.settings_seekbarPeriods);
+        settings.setPeriodsAtDay(seekBar.getProgress());
+
+        Spinner spinner = (Spinner) view.findViewById(R.id.settings_spinnerDate);
+        settings.setActiveDateFormat((String) spinner.getSelectedItem());
+    }
+    //endregion
 }

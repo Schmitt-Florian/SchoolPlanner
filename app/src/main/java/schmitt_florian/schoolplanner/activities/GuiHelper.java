@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -103,10 +104,12 @@ class GuiHelper {
      * @param view the view the {@link TextView} is in
      * @param id   Resource ID of the {@link TextView}
      * @param text The text to set to the {@link TextView}
+     * @return the updated {@link TextView}
      */
-    static void setTextToTextView(View view, int id, String text) {
+    static TextView setTextToTextView(View view, int id, String text) {
         TextView textView = (TextView) view.findViewById(id);
         textView.setText(text);
+        return textView;
     }
 
     /**
@@ -115,10 +118,12 @@ class GuiHelper {
      * @param view    the view the {@link Button} is in
      * @param id      Resource ID of the {@link Button}
      * @param colorId Resource ID of the color
+     * @return the updated {@link Button}
      */
-    static void setColorToButton(View view, int id, int colorId) {
+    static Button setColorToButton(View view, int id, int colorId) {
         Button b = (Button) view.findViewById(id);
         b.setBackgroundResource(colorId);
+        return b;
     }
 
     /**
@@ -128,10 +133,12 @@ class GuiHelper {
      * @param id         Resource ID of the {@link View}
      * @param visibility The visibility to set to the {@link View},
      *                   must be one of {@link View#VISIBLE} , {@link View#INVISIBLE} , {@link View#GONE}
+     * @return the updated {@link View}
      */
-    static void setVisibility(View view, int id, int visibility) {
+    static View setVisibility(View view, int id, int visibility) {
         View v = view.findViewById(id);
         v.setVisibility(visibility);
+        return v;
     }
 
     /**
@@ -140,12 +147,14 @@ class GuiHelper {
      * @param view    the view the {@link ListView} is in
      * @param id      Resource ID of the {@link ListView}
      * @param content The content to fill the {@link ListView} with as string array
+     * @return the updated {@link ListView}
      */
-    static void fillListViewFromArray(View view, int id, String[] content) {
+    static ListView fillListViewFromArray(View view, int id, String[] content) {
         ListView listView = (ListView) view.findViewById(id);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_list_item_1, content);
 
         listView.setAdapter(adapter);
+        return listView;
     }
 
     /**
@@ -157,12 +166,14 @@ class GuiHelper {
      *                Fills the grid from left to right, so if you have a {@link GridView}
      *                with the {@link GridView#getNumColumns()} == 2 the content[] indices 0 & 1
      *                will form the first row in the grid, 2 & 3 the second row and so on.
+     * @return the updated {@link GridView}
      */
-    static void fillGridViewFromArray(View view, int id, String[] content) {
+    static GridView fillGridViewFromArray(View view, int id, String[] content) {
         GridView gridView = (GridView) view.findViewById(id);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_list_item_1, content);
 
         gridView.setAdapter(adapter);
+        return gridView;
     }
 
     /**
@@ -171,13 +182,15 @@ class GuiHelper {
      * @param view    the view the {@link Spinner} is in
      * @param id      Resource ID of the {@link Spinner}
      * @param content The content to fill the {@link Spinner} with as string array
+     * @return the updated {@link Spinner}
      */
-    static void fillSpinnerFromArray(View view, int id, String[] content) {
+    static Spinner fillSpinnerFromArray(View view, int id, String[] content) {
         Spinner spinner = (Spinner) view.findViewById(id);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_item, content);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinner.setAdapter(adapter);
+        return spinner;
     }
 
     //region GUI string
@@ -261,10 +274,12 @@ class GuiHelper {
      * @param view            the view the {@link Button} is in
      * @param id              Resource ID of the {@link Button}
      * @param onClickListener the {@link View.OnClickListener} to set the {@link Button} to
+     * @return the updated {@link Button}
      */
-    static void defineButtonOnClickListener(View view, int id, View.OnClickListener onClickListener) {
+    static Button defineButtonOnClickListener(View view, int id, View.OnClickListener onClickListener) {
         Button b = (Button) view.findViewById(id);
         b.setOnClickListener(onClickListener);
+        return b;
     }
 
     /**
@@ -273,10 +288,26 @@ class GuiHelper {
      * @param view            the view the {@link FloatingActionButton} is in
      * @param id              Resource ID of the {@link FloatingActionButton}
      * @param onClickListener the {@link View.OnClickListener} to set the {@link FloatingActionButton} to
+     * @return the updated {@link FloatingActionButton}
      */
-    static void defineFloatingActionButtonOnClickListener(View view, int id, View.OnClickListener onClickListener) {
+    static FloatingActionButton defineFloatingActionButtonOnClickListener(View view, int id, View.OnClickListener onClickListener) {
         FloatingActionButton b = (FloatingActionButton) view.findViewById(id);
         b.setOnClickListener(onClickListener);
+        return b;
+    }
+
+    /**
+     * method to set the {@link SeekBar.OnSeekBarChangeListener} of a {@link SeekBar} at a given id
+     *
+     * @param view                    the view the {@link SeekBar} is in
+     * @param id                      Resource ID of the {@link SeekBar}
+     * @param onSeekBarChangeListener The {@link SeekBar.OnSeekBarChangeListener} to set to the {@link SeekBar}
+     * @return the updated {@link SeekBar}
+     */
+    static SeekBar defineSeekBarOnChangeListener(View view, int id, SeekBar.OnSeekBarChangeListener onSeekBarChangeListener) {
+        SeekBar seekBar = (SeekBar) view.findViewById(id);
+        seekBar.setOnSeekBarChangeListener(onSeekBarChangeListener);
+        return seekBar;
     }
 
     /**
