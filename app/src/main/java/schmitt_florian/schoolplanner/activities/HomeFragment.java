@@ -143,7 +143,7 @@ public class HomeFragment extends Fragment {
             Homework homework = dbHelper.getHomeworkAtId(homeworkIndex);
 
             if (isDateInThisWeek(homework.getDeadline()) && !homework.isDone()) {
-                homeworkStrings.add(GuiHelper.extractGuiString(homework));
+                homeworkStrings.add(GuiHelper.extractGuiString(homework, getContext()));
             }
         }
 
@@ -167,7 +167,7 @@ public class HomeFragment extends Fragment {
             Exam exam = dbHelper.getExamAtId(examIndex);
 
             if (isDateInThisWeek(exam.getDeadline())) {
-                examStrings.add(GuiHelper.extractGuiString(exam));
+                examStrings.add(GuiHelper.extractGuiString(exam, getContext()));
             }
         }
 

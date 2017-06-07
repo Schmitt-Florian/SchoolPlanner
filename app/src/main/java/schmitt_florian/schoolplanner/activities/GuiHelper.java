@@ -18,6 +18,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import schmitt_florian.schoolplanner.R;
+import schmitt_florian.schoolplanner.logic.Settings;
 import schmitt_florian.schoolplanner.logic.objects.Exam;
 import schmitt_florian.schoolplanner.logic.objects.Homework;
 import schmitt_florian.schoolplanner.logic.objects.Subject;
@@ -76,26 +77,32 @@ class GuiHelper {
      * @throws IllegalArgumentException if input is invalid date and calls {@link GuiHelper#handleEmptyMandatoryEditText;} method to do things to the text field
      */
     static GregorianCalendar getDateFromMandatoryEditText(View view, int id) throws IllegalArgumentException {
-        //todo date formats
         EditText editText = (EditText) view.findViewById(id);
+
         String str = editText.getText().toString();
         str = str.replaceAll("\\.", "-");
+        str = str.replaceAll(",", "-");
+        str = str.replaceAll("/", "-");
+
         String date[];
         if (str.contains("-")) {
             date = str.split("-");
-        } else if (str.contains(",")) {
-            date = str.split(",");
-        } else if (str.contains(":")) {
-            date = str.split(":");
+
+            if (date.length != 3) {
+                handleEmptyMandatoryEditText(view, id);
+                throw new IllegalArgumentException();
+            }
         } else {
             handleEmptyMandatoryEditText(view, id);
             throw new IllegalArgumentException();
         }
-        return new GregorianCalendar(
-                Integer.parseInt(date[2]),
-                Integer.parseInt(date[1]) - 1,
-                Integer.parseInt(date[0])
-        );
+
+        try {
+            return parseGregorianCalendarFromStringArray(date, view.getContext());
+        } catch (IllegalArgumentException e) {
+            handleEmptyMandatoryEditText(view, id);
+            throw e;
+        }
     }
 
     /**
@@ -198,15 +205,12 @@ class GuiHelper {
     /**
      * extracts a GUI displayable String from the given {@link Exam}
      *
-     * @param exam {@link Exam} to extract from
+     * @param exam    {@link Exam} to extract from
+     * @param context context of the application
      * @return the Name of the {@link Subject} the {@link Exam} is in and the deadline as String. E.g "Math - 26.03.2017"
      */
-    static String extractGuiString(Exam exam) {
-        Calendar deadline = exam.getDeadline();
-        String dateString;
-
-        //TODO support different date formats
-        dateString = deadline.get(Calendar.DAY_OF_MONTH) + "." + String.valueOf(deadline.get(Calendar.MONTH) + 1) + "." + String.valueOf(deadline.get(Calendar.YEAR));
+    static String extractGuiString(Exam exam, Context context) {
+        String dateString = extractGuiString(exam.getDeadline(), false, context);
 
         return exam.getSubject().getName() + " - " + dateString;
     }
@@ -215,14 +219,11 @@ class GuiHelper {
      * extracts a GUI displayable String from the given {@link Homework}
      *
      * @param homework {@link Homework} to extract from
+     * @param context  the context of the application
      * @return the Name of the {@link Subject} the {@link Homework} was given in and the deadline as String. E.g "Math - 26.03.2017"
      */
-    static String extractGuiString(Homework homework) {
-        Calendar deadline = homework.getDeadline();
-        String dateString;
-
-        //TODO support different date formats
-        dateString = deadline.get(Calendar.DAY_OF_MONTH) + "." + String.valueOf(deadline.get(Calendar.MONTH) + 1) + "." + String.valueOf(deadline.get(Calendar.YEAR));
+    static String extractGuiString(Homework homework, Context context) {
+        String dateString = extractGuiString(homework.getDeadline(), false, context);
 
         return homework.getSubject().getName() + " - " + dateString;
     }
@@ -246,6 +247,7 @@ class GuiHelper {
      * extracts a GUI displayable String from the given {@link Teacher}
      *
      * @param teacher {@link Teacher} to extract from
+     * @param context the context of the application
      * @return the Name of the {@link Teacher} and if provided the abbreviation of the {@link Teacher} as String. E.g "Mr. Smith - SMT"
      */
     static String extractGuiString(Teacher teacher, Context context) {
@@ -265,7 +267,39 @@ class GuiHelper {
         return stringBuilder.toString();
     }
 
+    /**
+     * extracts a GUI displayable String from the given {@link GregorianCalendar}
+     *
+     * @param gregorianCalendar {@link GregorianCalendar} to extract from
+     * @param isTimeOnly        indicates if {@link GregorianCalendar} stores only time values (false if it's a date)
+     * @param context           context of the application
+     * @return if isTimeOnly == false: returns the date as string formatted like {@link Settings#getActiveDateFormat()} but separated by '.'-s
+     * <br></br>
+     * if isTimeOnly == true: returns the time as string e.g. HH:MM (24h-Format)
+     */
+    static String extractGuiString(GregorianCalendar gregorianCalendar, boolean isTimeOnly, Context context) {
+        String res = "";
+        if (isTimeOnly) {
+            res = gregorianCalendar.get(Calendar.HOUR) + ":" + gregorianCalendar.get(Calendar.MINUTE);
+        } else {
+            switch (Settings.getInstance(context).getActiveDateFormat()) {
+                case Settings.DATE_FORMAT_DDMMYYYY:
+                    res = gregorianCalendar.get(Calendar.DAY_OF_MONTH) + "." + (gregorianCalendar.get(Calendar.MONTH) + 1) + "." +
+                            gregorianCalendar.get(Calendar.YEAR);
+                    break;
+                case Settings.DATE_FORMAT_MMDDYYYY:
+                    res = (gregorianCalendar.get(Calendar.MONTH) + 1) + "." + gregorianCalendar.get(Calendar.DAY_OF_MONTH) + "." +
+                            gregorianCalendar.get(Calendar.YEAR);
+                    break;
+                case Settings.DATE_FORMAT_YYYYMMDD:
+                    res = gregorianCalendar.get(Calendar.YEAR) + "." + (gregorianCalendar.get(Calendar.MONTH) + 1) + "." +
+                            gregorianCalendar.get(Calendar.DAY_OF_MONTH);
+                    break;
 
+            }
+        }
+        return res;
+    }
     //endregion
 
     /**
@@ -310,17 +344,70 @@ class GuiHelper {
         return seekBar;
     }
 
+    //region private methods
+
     /**
      * can be used to indicate for the user that a {@link EditText} in the GUI must not be empty by displaying a Red hint "Mandatory Field"
      *
      * @param view the view the {@link EditText} is in
      * @param id   the ResourceID of the EditText
      */
-    static void handleEmptyMandatoryEditText(View view, int id) {
+    private static void handleEmptyMandatoryEditText(View view, int id) {
         EditText editText = (EditText) view.findViewById(id);
+        editText.setText("");
         editText.setHint(view.getContext().getResources().getString(R.string.string_mandatory_field));
         editText.setHintTextColor(Color.RED);
     }
+
+    /**
+     * method to parse a {@link GregorianCalendar} from a ordered {@link String}[]
+     *
+     * @param date    {@link Settings#getActiveDateFormat()} ordered {@link String}[]
+     * @param context the context of the application
+     * @return the parsed GregorianCalendar
+     */
+    private static GregorianCalendar parseGregorianCalendarFromStringArray(String[] date, Context context) {
+        GregorianCalendar gregCal;
+        switch (Settings.getInstance(context).getActiveDateFormat()) {
+            case Settings.DATE_FORMAT_DDMMYYYY:
+                if (date[0].length() != 2 && date[1].length() != 2 && date[2].length() != 4) {
+                    gregCal = new GregorianCalendar(
+                            Integer.parseInt(date[2]),
+                            Integer.parseInt(date[1]) - 1,
+                            Integer.parseInt(date[0])
+                    );
+                } else {
+                    throw new IllegalArgumentException();
+                }
+                break;
+            case Settings.DATE_FORMAT_MMDDYYYY:
+                if (date[0].length() != 2 && date[1].length() != 2 && date[2].length() != 4) {
+                    gregCal = new GregorianCalendar(
+                            Integer.parseInt(date[2]),
+                            Integer.parseInt(date[0]) - 1,
+                            Integer.parseInt(date[1])
+                    );
+                } else {
+                    throw new IllegalArgumentException();
+                }
+                break;
+            case Settings.DATE_FORMAT_YYYYMMDD:
+                if (date[1].length() != 4 && date[0].length() != 2 && date[2].length() != 2) {
+                    gregCal = new GregorianCalendar(
+                            Integer.parseInt(date[0]),
+                            Integer.parseInt(date[1]) - 1,
+                            Integer.parseInt(date[2])
+                    );
+                } else {
+                    throw new IllegalArgumentException();
+                }
+                break;
+            default:
+                throw new IllegalArgumentException();
+        }
+        return gregCal;
+    }
+    //endregion
 
 
 }

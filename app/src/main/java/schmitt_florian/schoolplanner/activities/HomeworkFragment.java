@@ -3,7 +3,6 @@ package schmitt_florian.schoolplanner.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -152,10 +151,10 @@ public class HomeworkFragment extends Fragment implements View.OnClickListener {
             Homework homework = dbHelper.getHomeworkAtId(homeworkIndex);
 
             if (tabIsToDo && !homework.isDone()) {
-                homeworkStrings.add(GuiHelper.extractGuiString(homework));
+                homeworkStrings.add(GuiHelper.extractGuiString(homework, getContext()));
                 homeworkArrayList.add(homework);
             } else if (!tabIsToDo && homework.isDone()) {
-                homeworkStrings.add(GuiHelper.extractGuiString(homework));
+                homeworkStrings.add(GuiHelper.extractGuiString(homework, getContext()));
                 homeworkArrayList.add(homework);
             }
         }
