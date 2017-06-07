@@ -40,7 +40,7 @@
     <string name="string_mr">Herr</string>
     <string name="string_mrs">Frau</string>
     <string name="string_add_teachers_first">Füge zuerst Lehrer hinzu</string>
-    <string name="string_due_date">Abgabe Datum</string>
+    <string name="string_due_date">Abgabedatum</string>
     <string name="string_description">Beschreibung</string>
     <string name="string_teachers">Lehrer</string>
     <string name="string_abbreviation">Abkürzung</string>
@@ -54,4 +54,14 @@
     <string name="string_do_you_really_want_to_delete_this_object_this_will_also_lead_to_the_deletion_of">Möchten sie dieses Objekt wirklich löschen? Dies würde auch zur Löschung von</string>
     <string name="string_related_objects">verbundenen Objekten führen.</string>
     <string name="string_cancel">Abbrechen</string>
+    <string name="string_amount_of_periods">Stundenzahl pro Tag</string>
+    <string name="string_general_settings">Allgemeine Einstellungen</string>
+    <string name="string_personalisation">Personalisierung</string>
+    <string name="string_select_date_format">Wähle Datumsformat</string>
+    <string name="string_select_language">Wähle Sprache</string>
+    <string name="string_select_theme_color">Wähle Farbschema</string>
+    <string name="navigation_drawer_close">Schließe Seitenleiste</string>
+    <string name="navigation_drawer_open">Öffne Seitenleiste</string>
+    <string name="string_settings_saved">Einstellungen gespeichert</string>
+    <string name="string_date_must_comply_with">Datum entspricht nicht</string>
 </resources>

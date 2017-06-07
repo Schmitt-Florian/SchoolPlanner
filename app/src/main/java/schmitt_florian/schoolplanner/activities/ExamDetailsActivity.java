@@ -87,8 +87,8 @@ public class ExamDetailsActivity extends AppCompatActivity {
     private void initGUI() {
         if (!addMode) {
             GuiHelper.setTextToTextView(rootView, R.id.examDetails_textDescription, showingExam.getDescription());
-            //todo use better date format than yyyy-mm-dd which actually causes errors when resaving
-            GuiHelper.setTextToTextView(rootView, R.id.examDetails_textDate, showingExam.getDeadlineAsDatabaseString());
+            GuiHelper.setTextToTextView(rootView, R.id.examDetails_textDate,
+                    GuiHelper.extractGuiString(showingExam.getDeadline(), false, rootView.getContext()));
 
             GuiHelper.setVisibility(rootView, R.id.examDetails_buttonDelete, View.VISIBLE);
         } else {

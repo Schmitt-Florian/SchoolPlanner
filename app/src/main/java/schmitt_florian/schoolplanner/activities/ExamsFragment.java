@@ -119,7 +119,7 @@ public class ExamsFragment extends Fragment implements View.OnClickListener {
         for (int examIndex : examIndices) {
             Exam exam = dbHelper.getExamAtId(examIndex);
 
-            examStrings.add(GuiHelper.extractGuiString(exam));
+            examStrings.add(GuiHelper.extractGuiString(exam, getContext()));
             examArrayList.add(exam);
         }
 
