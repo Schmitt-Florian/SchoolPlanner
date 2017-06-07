@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            if(loadedFragment.equals(new HomeFragment())){
+            if (loadedFragment instanceof HomeFragment) {
             super.onBackPressed();
             } else {
                 NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
