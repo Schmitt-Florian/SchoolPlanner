@@ -14,6 +14,7 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -90,18 +91,20 @@ class GuiHelper {
 
             if (date.length != 3) {
                 handleEmptyMandatoryEditText(view, id);
-                throw new IllegalArgumentException();
+                throw new IllegalArgumentException("date must be contain three elements");
             }
         } else {
             handleEmptyMandatoryEditText(view, id);
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("unknown date divider");
         }
 
         try {
             return parseGregorianCalendarFromStringArray(date, view.getContext());
-        } catch (IllegalArgumentException e) {
-            handleEmptyMandatoryEditText(view, id);
-            throw e;
+        } catch (IllegalArgumentException ex) {
+            handleEmptyMandatoryEditText(view, id,
+                    view.getContext().getResources().getString(R.string.string_date_must_comply_with) +
+                            " " + Settings.getInstance(view.getContext()).getActiveDateFormat());
+            throw ex;
         }
     }
 
@@ -295,7 +298,6 @@ class GuiHelper {
                     res = gregorianCalendar.get(Calendar.YEAR) + "." + (gregorianCalendar.get(Calendar.MONTH) + 1) + "." +
                             gregorianCalendar.get(Calendar.DAY_OF_MONTH);
                     break;
-
             }
         }
         return res;
@@ -353,9 +355,20 @@ class GuiHelper {
      * @param id   the ResourceID of the EditText
      */
     private static void handleEmptyMandatoryEditText(View view, int id) {
+        handleEmptyMandatoryEditText(view, id, view.getContext().getResources().getString(R.string.string_mandatory_field));
+    }
+
+    /**
+     * can be used to indicate for the user that a {@link EditText} in the GUI must not be empty by displaying a Red hint with your message
+     *
+     * @param view    the view the {@link EditText} is in
+     * @param id      the ResourceID of the EditText
+     * @param message the message to display in the hint
+     */
+    private static void handleEmptyMandatoryEditText(View view, int id, String message) {
         EditText editText = (EditText) view.findViewById(id);
         editText.setText("");
-        editText.setHint(view.getContext().getResources().getString(R.string.string_mandatory_field));
+        editText.setHint(message);
         editText.setHintTextColor(Color.RED);
     }
 
@@ -365,45 +378,47 @@ class GuiHelper {
      * @param date    {@link Settings#getActiveDateFormat()} ordered {@link String}[]
      * @param context the context of the application
      * @return the parsed GregorianCalendar
+     * @throws IllegalArgumentException if the given array don't meets the {@link Settings#getActiveDateFormat()} standard
      */
-    private static GregorianCalendar parseGregorianCalendarFromStringArray(String[] date, Context context) {
+    private static GregorianCalendar parseGregorianCalendarFromStringArray(String[] date, Context context) throws IllegalArgumentException {
         GregorianCalendar gregCal;
-        switch (Settings.getInstance(context).getActiveDateFormat()) {
+        String activeDateFormat = Settings.getInstance(context).getActiveDateFormat();
+        switch (activeDateFormat) {
             case Settings.DATE_FORMAT_DDMMYYYY:
-                if (date[0].length() != 2 && date[1].length() != 2 && date[2].length() != 4) {
+                if (date[0].length() <= 2 && date[1].length() <= 2 && date[2].length() == 4) {
                     gregCal = new GregorianCalendar(
                             Integer.parseInt(date[2]),
                             Integer.parseInt(date[1]) - 1,
                             Integer.parseInt(date[0])
                     );
                 } else {
-                    throw new IllegalArgumentException();
+                    throw new IllegalArgumentException(Arrays.toString(date) + " is no valid array for DATE_FORMAT_DDMMYYYY");
                 }
                 break;
             case Settings.DATE_FORMAT_MMDDYYYY:
-                if (date[0].length() != 2 && date[1].length() != 2 && date[2].length() != 4) {
+                if (date[0].length() <= 2 && date[1].length() <= 2 && date[2].length() == 4) {
                     gregCal = new GregorianCalendar(
                             Integer.parseInt(date[2]),
                             Integer.parseInt(date[0]) - 1,
                             Integer.parseInt(date[1])
                     );
                 } else {
-                    throw new IllegalArgumentException();
+                    throw new IllegalArgumentException(Arrays.toString(date) + " is no valid array for DATE_FORMAT_MMDDYYYY");
                 }
                 break;
             case Settings.DATE_FORMAT_YYYYMMDD:
-                if (date[1].length() != 4 && date[0].length() != 2 && date[2].length() != 2) {
+                if (date[0].length() == 4 && date[1].length() <= 2 && date[2].length() <= 2) {
                     gregCal = new GregorianCalendar(
                             Integer.parseInt(date[0]),
                             Integer.parseInt(date[1]) - 1,
                             Integer.parseInt(date[2])
                     );
                 } else {
-                    throw new IllegalArgumentException();
+                    throw new IllegalArgumentException(Arrays.toString(date) + " is no valid array for DATE_FORMAT_YYYYMMDD");
                 }
                 break;
             default:
-                throw new IllegalArgumentException();
+                throw new IllegalArgumentException(Settings.getInstance(context).getActiveDateFormat() + " is not supported");
         }
         return gregCal;
     }
