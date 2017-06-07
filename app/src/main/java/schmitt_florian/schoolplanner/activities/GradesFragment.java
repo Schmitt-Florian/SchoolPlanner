@@ -43,6 +43,8 @@ public class GradesFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_grades, container, false);
+//        ToggleButton editButton = (ToggleButton) view.findViewById(R.id.toggleEditSchedule);
+//        editButton.setVisibility(View.INVISIBLE);
 
         initGui(view);
         return view;

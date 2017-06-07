@@ -72,8 +72,8 @@ public class ScheduleFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_schedule, container, false);
-//        Switch editSwitch = (Switch) view.findViewById(R.id.switch_edit_schedule);
-//        editSwitch.setVisibility(View.VISIBLE);
+//        ToggleButton editButton = (ToggleButton) view.findViewById(R.id.toggleEditSchedule);
+//        editButton.setVisibility(View.VISIBLE);
         return view;
 
     }
