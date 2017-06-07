@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements
             int lastFragmentMenuItemId = preferences.getInt("lastFragment", 0);
             MenuItem lastFragmentMenuItem = navigationView.getMenu().getItem(lastFragmentMenuItemId);
 
+            lastFragmentMenuItem.setChecked(true);
             onNavigationItemSelected(lastFragmentMenuItem);
         }
     }

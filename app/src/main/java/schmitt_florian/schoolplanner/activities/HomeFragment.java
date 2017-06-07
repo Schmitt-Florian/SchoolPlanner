@@ -124,8 +124,7 @@ public class HomeFragment extends Fragment {
                 GuiHelper.setTextToTextView(view, R.id.home_labelWeekday, getString(R.string.string_error));
                 break;
         }
-        //TODO support different date formats
-        GuiHelper.setTextToTextView(view, R.id.home_labelDate, calendar.get(Calendar.DAY_OF_MONTH) + "." + String.valueOf(calendar.get(Calendar.MONTH) + 1) + "." + calendar.get(Calendar.YEAR));
+        GuiHelper.setTextToTextView(view, R.id.home_labelDate, GuiHelper.extractGuiString(calendar, false, getContext()));
     }
 
     /**
@@ -187,7 +186,7 @@ public class HomeFragment extends Fragment {
      * @param date the date
      * @return true if the date is in the current week, else false
      */
-    private boolean isDateInThisWeek(GregorianCalendar date) {
+    private boolean isDateInThisWeek(Calendar date) {
         Calendar calendar = GregorianCalendar.getInstance();
 
         return date.get(Calendar.WEEK_OF_YEAR) == calendar.get(Calendar.WEEK_OF_YEAR) &&

@@ -99,7 +99,7 @@ class GuiHelper {
         }
 
         try {
-            return parseGregorianCalendarFromStringArray(date, view.getContext());
+            return (GregorianCalendar) parseCalendarFromStringArray(date, view.getContext());
         } catch (IllegalArgumentException ex) {
             handleEmptyMandatoryEditText(view, id,
                     view.getContext().getResources().getString(R.string.string_date_must_comply_with) +
@@ -271,32 +271,32 @@ class GuiHelper {
     }
 
     /**
-     * extracts a GUI displayable String from the given {@link GregorianCalendar}
+     * extracts a GUI displayable String from the given {@link Calendar}
      *
-     * @param gregorianCalendar {@link GregorianCalendar} to extract from
-     * @param isTimeOnly        indicates if {@link GregorianCalendar} stores only time values (false if it's a date)
-     * @param context           context of the application
+     * @param calendar   {@link Calendar} to extract from
+     * @param isTimeOnly indicates if {@link Calendar} stores only time values (false if it's a date)
+     * @param context    context of the application
      * @return if isTimeOnly == false: returns the date as string formatted like {@link Settings#getActiveDateFormat()} but separated by '.'-s
      * <br></br>
      * if isTimeOnly == true: returns the time as string e.g. HH:MM (24h-Format)
      */
-    static String extractGuiString(GregorianCalendar gregorianCalendar, boolean isTimeOnly, Context context) {
+    static String extractGuiString(Calendar calendar, boolean isTimeOnly, Context context) {
         String res = "";
         if (isTimeOnly) {
-            res = gregorianCalendar.get(Calendar.HOUR) + ":" + gregorianCalendar.get(Calendar.MINUTE);
+            res = calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE);
         } else {
             switch (Settings.getInstance(context).getActiveDateFormat()) {
                 case Settings.DATE_FORMAT_DDMMYYYY:
-                    res = gregorianCalendar.get(Calendar.DAY_OF_MONTH) + "." + (gregorianCalendar.get(Calendar.MONTH) + 1) + "." +
-                            gregorianCalendar.get(Calendar.YEAR);
+                    res = calendar.get(Calendar.DAY_OF_MONTH) + "." + (calendar.get(Calendar.MONTH) + 1) + "." +
+                            calendar.get(Calendar.YEAR);
                     break;
                 case Settings.DATE_FORMAT_MMDDYYYY:
-                    res = (gregorianCalendar.get(Calendar.MONTH) + 1) + "." + gregorianCalendar.get(Calendar.DAY_OF_MONTH) + "." +
-                            gregorianCalendar.get(Calendar.YEAR);
+                    res = (calendar.get(Calendar.MONTH) + 1) + "." + calendar.get(Calendar.DAY_OF_MONTH) + "." +
+                            calendar.get(Calendar.YEAR);
                     break;
                 case Settings.DATE_FORMAT_YYYYMMDD:
-                    res = gregorianCalendar.get(Calendar.YEAR) + "." + (gregorianCalendar.get(Calendar.MONTH) + 1) + "." +
-                            gregorianCalendar.get(Calendar.DAY_OF_MONTH);
+                    res = calendar.get(Calendar.YEAR) + "." + (calendar.get(Calendar.MONTH) + 1) + "." +
+                            calendar.get(Calendar.DAY_OF_MONTH);
                     break;
             }
         }
@@ -373,20 +373,20 @@ class GuiHelper {
     }
 
     /**
-     * method to parse a {@link GregorianCalendar} from a ordered {@link String}[]
+     * method to parse a {@link Calendar} from a ordered {@link String}[]
      *
      * @param date    {@link Settings#getActiveDateFormat()} ordered {@link String}[]
      * @param context the context of the application
-     * @return the parsed GregorianCalendar
+     * @return the parsed Calendar
      * @throws IllegalArgumentException if the given array don't meets the {@link Settings#getActiveDateFormat()} standard
      */
-    private static GregorianCalendar parseGregorianCalendarFromStringArray(String[] date, Context context) throws IllegalArgumentException {
-        GregorianCalendar gregCal;
+    private static Calendar parseCalendarFromStringArray(String[] date, Context context) throws IllegalArgumentException {
+        Calendar calendar;
         String activeDateFormat = Settings.getInstance(context).getActiveDateFormat();
         switch (activeDateFormat) {
             case Settings.DATE_FORMAT_DDMMYYYY:
                 if (date[0].length() <= 2 && date[1].length() <= 2 && date[2].length() == 4) {
-                    gregCal = new GregorianCalendar(
+                    calendar = new GregorianCalendar(
                             Integer.parseInt(date[2]),
                             Integer.parseInt(date[1]) - 1,
                             Integer.parseInt(date[0])
@@ -397,7 +397,7 @@ class GuiHelper {
                 break;
             case Settings.DATE_FORMAT_MMDDYYYY:
                 if (date[0].length() <= 2 && date[1].length() <= 2 && date[2].length() == 4) {
-                    gregCal = new GregorianCalendar(
+                    calendar = new GregorianCalendar(
                             Integer.parseInt(date[2]),
                             Integer.parseInt(date[0]) - 1,
                             Integer.parseInt(date[1])
@@ -408,7 +408,7 @@ class GuiHelper {
                 break;
             case Settings.DATE_FORMAT_YYYYMMDD:
                 if (date[0].length() == 4 && date[1].length() <= 2 && date[2].length() <= 2) {
-                    gregCal = new GregorianCalendar(
+                    calendar = new GregorianCalendar(
                             Integer.parseInt(date[0]),
                             Integer.parseInt(date[1]) - 1,
                             Integer.parseInt(date[2])
@@ -420,7 +420,7 @@ class GuiHelper {
             default:
                 throw new IllegalArgumentException(Settings.getInstance(context).getActiveDateFormat() + " is not supported");
         }
-        return gregCal;
+        return calendar;
     }
     //endregion
 

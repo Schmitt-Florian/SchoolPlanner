@@ -88,8 +88,8 @@ public class HomeworkDetailsActivity extends AppCompatActivity {
     private void initGUI() {
         if (!addMode) {
             GuiHelper.setTextToTextView(rootView, R.id.homeworkDetails_textDescription, showingHomework.getDescription());
-            //todo use better date format than yyyy-mm-dd which actually causes errors when resaving
-            GuiHelper.setTextToTextView(rootView, R.id.homeworkDetails_textDate, showingHomework.getDeadlineAsDatabaseString());
+            GuiHelper.setTextToTextView(rootView, R.id.homeworkDetails_textDate,
+                    GuiHelper.extractGuiString(showingHomework.getDeadline(), false, rootView.getContext()));
             ((SwitchCompat) findViewById(R.id.homeworkDetails_switchDone)).setChecked(showingHomework.isDone());
 
             GuiHelper.setVisibility(rootView, R.id.homeworkDetails_buttonDelete, View.VISIBLE);
