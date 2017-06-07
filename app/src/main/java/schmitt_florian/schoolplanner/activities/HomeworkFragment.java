@@ -76,11 +76,11 @@ public class HomeworkFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.homework_buttonToDo:
                 tabIsToDo = true;
-                changeTab();
+                allHomeworkInList = changeTab();
                 break;
             case R.id.homework_buttonDone:
                 tabIsToDo = false;
-                changeTab();
+                allHomeworkInList = changeTab();
                 break;
             case R.id.homework_floatingActionButton_add:
                 startActivity(new Intent(getContext(), HomeworkDetailsActivity.class));

@@ -90,11 +90,13 @@ public class HomeworkDetailsActivity extends AppCompatActivity {
             GuiHelper.setTextToTextView(rootView, R.id.homeworkDetails_textDescription, showingHomework.getDescription());
             //todo use better date format than yyyy-mm-dd which actually causes errors when resaving
             GuiHelper.setTextToTextView(rootView, R.id.homeworkDetails_textDate, showingHomework.getDeadlineAsDatabaseString());
-            (findViewById(R.id.homeworkDetails_switchDone)).setSelected(true);
+            ((SwitchCompat) findViewById(R.id.homeworkDetails_switchDone)).setChecked(showingHomework.isDone());
 
             GuiHelper.setVisibility(rootView, R.id.homeworkDetails_buttonDelete, View.VISIBLE);
+            GuiHelper.setVisibility(rootView, R.id.homeworkDetails_switchDone, View.VISIBLE);
         } else {
             GuiHelper.setVisibility(rootView, R.id.homeworkDetails_buttonDelete, View.GONE);
+            GuiHelper.setVisibility(rootView, R.id.homeworkDetails_switchDone, View.INVISIBLE);
         }
 
         subjectsInSpinner = fillSpinner();
@@ -161,7 +163,7 @@ public class HomeworkDetailsActivity extends AppCompatActivity {
                     subjectsInSpinner[spinner.getSelectedItemPosition()],
                     GuiHelper.getInputFromMandatoryEditText(rootView, R.id.homeworkDetails_textDescription),
                     GuiHelper.getDateFromMandatoryEditText(rootView, R.id.homeworkDetails_textDate),
-                    switchCompat.isSelected()
+                    switchCompat.isChecked()
             );
         }
 
