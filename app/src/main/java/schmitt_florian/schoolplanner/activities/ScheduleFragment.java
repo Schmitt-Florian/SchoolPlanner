@@ -8,81 +8,41 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TableLayout;
 import android.widget.TableRow;
 
+import java.util.ArrayList;
+
 import schmitt_florian.schoolplanner.R;
+import schmitt_florian.schoolplanner.logic.Settings;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
  * {@link ScheduleFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link ScheduleFragment#newInstance} factory method to
- * create an instance of this fragment.
  */
 public class ScheduleFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
+    @SuppressWarnings({"FieldNever", "unused"})
     private OnFragmentInteractionListener mListener;
-
+    private View rootView;
     private TableRow[] rows = new TableRow[15];
-    private int visibleRowCount = 6;
-
-    public ScheduleFragment() {
-    }
-    // Required empty public constructor
-
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ScheduleFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ScheduleFragment newInstance(String param1, String param2) {
-        ScheduleFragment fragment = new ScheduleFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_schedule, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        rootView = inflater.inflate(R.layout.fragment_schedule, container, false);
+
+        initGui();
 //        ToggleButton editButton = (ToggleButton) view.findViewById(R.id.toggleEditSchedule);
 //        editButton.setVisibility(View.VISIBLE);
-        return view;
+        return rootView;
 
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
     }
 
     @Override
@@ -113,19 +73,49 @@ public class ScheduleFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
+        @SuppressWarnings({"FieldNever", "unused"})
         void onFragmentInteraction(Uri uri);
     }
 
-    private void setVisibilityforSchedule() {
+
+    //region private methods
+
+    /**
+     * method to initialise components of the GUI
+     */
+    private void initGui() {
+        rows = getScheduleRowsInArray();
+        initVisibilityForSchedule();
+    }
+
+    /**
+     * method to get all {@link TableRow} in the schedule {@link TableLayout}
+     *
+     * @return all {@link TableRow} in the schedule {@link TableLayout}
+     */
+    private TableRow[] getScheduleRowsInArray() {
+        TableLayout table = (TableLayout) rootView.findViewById(R.id.schedule_table);
+        ArrayList<TableRow> rowArrayList = new ArrayList<>();
+
+        for (int i = 0; i < table.getChildCount(); i++) {
+            rowArrayList.add((TableRow) table.getChildAt(i));
+        }
+
+        return rowArrayList.toArray(new TableRow[0]);
+    }
+
+    /**
+     * method to initialise visibility of the schedule rows based on {@link Settings#getPeriodsAtDay()}
+     */
+    private void initVisibilityForSchedule() {
+        int visibleRowCount = Settings.getInstance(getContext()).getPeriodsAtDay() + 1;
         for (int i = 0; i < visibleRowCount; i++) {
             rows[i].setVisibility(View.VISIBLE);
         }
-        for (int i = rows.length; i > visibleRowCount; i++) {
-            rows[i].setVisibility(View.GONE);
+        for (int i = rows.length; i > visibleRowCount; i--) {
+            rows[i - 1].setVisibility(View.GONE);
         }
-
-
     }
+    //endregion
 
 }
