@@ -2,6 +2,7 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/appbar_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="schmitt_florian.schoolplanner.activities.MainActivity">
@@ -18,23 +19,23 @@
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="?attr/actionBarSize"
                 android:layout_weight="1"
                 android:background="@color/primary"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
                 app:title="@string/app_name" />
 
-            <ToggleButton
-                android:id="@+id/toggleEditSchedule"
-                android:layout_width="62dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="6dp"
-                android:checked="false"
-                android:text="ToggleButton"
-                android:textOff="View"
-                android:textOn="Edit"
-                android:textStyle="bold" />
+            <Switch
+                android:id="@+id/appbar_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:switchMinWidth="70dp"
+                android:text="@string/string_edit"
+                android:textAlignment="textEnd"
+                android:visibility="gone" />
 
         </LinearLayout>
 
