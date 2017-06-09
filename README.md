@@ -1,6 +1,6 @@
 # Schoolplanner
 
-This is a schoolplanner. It plans school.
+This is a schoolplanner. You can use it to remember your schedule, your homework and the dates of your exams. That way you can always be prepared for class. Also can you keep track of your grades so you know in what subject you have to work harder to get a better final mark.
 
 ## Prerequisites
 
