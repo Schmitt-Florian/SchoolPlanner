@@ -5,6 +5,7 @@ import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,8 @@ public class ScheduleFragment extends Fragment {
     @SuppressWarnings({"FieldNever", "unused"})
     private OnFragmentInteractionListener mListener;
     private View rootView;
-    private TableRow[] rows = new TableRow[15];
+    private TableRow[] rows;
+    private boolean editMode;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,8 +41,6 @@ public class ScheduleFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_schedule, container, false);
 
         initGui();
-//        ToggleButton editButton = (ToggleButton) view.findViewById(R.id.toggleEditSchedule);
-//        editButton.setVisibility(View.VISIBLE);
         return rootView;
 
     }
@@ -86,6 +86,10 @@ public class ScheduleFragment extends Fragment {
     private void initGui() {
         rows = getScheduleRowsInArray();
         initVisibilityForSchedule();
+
+        SwitchCompat editSwitch = (SwitchCompat) getActivity().findViewById(R.id.appbar_switch);
+        editSwitch.setVisibility(View.VISIBLE);
+        editMode = editSwitch.isChecked();
     }
 
     /**

@@ -757,11 +757,12 @@
 
                         <Button
                             android:id="@+id/button81"
+                            style="@style/Widget.AppCompat.Button.Borderless"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:clickable="false"
-                            android:text="7" />
+                            android:text="10" />
 
                         <Button
                             android:id="@+id/button82"
@@ -828,11 +829,12 @@
 
                         <Button
                             android:id="@+id/button89"
+                            style="@style/Widget.AppCompat.Button.Borderless"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:clickable="false"
-                            android:text="7" />
+                            android:text="11" />
 
                         <Button
                             android:id="@+id/button90"
@@ -899,11 +901,12 @@
 
                         <Button
                             android:id="@+id/button97"
+                            style="@style/Widget.AppCompat.Button.Borderless"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:clickable="false"
-                            android:text="7" />
+                            android:text="12" />
 
                         <Button
                             android:id="@+id/button98"
@@ -970,11 +973,12 @@
 
                         <Button
                             android:id="@+id/button105"
+                            style="@style/Widget.AppCompat.Button.Borderless"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:clickable="false"
-                            android:text="7" />
+                            android:text="13" />
 
                         <Button
                             android:id="@+id/button106"
@@ -1041,11 +1045,12 @@
 
                         <Button
                             android:id="@+id/button113"
+                            style="@style/Widget.AppCompat.Button.Borderless"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:clickable="false"
-                            android:text="7" />
+                            android:text="14" />
 
                         <Button
                             android:id="@+id/button114"
@@ -1112,11 +1117,12 @@
 
                         <Button
                             android:id="@+id/button121"
+                            style="@style/Widget.AppCompat.Button.Borderless"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:clickable="false"
-                            android:text="7" />
+                            android:text="15" />
 
                         <Button
                             android:id="@+id/button122"

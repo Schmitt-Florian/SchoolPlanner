@@ -2,7 +2,6 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/appbar_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="schmitt_florian.schoolplanner.activities.MainActivity">
@@ -26,16 +25,20 @@
                 app:popupTheme="@style/AppTheme.PopupOverlay"
                 app:title="@string/app_name" />
 
-            <Switch
+            <android.support.v7.widget.SwitchCompat
                 android:id="@+id/appbar_switch"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/fab_margin"
                 android:layout_weight="1"
-                android:switchMinWidth="70dp"
+                android:checked="false"
                 android:text="@string/string_edit"
                 android:textAlignment="textEnd"
-                android:visibility="gone" />
+                android:textAppearance="@android:style/TextAppearance.Material.Small"
+                android:textColor="@color/secondary_text"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:switchMinWidth="70dp" />
 
         </LinearLayout>
 
