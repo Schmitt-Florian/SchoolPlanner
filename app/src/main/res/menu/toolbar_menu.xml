@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_main_setting"
+        android:icon="@android:drawable/ic_menu_edit"
+        android:orderInCategory="100"
+        app:showAsAction="always"
+        android:actionLayout="@layout/app_bar_main"
+        android:title="EDIT" />
+
+    <!--<item-->
+    <!--android:id="@+id/menu_main_setting2"-->
+    <!--android:icon="@drawable/ic_settings"-->
+    <!--android:orderInCategory="200"-->
+    <!--app:showAsAction="never"-->
+    <!--android:actionLayout="@layout/app_bar_main"-->
+    <!--android:title="Setting" />-->
+</menu>

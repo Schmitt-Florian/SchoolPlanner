@@ -25,16 +25,16 @@
                 app:popupTheme="@style/AppTheme.PopupOverlay"
                 app:title="@string/app_name" />
 
-            <ToggleButton
-                android:id="@+id/toggleEditSchedule"
-                android:layout_width="62dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="6dp"
-                android:checked="false"
-                android:text="ToggleButton"
-                android:textOff="View"
-                android:textOn="Edit"
-                android:textStyle="bold" />
+            <!--<ToggleButton-->
+            <!--android:id="@+id/toggleEditSchedule"-->
+            <!--android:layout_width="62dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginRight="6dp"-->
+            <!--android:checked="false"-->
+            <!--android:text="ToggleButton"-->
+            <!--android:textOff="View"-->
+            <!--android:textOn="Edit"-->
+            <!--android:textStyle="bold" />-->
 
         </LinearLayout>
 

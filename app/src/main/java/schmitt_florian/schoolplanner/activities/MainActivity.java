@@ -11,10 +11,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import schmitt_florian.schoolplanner.R;
@@ -35,13 +37,15 @@ public class MainActivity extends AppCompatActivity implements
     private static final String TAG = "MainActivity";
     private Fragment loadedFragment;
     private FragmentManager fragmentManager;
-
+    private Toolbar toolbar;
+    private DrawerLayout drawer;
+    private boolean MENUSTATE = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initDrawer();
+
         fragmentManager = this.getSupportFragmentManager();
 
         //----TESTING----
@@ -51,6 +55,18 @@ public class MainActivity extends AppCompatActivity implements
 
         System.out.println(testHelper.toString());
         //----TESTING----
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
+        ab.setHomeButtonEnabled(true);
+        initDrawer();
+//        if (getSupportActionBar() != null) {
+//            getSupportActionBar().setTitle("Main Page");
+//        }
+//        toolbar.setSubtitle("Test Subtitle");
+
+
     }
 
     /**
@@ -103,49 +119,59 @@ public class MainActivity extends AppCompatActivity implements
             case R.id.nav_main: {
                 // Goto Home
                 loadedFragment = new HomeFragment();
+                MENUSTATE = false;
                 break;
             }
             case R.id.nav_schedule: {
                 // Goto Schedule
                 loadedFragment = new ScheduleFragment();
+                MENUSTATE = true;
                 break;
             }
             case R.id.nav_homework: {
                 //Goto Homework
                 loadedFragment = new HomeworkFragment();
+                MENUSTATE = false;
                 break;
             }
             case R.id.nav_exams: {
                 // Goto Exams
                 loadedFragment = new ExamsFragment();
+                MENUSTATE = false;
                 break;
             }
             case R.id.nav_grades: {
                 // Goto Subjects
                 loadedFragment = new GradesFragment();
+                hideMenu();
                 break;
             }
             case R.id.nav_teachers: {
                 // Goto Subjects
                 loadedFragment = new TeachersFragment();
+                MENUSTATE = false;
                 break;
             }
             case R.id.nav_subjects: {
                 // Goto Subjects
                 loadedFragment = new SubjectsFragment();
+                MENUSTATE = false;
                 break;
             }
             case R.id.nav_credits: {
                 //Goto Credits
                 loadedFragment = new CreditsFragment();
+                MENUSTATE = false;
                 break;
             }
             case R.id.nav_settings: {
                 // Goto Settings
                 loadedFragment = new SettingsFragment();
+                MENUSTATE = false;
                 break;
             }
             default: {
+                MENUSTATE = false;
                 return false;
             }
         }
@@ -185,7 +211,7 @@ public class MainActivity extends AppCompatActivity implements
      * method to configure the navigation drawer
      */
     private void initDrawer() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, (Toolbar) findViewById(R.id.toolbar), R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
@@ -205,32 +231,83 @@ public class MainActivity extends AppCompatActivity implements
         if (loadedFragment instanceof CreditsFragment) {
             loadedFragment = new CreditsFragment();
             temp = 7;
+
         } else if (loadedFragment instanceof ExamsFragment) {
             loadedFragment = new ExamsFragment();
             temp = 3;
+
         } else if (loadedFragment instanceof GradesFragment) {
             loadedFragment = new GradesFragment();
             temp = 4;
+
         } else if (loadedFragment instanceof HomeFragment) {
             loadedFragment = new HomeFragment();
             temp = 0;
+
         } else if (loadedFragment instanceof HomeworkFragment) {
             loadedFragment = new HomeworkFragment();
             temp = 2;
+
         } else if (loadedFragment instanceof ScheduleFragment) {
             loadedFragment = new ScheduleFragment();
             temp = 1;
+
         } else if (loadedFragment instanceof SettingsFragment) {
             loadedFragment = new SettingsFragment();
             temp = 8;
+
         } else if (loadedFragment instanceof SubjectsFragment) {
             loadedFragment = new SubjectsFragment();
             temp = 6;
+
         } else if (loadedFragment instanceof TeachersFragment) {
             loadedFragment = new TeachersFragment();
             temp = 5;
+
         }
+
         return temp;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        Log.d(TAG, "onCreateOptionsMenu");
+        if (MENUSTATE)
+            showMenu();
+        else
+            hideMenu();
+
+        return true;
+    }
+
+    private void showMenu() {
+        try {
+            toolbar.getMenu().getItem(0).setVisible(true);
+
+        } catch (IndexOutOfBoundsException ex) {
+        }
+    }
+
+    private void hideMenu() {
+        try {
+            toolbar.getMenu().getItem(0).setVisible(false);
+            Log.d(TAG, "hideMenu: false");
+        } catch (IndexOutOfBoundsException ex) {
+        }
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                drawer.openDrawer(GravityCompat.START);  // OPEN DRAWER
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
     //endregion
 }
