@@ -37,7 +37,7 @@
                 android:textAllCaps="false"
                 android:textAppearance="@android:style/TextAppearance.Material.Small"
                 android:textColor="@color/icons"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:switchMinWidth="80dp" />
 
         </LinearLayout>
