@@ -11,7 +11,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         android:orientation="vertical">
 
         <TextView
@@ -87,8 +86,7 @@
             android:layout_marginEnd="@dimen/fab_margin"
             android:layout_marginStart="@dimen/small_fab_margin"
             android:layout_marginTop="@dimen/fab_margin"
-            android:text="@string/string_personalisation"
-            android:textStyle="italic" />
+            android:text="@string/string_personalisation" />
 
         <TextView
             android:id="@+id/settings_labelLanguage"

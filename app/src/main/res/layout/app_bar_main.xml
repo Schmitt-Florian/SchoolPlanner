@@ -28,17 +28,17 @@
             <android.support.v7.widget.SwitchCompat
                 android:id="@+id/appbar_switch"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/fab_margin"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_marginEnd="@dimen/fab_margin"
                 android:layout_weight="1"
                 android:checked="false"
                 android:text="@string/string_edit"
                 android:textAlignment="textEnd"
+                android:textAllCaps="false"
                 android:textAppearance="@android:style/TextAppearance.Material.Small"
-                android:textColor="@color/secondary_text"
-                android:textStyle="bold"
-                android:visibility="gone"
-                app:switchMinWidth="70dp" />
+                android:textColor="@color/icons"
+                android:visibility="visible"
+                app:switchMinWidth="80dp" />
 
         </LinearLayout>
 
