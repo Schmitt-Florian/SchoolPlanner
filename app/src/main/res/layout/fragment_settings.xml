@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/settings_main"
     android:layout_width="match_parent"
@@ -7,24 +7,26 @@
     app:layout_collapseMode="none"
     app:layout_collapseParallaxMultiplier="1.0">
 
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/settings_labelGeneral"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/small_fab_margin"
-            android:layout_marginRight="@dimen/fab_margin"
+            android:layout_marginEnd="@dimen/fab_margin"
+            android:layout_marginStart="@dimen/small_fab_margin"
             android:layout_marginTop="@dimen/fab_margin"
             android:text="@string/string_general_settings"
             android:textStyle="italic" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/small_fab_margin"
             android:orientation="horizontal">
 
@@ -42,10 +44,10 @@
                 android:id="@+id/settings_textviewSeekbarPeriodsPos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/fab_margin"
-                android:layout_marginRight="@dimen/big_fab_margin"
+                android:layout_marginEnd="@dimen/big_fab_margin"
+                android:layout_marginStart="@dimen/fab_margin"
                 android:layout_weight="1"
-                android:text="15"
+                android:text=""
                 android:textAlignment="textEnd"
                 android:textStyle="bold" />
 
@@ -78,19 +80,12 @@
             android:layout_marginRight="@dimen/fab_margin"
             android:layout_marginTop="@dimen/fab_margin" />
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
         <TextView
             android:id="@+id/settings_labelPersonalisation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/small_fab_margin"
-            android:layout_marginRight="@dimen/fab_margin"
+            android:layout_marginEnd="@dimen/fab_margin"
+            android:layout_marginStart="@dimen/small_fab_margin"
             android:layout_marginTop="@dimen/fab_margin"
             android:text="@string/string_personalisation"
             android:textStyle="italic" />
@@ -130,18 +125,21 @@
             android:layout_marginLeft="@dimen/fab_margin"
             android:layout_marginRight="@dimen/fab_margin"
             android:layout_marginTop="@dimen/fab_margin" />
-
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true">
 
         <Button
             android:id="@+id/settings_buttonSave"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:backgroundTint="@color/accent"
             android:text="@string/string_save" />
     </LinearLayout>
-</LinearLayout>
+
+</RelativeLayout>
