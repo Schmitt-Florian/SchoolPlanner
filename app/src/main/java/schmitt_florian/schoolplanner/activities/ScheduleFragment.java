@@ -9,6 +9,8 @@ import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
@@ -27,7 +29,9 @@ public class ScheduleFragment extends Fragment {
     @SuppressWarnings({"FieldNever", "unused"})
     private OnFragmentInteractionListener mListener;
     private View rootView;
+    private TableLayout table;
     private TableRow[] rows;
+    private Button[][] buttons;
     private boolean editMode;
 
     @Override
@@ -84,12 +88,14 @@ public class ScheduleFragment extends Fragment {
      * method to initialise components of the GUI
      */
     private void initGui() {
+        table = (TableLayout) rootView.findViewById(R.id.schedule_table);
+
         rows = getScheduleRowsInArray();
         initVisibilityForSchedule();
 
-        SwitchCompat editSwitch = (SwitchCompat) getActivity().findViewById(R.id.appbar_switch);
-        editSwitch.setVisibility(View.VISIBLE);
-        editMode = editSwitch.isChecked();
+        buttons = getScheduleButtonsAsArray();
+
+        initAppbarEditSwitch();
     }
 
     /**
@@ -98,7 +104,6 @@ public class ScheduleFragment extends Fragment {
      * @return all {@link TableRow} in the schedule {@link TableLayout}
      */
     private TableRow[] getScheduleRowsInArray() {
-        TableLayout table = (TableLayout) rootView.findViewById(R.id.schedule_table);
         ArrayList<TableRow> rowArrayList = new ArrayList<>();
 
         for (int i = 0; i < table.getChildCount(); i++) {
@@ -106,6 +111,22 @@ public class ScheduleFragment extends Fragment {
         }
 
         return rowArrayList.toArray(new TableRow[0]);
+    }
+
+    /**
+     * method to get all {@link Button}s in the schedule {@link TableLayout}
+     *
+     * @return all {@link Button}s in the schedule {@link TableLayout}
+     */
+    private Button[][] getScheduleButtonsAsArray() {
+        Button[][] buttons = new Button[((LinearLayout) rows[0].getChildAt(0)).getChildCount()][table.getChildCount()];
+
+        for (int i = 0; i < rows.length; i++) {
+            for (int j = 0; j < ((LinearLayout) rows[i].getChildAt(0)).getChildCount(); j++) {
+                buttons[j][i] = (Button) ((LinearLayout) rows[i].getChildAt(0)).getChildAt(j);
+            }
+        }
+        return buttons;
     }
 
     /**
@@ -120,6 +141,17 @@ public class ScheduleFragment extends Fragment {
             rows[i - 1].setVisibility(View.GONE);
         }
     }
+
+    /**
+     * method to initialise the Edit {@link SwitchCompat} in the appbar and define {@link ScheduleFragment#editMode}
+     */
+    private void initAppbarEditSwitch() {
+        SwitchCompat editSwitch = (SwitchCompat) getActivity().findViewById(R.id.appbar_switch);
+
+        editSwitch.setVisibility(View.VISIBLE);
+        editMode = editSwitch.isChecked();
+    }
+
     //endregion
 
 }

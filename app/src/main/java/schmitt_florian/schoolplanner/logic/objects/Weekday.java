@@ -7,6 +7,31 @@ import java.util.Arrays;
  */
 public class Weekday {
     /**
+     * public String constant indicating that the {@link Weekday#getName()} is monday
+     */
+    public static final String MONDAY = "monday";
+    /**
+     * public String constant indicating that the {@link Weekday#getName()} is tuesday
+     */
+    public static final String TUESDAY = "tuesday";
+    /**
+     * public String constant indicating that the {@link Weekday#getName()} is wednesday
+     */
+    public static final String WEDNESDAY = "wednesday";
+    /**
+     * public String constant indicating that the {@link Weekday#getName()} is thursday
+     */
+    public static final String THURSDAY = "thursday";
+    /**
+     * public String constant indicating that the {@link Weekday#getName()} is friday
+     */
+    public static final String FRIDAY = "friday";
+    /**
+     * public String constant indicating that the {@link Weekday#getName()} is saturday
+     */
+    public static final String SATURDAY = "saturday";
+
+    /**
      * numeric id of the Weekday (unique)
      */
     private int id;
