@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -17,7 +18,10 @@ import android.widget.TableRow;
 import java.util.ArrayList;
 
 import schmitt_florian.schoolplanner.R;
+import schmitt_florian.schoolplanner.logic.DatabaseHelper;
+import schmitt_florian.schoolplanner.logic.DatabaseHelperImpl;
 import schmitt_florian.schoolplanner.logic.Settings;
+import schmitt_florian.schoolplanner.logic.objects.Schedule;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,15 +33,20 @@ public class ScheduleFragment extends Fragment {
     @SuppressWarnings({"FieldNever", "unused"})
     private OnFragmentInteractionListener mListener;
     private View rootView;
+
     private TableLayout table;
+    private Schedule schedule;
     private TableRow[] rows;
     private Button[][] buttons;
+
+    private DatabaseHelper databaseHelper;
     private boolean editMode;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        databaseHelper = new DatabaseHelperImpl(getContext());
     }
 
     @Override
@@ -89,11 +98,13 @@ public class ScheduleFragment extends Fragment {
      */
     private void initGui() {
         table = (TableLayout) rootView.findViewById(R.id.schedule_table);
+        schedule = databaseHelper.getScheduleAtId(1);
 
         rows = getScheduleRowsInArray();
         initVisibilityForSchedule();
 
         buttons = getScheduleButtonsAsArray();
+        initScheduleButtons();
 
         initAppbarEditSwitch();
     }
@@ -150,6 +161,25 @@ public class ScheduleFragment extends Fragment {
 
         editSwitch.setVisibility(View.VISIBLE);
         editMode = editSwitch.isChecked();
+
+        editSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                editMode = !editMode;
+                initScheduleButtons();
+            }
+        });
+    }
+
+    /**
+     * method to initialise these {@link Button}s in the {@link ScheduleFragment} which displays the {@link schmitt_florian.schoolplanner.logic.objects.Lesson}s
+     */
+    private void initScheduleButtons() {
+        for (int x = 1; x < buttons.length; x++) {
+            for (int y = 1; y < buttons[x].length; y++) {
+                buttons[x][y].setClickable(editMode);
+            }
+        }
     }
 
     //endregion

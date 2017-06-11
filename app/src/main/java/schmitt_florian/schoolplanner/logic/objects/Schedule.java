@@ -32,8 +32,8 @@ public class Schedule {
      * @throws ArrayIndexOutOfBoundsException if the given {@link Weekday} array doesn't have the length six
      */
     public Schedule(int id, String name, Weekday[] weekdays) {
-        if (weekdays.length != 6) {
-            throw new ArrayIndexOutOfBoundsException("array length " + weekdays.length + " isn't a supported Week, which length would be 6");
+        if (weekdays.length > 6) {
+            throw new ArrayIndexOutOfBoundsException("array length " + weekdays.length + " isn't a supported Week, which length would be 6 or less");
         } else {
             this.id = id;
             this.name = name;
