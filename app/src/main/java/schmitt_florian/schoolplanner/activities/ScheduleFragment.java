@@ -23,6 +23,8 @@ import schmitt_florian.schoolplanner.R;
 import schmitt_florian.schoolplanner.logic.DatabaseHelper;
 import schmitt_florian.schoolplanner.logic.DatabaseHelperImpl;
 import schmitt_florian.schoolplanner.logic.Settings;
+import schmitt_florian.schoolplanner.logic.objects.Lesson;
+import schmitt_florian.schoolplanner.logic.objects.Period;
 import schmitt_florian.schoolplanner.logic.objects.Schedule;
 import schmitt_florian.schoolplanner.logic.objects.Subject;
 
@@ -106,8 +108,9 @@ public class ScheduleFragment extends Fragment {
         rows = getScheduleRowsInArray();
         initVisibilityForSchedule();
 
-        buttons = getScheduleButtonsAsArray();
+        buttons = getButtonsAsArray();
         initScheduleButtons();
+        initPeriodButtons();
 
         initAppbarEditSwitch();
     }
@@ -132,7 +135,7 @@ public class ScheduleFragment extends Fragment {
      *
      * @return all {@link Button}s in the schedule {@link TableLayout}
      */
-    private Button[][] getScheduleButtonsAsArray() {
+    private Button[][] getButtonsAsArray() {
         Button[][] buttons = new Button[((LinearLayout) rows[0].getChildAt(0)).getChildCount()][table.getChildCount()];
 
         for (int i = 0; i < rows.length; i++) {
@@ -169,13 +172,13 @@ public class ScheduleFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 editMode = !editMode;
-                initScheduleButtons();
+                initGui();
             }
         });
     }
 
     /**
-     * method to initialise these {@link Button}s in the {@link ScheduleFragment} which displays the {@link schmitt_florian.schoolplanner.logic.objects.Lesson}s
+     * method to initialise these {@link Button}s in the {@link ScheduleFragment} which displays the {@link Lesson}s
      */
     private void initScheduleButtons() {
         for (int x = 1; x < buttons.length; x++) {
@@ -188,12 +191,72 @@ public class ScheduleFragment extends Fragment {
                         buttons[x][y].setOnClickListener(new OnScheduleButtonClickListener(true, x, y));
                     }
                 }
+                if (x > 1) {
+                    loadSubjectToButtonAt(x, y);
+                }
+
+            }
+        }
+    }
+
+    /**
+     * loads the {@link schmitt_florian.schoolplanner.logic.objects.Period} at there specific slot to the given Button
+     */
+    private void initPeriodButtons() {
+        Period[] periods = getAllPeriodsInDb();
+        for (Period p : periods) {
+            buttons[1][p.getSchoolHourNo()].setText(GuiHelper.extractGuiString(p.getStartTime(), true, getContext()) + " - " +
+                    GuiHelper.extractGuiString(p.getEndTime(), true, getContext()));
+        }
+        for (int i = 1; i < buttons[1].length; i++) {
+            if (buttons[1][i].getText().equals("+") && !editMode) {
+                buttons[1][i].setText("");
+            } else if (buttons[1][i].getText().equals("") && editMode) {
+                buttons[1][i].setText("+");
+            }
+        }
+    }
+
+    /**
+     * method to query all {@link Period}s from the SchoolPlanner's Database
+     *
+     * @return all {@link Period}s as Array
+     */
+    private Period[] getAllPeriodsInDb() {
+        ArrayList<Period> periodArrayList = new ArrayList<>();
+
+        int[] periodIndices = databaseHelper.getIndices(DatabaseHelper.TABLE_PERIOD);
+
+        for (int periodIndex : periodIndices) {
+            Period period = databaseHelper.getPeriodAtId(periodIndex);
+
+            periodArrayList.add(period);
+        }
+
+        return periodArrayList.toArray(new Period[0]);
+    }
+
+    /**
+     * loads the {@link Subject} at the specific slot to the given Button
+     *
+     * @param x {@link ScheduleFragment#buttons} first value
+     * @param y {@link ScheduleFragment#buttons} second value
+     */
+    private void loadSubjectToButtonAt(int x, int y) {
+        try {
+            buttons[x][y].setText(schedule.getDays()[x - 2].getLessons()[y - 1].getSubject().getName());
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            if (editMode) {
+                buttons[x][y].setText("+");
+            } else {
+                buttons[x][y].setText("");
             }
         }
     }
 
     //endregion
 
+    //// TODO: 13.06.2017 save changes
     private class OnScheduleButtonClickListener implements View.OnClickListener {
         private boolean isTimeButton;
         private int x;
