@@ -72,6 +72,7 @@
     <string name="string_select_theme_color">Select Theme Color</string>
     <string name="string_settings_saved">Settings Saved</string>
     <string name="string_date_must_comply_with">Date must comply with</string>
+    <string name="string_none">None</string>
 
     <string name="hello_blank_fragment" translatable="false">~Empty~</string>
     <string name="string_description">Description</string>

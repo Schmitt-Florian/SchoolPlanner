@@ -1,10 +1,12 @@
 package schmitt_florian.schoolplanner.activities;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +24,7 @@ import schmitt_florian.schoolplanner.logic.DatabaseHelper;
 import schmitt_florian.schoolplanner.logic.DatabaseHelperImpl;
 import schmitt_florian.schoolplanner.logic.Settings;
 import schmitt_florian.schoolplanner.logic.objects.Schedule;
+import schmitt_florian.schoolplanner.logic.objects.Subject;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -178,10 +181,103 @@ public class ScheduleFragment extends Fragment {
         for (int x = 1; x < buttons.length; x++) {
             for (int y = 1; y < buttons[x].length; y++) {
                 buttons[x][y].setClickable(editMode);
+                if (editMode) {
+                    if (x > 1) {
+                        buttons[x][y].setOnClickListener(new OnScheduleButtonClickListener(false, x, y));
+                    } else {
+                        buttons[x][y].setOnClickListener(new OnScheduleButtonClickListener(true, x, y));
+                    }
+                }
             }
         }
     }
 
     //endregion
+
+    private class OnScheduleButtonClickListener implements View.OnClickListener {
+        private boolean isTimeButton;
+        private int x;
+        private int y;
+
+
+        private OnScheduleButtonClickListener(boolean isTimeButton, int xPos, int yPos) {
+            this.isTimeButton = isTimeButton;
+            this.x = xPos;
+            this.y = yPos;
+        }
+
+        /**
+         * Called when a view has been clicked.
+         *
+         * @param v The view that was clicked.
+         */
+        @Override
+        public void onClick(View v) {
+            if (isTimeButton) {
+
+            } else {
+                showSubjectAlertDialog();
+            }
+
+        }
+
+        /**
+         * method to show the select subject dialog in {@link ScheduleFragment}
+         */
+        private void showSubjectAlertDialog() {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setTitle(R.string.string_select_subject);
+
+            builder.setItems(getAllSubjectsInDbAsGuiString(), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    //save subject
+                }
+            });
+
+            builder.setNeutralButton(R.string.string_none, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    //save empty
+                }
+            });
+
+            builder.show();
+        }
+
+        /**
+         * method to query all {@link Subject}s from the SchoolPlanner's Database as {@link GuiHelper#extractGuiString(Subject)} array
+         *
+         * @return all {@link Subject}s as String Array
+         */
+        private String[] getAllSubjectsInDbAsGuiString() {
+            ArrayList<String> guiStrings = new ArrayList<>();
+
+            for (Subject subject : getAllSubjectsInDb()) {
+                guiStrings.add(GuiHelper.extractGuiString(subject));
+            }
+
+            return guiStrings.toArray(new String[0]);
+        }
+
+        /**
+         * method to query all {@link Subject}s from the SchoolPlanner's Database
+         *
+         * @return all {@link Subject}s as Array
+         */
+        private Subject[] getAllSubjectsInDb() {
+            ArrayList<Subject> subjectArrayList = new ArrayList<>();
+
+            int[] subjectIndices = databaseHelper.getIndices(DatabaseHelper.TABLE_SUBJECT);
+
+            for (int subjectIndex : subjectIndices) {
+                Subject subject = databaseHelper.getSubjectAtId(subjectIndex);
+
+                subjectArrayList.add(subject);
+            }
+
+            return subjectArrayList.toArray(new Subject[0]);
+        }
+    }
 
 }
