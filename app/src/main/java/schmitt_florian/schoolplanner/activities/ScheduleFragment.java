@@ -21,15 +21,18 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.GregorianCalendar;
 
 import schmitt_florian.schoolplanner.R;
 import schmitt_florian.schoolplanner.logic.DatabaseHelper;
 import schmitt_florian.schoolplanner.logic.DatabaseHelperImpl;
 import schmitt_florian.schoolplanner.logic.Settings;
+import schmitt_florian.schoolplanner.logic.objects.Lesson;
 import schmitt_florian.schoolplanner.logic.objects.Period;
 import schmitt_florian.schoolplanner.logic.objects.Schedule;
 import schmitt_florian.schoolplanner.logic.objects.Subject;
+import schmitt_florian.schoolplanner.logic.objects.Weekday;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -47,14 +50,13 @@ public class ScheduleFragment extends Fragment {
     private TableRow[] rows;
     private Button[][] buttons;
 
-    private DatabaseHelper databaseHelper;
+    private DatabaseHelperImpl databaseHelper;
     private boolean editMode;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        databaseHelper = new DatabaseHelperImpl(getContext());
     }
 
     @Override
@@ -105,6 +107,7 @@ public class ScheduleFragment extends Fragment {
      * method to initialise components of the GUI
      */
     private void initGui() {
+        databaseHelper = new DatabaseHelperImpl(getContext());
         table = (TableLayout) rootView.findViewById(R.id.schedule_table);
         schedule = databaseHelper.getScheduleAtId(1);
 
@@ -115,6 +118,8 @@ public class ScheduleFragment extends Fragment {
         initButtons();
 
         initAppbarEditSwitch();
+
+        // System.out.println(databaseHelper.toString());
     }
 
     /**
@@ -185,9 +190,7 @@ public class ScheduleFragment extends Fragment {
     private void initButtons() {
         for (int x = 1; x < buttons.length; x++) {
             for (int y = 1; y < buttons[x].length; y++) {
-                // if (editMode) {
                 buttons[x][y].setOnClickListener(new OnScheduleButtonClickListener(x, y));
-                //  }
                 buttons[x][y].setClickable(editMode);
 
                 if (x > 1) {
@@ -306,13 +309,13 @@ public class ScheduleFragment extends Fragment {
                             Period period = databaseHelper.getPeriodAtIdOrThrow(y);
 
                             databaseHelper.updatePeriodAtId(
-                                    new Period(period.getId(), period.getSchoolHourNo(), timesDialog.getStartTime(), timesDialog.getEndTime())
-                            );
+                                    new Period(period.getId(), period.getSchoolHourNo(), timesDialog.getStartTime(), timesDialog.getEndTime()));
+
                             timeHasChanged = true;
                         } catch (NoSuchFieldException e) {
                             databaseHelper.insertIntoDB(
-                                    new Period(y, y, timesDialog.getStartTime(), timesDialog.getEndTime())
-                            );
+                                    new Period(y, y, timesDialog.getStartTime(), timesDialog.getEndTime()));
+
                             timeHasChanged = true;
                         }
                     } catch (IllegalArgumentException ex) {
@@ -335,7 +338,15 @@ public class ScheduleFragment extends Fragment {
             builder.setItems(getAllSubjectsInDbAsGuiString(), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    //todo save subject
+                    try {
+                        insertOrUpdateLesson(getAllSubjectsInDb()[which]);
+                    } catch (ArrayIndexOutOfBoundsException ex) {
+                        insertNewWeekdayInDb();
+                        System.out.println("inserted wd");
+                        insertOrUpdateLesson(getAllSubjectsInDb()[which]);
+                    } finally {
+                        initGui();
+                    }
                 }
             });
 
@@ -347,6 +358,77 @@ public class ScheduleFragment extends Fragment {
             });
 
             builder.show();
+        }
+
+        /**
+         * inserts the clicked {@link Lesson} with the given {@link Subject} in db
+         *
+         * @param subject the {@link Subject} in clicked {@link Lesson}
+         * @throws ArrayIndexOutOfBoundsException if the {@link Weekday} or the {@link Period} the {@link Lesson} is on isn't initialised
+         */
+        private void insertOrUpdateLesson(Subject subject) throws ArrayIndexOutOfBoundsException {
+            try {
+                Lesson lesson = databaseHelper.getLessonOrThrowAtDate(
+                        schedule.getDays()[x - 2],
+                        getAllPeriodsInDb()[y - 1]);
+                Lesson newLesson = new Lesson(lesson.getId(), subject, lesson.getPeriod());
+
+                databaseHelper.updateLessonAtId(newLesson);
+
+            } catch (NoSuchFieldException e) {
+                Lesson newLesson = new Lesson(-1, subject, getAllPeriodsInDb()[y - 1]);
+
+                databaseHelper.insertIntoDB(newLesson);
+
+                //// TODO: 14.06.2017 fix lesson foreign key doesn't update
+                ArrayList<Lesson> lessons = new ArrayList<>(Arrays.asList(schedule.getDays()[x - 2].getLessons()));
+                lessons.add(newLesson);
+                databaseHelper.updateWeekdayAtId(new Weekday(
+                        schedule.getDays()[x - 2].getId(),
+                        schedule.getDays()[x - 2].getName(),
+                        lessons.toArray(new Lesson[0])
+                ));
+            }
+        }
+
+        /**
+         * inserts clicked {@link Weekday} in database
+         */
+        private void insertNewWeekdayInDb() {
+            Weekday newWeekday;
+            switch (x - 1) {
+                case 1:
+                    newWeekday = new Weekday(-1, Weekday.MONDAY, new Lesson[0]);
+                    break;
+                case 2:
+                    newWeekday = new Weekday(-1, Weekday.TUESDAY, new Lesson[0]);
+                    break;
+                case 3:
+                    newWeekday = new Weekday(-1, Weekday.WEDNESDAY, new Lesson[0]);
+                    break;
+                case 4:
+                    newWeekday = new Weekday(-1, Weekday.THURSDAY, new Lesson[0]);
+                    break;
+                case 5:
+                    newWeekday = new Weekday(-1, Weekday.FRIDAY, new Lesson[0]);
+                    break;
+                case 6:
+                    newWeekday = new Weekday(-1, Weekday.SATURDAY, new Lesson[0]);
+                    break;
+                default:
+                    newWeekday = null;
+                    break;
+            }
+
+            ArrayList<Weekday> weekdays = new ArrayList<>(Arrays.asList(schedule.getDays()));
+            weekdays.add(newWeekday);
+            databaseHelper.updateScheduleAtId(new Schedule(
+                    schedule.getId(),
+                    schedule.getName(),
+                    weekdays.toArray(new Weekday[0])
+            ));
+
+            initGui();
         }
 
         /**

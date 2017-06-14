@@ -1070,6 +1070,36 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     }
     //endregion
 
+    /**
+     * gets the {@link Lesson} at a specific {@link Weekday} and {@link Period} from database
+     *
+     * @param day    the {@link Weekday}
+     * @param period the {@link Period}
+     * @return the row with the given specs
+     * @throws NoSuchFieldException if there is no such {@link Lesson} in the Database
+     */
+    public Lesson getLessonOrThrowAtDate(Weekday day, Period period) throws NoSuchFieldException {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+
+        String query = "SELECT " + LESSON_COLUMN_ID + " FROM " + TABLE_LESSON + " WHERE " + LESSON_COLUMN_WEEKDAY_ID + " = " + day.getId() +
+                " AND " + LESSON_COLUMN_PERIOD_ID + " = " + period.getId();
+
+        try {
+            cursor = db.rawQuery(query, null);
+            cursor.moveToFirst();
+
+            return getLessonAtIdOrThrow(cursor.getInt(0));
+        } catch (Exception e) {
+            throw new NoSuchFieldException();
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
+    }
+
     //region updateObjectAtId
 
     /**
