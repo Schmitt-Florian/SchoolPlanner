@@ -73,6 +73,10 @@
     <string name="string_settings_saved">Settings Saved</string>
     <string name="string_date_must_comply_with">Date must comply with</string>
     <string name="string_none">None</string>
+    <string name="string_start_time">Start Time</string>
+    <string name="string_end_time">End Time</string>
+    <string name="string_select_time">Select Time</string>
+    <string name="string_time_must_comply_with">Time must comply with</string>
 
     <string name="hello_blank_fragment" translatable="false">~Empty~</string>
     <string name="string_description">Description</string>

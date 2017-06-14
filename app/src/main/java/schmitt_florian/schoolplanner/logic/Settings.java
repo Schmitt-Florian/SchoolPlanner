@@ -24,6 +24,11 @@ public class Settings {
      */
     public static final String DATE_FORMAT_YYYYMMDD = "YYYY.MM.DD";
 
+    /**
+     * represents HH:MM date format
+     */
+    public static final String TIME_FORMAT_HHMM = "HH:MM";
+
 
     /**
      * the key under which date format is saved to {@link SharedPreferences}
@@ -44,6 +49,7 @@ public class Settings {
      * {@link Settings#DATE_FORMAT_MMDDYYYY} , {@link Settings#DATE_FORMAT_YYYYMMDD}
      */
     private String activeDateFormat;
+
     /**
      * number of periods at each day
      */

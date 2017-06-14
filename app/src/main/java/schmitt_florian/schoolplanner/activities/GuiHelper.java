@@ -81,6 +81,7 @@ class GuiHelper {
         EditText editText = (EditText) view.findViewById(id);
 
         String str = editText.getText().toString();
+        str = str.replaceAll(":", "-");
         str = str.replaceAll("\\.", "-");
         str = str.replaceAll(",", "-");
         str = str.replaceAll("/", "-");
@@ -104,6 +105,47 @@ class GuiHelper {
             handleEmptyMandatoryEditText(view, id,
                     view.getContext().getResources().getString(R.string.string_date_must_comply_with) +
                             " " + Settings.getInstance(view.getContext()).getActiveDateFormat());
+            throw ex;
+        }
+    }
+
+    /**
+     * gets the time input of a mandatory {@link EditText} as String
+     *
+     * @param editText the editText
+     * @return the input of a {@link EditText} as {@link GregorianCalendar} initialises with "0" for year, month and day
+     * @throws IllegalArgumentException if input is invalid date and calls {@link GuiHelper#handleEmptyMandatoryEditText;} method to do things to the text field
+     */
+    static GregorianCalendar getTimeFromMandatoryEditText(EditText editText) throws IllegalArgumentException {
+        String str = editText.getText().toString();
+        str = str.replaceAll(":", "-");
+        str = str.replaceAll("\\.", "-");
+        str = str.replaceAll(",", "-");
+        str = str.replaceAll("/", "-");
+
+        String time[];
+        if (str.contains("-")) {
+            time = str.split("-");
+
+            if (time.length != 2) {
+                handleEmptyMandatoryEditText(editText);
+                throw new IllegalArgumentException("time must be contain two elements");
+            }
+        } else {
+            handleEmptyMandatoryEditText(editText);
+            throw new IllegalArgumentException("unknown time divider");
+        }
+
+        try {
+            if ((time[0].length() <= 2 && time[1].length() <= 2) && (Integer.parseInt(time[0]) <= 24 && Integer.parseInt(time[1]) <= 60)) {
+                return new GregorianCalendar(0, 0, 0, Integer.parseInt(time[0]), Integer.parseInt(time[1]));
+            } else {
+                throw new IllegalArgumentException((Arrays.toString(time) + " is no valid array for TIME_FORMAT_HHMM"));
+            }
+        } catch (IllegalArgumentException ex) {
+            handleEmptyMandatoryEditText(editText,
+                    editText.getContext().getResources().getString(R.string.string_time_must_comply_with) +
+                            " " + Settings.TIME_FORMAT_HHMM);
             throw ex;
         }
     }
@@ -283,7 +325,15 @@ class GuiHelper {
     static String extractGuiString(Calendar calendar, boolean isTimeOnly, Context context) {
         String res = "";
         if (isTimeOnly) {
-            res = calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE);
+            if (calendar.get(Calendar.HOUR) > 9 && calendar.get(Calendar.MINUTE) > 9) {
+                res = calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE);
+            } else if (calendar.get(Calendar.HOUR) <= 9 && calendar.get(Calendar.MINUTE) > 9) {
+                res = "0" + calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE);
+            } else if (calendar.get(Calendar.HOUR) > 9 && calendar.get(Calendar.MINUTE) <= 9) {
+                res = calendar.get(Calendar.HOUR) + ":" + "0" + calendar.get(Calendar.MINUTE);
+            } else {
+                res = "0" + calendar.get(Calendar.HOUR) + ":" + "0" + calendar.get(Calendar.MINUTE);
+            }
         } else {
             switch (Settings.getInstance(context).getActiveDateFormat()) {
                 case Settings.DATE_FORMAT_DDMMYYYY:
@@ -367,6 +417,25 @@ class GuiHelper {
      */
     private static void handleEmptyMandatoryEditText(View view, int id, String message) {
         EditText editText = (EditText) view.findViewById(id);
+        handleEmptyMandatoryEditText(editText, message);
+    }
+
+    /**
+     * can be used to indicate for the user that a {@link EditText} in the GUI must not be empty by displaying a Red hint "Mandatory Field"
+     *
+     * @param editText the editText
+     */
+    private static void handleEmptyMandatoryEditText(EditText editText) {
+        handleEmptyMandatoryEditText(editText, editText.getContext().getResources().getString(R.string.string_mandatory_field));
+    }
+
+    /**
+     * can be used to indicate for the user that a {@link EditText} in the GUI must not be empty by displaying a Red hint with your message
+     *
+     * @param editText the editText
+     * @param message  the message to display in the hint
+     */
+    private static void handleEmptyMandatoryEditText(EditText editText, String message) {
         editText.setText("");
         editText.setHint(message);
         editText.setHintTextColor(Color.RED);

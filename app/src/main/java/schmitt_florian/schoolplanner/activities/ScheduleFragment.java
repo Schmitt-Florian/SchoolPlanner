@@ -5,25 +5,28 @@ import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SwitchCompat;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 
 import schmitt_florian.schoolplanner.R;
 import schmitt_florian.schoolplanner.logic.DatabaseHelper;
 import schmitt_florian.schoolplanner.logic.DatabaseHelperImpl;
 import schmitt_florian.schoolplanner.logic.Settings;
-import schmitt_florian.schoolplanner.logic.objects.Lesson;
 import schmitt_florian.schoolplanner.logic.objects.Period;
 import schmitt_florian.schoolplanner.logic.objects.Schedule;
 import schmitt_florian.schoolplanner.logic.objects.Subject;
@@ -109,8 +112,7 @@ public class ScheduleFragment extends Fragment {
         initVisibilityForSchedule();
 
         buttons = getButtonsAsArray();
-        initScheduleButtons();
-        initPeriodButtons();
+        initButtons();
 
         initAppbarEditSwitch();
     }
@@ -178,25 +180,23 @@ public class ScheduleFragment extends Fragment {
     }
 
     /**
-     * method to initialise these {@link Button}s in the {@link ScheduleFragment} which displays the {@link Lesson}s
+     * method to initialise all {@link Button}s in the {@link ScheduleFragment}
      */
-    private void initScheduleButtons() {
+    private void initButtons() {
         for (int x = 1; x < buttons.length; x++) {
             for (int y = 1; y < buttons[x].length; y++) {
+                // if (editMode) {
+                buttons[x][y].setOnClickListener(new OnScheduleButtonClickListener(x, y));
+                //  }
                 buttons[x][y].setClickable(editMode);
-                if (editMode) {
-                    if (x > 1) {
-                        buttons[x][y].setOnClickListener(new OnScheduleButtonClickListener(false, x, y));
-                    } else {
-                        buttons[x][y].setOnClickListener(new OnScheduleButtonClickListener(true, x, y));
-                    }
-                }
+
                 if (x > 1) {
                     loadSubjectToButtonAt(x, y);
                 }
 
             }
         }
+        initPeriodButtons();
     }
 
     /**
@@ -258,13 +258,20 @@ public class ScheduleFragment extends Fragment {
 
     //// TODO: 13.06.2017 save changes
     private class OnScheduleButtonClickListener implements View.OnClickListener {
+        private boolean timeHasChanged;
         private boolean isTimeButton;
         private int x;
         private int y;
 
 
-        private OnScheduleButtonClickListener(boolean isTimeButton, int xPos, int yPos) {
-            this.isTimeButton = isTimeButton;
+        /**
+         * standard c'tor
+         *
+         * @param xPos x position in the schedule
+         * @param yPos y position in the schedule
+         */
+        private OnScheduleButtonClickListener(int xPos, int yPos) {
+            this.isTimeButton = xPos <= 1;
             this.x = xPos;
             this.y = yPos;
         }
@@ -277,11 +284,45 @@ public class ScheduleFragment extends Fragment {
         @Override
         public void onClick(View v) {
             if (isTimeButton) {
-
+                showTimeAlertDialog();
             } else {
                 showSubjectAlertDialog();
             }
 
+        }
+
+        //region private methods
+
+        /**
+         * method to show the select start and end time dialog in {@link ScheduleFragment}
+         */
+        private void showTimeAlertDialog() {
+            final InsertPeriodTimesDialog timesDialog = new InsertPeriodTimesDialog(getContext());
+            timesDialog.positiveButton(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try {
+                        try {
+                            Period period = databaseHelper.getPeriodAtIdOrThrow(y);
+
+                            databaseHelper.updatePeriodAtId(
+                                    new Period(period.getId(), period.getSchoolHourNo(), timesDialog.getStartTime(), timesDialog.getEndTime())
+                            );
+                            timeHasChanged = true;
+                        } catch (NoSuchFieldException e) {
+                            databaseHelper.insertIntoDB(
+                                    new Period(y, y, timesDialog.getStartTime(), timesDialog.getEndTime())
+                            );
+                            timeHasChanged = true;
+                        }
+                    } catch (IllegalArgumentException ex) {
+                        timeHasChanged = false;
+                    }
+                    initGui();
+                }
+            });
+
+            timesDialog.show();
         }
 
         /**
@@ -294,14 +335,14 @@ public class ScheduleFragment extends Fragment {
             builder.setItems(getAllSubjectsInDbAsGuiString(), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    //save subject
+                    //todo save subject
                 }
             });
 
             builder.setNeutralButton(R.string.string_none, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    //save empty
+                    //todo save empty
                 }
             });
 
@@ -340,6 +381,115 @@ public class ScheduleFragment extends Fragment {
             }
 
             return subjectArrayList.toArray(new Subject[0]);
+        }
+        //endregion
+
+
+        /**
+         * subclass of {@link AlertDialog} for a Input dialog used to insert a start time and a endtime
+         * <br></br>
+         * <b>Usage:</b>
+         * <br></br>
+         * - call {@link InsertPeriodTimesDialog#InsertPeriodTimesDialog(Context)}
+         * <br></br>
+         * - set positiveButton onClickListener {@link InsertPeriodTimesDialog#positiveButton(View.OnClickListener)}
+         * <br></br>
+         * - call {@link InsertPeriodTimesDialog#show()}
+         */
+        private class InsertPeriodTimesDialog extends AlertDialog {
+            private EditText startTime;
+            private EditText endTime;
+
+            /**
+             * prepare dialog for use
+             *
+             * @param context context to display dialog in
+             */
+            InsertPeriodTimesDialog(@NonNull Context context) {
+                super(context);
+                setTitle(R.string.string_select_time);
+                setView(getLayoutForTimeDialog());
+                setCancelable(false);
+
+                setButton(BUTTON_NEGATIVE, context.getResources().getString(R.string.string_cancel), new OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dismiss();
+                    }
+                });
+            }
+
+            /**
+             * adds positive button and sets onClickListener for it
+             *
+             * @param onClickListener onClickListener
+             */
+            void positiveButton(final View.OnClickListener onClickListener) {
+                setButton(BUTTON_POSITIVE, getContext().getResources().getString(R.string.string_save), (OnClickListener) null);
+
+                setOnShowListener(new OnShowListener() {
+                    @Override
+                    public void onShow(final DialogInterface dialog) {
+                        Button button = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
+
+                        button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                onClickListener.onClick(v);
+
+                                if (timeHasChanged) {
+                                    dialog.dismiss();
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+
+            /**
+             * gets inserted start time as {@link GregorianCalendar}
+             *
+             * @return inserted start time
+             */
+            GregorianCalendar getStartTime() {
+                return GuiHelper.getTimeFromMandatoryEditText(startTime);
+            }
+
+            /**
+             * gets inserted end time as {@link GregorianCalendar}
+             *
+             * @return inserted end time
+             */
+            GregorianCalendar getEndTime() {
+                return GuiHelper.getTimeFromMandatoryEditText(endTime);
+            }
+
+            //region private methods
+
+            /**
+             * returns a specific {@link LinearLayout} for use in {@link InsertPeriodTimesDialog}
+             *
+             * @return {@link LinearLayout} for use in {@link InsertPeriodTimesDialog}
+             */
+            @NonNull
+            private LinearLayout getLayoutForTimeDialog() {
+                LinearLayout layout = new LinearLayout(getContext());
+                layout.setOrientation(LinearLayout.VERTICAL);
+
+                startTime = new EditText(getContext());
+                startTime.setHint(R.string.string_start_time);
+                startTime.setInputType(InputType.TYPE_CLASS_DATETIME);
+                layout.addView(startTime);
+
+                endTime = new EditText(getContext());
+                endTime.setHint(R.string.string_end_time);
+                endTime.setInputType(InputType.TYPE_CLASS_DATETIME);
+                layout.addView(endTime);
+
+                return layout;
+            }
+            //endregion
+
         }
     }
 
