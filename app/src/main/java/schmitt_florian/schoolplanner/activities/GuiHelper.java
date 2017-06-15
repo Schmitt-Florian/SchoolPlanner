@@ -77,10 +77,10 @@ class GuiHelper {
      * @return the input of a {@link EditText} as {@link GregorianCalendar}
      * @throws IllegalArgumentException if input is invalid date and calls {@link GuiHelper#handleEmptyMandatoryEditText;} method to do things to the text field
      */
-    static GregorianCalendar getDateFromMandatoryEditText(View view, int id) throws IllegalArgumentException {
-        EditText editText = (EditText) view.findViewById(id);
+    static GregorianCalendar getDateFromMandatoryButton(View view, int id) throws IllegalArgumentException {
+        Button button = (Button) view.findViewById(id);
 
-        String str = editText.getText().toString();
+        String str = button.getText().toString();
         str = str.replaceAll(":", "-");
         str = str.replaceAll("\\.", "-");
         str = str.replaceAll(",", "-");
