@@ -70,11 +70,11 @@ class GuiHelper {
     }
 
     /**
-     * gets the date input of a mandatory {@link EditText} as String
+     * gets the date input of a mandatory {@link Button} as String
      *
-     * @param view the view the {@link EditText} is in
-     * @param id   Resource ID of the {@link EditText}
-     * @return the input of a {@link EditText} as {@link GregorianCalendar}
+     * @param view the view the {@link Button} is in
+     * @param id   Resource ID of the {@link Button}
+     * @return the input of a {@link Button} as {@link GregorianCalendar}
      * @throws IllegalArgumentException if input is invalid date and calls {@link GuiHelper#handleEmptyMandatoryEditText;} method to do things to the text field
      */
     static GregorianCalendar getDateFromMandatoryButton(View view, int id) throws IllegalArgumentException {
