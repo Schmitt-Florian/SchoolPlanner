@@ -107,9 +107,7 @@ public class ScheduleFragment extends Fragment {
      * method to initialise components of the GUI
      */
     private void initGui() {
-        databaseHelper = new DatabaseHelperImpl(getContext());
-        table = (TableLayout) rootView.findViewById(R.id.schedule_table);
-        schedule = databaseHelper.getScheduleAtId(1);
+        updateValues();
 
         rows = getScheduleRowsInArray();
         initVisibilityForSchedule();
@@ -120,6 +118,15 @@ public class ScheduleFragment extends Fragment {
         initAppbarEditSwitch();
 
         // System.out.println(databaseHelper.toString());
+    }
+
+    /**
+     * a little method to refresh the local variables: {@link ScheduleFragment#databaseHelper}, {@link ScheduleFragment#table}, {@link ScheduleFragment#schedule}
+     */
+    private void updateValues() {
+        databaseHelper = new DatabaseHelperImpl(getContext());
+        table = (TableLayout) rootView.findViewById(R.id.schedule_table);
+        schedule = databaseHelper.getScheduleAtId(1);
     }
 
     /**
@@ -342,7 +349,6 @@ public class ScheduleFragment extends Fragment {
                         insertOrUpdateLesson(getAllSubjectsInDb()[which]);
                     } catch (ArrayIndexOutOfBoundsException ex) {
                         insertNewWeekdayInDb();
-                        System.out.println("inserted wd");
                         insertOrUpdateLesson(getAllSubjectsInDb()[which]);
                     } finally {
                         initGui();
@@ -378,9 +384,9 @@ public class ScheduleFragment extends Fragment {
             } catch (NoSuchFieldException e) {
                 Lesson newLesson = new Lesson(-1, subject, getAllPeriodsInDb()[y - 1]);
 
-                databaseHelper.insertIntoDB(newLesson);
+                int newLessonId = databaseHelper.insertIntoDB(newLesson);
+                newLesson = new Lesson(newLessonId, newLesson.getSubject(), newLesson.getPeriod());
 
-                //// TODO: 14.06.2017 fix lesson foreign key doesn't update
                 ArrayList<Lesson> lessons = new ArrayList<>(Arrays.asList(schedule.getDays()[x - 2].getLessons()));
                 lessons.add(newLesson);
                 databaseHelper.updateWeekdayAtId(new Weekday(
@@ -419,16 +425,21 @@ public class ScheduleFragment extends Fragment {
                     newWeekday = null;
                     break;
             }
+            assert newWeekday != null;
+
+            int newWeekdayID = databaseHelper.insertIntoDB(newWeekday);
+            newWeekday = new Weekday(newWeekdayID, newWeekday.getName(), newWeekday.getLessons());
 
             ArrayList<Weekday> weekdays = new ArrayList<>(Arrays.asList(schedule.getDays()));
             weekdays.add(newWeekday);
+
             databaseHelper.updateScheduleAtId(new Schedule(
                     schedule.getId(),
                     schedule.getName(),
                     weekdays.toArray(new Weekday[0])
             ));
 
-            initGui();
+            updateValues();
         }
 
         /**
