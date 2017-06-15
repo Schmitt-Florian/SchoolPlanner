@@ -69,6 +69,23 @@ public class Schedule {
     }
 
     /**
+     * gets the {@link Weekday} with the given {@link Weekday#getName()} from this {@link Schedule}
+     *
+     * @param name the {@link Weekday#getName()} the asked {@link Weekday} must have
+     * @return the {@link Weekday} with matching name, null if the day isn't in this {@link Schedule}
+     */
+    public Weekday getDay(String name) {
+        for (Weekday day : days) {
+            if (day != null) {
+                if (day.getName().equals(name)) {
+                    return day;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
      * method to indicate if one Schedule matches another one by the values of their fields
      *
      * @param otherSchedule the other Schedule

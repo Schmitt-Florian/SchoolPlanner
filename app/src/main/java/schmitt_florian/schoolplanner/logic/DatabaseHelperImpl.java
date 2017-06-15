@@ -2049,7 +2049,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         Lesson lesson3 = new Lesson(3, subject1, period3);
         Lesson lesson4 = new Lesson(4, subject2, period4);
 
-        Weekday weekday1 = new Weekday(1, "Monday", new Lesson[]{lesson1, lesson2, lesson3, lesson4});
+        Weekday weekday1 = new Weekday(1, Weekday.MONDAY, new Lesson[]{lesson1, lesson2, lesson3, lesson4});
 
         Schedule schedule1 = new Schedule(1, "a", new Weekday[]{weekday1, null, null, null, null, null});
 

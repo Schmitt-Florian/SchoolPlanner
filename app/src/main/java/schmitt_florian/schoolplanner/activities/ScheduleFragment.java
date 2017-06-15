@@ -214,7 +214,26 @@ public class ScheduleFragment extends Fragment {
     private void loadSubjectButtons() {
         for (int i = 0; i < schedule.getDays().length; i++) {
             for (Lesson lesson : schedule.getDays()[i].getLessons()) {
-                buttons[i + 2][lesson.getPeriod().getSchoolHourNo()].setText(lesson.getSubject().getName());
+                switch (schedule.getDays()[i].getName()) {
+                    case Weekday.MONDAY:
+                        buttons[2][lesson.getPeriod().getSchoolHourNo()].setText(lesson.getSubject().getName());
+                        break;
+                    case Weekday.TUESDAY:
+                        buttons[3][lesson.getPeriod().getSchoolHourNo()].setText(lesson.getSubject().getName());
+                        break;
+                    case Weekday.WEDNESDAY:
+                        buttons[4][lesson.getPeriod().getSchoolHourNo()].setText(lesson.getSubject().getName());
+                        break;
+                    case Weekday.THURSDAY:
+                        buttons[5][lesson.getPeriod().getSchoolHourNo()].setText(lesson.getSubject().getName());
+                        break;
+                    case Weekday.FRIDAY:
+                        buttons[6][lesson.getPeriod().getSchoolHourNo()].setText(lesson.getSubject().getName());
+                        break;
+                    case Weekday.SATURDAY:
+                        buttons[7][lesson.getPeriod().getSchoolHourNo()].setText(lesson.getSubject().getName());
+                        break;
+                }
             }
         }
     }
@@ -251,7 +270,10 @@ public class ScheduleFragment extends Fragment {
     //endregion
 
 
-    //// TODO: 13.06.2017 save changes
+    /**
+     * this implementation of the {@link View.OnClickListener} is used to handle clicks on the
+     * buttons in the {@link ScheduleFragment} which show the {@link Lesson}s and those showing the {@link Period}s
+     */
     private class OnScheduleButtonClickListener implements View.OnClickListener {
         private boolean timeHasChanged;
         private boolean isTimeButton;
@@ -305,6 +327,7 @@ public class ScheduleFragment extends Fragment {
 
         /**
          * method tho handle clicks at the {@link InsertPeriodTimesDialog} shown by {@link OnScheduleButtonClickListener#showTimeAlertDialog()}
+         * by updating the {@link Period} with the entered times or inserting a new one, if it isn't existing
          *
          * @param timesDialog the {@link InsertPeriodTimesDialog}
          */
@@ -330,7 +353,8 @@ public class ScheduleFragment extends Fragment {
         }
 
         /**
-         * method to show the select subject dialog in {@link ScheduleFragment}
+         * method to show the select subject dialog in {@link ScheduleFragment} to let
+         * the user select a {@link Subject} or none to be taught during the clicked {@link Period}
          */
         private void showSubjectAlertDialog() {
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -349,15 +373,19 @@ public class ScheduleFragment extends Fragment {
         }
 
         /**
-         * method tho handle clicks at the SubjectAlertDialog shown by {@link OnScheduleButtonClickListener#showSubjectAlertDialog()}
+         * method to handle clicks at the SubjectAlertDialog shown by {@link OnScheduleButtonClickListener#showSubjectAlertDialog()}
+         * by deleting the {@link Lesson} from the database if "none" was selected as {@link Subject} or
+         * inserting or updating the clicked Lesson with the selected {@link Subject}
          *
          * @param dialog the SubjectAlertDialog
          * @param which  the clicked Subject in the displayed list
          */
         private void handleOnSubjectInSubjectDialogClick(DialogInterface dialog, int which) {
+            Weekday weekday = schedule.getDay(getClickedWeekdayName());
+
             if (which == 0) {
                 try {
-                    Lesson lesson = databaseHelper.getLessonOrThrowAtDate(schedule.getDays()[x - 2], getAllPeriodsInDb()[y - 1]);
+                    Lesson lesson = databaseHelper.getLessonOrThrowAtDate(weekday, getAllPeriodsInDb()[y - 1]);
                     databaseHelper.deleteLessonAtId(lesson.getId());
                 } catch (NoSuchFieldException | ArrayIndexOutOfBoundsException ignore) {
                     dialog.dismiss();
@@ -365,9 +393,12 @@ public class ScheduleFragment extends Fragment {
             } else {
                 try {
                     insertOrUpdateLesson(getAllSubjectsInDb()[which - 1]);
-                } catch (ArrayIndexOutOfBoundsException ex) {
+                } catch (NullPointerException ex) {
                     insertNewWeekdayInDb();
                     insertOrUpdateLesson(getAllSubjectsInDb()[which - 1]);
+                } catch (ArrayIndexOutOfBoundsException ex) {
+                    //todo do things to make sure the user knows why it wasn't inserted
+                    System.out.println("period wasn't inserted");
                 }
             }
             initGui();
@@ -380,8 +411,10 @@ public class ScheduleFragment extends Fragment {
          * @throws ArrayIndexOutOfBoundsException if the {@link Weekday} or the {@link Period} the {@link Lesson} is on isn't initialised
          */
         private void insertOrUpdateLesson(Subject subject) throws ArrayIndexOutOfBoundsException {
+            Weekday weekday = schedule.getDay(getClickedWeekdayName());
+
             try {
-                Lesson lesson = databaseHelper.getLessonOrThrowAtDate(schedule.getDays()[x - 2], getAllPeriodsInDb()[y - 1]);
+                Lesson lesson = databaseHelper.getLessonOrThrowAtDate(weekday, getAllPeriodsInDb()[y - 1]);
                 Lesson newLesson = new Lesson(lesson.getId(), subject, lesson.getPeriod());
 
                 databaseHelper.updateLessonAtId(newLesson);
@@ -392,11 +425,11 @@ public class ScheduleFragment extends Fragment {
                 int newLessonId = databaseHelper.insertIntoDB(newLesson);
                 newLesson = new Lesson(newLessonId, newLesson.getSubject(), newLesson.getPeriod());
 
-                ArrayList<Lesson> lessons = new ArrayList<>(Arrays.asList(schedule.getDays()[x - 2].getLessons()));
+                ArrayList<Lesson> lessons = new ArrayList<>(Arrays.asList(weekday.getLessons()));
                 lessons.add(newLesson);
                 databaseHelper.updateWeekdayAtId(new Weekday(
-                        schedule.getDays()[x - 2].getId(),
-                        schedule.getDays()[x - 2].getName(),
+                        weekday.getId(),
+                        weekday.getName(),
                         lessons.toArray(new Lesson[0])
                 ));
             }
@@ -406,31 +439,7 @@ public class ScheduleFragment extends Fragment {
          * inserts clicked {@link Weekday} in database
          */
         private void insertNewWeekdayInDb() {
-            Weekday newWeekday;
-            switch (x - 1) {
-                case 1:
-                    newWeekday = new Weekday(-1, Weekday.MONDAY, new Lesson[0]);
-                    break;
-                case 2:
-                    newWeekday = new Weekday(-1, Weekday.TUESDAY, new Lesson[0]);
-                    break;
-                case 3:
-                    newWeekday = new Weekday(-1, Weekday.WEDNESDAY, new Lesson[0]);
-                    break;
-                case 4:
-                    newWeekday = new Weekday(-1, Weekday.THURSDAY, new Lesson[0]);
-                    break;
-                case 5:
-                    newWeekday = new Weekday(-1, Weekday.FRIDAY, new Lesson[0]);
-                    break;
-                case 6:
-                    newWeekday = new Weekday(-1, Weekday.SATURDAY, new Lesson[0]);
-                    break;
-                default:
-                    newWeekday = null;
-                    break;
-            }
-            assert newWeekday != null;
+            Weekday newWeekday = new Weekday(-1, getClickedWeekdayName(), new Lesson[0]);
 
             int newWeekdayID = databaseHelper.insertIntoDB(newWeekday);
             newWeekday = new Weekday(newWeekdayID, newWeekday.getName(), newWeekday.getLessons());
@@ -445,6 +454,31 @@ public class ScheduleFragment extends Fragment {
             ));
 
             updateValues();
+        }
+
+        /**
+         * returns the name of the clicked Weekday
+         *
+         * @return name of the clicked Weekday one of {@link Weekday#MONDAY}, {@link Weekday#TUESDAY}, {@link Weekday#WEDNESDAY},
+         * {@link Weekday#THURSDAY}, {@link Weekday#FRIDAY}, {@link Weekday#SATURDAY}
+         */
+        private String getClickedWeekdayName() {
+            switch (x - 1) {
+                case 1:
+                    return Weekday.MONDAY;
+                case 2:
+                    return Weekday.TUESDAY;
+                case 3:
+                    return Weekday.WEDNESDAY;
+                case 4:
+                    return Weekday.THURSDAY;
+                case 5:
+                    return Weekday.FRIDAY;
+                case 6:
+                    return Weekday.SATURDAY;
+                default:
+                    return null;
+            }
         }
 
         /**
