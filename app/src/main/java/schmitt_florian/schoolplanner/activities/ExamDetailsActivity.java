@@ -1,13 +1,19 @@
 package schmitt_florian.schoolplanner.activities;
 
+import android.app.DatePickerDialog;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import schmitt_florian.schoolplanner.R;
 import schmitt_florian.schoolplanner.logic.DatabaseHelper;
@@ -24,12 +30,42 @@ public class ExamDetailsActivity extends AppCompatActivity {
     private Exam showingExam;
     private Subject[] subjectsInSpinner;
     private boolean addMode;
+    private Button dateButton;
+    private DatePickerDialog.OnDateSetListener dateSetListener;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exam_details);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        dateButton = (Button) findViewById(R.id.examDetails_textDate);
+        dateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar cal = Calendar.getInstance();
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+                int month = cal.get(Calendar.MONTH);
+                int year = cal.get(Calendar.YEAR);
+
+                DatePickerDialog dialog = new DatePickerDialog(
+                        ExamDetailsActivity.this,
+                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                        dateSetListener,
+                        year, month, day);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+
+        dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month = month + 1;
+                String date = day + "." + month + "." + year;
+                dateButton.setText(date);
+            }
+        };
 
         dbHelper = new DatabaseHelperImpl(this);
         int examID = getIntent().getIntExtra("ExamID", -1);
@@ -149,14 +185,14 @@ public class ExamDetailsActivity extends AppCompatActivity {
                     -1,
                     subjectsInSpinner[spinner.getSelectedItemPosition()],
                     GuiHelper.getInputFromMandatoryEditText(rootView, R.id.examDetails_textDescription),
-                    GuiHelper.getDateFromMandatoryEditText(rootView, R.id.examDetails_textDate)
+                    GuiHelper.getDateFromMandatoryButton(rootView, R.id.examDetails_textDate)
             );
         } else {
             return new Exam(
                     showingExam.getId(),
                     subjectsInSpinner[spinner.getSelectedItemPosition()],
                     GuiHelper.getInputFromMandatoryEditText(rootView, R.id.examDetails_textDescription),
-                    GuiHelper.getDateFromMandatoryEditText(rootView, R.id.examDetails_textDate)
+                    GuiHelper.getDateFromMandatoryButton(rootView, R.id.examDetails_textDate)
             );
         }
     }

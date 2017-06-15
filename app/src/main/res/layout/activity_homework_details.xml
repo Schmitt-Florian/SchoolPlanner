@@ -51,7 +51,7 @@
             android:text="@string/string_due_date"
             android:textStyle="bold" />
 
-        <EditText
+        <Button
             android:id="@+id/homeworkDetails_textDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -60,7 +60,8 @@
             android:layout_marginRight="@dimen/fab_margin"
             android:ems="10"
             android:hint="@string/string_due_date"
-            android:inputType="date" />
+            android:inputType="date"
+            android:onClick=""/>
 
         <TextView
             android:id="@+id/homeworkDetails_labelSubject"

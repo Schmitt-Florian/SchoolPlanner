@@ -50,7 +50,7 @@
             android:text="@string/string_exam_date"
             android:textStyle="bold" />
 
-        <EditText
+        <Button
             android:id="@+id/examDetails_textDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
             android:layout_marginLeft="@dimen/fab_margin"
             android:layout_marginRight="@dimen/fab_margin"
             android:ems="10"
-            android:hint="@string/string_exam_date"
+            android:hint="@string/string_due_date"
             android:inputType="date" />
 
         <TextView
