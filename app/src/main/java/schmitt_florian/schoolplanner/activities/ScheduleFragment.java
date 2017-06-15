@@ -100,7 +100,6 @@ public class ScheduleFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-
     //region private methods
 
     /**
@@ -116,8 +115,6 @@ public class ScheduleFragment extends Fragment {
         initButtons();
 
         initAppbarEditSwitch();
-
-        // System.out.println(databaseHelper.toString());
     }
 
     /**
@@ -251,8 +248,8 @@ public class ScheduleFragment extends Fragment {
 
         return periodArrayList.toArray(new Period[0]);
     }
-
     //endregion
+
 
     //// TODO: 13.06.2017 save changes
     private class OnScheduleButtonClickListener implements View.OnClickListener {
@@ -295,32 +292,41 @@ public class ScheduleFragment extends Fragment {
          * method to show the select start and end time dialog in {@link ScheduleFragment}
          */
         private void showTimeAlertDialog() {
-            final InsertPeriodTimesDialog timesDialog = new InsertPeriodTimesDialog(getContext());
-            timesDialog.positiveButton(new View.OnClickListener() {
+            final InsertPeriodTimesDialog timeDialog = new InsertPeriodTimesDialog(getContext());
+            timeDialog.positiveButton(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    try {
-                        try {
-                            Period period = databaseHelper.getPeriodAtIdOrThrow(y);
-
-                            databaseHelper.updatePeriodAtId(
-                                    new Period(period.getId(), period.getSchoolHourNo(), timesDialog.getStartTime(), timesDialog.getEndTime()));
-
-                            timeHasChanged = true;
-                        } catch (NoSuchFieldException e) {
-                            databaseHelper.insertIntoDB(
-                                    new Period(y, y, timesDialog.getStartTime(), timesDialog.getEndTime()));
-
-                            timeHasChanged = true;
-                        }
-                    } catch (IllegalArgumentException ex) {
-                        timeHasChanged = false;
-                    }
-                    initGui();
+                    handleOnPositiveButtonInTimeDialogClick(timeDialog);
                 }
             });
 
-            timesDialog.show();
+            timeDialog.show();
+        }
+
+        /**
+         * method tho handle clicks at the {@link InsertPeriodTimesDialog} shown by {@link OnScheduleButtonClickListener#showTimeAlertDialog()}
+         *
+         * @param timesDialog the {@link InsertPeriodTimesDialog}
+         */
+        private void handleOnPositiveButtonInTimeDialogClick(InsertPeriodTimesDialog timesDialog) {
+            try {
+                try {
+                    Period period = databaseHelper.getPeriodAtIdOrThrow(y);
+
+                    databaseHelper.updatePeriodAtId(
+                            new Period(period.getId(), period.getSchoolHourNo(), timesDialog.getStartTime(), timesDialog.getEndTime()));
+
+                    timeHasChanged = true;
+                } catch (NoSuchFieldException e) {
+                    databaseHelper.insertIntoDB(
+                            new Period(y, y, timesDialog.getStartTime(), timesDialog.getEndTime()));
+
+                    timeHasChanged = true;
+                }
+            } catch (IllegalArgumentException ex) {
+                timeHasChanged = false;
+            }
+            initGui();
         }
 
         /**
@@ -330,28 +336,41 @@ public class ScheduleFragment extends Fragment {
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setTitle(R.string.string_select_subject);
 
-            builder.setItems(getAllSubjectsInDbAsGuiString(), new DialogInterface.OnClickListener() {
+            builder.setItems(getSubjectSelectorContent(), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    try {
-                        insertOrUpdateLesson(getAllSubjectsInDb()[which]);
-                    } catch (ArrayIndexOutOfBoundsException ex) {
-                        insertNewWeekdayInDb();
-                        insertOrUpdateLesson(getAllSubjectsInDb()[which]);
-                    } finally {
-                        initGui();
-                    }
+                    handleOnSubjectInSubjectDialogClick(dialog, which);
                 }
             });
 
-            builder.setNeutralButton(R.string.string_none, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    //todo save empty
-                }
-            });
+            builder.setNeutralButton(R.string.string_cancel, null);
 
             builder.show();
+        }
+
+        /**
+         * method tho handle clicks at the SubjectAlertDialog shown by {@link OnScheduleButtonClickListener#showSubjectAlertDialog()}
+         *
+         * @param dialog the SubjectAlertDialog
+         * @param which  the clicked Subject in the displayed list
+         */
+        private void handleOnSubjectInSubjectDialogClick(DialogInterface dialog, int which) {
+            if (which == 0) {
+                try {
+                    Lesson lesson = databaseHelper.getLessonOrThrowAtDate(schedule.getDays()[x - 2], getAllPeriodsInDb()[y - 1]);
+                    databaseHelper.deleteLessonAtId(lesson.getId());
+                } catch (NoSuchFieldException | ArrayIndexOutOfBoundsException ignore) {
+                    dialog.dismiss();
+                }
+            } else {
+                try {
+                    insertOrUpdateLesson(getAllSubjectsInDb()[which - 1]);
+                } catch (ArrayIndexOutOfBoundsException ex) {
+                    insertNewWeekdayInDb();
+                    insertOrUpdateLesson(getAllSubjectsInDb()[which - 1]);
+                }
+            }
+            initGui();
         }
 
         /**
@@ -362,9 +381,7 @@ public class ScheduleFragment extends Fragment {
          */
         private void insertOrUpdateLesson(Subject subject) throws ArrayIndexOutOfBoundsException {
             try {
-                Lesson lesson = databaseHelper.getLessonOrThrowAtDate(
-                        schedule.getDays()[x - 2],
-                        getAllPeriodsInDb()[y - 1]);
+                Lesson lesson = databaseHelper.getLessonOrThrowAtDate(schedule.getDays()[x - 2], getAllPeriodsInDb()[y - 1]);
                 Lesson newLesson = new Lesson(lesson.getId(), subject, lesson.getPeriod());
 
                 databaseHelper.updateLessonAtId(newLesson);
@@ -432,11 +449,14 @@ public class ScheduleFragment extends Fragment {
 
         /**
          * method to query all {@link Subject}s from the SchoolPlanner's Database as {@link GuiHelper#extractGuiString(Subject)} array
+         * with {@link schmitt_florian.schoolplanner.R.string#string_none} at array[0] position
          *
-         * @return all {@link Subject}s as String Array
+         * @return the array
          */
-        private String[] getAllSubjectsInDbAsGuiString() {
+        private String[] getSubjectSelectorContent() {
             ArrayList<String> guiStrings = new ArrayList<>();
+
+            guiStrings.add(getResources().getString(R.string.string_none));
 
             for (Subject subject : getAllSubjectsInDb()) {
                 guiStrings.add(GuiHelper.extractGuiString(subject));
