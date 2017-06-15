@@ -10,7 +10,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".gui.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             android:icon="@mipmap/ic_launcher"
             <intent-filter>
@@ -18,27 +18,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.GradeDetailsActivity">
+        <activity android:name=".gui.GradeDetailsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.SubjectDetailsActivity">
+        <activity android:name=".gui.SubjectDetailsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.HomeworkDetailsActivity">
+        <activity android:name=".gui.HomeworkDetailsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.TeacherDetailsActivity">
+        <activity android:name=".gui.TeacherDetailsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.ExamDetailsActivity">
+        <activity android:name=".gui.ExamDetailsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>

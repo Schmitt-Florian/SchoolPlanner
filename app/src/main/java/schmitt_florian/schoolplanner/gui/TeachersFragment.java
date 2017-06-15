@@ -1,7 +1,6 @@
-package schmitt_florian.schoolplanner.activities;
+package schmitt_florian.schoolplanner.gui;
 
 import android.content.Context;
-import android.content.pm.ActivityInfo;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
@@ -18,19 +17,18 @@ import java.util.ArrayList;
 import schmitt_florian.schoolplanner.R;
 import schmitt_florian.schoolplanner.logic.DatabaseHelper;
 import schmitt_florian.schoolplanner.logic.DatabaseHelperImpl;
-import schmitt_florian.schoolplanner.logic.objects.Subject;
+import schmitt_florian.schoolplanner.logic.objects.Teacher;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link SubjectsFragment.OnFragmentInteractionListener} interface
+ * {@link TeachersFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
  */
-public class SubjectsFragment extends Fragment implements View.OnClickListener {
+public class TeachersFragment extends Fragment implements View.OnClickListener {
     @SuppressWarnings({"FieldNever", "unused"})
     private OnFragmentInteractionListener mListener;
-    private Subject[] allSubjectsInList;
-
+    private Teacher[] allTeachersInList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,12 +39,11 @@ public class SubjectsFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_subjects, container, false);
+        View view = inflater.inflate(R.layout.fragment_teachers, container, false);
 
         initGui(view);
         return view;
     }
-
 
     @Override
     public void onAttach(Context context) {
@@ -73,8 +70,9 @@ public class SubjectsFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.subjects_floatingActionButton_add:
-                startActivity(new Intent(getContext(), SubjectDetailsActivity.class));
+            case R.id.teachers_floatingActionButton_add:
+                startActivity(new Intent(getContext(), TeacherDetailsActivity.class));
+                break;
         }
     }
 
@@ -88,7 +86,7 @@ public class SubjectsFragment extends Fragment implements View.OnClickListener {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    interface OnFragmentInteractionListener {
+    public interface OnFragmentInteractionListener {
         @SuppressWarnings({"FieldNever", "unused"})
         void onFragmentInteraction(Uri uri);
     }
@@ -101,53 +99,54 @@ public class SubjectsFragment extends Fragment implements View.OnClickListener {
      * @param view the view of the fragment
      */
     private void initGui(View view) {
-        allSubjectsInList = fillListView(view);
-        GuiHelper.defineFloatingActionButtonOnClickListener(view, R.id.subjects_floatingActionButton_add, this);
-        defineSubjectListOnClick(view);
+        allTeachersInList = fillListView(view);
+        GuiHelper.defineFloatingActionButtonOnClickListener(view, R.id.teachers_floatingActionButton_add, this);
+        defineTeacherListOnClick(view);
     }
 
     /**
-     * method to fill the ListView, which shows the {@link Subject}s at the subject screen
+     * method to fill the ListView, which shows the {@link Teacher}s at the teachers screen
      *
      * @param view the view of the fragment
-     * @return returns a array of all {@link Subject}s shown in the listView ordered by their position in the listView
+     * @return returns a array of all {@link Teacher}s shown in the listView ordered by their position in the listView
      */
-    private Subject[] fillListView(View view) {
+    private Teacher[] fillListView(View view) {
         DatabaseHelper dbHelper = new DatabaseHelperImpl(view.getContext());
 
-        ArrayList<String> subjectStrings = new ArrayList<>();
-        ArrayList<Subject> subjectArrayList = new ArrayList<>();
-        int[] subjectIndices = dbHelper.getIndices(DatabaseHelper.TABLE_SUBJECT);
+        ArrayList<String> teacherStrings = new ArrayList<>();
+        ArrayList<Teacher> teacherArrayList = new ArrayList<>();
+        int[] teacherIndices = dbHelper.getIndices(DatabaseHelper.TABLE_TEACHER);
 
-        for (int subjectIndex : subjectIndices) {
-            Subject subject = dbHelper.getSubjectAtId(subjectIndex);
+        for (int teacherIndex : teacherIndices) {
+            Teacher teacher = dbHelper.getTeacherAtId(teacherIndex);
 
-            subjectStrings.add(GuiHelper.extractGuiString(subject));
-            subjectArrayList.add(subject);
+            teacherStrings.add(GuiHelper.extractGuiString(teacher, getContext()));
+            teacherArrayList.add(teacher);
         }
 
-        if (subjectStrings.size() != 0) {
-            GuiHelper.fillListViewFromArray(view, R.id.subjects_listSubjects, subjectStrings.toArray(new String[0]));
+        if (teacherStrings.size() != 0) {
+            GuiHelper.fillListViewFromArray(view, R.id.teachers_listTeachers, teacherStrings.toArray(new String[0]));
         }
-        return subjectArrayList.toArray(new Subject[0]);
+        return teacherArrayList.toArray(new Teacher[0]);
     }
 
     /**
-     * method to handle Clicks on the ListView, which shows the {@link Subject}s at the subjects screen
+     * method to handle Clicks on the ListView, which shows the {@link Teacher}s at the teachers screen
      *
-     * @param view              the view of the fragment
+     * @param view the view of the fragment
      */
-    private void defineSubjectListOnClick(final View view) {
-        ListView subjectList = (ListView) view.findViewById(R.id.subjects_listSubjects);
+    private void defineTeacherListOnClick(final View view) {
+        ListView teacherList = (ListView) view.findViewById(R.id.teachers_listTeachers);
 
-        subjectList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        teacherList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
-                Intent intent = new Intent(getContext(), SubjectDetailsActivity.class);
-                intent.putExtra("SubjectID", allSubjectsInList[position].getId());
+                Intent intent = new Intent(getContext(), TeacherDetailsActivity.class);
+                intent.putExtra("TeacherID", allTeachersInList[position].getId());
                 startActivity(intent);
             }
         });
     }
 //endregion
+
 }

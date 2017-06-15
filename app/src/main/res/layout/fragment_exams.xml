@@ -4,7 +4,7 @@
     android:id="@+id/exams_mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.ExamsFragment">
+    tools:context=".gui.ExamsFragment">
 
     <FrameLayout
         android:id="@+id/exams_listLayout"

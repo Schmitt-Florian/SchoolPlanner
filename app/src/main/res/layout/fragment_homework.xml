@@ -4,7 +4,7 @@
     android:id="@+id/homework_mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.HomeworkFragment">
+    tools:context=".gui.HomeworkFragment">
 
     <!-- TODO: Update blank fragment layout -->
 

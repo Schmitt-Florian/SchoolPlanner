@@ -12,7 +12,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 
-import schmitt_florian.schoolplanner.activities.DatabaseCascadeDeleteConfirmDialog;
+import schmitt_florian.schoolplanner.gui.DatabaseCascadeDeleteConfirmDialog;
 import schmitt_florian.schoolplanner.logic.objects.Exam;
 import schmitt_florian.schoolplanner.logic.objects.Grade;
 import schmitt_florian.schoolplanner.logic.objects.Homework;

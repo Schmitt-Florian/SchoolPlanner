@@ -4,7 +4,7 @@
     android:id="@+id/subjetcs_mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.SubjectsFragment">
+    tools:context=".gui.SubjectsFragment">
 
     <!-- TODO: Update blank fragment layout -->
 

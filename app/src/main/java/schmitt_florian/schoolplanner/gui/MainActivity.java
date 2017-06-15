@@ -1,4 +1,4 @@
-package schmitt_florian.schoolplanner.activities;
+package schmitt_florian.schoolplanner.gui;
 
 import android.content.Context;
 import android.content.SharedPreferences;

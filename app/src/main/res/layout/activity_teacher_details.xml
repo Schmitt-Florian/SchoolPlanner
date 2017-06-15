@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="1"
-    tools:context=".activities.TeacherDetailsActivity">
+    tools:context=".gui.TeacherDetailsActivity">
 
     <LinearLayout
         android:id="@+id/teacherDetails_edit"
