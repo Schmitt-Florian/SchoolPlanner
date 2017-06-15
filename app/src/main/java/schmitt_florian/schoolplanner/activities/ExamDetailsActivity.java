@@ -18,6 +18,7 @@ import java.util.Calendar;
 import schmitt_florian.schoolplanner.R;
 import schmitt_florian.schoolplanner.logic.DatabaseHelper;
 import schmitt_florian.schoolplanner.logic.DatabaseHelperImpl;
+import schmitt_florian.schoolplanner.logic.Settings;
 import schmitt_florian.schoolplanner.logic.objects.Exam;
 import schmitt_florian.schoolplanner.logic.objects.Subject;
 
@@ -35,6 +36,8 @@ public class ExamDetailsActivity extends AppCompatActivity {
     private int day;
     private int month;
     private int year;
+    private String date;
+    private View view;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,6 +45,7 @@ public class ExamDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_exam_details);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+        view = findViewById(R.id.examDetails_main);
 
         dbHelper = new DatabaseHelperImpl(this);
         int examID = getIntent().getIntExtra("ExamID", -1);
@@ -175,7 +179,7 @@ public class ExamDetailsActivity extends AppCompatActivity {
     }
 
     private void implementDatePicker() {
-        dateButton = (Button) findViewById(R.id.homeworkDetails_textDate);
+        dateButton = (Button) findViewById(R.id.examDetails_textDate);
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -193,8 +197,7 @@ public class ExamDetailsActivity extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
-                String date = day + "." + month + "." + year;
-                dateButton.setText(date);
+                dateButton.setText(formatDate(day, month, year));
             }
         };
     }
@@ -211,6 +214,20 @@ public class ExamDetailsActivity extends AppCompatActivity {
             month = showingExam.getDeadline().get(Calendar.MONTH);
             year = showingExam.getDeadline().get(Calendar.YEAR);
         }
+    }
+
+    private String formatDate(int day, int month, int year) {
+        switch (Settings.getInstance(view.getContext()).getActiveDateFormat()) {
+            case "DD.MM.YYYY":
+                date = day + "." + month + "." + year;
+                break;
+            case "MM.DD.YYYY":
+                date = month + "." + day + "." + year;
+                break;
+            case "YYYY.MM.DD":
+                date = year + "." + month + "." + day;
+        }
+        return date;
     }
     //endregion
 }
