@@ -200,30 +200,36 @@ public class ScheduleFragment extends Fragment {
                 buttons[x][y].setOnClickListener(new OnScheduleButtonClickListener(x, y));
                 buttons[x][y].setClickable(editMode);
 
-                if (x > 1) {
-                    loadSubjectToButtonAt(x, y);
+                if (editMode) {
+                    buttons[x][y].setText("+");
+                } else {
+                    buttons[x][y].setText("");
                 }
-
             }
         }
+        loadSubjectButtons();
         initPeriodButtons();
     }
 
     /**
-     * loads the {@link schmitt_florian.schoolplanner.logic.objects.Period} at there specific slot to the given Button
+     * loads the {@link Subject} at their specific slot to the given Button
+     */
+    private void loadSubjectButtons() {
+        for (int i = 0; i < schedule.getDays().length; i++) {
+            for (Lesson lesson : schedule.getDays()[i].getLessons()) {
+                buttons[i + 2][lesson.getPeriod().getSchoolHourNo()].setText(lesson.getSubject().getName());
+            }
+        }
+    }
+
+    /**
+     * loads the {@link Period} at their specific slot to the given Button
      */
     private void initPeriodButtons() {
         Period[] periods = getAllPeriodsInDb();
         for (Period p : periods) {
             buttons[1][p.getSchoolHourNo()].setText(GuiHelper.extractGuiString(p.getStartTime(), true, getContext()) + " - " +
                     GuiHelper.extractGuiString(p.getEndTime(), true, getContext()));
-        }
-        for (int i = 1; i < buttons[1].length; i++) {
-            if (buttons[1][i].getText().equals("+") && !editMode) {
-                buttons[1][i].setText("");
-            } else if (buttons[1][i].getText().equals("") && editMode) {
-                buttons[1][i].setText("+");
-            }
         }
     }
 
@@ -244,24 +250,6 @@ public class ScheduleFragment extends Fragment {
         }
 
         return periodArrayList.toArray(new Period[0]);
-    }
-
-    /**
-     * loads the {@link Subject} at the specific slot to the given Button
-     *
-     * @param x {@link ScheduleFragment#buttons} first value
-     * @param y {@link ScheduleFragment#buttons} second value
-     */
-    private void loadSubjectToButtonAt(int x, int y) {
-        try {
-            buttons[x][y].setText(schedule.getDays()[x - 2].getLessons()[y - 1].getSubject().getName());
-        } catch (ArrayIndexOutOfBoundsException ex) {
-            if (editMode) {
-                buttons[x][y].setText("+");
-            } else {
-                buttons[x][y].setText("");
-            }
-        }
     }
 
     //endregion
