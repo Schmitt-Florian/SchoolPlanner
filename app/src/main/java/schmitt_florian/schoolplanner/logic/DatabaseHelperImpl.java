@@ -1305,19 +1305,22 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         }
 
         SQLiteDatabase db = this.getWritableDatabase();
-        String query;
+
+        int subjectId;
         if (subject.getId() <= 0) {
-            query = "INSERT INTO " + TABLE_SUBJECT + " VALUES ( " + getNewID(TABLE_SUBJECT, SUBJECT_COLUMN_ID) + ", " + subject.getTeacher().getId() + ", \"" + subject.getName() + "\", \"" + subject.getRoom() + "\")";
+            subjectId = getNewID(TABLE_SUBJECT, SUBJECT_COLUMN_ID);
         } else {
-            query = "INSERT INTO " + TABLE_SUBJECT + " VALUES ( " + subject.getId() + ", " + subject.getTeacher().getId() + ", \"" + subject.getName() + "\", \"" + subject.getRoom() + "\")";
+            subjectId = subject.getId();
         }
+
+        String query = "INSERT INTO " + TABLE_SUBJECT + " VALUES ( " + subjectId + ", " + subject.getTeacher().getId() + ", \"" + subject.getName() + "\", \"" + subject.getRoom() + "\")";
 
         try {
             db.execSQL(query);
         } catch (Exception e) {
             throw new IllegalAccessException();
         }
-        return subject.getId();
+        return subjectId;
     }
 
     /**
@@ -1330,19 +1333,22 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     @Override
     public int insertIntoDBOrThrow(Teacher teacher) throws IllegalAccessException {
         SQLiteDatabase db = this.getWritableDatabase();
-        String query;
+
+        int teacherId;
         if (teacher.getId() <= 0) {
-            query = "INSERT INTO " + TABLE_TEACHER + " VALUES ( " + getNewID(TABLE_TEACHER, TEACHER_COLUMN_ID) + ", \"" + teacher.getName() + "\", \"" + teacher.getAbbreviation() + "\", \"" + teacher.getGender() + "\")";
+            teacherId = getNewID(TABLE_TEACHER, TEACHER_COLUMN_ID);
         } else {
-            query = "INSERT INTO " + TABLE_TEACHER + " VALUES ( " + teacher.getId() + ", \"" + teacher.getName() + "\", \"" + teacher.getAbbreviation() + "\", \"" + teacher.getGender() + "\")";
+            teacherId = teacher.getId();
         }
+
+        String query = "INSERT INTO " + TABLE_TEACHER + " VALUES ( " + teacherId + ", \"" + teacher.getName() + "\", \"" + teacher.getAbbreviation() + "\", \"" + teacher.getGender() + "\")";
 
         try {
             db.execSQL(query);
         } catch (Exception e) {
             throw new IllegalAccessException();
         }
-        return teacher.getId();
+        return teacherId;
     }
 
     /**
@@ -1361,12 +1367,15 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         }
 
         SQLiteDatabase db = this.getWritableDatabase();
-        String query;
+
+        int homeworkId;
         if (homework.getId() <= 0) {
-            query = "INSERT INTO " + TABLE_HOMEWORK + " VALUES ( " + getNewID(TABLE_HOMEWORK, HOMEWORK_COLUMN_ID) + ", " + homework.getSubject().getId() + ", \"" + homework.getDescription() + "\", \"" + homework.getDeadlineAsDatabaseString() + "\", " + homework.getDone() + ")";
+            homeworkId = getNewID(TABLE_HOMEWORK, HOMEWORK_COLUMN_ID);
         } else {
-            query = "INSERT INTO " + TABLE_HOMEWORK + " VALUES ( " + homework.getId() + ", " + homework.getSubject().getId() + ", \"" + homework.getDescription() + "\", \"" + homework.getDeadlineAsDatabaseString() + "\", " + homework.getDone() + ")";
+            homeworkId = homework.getId();
         }
+
+        String query = "INSERT INTO " + TABLE_HOMEWORK + " VALUES ( " + homeworkId + ", " + homework.getSubject().getId() + ", \"" + homework.getDescription() + "\", \"" + homework.getDeadlineAsDatabaseString() + "\", " + homework.getDone() + ")";
 
         try {
             db.execSQL(query);
@@ -1374,7 +1383,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
             throw new IllegalAccessException();
         }
 
-        return homework.getId();
+        return homeworkId;
     }
 
     /**
@@ -1393,19 +1402,22 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         }
 
         SQLiteDatabase db = this.getWritableDatabase();
-        String query;
+
+        int examId;
         if (exam.getId() <= 0) {
-            query = "INSERT INTO " + TABLE_EXAM + " VALUES ( " + getNewID(TABLE_EXAM, EXAM_COLUMN_ID) + ", " + exam.getSubject().getId() + ", \"" + exam.getDescription() + "\", \"" + exam.getDeadlineAsDatabaseString() + "\")";
+            examId = getNewID(TABLE_EXAM, EXAM_COLUMN_ID);
         } else {
-            query = "INSERT INTO " + TABLE_EXAM + " VALUES ( " + exam.getId() + ", " + exam.getSubject().getId() + ", \"" + exam.getDescription() + "\", \"" + exam.getDeadlineAsDatabaseString() + "\")";
+            examId = exam.getId();
         }
+
+        String query = "INSERT INTO " + TABLE_EXAM + " VALUES ( " + examId + ", " + exam.getSubject().getId() + ", \"" + exam.getDescription() + "\", \"" + exam.getDeadlineAsDatabaseString() + "\")";
 
         try {
             db.execSQL(query);
         } catch (Exception e) {
             throw new IllegalAccessException();
         }
-        return exam.getId();
+        return examId;
     }
 
     /**
@@ -1424,19 +1436,23 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         }
 
         SQLiteDatabase db = this.getWritableDatabase();
-        String query;
+
+        int gradeId;
         if (grade.getId() <= 0) {
-            query = "INSERT INTO " + TABLE_GRADE + " VALUES ( " + getNewID(TABLE_GRADE, GRADE_COLUMN_ID) + ", " + grade.getSubject().getId() + ", \"" + grade.getName() + "\", \"" + grade.getGrade() + "\")";
+            gradeId = getNewID(TABLE_GRADE, GRADE_COLUMN_ID);
         } else {
-            query = "INSERT INTO " + TABLE_GRADE + " VALUES ( " + grade.getId() + ", " + grade.getSubject().getId() + ", \"" + grade.getName() + "\", \"" + grade.getGrade() + "\")";
+            gradeId = grade.getId();
         }
+
+        String query = "INSERT INTO " + TABLE_GRADE + " VALUES ( " + gradeId + ", " + grade.getSubject().getId() + ", \"" + grade.getName() + "\", \"" + grade.getGrade() + "\")";
+
 
         try {
             db.execSQL(query);
         } catch (Exception e) {
             throw new IllegalAccessException();
         }
-        return grade.getId();
+        return gradeId;
     }
 
     /**
@@ -1449,19 +1465,22 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
     @Override
     public int insertIntoDBOrThrow(Period period) throws IllegalAccessException {
         SQLiteDatabase db = this.getWritableDatabase();
-        String query;
+
+        int periodId;
         if (period.getId() <= 0) {
-            query = "INSERT INTO " + TABLE_PERIOD + " VALUES ( " + getNewID(TABLE_PERIOD, PERIOD_COLUMN_ID) + ", " + period.getSchoolHourNo() + ", \"" + period.getStartTimeAsString() + "\", \"" + period.getEndTimeAsString() + "\")";
+            periodId = getNewID(TABLE_PERIOD, PERIOD_COLUMN_ID);
         } else {
-            query = "INSERT INTO " + TABLE_PERIOD + " VALUES ( " + period.getId() + ", " + period.getSchoolHourNo() + ", \"" + period.getStartTimeAsString() + "\", \"" + period.getEndTimeAsString() + "\")";
+            periodId = period.getId();
         }
+
+        String query = "INSERT INTO " + TABLE_PERIOD + " VALUES ( " + periodId + ", " + period.getSchoolHourNo() + ", \"" + period.getStartTimeAsString() + "\", \"" + period.getEndTimeAsString() + "\")";
 
         try {
             db.execSQL(query);
         } catch (Exception e) {
             throw new IllegalAccessException();
         }
-        return period.getId();
+        return periodId;
     }
 
     /**
@@ -1486,19 +1505,22 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         }
 
         SQLiteDatabase db = this.getWritableDatabase();
-        String query;
+
+        int lessonId;
         if (lesson.getId() <= 0) {
-            query = "INSERT INTO " + TABLE_LESSON + " VALUES ( " + getNewID(TABLE_LESSON, LESSON_COLUMN_ID) + ", " + lesson.getSubject().getId() + ", " + lesson.getPeriod().getId() + ", NULL)";
+            lessonId = getNewID(TABLE_LESSON, LESSON_COLUMN_ID);
         } else {
-            query = "INSERT INTO " + TABLE_LESSON + " VALUES ( " + lesson.getId() + ", " + lesson.getSubject().getId() + ", " + lesson.getPeriod().getId() + ", NULL)";
+            lessonId = lesson.getId();
         }
+
+        String query = "INSERT INTO " + TABLE_LESSON + " VALUES ( " + lessonId + ", " + lesson.getSubject().getId() + ", " + lesson.getPeriod().getId() + ", NULL)";
 
         try {
             db.execSQL(query);
         } catch (Exception e) {
             throw new IllegalAccessException();
         }
-        return lesson.getId();
+        return lessonId;
     }
 
     /**
@@ -1524,19 +1546,22 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         }
 
         SQLiteDatabase db = this.getWritableDatabase();
-        String query;
+
+        int weekdayId;
         if (weekday.getId() <= 0) {
-            query = "INSERT INTO " + TABLE_WEEKDAY + " VALUES ( " + getNewID(TABLE_WEEKDAY, WEEKDAY_COLUMN_ID) + ",NULL, \"" + weekday.getName() + "\")";
+            weekdayId = getNewID(TABLE_WEEKDAY, WEEKDAY_COLUMN_ID);
         } else {
-            query = "INSERT INTO " + TABLE_WEEKDAY + " VALUES ( " + weekday.getId() + ",NULL, \"" + weekday.getName() + "\")";
+            weekdayId = weekday.getId();
         }
+
+        String query = "INSERT INTO " + TABLE_WEEKDAY + " VALUES ( " + weekdayId + ",NULL, \"" + weekday.getName() + "\")";
 
         try {
             db.execSQL(query);
         } catch (Exception e) {
             throw new IllegalAccessException();
         }
-        return weekday.getId();
+        return weekdayId;
     }
 
     /**
@@ -1562,19 +1587,22 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         }
 
         SQLiteDatabase db = this.getWritableDatabase();
-        String query;
+
+        int scheduleId;
         if (schedule.getId() <= 0) {
-            query = "INSERT INTO " + TABLE_SCHEDULE + " VALUES ( " + getNewID(TABLE_SCHEDULE, SCHEDULE_COLUMN_ID) + ", \"" + schedule.getName() + "\")";
+            scheduleId = getNewID(TABLE_SCHEDULE, SCHEDULE_COLUMN_ID);
         } else {
-            query = "INSERT INTO " + TABLE_SCHEDULE + " VALUES ( " + schedule.getId() + ", \"" + schedule.getName() + "\")";
+            scheduleId = schedule.getId();
         }
+
+        String query = "INSERT INTO " + TABLE_SCHEDULE + " VALUES ( " + scheduleId + ", \"" + schedule.getName() + "\")";
 
         try {
             db.execSQL(query);
         } catch (Exception e) {
             throw new IllegalAccessException();
         }
-        return schedule.getId();
+        return scheduleId;
     }
     //endregion
 
