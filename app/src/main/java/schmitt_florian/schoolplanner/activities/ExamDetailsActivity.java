@@ -32,6 +32,9 @@ public class ExamDetailsActivity extends AppCompatActivity {
     private boolean addMode;
     private Button dateButton;
     private DatePickerDialog.OnDateSetListener dateSetListener;
+    private int day;
+    private int month;
+    private int year;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,33 +42,6 @@ public class ExamDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_exam_details);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        dateButton = (Button) findViewById(R.id.examDetails_textDate);
-        dateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Calendar cal = Calendar.getInstance();
-                int day = cal.get(Calendar.DAY_OF_MONTH);
-                int month = cal.get(Calendar.MONTH);
-                int year = cal.get(Calendar.YEAR);
-
-                DatePickerDialog dialog = new DatePickerDialog(
-                        ExamDetailsActivity.this,
-                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                        dateSetListener,
-                        year, month, day);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
-            }
-        });
-
-        dateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                month = month + 1;
-                String date = day + "." + month + "." + year;
-                dateButton.setText(date);
-            }
-        };
 
         dbHelper = new DatabaseHelperImpl(this);
         int examID = getIntent().getIntExtra("ExamID", -1);
@@ -142,6 +118,7 @@ public class ExamDetailsActivity extends AppCompatActivity {
                 }
             }
         }
+        implementDatePicker();
     }
 
     /**
@@ -194,6 +171,45 @@ public class ExamDetailsActivity extends AppCompatActivity {
                     GuiHelper.getInputFromMandatoryEditText(rootView, R.id.examDetails_textDescription),
                     GuiHelper.getDateFromMandatoryButton(rootView, R.id.examDetails_textDate)
             );
+        }
+    }
+
+    private void implementDatePicker() {
+        dateButton = (Button) findViewById(R.id.homeworkDetails_textDate);
+        dateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getDateForDatePicker();
+                DatePickerDialog dialog = new DatePickerDialog(
+                        ExamDetailsActivity.this,
+                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                        dateSetListener,
+                        year, month, day);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+        dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month = month + 1;
+                String date = day + "." + month + "." + year;
+                dateButton.setText(date);
+            }
+        };
+    }
+
+    private void getDateForDatePicker() {
+
+        if (addMode) {
+            Calendar cal = Calendar.getInstance();
+            day = cal.get(Calendar.DAY_OF_MONTH);
+            month = cal.get(Calendar.MONTH);
+            year = cal.get(Calendar.YEAR);
+        } else {
+            day = showingExam.getDeadline().get(Calendar.DAY_OF_MONTH);
+            month = showingExam.getDeadline().get(Calendar.MONTH);
+            year = showingExam.getDeadline().get(Calendar.YEAR);
         }
     }
     //endregion
