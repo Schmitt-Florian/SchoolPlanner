@@ -367,7 +367,7 @@ public class ScheduleFragment extends Fragment {
                 }
             });
 
-            builder.setNeutralButton(R.string.string_cancel, null);
+            builder.setNegativeButton(R.string.string_cancel, null);
 
             builder.show();
         }
@@ -397,8 +397,7 @@ public class ScheduleFragment extends Fragment {
                     insertNewWeekdayInDb();
                     insertOrUpdateLesson(getAllSubjectsInDb()[which - 1]);
                 } catch (ArrayIndexOutOfBoundsException ex) {
-                    //todo do things to make sure the user knows why it wasn't inserted
-                    System.out.println("period wasn't inserted");
+                    handleMissingPeriod();
                 }
             }
             initGui();
@@ -516,6 +515,22 @@ public class ScheduleFragment extends Fragment {
             }
 
             return subjectArrayList.toArray(new Subject[0]);
+        }
+
+        /**
+         * method to handle the case the user wants to insert a {@link Lesson} at a not present {@link Period}
+         * by displaying a {@link AlertDialog} which tells the user to insert the {@link Period} first
+         */
+        private void handleMissingPeriod() {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+            builder.setIconAttribute(android.R.attr.alertDialogIcon);
+            builder.setTitle(R.string.string_missing_period);
+
+            builder.setMessage(R.string.text_dialog_schedule_missing_period);
+            builder.setNegativeButton(R.string.string_cancel, null);
+
+            builder.show();
         }
         //endregion
 

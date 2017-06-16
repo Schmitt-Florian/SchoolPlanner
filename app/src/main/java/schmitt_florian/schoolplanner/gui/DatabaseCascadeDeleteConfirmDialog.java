@@ -31,8 +31,8 @@ public class DatabaseCascadeDeleteConfirmDialog extends AlertDialog {
     public DatabaseCascadeDeleteConfirmDialog(@NonNull Context context, int numberOfObjects) {
         super(context);
         setTitle(getContext().getResources().getString(R.string.string_confirm_delete));
-        setMessage(getContext().getResources().getString(R.string.string_do_you_really_want_to_delete_this_object_this_will_also_lead_to_the_deletion_of) +
-                " " + numberOfObjects + " " + getContext().getResources().getString(R.string.string_related_objects));
+        setMessage(getContext().getResources().getString(R.string.text_dialog_db_cascade_deletion_part1) +
+                " " + numberOfObjects + " " + getContext().getResources().getString(R.string.text_dialog_db_cascade_deletion_part2));
         setIcon(android.R.drawable.ic_menu_delete);
         setCancelable(false);
         setButton(BUTTON_NEGATIVE, getContext().getResources().getString(R.string.string_cancel), new OnClickListener() {

@@ -32,6 +32,11 @@
     <string name="string_teacher">Teacher</string>
     <string name="string_room">Room</string>
 
+    //Dialog texts
+    <string name="text_dialog_db_cascade_deletion_part1">Do you really want to delete this object? This will also lead to the deletion of</string>
+    <string name="text_dialog_db_cascade_deletion_part2">related objects.</string>
+    <string name="text_dialog_schedule_missing_period">You are trying to enter a lesson, without having entered the time your lesson is in before.\nPlease insert the time first and than try again.</string>
+
     //Other
     <string name="string_error">Error</string>
     <string name="string_choose_email_service">Choose Email Service</string>
@@ -62,8 +67,6 @@
     <string name="string_select_gender">Select Gender</string>
     <string name="string_exam_date">Exam Date</string>
     <string name="string_confirm_delete">Confirm Delete</string>
-    <string name="string_do_you_really_want_to_delete_this_object_this_will_also_lead_to_the_deletion_of">Do you really want to delete this object? This will also lead to the deletion of</string>
-    <string name="string_related_objects">related objects.</string>
     <string name="string_select_date_format">Select Date Format</string>
     <string name="string_amount_of_periods">Periods per Day</string>
     <string name="string_select_language">Select Language</string>
@@ -77,6 +80,7 @@
     <string name="string_end_time">End Time</string>
     <string name="string_select_time">Select Time</string>
     <string name="string_time_must_comply_with">Time must comply with</string>
+    <string name="string_missing_period">Missing Period</string>
 
     <string name="hello_blank_fragment" translatable="false">~Empty~</string>
     <string name="string_description">Description</string>
