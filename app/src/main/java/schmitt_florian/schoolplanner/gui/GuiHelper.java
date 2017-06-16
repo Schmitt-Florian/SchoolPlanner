@@ -325,14 +325,14 @@ class GuiHelper {
     static String extractGuiString(Calendar calendar, boolean isTimeOnly, Context context) {
         String res = "";
         if (isTimeOnly) {
-            if (calendar.get(Calendar.HOUR) > 9 && calendar.get(Calendar.MINUTE) > 9) {
-                res = calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE);
-            } else if (calendar.get(Calendar.HOUR) <= 9 && calendar.get(Calendar.MINUTE) > 9) {
-                res = "0" + calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE);
-            } else if (calendar.get(Calendar.HOUR) > 9 && calendar.get(Calendar.MINUTE) <= 9) {
-                res = calendar.get(Calendar.HOUR) + ":" + "0" + calendar.get(Calendar.MINUTE);
+            if (calendar.get(Calendar.HOUR_OF_DAY) > 9 && calendar.get(Calendar.MINUTE) > 9) {
+                res = calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE);
+            } else if (calendar.get(Calendar.HOUR_OF_DAY) <= 9 && calendar.get(Calendar.MINUTE) > 9) {
+                res = "0" + calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE);
+            } else if (calendar.get(Calendar.HOUR_OF_DAY) > 9 && calendar.get(Calendar.MINUTE) <= 9) {
+                res = calendar.get(Calendar.HOUR_OF_DAY) + ":" + "0" + calendar.get(Calendar.MINUTE);
             } else {
-                res = "0" + calendar.get(Calendar.HOUR) + ":" + "0" + calendar.get(Calendar.MINUTE);
+                res = "0" + calendar.get(Calendar.HOUR_OF_DAY) + ":" + "0" + calendar.get(Calendar.MINUTE);
             }
         } else {
             switch (Settings.getInstance(context).getActiveDateFormat()) {

@@ -64,4 +64,9 @@
     <string name="navigation_drawer_open">Öffne Seitenleiste</string>
     <string name="string_settings_saved">Einstellungen gespeichert</string>
     <string name="string_date_must_comply_with">Datum entspricht nicht</string>
+    <string name="string_none">Nichts</string>
+    <string name="string_select_time">Wähle Zeit</string>
+    <string name="string_start_time">Startzeit</string>
+    <string name="string_time_must_comply_with">Zeit entspricht nicht</string>
+    <string name="string_end_time">Endzeit</string>
 </resources>
