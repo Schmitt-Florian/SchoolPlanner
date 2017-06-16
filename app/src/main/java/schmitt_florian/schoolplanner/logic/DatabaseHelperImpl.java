@@ -2042,7 +2042,9 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         Period period1 = new Period(1, 1, "07-45-00", "08-30-00");
         Period period2 = new Period(2, 2, "08-35-00", "09-20-00");
         Period period3 = new Period(3, 3, "09-35-00", "10-20-00");
-        Period period4 = new Period(4, 4, "10-25-00", "11-25-00");
+        Period period4 = new Period(4, 4, "10-25-00", "11-20-00");
+        Period period5 = new Period(5, 5, "11-35-00", "12-10-00");
+        Period period6 = new Period(6, 6, "12-15-00", "13-00-00");
 
         Lesson lesson1 = new Lesson(1, subject1, period1);
         Lesson lesson2 = new Lesson(2, subject2, period2);
@@ -2069,6 +2071,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         insertIntoDB(grade3);
         insertIntoDB(grade4);
 
+
         insertIntoDB(homework1);
         insertIntoDB(homework2);
         insertIntoDB(homework3);
@@ -2078,6 +2081,8 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         insertIntoDB(period2);
         insertIntoDB(period3);
         insertIntoDB(period4);
+        insertIntoDB(period5);
+        insertIntoDB(period6);
 
         insertIntoDB(lesson1);
         insertIntoDB(lesson2);
