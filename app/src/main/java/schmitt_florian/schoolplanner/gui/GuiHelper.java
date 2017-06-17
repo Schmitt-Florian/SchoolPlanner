@@ -91,22 +91,23 @@ class GuiHelper {
             date = str.split("-");
 
             if (date.length != 3) {
-                handleEmptyMandatoryEditText(view, id);
+                handleEmptyMandatoryButton(view, id);
                 throw new IllegalArgumentException("date must be contain three elements");
             }
         } else {
-            handleEmptyMandatoryEditText(view, id);
+            handleEmptyMandatoryButton(view, id);
             throw new IllegalArgumentException("unknown date divider");
         }
 
         try {
             return (GregorianCalendar) parseCalendarFromStringArray(date, view.getContext());
         } catch (IllegalArgumentException ex) {
-            handleEmptyMandatoryEditText(view, id,
+            handleEmptyMandatoryButton(view, id,
                     view.getContext().getResources().getString(R.string.string_date_must_comply_with) +
                             " " + Settings.getInstance(view.getContext()).getActiveDateFormat());
             throw ex;
         }
+
     }
 
     /**
@@ -440,6 +441,51 @@ class GuiHelper {
         editText.setHint(message);
         editText.setHintTextColor(Color.RED);
     }
+
+
+    /**
+     * can be used to indicate for the user that a {@link Button} in the GUI must not be empty by displaying a Red hint "Mandatory Field"
+     *
+     * @param view the view the {@link Button} is in
+     * @param id   the ResourceID of the Button
+     */
+    private static void handleEmptyMandatoryButton(View view, int id) {
+        handleEmptyMandatoryButton(view, id, view.getContext().getResources().getString(R.string.string_mandatory_field));
+    }
+
+    /**
+     * can be used to indicate for the user that a {@link Button} in the GUI must not be empty by displaying a Red hint with your message
+     *
+     * @param view    the view the {@link Button} is in
+     * @param id      the ResourceID of the Button
+     * @param message the message to display in the hint
+     */
+    private static void handleEmptyMandatoryButton(View view, int id, String message) {
+        Button button = (Button) view.findViewById(id);
+        handleEmptyMandatoryButton(button, message);
+    }
+
+    /**
+     * can be used to indicate for the user that a {@link Button} in the GUI must not be empty by displaying a Red hint "Mandatory Field"
+     *
+     * @param button the button
+     */
+    private static void handleEmptyMandatoryButton(Button button) {
+        handleEmptyMandatoryButton(button, button.getContext().getResources().getString(R.string.string_mandatory_field));
+    }
+
+    /**
+     * can be used to indicate for the user that a {@link Button} in the GUI must not be empty by displaying a Red hint with your message
+     *
+     * @param button  the button
+     * @param message the message to display in the hint
+     */
+    private static void handleEmptyMandatoryButton(Button button, String message) {
+        button.setText("");
+        button.setHint(message);
+        button.setHintTextColor(Color.RED);
+    }
+
 
     /**
      * method to parse a {@link Calendar} from a ordered {@link String}[]
