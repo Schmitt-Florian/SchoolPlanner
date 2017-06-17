@@ -31,7 +31,7 @@
                         android:orientation="horizontal">
 
                         <Button
-                            android:id="@+id/button1"
+                            android:id="@+id/buttonPeriod"
                             style="@style/Widget.AppCompat.Button.Borderless"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
                             android:text="Period" />
 
                         <Button
-                            android:id="@+id/button2"
+                            android:id="@+id/button000"
                             style="@style/Widget.AppCompat.Button.Borderless"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
                             android:text="Time" />
 
                         <Button
-                            android:id="@+id/button3"
+                            android:id="@+id/button100"
                             style="@style/Widget.AppCompat.Button.Borderless"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
                             android:text="Mon" />
 
                         <Button
-                            android:id="@+id/button4"
+                            android:id="@+id/button200"
                             style="@style/Widget.AppCompat.Button.Borderless"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -67,7 +67,7 @@
                             android:text="Tue" />
 
                         <Button
-                            android:id="@+id/button5"
+                            android:id="@+id/button300"
                             style="@style/Widget.AppCompat.Button.Borderless"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -76,7 +76,7 @@
                             android:text="Wed" />
 
                         <Button
-                            android:id="@+id/button6"
+                            android:id="@+id/button400"
                             style="@style/Widget.AppCompat.Button.Borderless"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
                             android:text="Thur" />
 
                         <Button
-                            android:id="@+id/button7"
+                            android:id="@+id/button500"
                             style="@style/Widget.AppCompat.Button.Borderless"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -94,7 +94,7 @@
                             android:text="Fri" />
 
                         <Button
-                            android:id="@+id/button8"
+                            android:id="@+id/button600"
                             style="@style/Widget.AppCompat.Button.Borderless"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -116,7 +116,7 @@
                         android:orientation="horizontal">
 
                         <Button
-                            android:id="@+id/button9"
+                            android:id="@+id/buttonPeriod1"
                             style="@style/Widget.AppCompat.Button.Borderless"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -125,49 +125,49 @@
                             android:text="1" />
 
                         <Button
-                            android:id="@+id/button10"
+                            android:id="@+id/button001"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button11"
+                            android:id="@+id/button101"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button12"
+                            android:id="@+id/button201"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button13"
+                            android:id="@+id/button301"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button14"
+                            android:id="@+id/button401"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button15"
+                            android:id="@+id/button501"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button16"
+                            android:id="@+id/button601"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -187,7 +187,7 @@
                         android:orientation="horizontal">
 
                         <Button
-                            android:id="@+id/button17"
+                            android:id="@+id/buttonPeriod2"
                             style="@style/Widget.AppCompat.Button.Borderless"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -196,49 +196,49 @@
                             android:text="2" />
 
                         <Button
-                            android:id="@+id/button18"
+                            android:id="@+id/button002"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button19"
+                            android:id="@+id/button102"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button20"
+                            android:id="@+id/button202"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button21"
+                            android:id="@+id/button302"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button22"
+                            android:id="@+id/button402"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button23"
+                            android:id="@+id/button502"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button24"
+                            android:id="@+id/button602"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -258,7 +258,7 @@
                         android:orientation="horizontal">
 
                         <Button
-                            android:id="@+id/button25"
+                            android:id="@+id/buttonPeriod3"
                             style="@style/Widget.AppCompat.Button.Borderless"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -267,49 +267,49 @@
                             android:text="3" />
 
                         <Button
-                            android:id="@+id/button26"
+                            android:id="@+id/button003"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button27"
+                            android:id="@+id/button103"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button28"
+                            android:id="@+id/button203"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button29"
+                            android:id="@+id/button303"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button30"
+                            android:id="@+id/button403"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button31"
+                            android:id="@+id/button503"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button32"
+                            android:id="@+id/button603"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -329,7 +329,7 @@
                         android:orientation="horizontal">
 
                         <Button
-                            android:id="@+id/button33"
+                            android:id="@+id/buttonPeriod4"
                             style="@style/Widget.AppCompat.Button.Borderless"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -338,49 +338,49 @@
                             android:text="4" />
 
                         <Button
-                            android:id="@+id/button34"
+                            android:id="@+id/button004"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button35"
+                            android:id="@+id/button104"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button36"
+                            android:id="@+id/button204"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button37"
+                            android:id="@+id/button304"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button38"
+                            android:id="@+id/button404"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button39"
+                            android:id="@+id/button504"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button40"
+                            android:id="@+id/button604"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -400,7 +400,7 @@
                         android:orientation="horizontal">
 
                         <Button
-                            android:id="@+id/button41"
+                            android:id="@+id/buttonPeriod5"
                             style="@style/Widget.AppCompat.Button.Borderless"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -409,49 +409,49 @@
                             android:text="5" />
 
                         <Button
-                            android:id="@+id/button42"
+                            android:id="@+id/button005"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button43"
+                            android:id="@+id/button105"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button44"
+                            android:id="@+id/button205"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button45"
+                            android:id="@+id/button305"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button46"
+                            android:id="@+id/button405"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button47"
+                            android:id="@+id/button505"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button48"
+                            android:id="@+id/button605"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -471,7 +471,7 @@
                         android:orientation="horizontal">
 
                         <Button
-                            android:id="@+id/button49"
+                            android:id="@+id/buttonPeriod6"
                             style="@style/Widget.AppCompat.Button.Borderless"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -480,49 +480,49 @@
                             android:text="6" />
 
                         <Button
-                            android:id="@+id/button50"
+                            android:id="@+id/button006"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button51"
+                            android:id="@+id/button106"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button52"
+                            android:id="@+id/button206"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button53"
+                            android:id="@+id/button306"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button54"
+                            android:id="@+id/button406"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button55"
+                            android:id="@+id/button506"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button56"
+                            android:id="@+id/button606"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -542,7 +542,7 @@
                         android:orientation="horizontal">
 
                         <Button
-                            android:id="@+id/button57"
+                            android:id="@+id/buttonPeriod7"
                             style="@style/Widget.AppCompat.Button.Borderless"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -551,49 +551,49 @@
                             android:text="7" />
 
                         <Button
-                            android:id="@+id/button58"
+                            android:id="@+id/button007"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button59"
+                            android:id="@+id/button107"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button60"
+                            android:id="@+id/button207"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button61"
+                            android:id="@+id/button307"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button62"
+                            android:id="@+id/button407"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button63"
+                            android:id="@+id/button507"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button64"
+                            android:id="@+id/button607"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -613,7 +613,7 @@
                         android:orientation="horizontal">
 
                         <Button
-                            android:id="@+id/button65"
+                            android:id="@+id/buttonPeriod8"
                             style="@style/Widget.AppCompat.Button.Borderless"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -622,49 +622,49 @@
                             android:text="8" />
 
                         <Button
-                            android:id="@+id/button66"
+                            android:id="@+id/button008"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button67"
+                            android:id="@+id/button108"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button68"
+                            android:id="@+id/button208"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button69"
+                            android:id="@+id/button308"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button70"
+                            android:id="@+id/button408"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button71"
+                            android:id="@+id/button508"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button72"
+                            android:id="@+id/button608"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -684,7 +684,7 @@
                         android:orientation="horizontal">
 
                         <Button
-                            android:id="@+id/button73"
+                            android:id="@+id/buttonPeriod9"
                             style="@style/Widget.AppCompat.Button.Borderless"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -693,49 +693,49 @@
                             android:text="9" />
 
                         <Button
-                            android:id="@+id/button74"
+                            android:id="@+id/button009"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button75"
+                            android:id="@+id/button109"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button76"
+                            android:id="@+id/button209"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button77"
+                            android:id="@+id/button309"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button78"
+                            android:id="@+id/button409"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button79"
+                            android:id="@+id/button509"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button80"
+                            android:id="@+id/button609"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -756,7 +756,7 @@
                         android:orientation="horizontal">
 
                         <Button
-                            android:id="@+id/button81"
+                            android:id="@+id/buttonPeriod10"
                             style="@style/Widget.AppCompat.Button.Borderless"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -765,49 +765,49 @@
                             android:text="10" />
 
                         <Button
-                            android:id="@+id/button82"
+                            android:id="@+id/button010"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button83"
+                            android:id="@+id/button110"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button84"
+                            android:id="@+id/button210"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button85"
+                            android:id="@+id/button310"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button86"
+                            android:id="@+id/button410"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button87"
+                            android:id="@+id/button510"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button88"
+                            android:id="@+id/button610"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -828,7 +828,7 @@
                         android:orientation="horizontal">
 
                         <Button
-                            android:id="@+id/button89"
+                            android:id="@+id/buttonPeriod11"
                             style="@style/Widget.AppCompat.Button.Borderless"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -837,49 +837,49 @@
                             android:text="11" />
 
                         <Button
-                            android:id="@+id/button90"
+                            android:id="@+id/button011"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button91"
+                            android:id="@+id/button111"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button92"
+                            android:id="@+id/button211"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button93"
+                            android:id="@+id/button311"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button94"
+                            android:id="@+id/button411"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button95"
+                            android:id="@+id/button511"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button96"
+                            android:id="@+id/button611"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -900,7 +900,7 @@
                         android:orientation="horizontal">
 
                         <Button
-                            android:id="@+id/button97"
+                            android:id="@+id/buttonPeriod12"
                             style="@style/Widget.AppCompat.Button.Borderless"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -909,49 +909,49 @@
                             android:text="12" />
 
                         <Button
-                            android:id="@+id/button98"
+                            android:id="@+id/button012"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button99"
+                            android:id="@+id/button112"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button100"
+                            android:id="@+id/button212"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button101"
+                            android:id="@+id/button312"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button102"
+                            android:id="@+id/button412"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button103"
+                            android:id="@+id/button512"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button104"
+                            android:id="@+id/button612"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -972,7 +972,7 @@
                         android:orientation="horizontal">
 
                         <Button
-                            android:id="@+id/button105"
+                            android:id="@+id/buttonPeriod13"
                             style="@style/Widget.AppCompat.Button.Borderless"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -981,49 +981,49 @@
                             android:text="13" />
 
                         <Button
-                            android:id="@+id/button106"
+                            android:id="@+id/button013"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button107"
+                            android:id="@+id/button113"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button108"
+                            android:id="@+id/button213"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button109"
+                            android:id="@+id/button313"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button110"
+                            android:id="@+id/button413"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button111"
+                            android:id="@+id/button513"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button112"
+                            android:id="@+id/button613"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -1044,13 +1044,20 @@
                         android:orientation="horizontal">
 
                         <Button
-                            android:id="@+id/button113"
+                            android:id="@+id/buttonPeriod14"
                             style="@style/Widget.AppCompat.Button.Borderless"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:clickable="false"
                             android:text="14" />
+
+                        <Button
+                            android:id="@+id/button014"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:textAllCaps="false" />
 
                         <Button
                             android:id="@+id/button114"
@@ -1060,42 +1067,35 @@
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button115"
+                            android:id="@+id/button214"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button116"
+                            android:id="@+id/button314"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button117"
+                            android:id="@+id/button414"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button118"
+                            android:id="@+id/button514"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button119"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:textAllCaps="false" />
-
-                        <Button
-                            android:id="@+id/button120"
+                            android:id="@+id/button614"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -1116,7 +1116,7 @@
                         android:orientation="horizontal">
 
                         <Button
-                            android:id="@+id/button121"
+                            android:id="@+id/buttonPeriod15"
                             style="@style/Widget.AppCompat.Button.Borderless"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -1125,49 +1125,49 @@
                             android:text="15" />
 
                         <Button
-                            android:id="@+id/button122"
+                            android:id="@+id/button015"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button123"
+                            android:id="@+id/button115"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button124"
+                            android:id="@+id/button215"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button125"
+                            android:id="@+id/button315"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button126"
+                            android:id="@+id/button415"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button127"
+                            android:id="@+id/button515"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textAllCaps="false" />
 
                         <Button
-                            android:id="@+id/button128"
+                            android:id="@+id/button615"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
