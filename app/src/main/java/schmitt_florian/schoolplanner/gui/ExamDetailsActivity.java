@@ -56,6 +56,8 @@ public class ExamDetailsActivity extends AppCompatActivity {
             showingExam = dbHelper.getExamAtId(examID);
         }
 
+        getDateForDatePicker();
+
         rootView = findViewById(R.id.examDetails_main);
         initGUI();
     }
@@ -183,7 +185,6 @@ public class ExamDetailsActivity extends AppCompatActivity {
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getDateForDatePicker();
                 DatePickerDialog dialog = new DatePickerDialog(
                         ExamDetailsActivity.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
@@ -197,9 +198,7 @@ public class ExamDetailsActivity extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
 
-                showingExam.getDeadline().set(Calendar.DAY_OF_MONTH, day);
-                showingExam.getDeadline().set(Calendar.MONTH, month);
-                showingExam.getDeadline().set(Calendar.YEAR, year);
+                updateDateForDatePicker(day, month, year);
 
                 month = month + 1;
                 dateButton.setText(formatDate(day, month, year));
@@ -234,5 +233,14 @@ public class ExamDetailsActivity extends AppCompatActivity {
         }
         return date;
     }
+
+    private void updateDateForDatePicker(int day, int month, int year){
+
+        this.day = day;
+        this.month = month;
+        this.year = year;
+
+    }
+
     //endregion
 }

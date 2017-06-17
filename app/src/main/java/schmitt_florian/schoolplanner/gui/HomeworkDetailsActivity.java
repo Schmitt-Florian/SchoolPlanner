@@ -58,6 +58,8 @@ public class HomeworkDetailsActivity extends AppCompatActivity {
             showingHomework = dbHelper.getHomeworkAtId(homeworkID);
         }
 
+        getDateForDatePicker();
+
         rootView = findViewById(R.id.homeworkDetails_main);
         initGUI();
     }
@@ -192,7 +194,6 @@ public class HomeworkDetailsActivity extends AppCompatActivity {
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getDateForDatePicker();
                 DatePickerDialog dialog = new DatePickerDialog(
                         HomeworkDetailsActivity.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
@@ -206,9 +207,7 @@ public class HomeworkDetailsActivity extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
 
-                showingHomework.getDeadline().set(Calendar.DAY_OF_MONTH, day);
-                showingHomework.getDeadline().set(Calendar.MONTH, month);
-                showingHomework.getDeadline().set(Calendar.YEAR, year);
+                updateDateForDatePicker(day, month, year);
 
                 month = month + 1;
                 dateButton.setText(formatDate(day, month, year));
@@ -245,5 +244,15 @@ public class HomeworkDetailsActivity extends AppCompatActivity {
         return date;
     }
 
+    private void updateDateForDatePicker(int day, int month, int year){
+
+        this.day = day;
+        this.month = month;
+        this.year = year;
+
+    }
+
     //endregion
 }
+
+
