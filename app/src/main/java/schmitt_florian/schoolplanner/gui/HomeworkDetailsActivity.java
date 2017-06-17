@@ -205,6 +205,11 @@ public class HomeworkDetailsActivity extends AppCompatActivity {
         dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+
+                showingHomework.getDeadline().set(Calendar.DAY_OF_MONTH, day);
+                showingHomework.getDeadline().set(Calendar.MONTH, month);
+                showingHomework.getDeadline().set(Calendar.YEAR, year);
+
                 month = month + 1;
                 dateButton.setText(formatDate(day, month, year));
             }
