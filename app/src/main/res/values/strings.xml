@@ -85,5 +85,5 @@
     <string name="hello_blank_fragment" translatable="false">~Empty~</string>
     <string name="string_description">Description</string>
     <string name="string_cancel">Cancel</string>
-
+    <string name="string_select_color">Select Color</string>
 </resources>

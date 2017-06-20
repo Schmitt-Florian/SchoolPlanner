@@ -65,6 +65,12 @@ public interface DatabaseHelper {
      * name of the room column in the subject table as String
      */
     String SUBJECT_COLUMN_ROOM = "subject_room";
+    /**
+     * varchar, not null
+     * <br> </br>
+     * color of subject as Hex, without 0x
+     */
+    String SUBJECT_COLUMN_COLOR = "subject_color";
     //endregion
 
     //region teacher table

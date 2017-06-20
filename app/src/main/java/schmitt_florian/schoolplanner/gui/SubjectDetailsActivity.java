@@ -1,12 +1,17 @@
 package schmitt_florian.schoolplanner.gui;
 
 
+import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Spinner;
+
+import com.flask.colorpicker.ColorPickerView;
+import com.flask.colorpicker.builder.ColorPickerClickListener;
+import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 
 import java.util.ArrayList;
 
@@ -24,6 +29,7 @@ public class SubjectDetailsActivity extends AppCompatActivity {
     private View rootView;
     private Subject showingSubject;
     private boolean addMode;
+    private String subjectColor;
     private Teacher[] teachersInSpinner;
 
     @Override
@@ -150,16 +156,36 @@ public class SubjectDetailsActivity extends AppCompatActivity {
                     -1,
                     teachersInSpinner[spinner.getSelectedItemPosition()],
                     GuiHelper.getInputFromMandatoryEditText(rootView, R.id.subjectDetails_textName),
-                    GuiHelper.getInputFromMandatoryEditText(rootView, R.id.subjectDetails_textRoom)
+                    GuiHelper.getInputFromMandatoryEditText(rootView, R.id.subjectDetails_textRoom),
+                    subjectColor
             );
         } else {
             return new Subject(
                     showingSubject.getId(),
                     teachersInSpinner[spinner.getSelectedItemPosition()],
                     GuiHelper.getInputFromMandatoryEditText(rootView, R.id.subjectDetails_textName),
-                    GuiHelper.getInputFromMandatoryEditText(rootView, R.id.subjectDetails_textRoom)
+                    GuiHelper.getInputFromMandatoryEditText(rootView, R.id.subjectDetails_textRoom),
+                    subjectColor
             );
         }
+    }
+
+    private void pickColor() {
+        ColorPickerDialogBuilder
+                .with(rootView.getContext())
+                .setTitle(R.string.string_select_color)
+                .initialColor(Integer.parseInt(showingSubject.getColor(), 16))
+                .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
+                .density(12)
+                .setPositiveButton(R.string.string_save, new ColorPickerClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
+                        subjectColor = Integer.toHexString(selectedColor);
+                    }
+                })
+                .setNegativeButton(R.string.string_cancel, null)
+                .build()
+                .show();
     }
     //endregion
 }

@@ -25,18 +25,25 @@ public class Subject {
     private String room;
 
     /**
+     * color of subject as Hex, without 0x e.g "ffffff"
+     */
+    private String color;
+
+    /**
      * standard c'tor for Subject class
      *
      * @param id      unique numeric id of the subject
      * @param teacher the {@link Teacher} that teaches this subject
      * @param name    name of the subject as string e.g "Math"
      * @param room    number/code of the room as String e.g "B201"
+     * @param color   color of subject as Hex, without 0x e.g "ffffff"
      */
-    public Subject(int id, Teacher teacher, String name, String room) {
+    public Subject(int id, Teacher teacher, String name, String room, String color) {
         this.id = id;
         this.teacher = teacher;
         this.name = name;
         this.room = room;
+        this.color = color;
     }
 
     /**
@@ -76,6 +83,15 @@ public class Subject {
     }
 
     /**
+     * get color of subject as Hex, without 0x e.g "ffffff"
+     *
+     * @return Hex String
+     */
+    public String getColor() {
+        return color;
+    }
+
+    /**
      * method to indicate if one Subject matches another one by the values of their fields
      *
      * @param otherSubject the other Subject
@@ -84,7 +100,8 @@ public class Subject {
     public boolean match(Subject otherSubject) {
         return this.id == otherSubject.id && this.teacher.match(otherSubject.teacher) &&
                 this.name.equals(otherSubject.name)
-                && this.room.equals(otherSubject.room);
+                && this.room.equals(otherSubject.room)
+                && this.color.equals(otherSubject.color);
     }
 
     /**
@@ -99,6 +116,7 @@ public class Subject {
                 teacher.toString() + "\n" +
                 "Name: \t" + name + "\n" +
                 "Room: \t" + room + "\n" +
+                "Color: \t#" + color + "\n" +
                 "---####---";
     }
 }

@@ -776,7 +776,8 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
                     cursor.getInt(0),
                     getTeacherAtIdOrThrow(cursor.getInt(1)),
                     cursor.getString(2),
-                    cursor.getString(3)
+                    cursor.getString(3),
+                    cursor.getString(4)
             );
         } catch (Exception e) {
             throw new NoSuchFieldException();
@@ -1114,7 +1115,8 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
             db.execSQL("UPDATE " + TABLE_SUBJECT + " SET " +
                     SUBJECT_COLUMN_TEACHER_ID + " = " + newSubject.getTeacher().getId() + ", " +
                     SUBJECT_COLUMN_NAME + " = \"" + newSubject.getName() + "\", " +
-                    SUBJECT_COLUMN_ROOM + " = \"" + newSubject.getRoom() + "\" " +
+                    SUBJECT_COLUMN_ROOM + " = \"" + newSubject.getRoom() + "\", " +
+                    SUBJECT_COLUMN_COLOR + " = \"" + newSubject.getColor() + "\" " +
                     "WHERE " + SUBJECT_COLUMN_ID + " = " + newSubject.getId()
             );
         } catch (Exception e) {
@@ -1313,7 +1315,7 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
             subjectId = subject.getId();
         }
 
-        String query = "INSERT INTO " + TABLE_SUBJECT + " VALUES ( " + subjectId + ", " + subject.getTeacher().getId() + ", \"" + subject.getName() + "\", \"" + subject.getRoom() + "\")";
+        String query = "INSERT INTO " + TABLE_SUBJECT + " VALUES ( " + subjectId + ", " + subject.getTeacher().getId() + ", \"" + subject.getName() + "\", \"" + subject.getRoom() + "\", \"" + subject.getColor() + "\" )";
 
         try {
             db.execSQL(query);
@@ -2023,8 +2025,8 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         Teacher teacher1 = new Teacher(1, "Bräuer", "BRÄ", Teacher.MALE);
         Teacher teacher2 = new Teacher(2, "Dickens", "DICK", Teacher.FEMALE);
 
-        Subject subject1 = new Subject(1, teacher1, "Math", "B213");
-        Subject subject2 = new Subject(2, teacher2, "German", "B308");
+        Subject subject1 = new Subject(1, teacher1, "Math", "B213", "ffffff");
+        Subject subject2 = new Subject(2, teacher2, "German", "B308", "ff0000");
 
         Exam exam1 = new Exam(1, subject1, "A simple Test in Math", "2017-06-13");
         Exam exam2 = new Exam(2, subject2, "German Test", "2017-05-03");
@@ -2146,7 +2148,8 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
                 SUBJECT_COLUMN_TEACHER_ID + " INTEGER NOT NULL " +
                 "REFERENCES " + TABLE_TEACHER + "(" + TEACHER_COLUMN_ID + ") ON DELETE CASCADE ON UPDATE CASCADE, " +
                 SUBJECT_COLUMN_NAME + " VARCHAR NOT NULL, " +
-                SUBJECT_COLUMN_ROOM + " VARCHAR NOT NULL )"
+                SUBJECT_COLUMN_ROOM + " VARCHAR NOT NULL, " +
+                SUBJECT_COLUMN_COLOR + " VARCHAR NOT NULL )"
         );
     }
 
