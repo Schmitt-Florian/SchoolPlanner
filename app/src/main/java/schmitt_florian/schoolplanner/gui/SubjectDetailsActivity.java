@@ -3,6 +3,7 @@ package schmitt_florian.schoolplanner.gui;
 
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -42,13 +43,39 @@ public class SubjectDetailsActivity extends AppCompatActivity {
         int subjectId = getIntent().getIntExtra("SubjectID", -1);
         if (subjectId <= 0) {
             addMode = true;
+            subjectColor = "#e0e0e0";
         } else {
             addMode = false;
             showingSubject = dbHelper.getSubjectAtId(subjectId);
+            subjectColor = showingSubject.getColor();
         }
 
         rootView = findViewById(R.id.subjectDetails_main);
         initGUI();
+    }
+
+    /**
+     * opens the select color dialog using a {@link ColorPickerDialogBuilder}
+     *
+     * @param view the button
+     */
+    public void onSelectColorClick(View view) {
+        ColorPickerDialogBuilder
+                .with(rootView.getContext())
+                .setTitle(R.string.string_select_color)
+                .initialColor(Color.parseColor(subjectColor))
+                .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
+                .density(12)
+                .setPositiveButton(R.string.string_save, new ColorPickerClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
+                        subjectColor = "#" + Integer.toHexString(selectedColor);
+                        initGUI();
+                    }
+                })
+                .setNegativeButton(R.string.string_cancel, null)
+                .build()
+                .show();
     }
 
     /**
@@ -113,6 +140,8 @@ public class SubjectDetailsActivity extends AppCompatActivity {
                 }
             }
         }
+
+        findViewById(R.id.subjectDetails_buttonColor).setBackgroundColor(Color.parseColor(subjectColor));
     }
 
     /**
@@ -168,24 +197,6 @@ public class SubjectDetailsActivity extends AppCompatActivity {
                     subjectColor
             );
         }
-    }
-
-    private void pickColor() {
-        ColorPickerDialogBuilder
-                .with(rootView.getContext())
-                .setTitle(R.string.string_select_color)
-                .initialColor(Integer.parseInt(showingSubject.getColor(), 16))
-                .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
-                .density(12)
-                .setPositiveButton(R.string.string_save, new ColorPickerClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
-                        subjectColor = Integer.toHexString(selectedColor);
-                    }
-                })
-                .setNegativeButton(R.string.string_cancel, null)
-                .build()
-                .show();
     }
     //endregion
 }

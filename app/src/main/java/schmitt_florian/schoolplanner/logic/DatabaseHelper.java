@@ -68,7 +68,7 @@ public interface DatabaseHelper {
     /**
      * varchar, not null
      * <br> </br>
-     * color of subject as Hex, without 0x
+     * color of subject as Hex starting with a '#'
      */
     String SUBJECT_COLUMN_COLOR = "subject_color";
     //endregion

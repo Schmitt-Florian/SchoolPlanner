@@ -181,7 +181,7 @@ public class HomeFragment extends Fragment {
      * Note: that this method may not work properly in the last week of this and
      * the first week of the next year.
      * <br><br/>
-     * Note: this method uses a that week goes from Monday to Sunday
+     * Note: this method uses a week that goes from Monday to Sunday
      *
      * @param date the date
      * @return true if the date is in the current week, else false

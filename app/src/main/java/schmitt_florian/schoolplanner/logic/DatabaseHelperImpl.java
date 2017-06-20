@@ -2025,8 +2025,8 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
         Teacher teacher1 = new Teacher(1, "Bräuer", "BRÄ", Teacher.MALE);
         Teacher teacher2 = new Teacher(2, "Dickens", "DICK", Teacher.FEMALE);
 
-        Subject subject1 = new Subject(1, teacher1, "Math", "B213", "ffffff");
-        Subject subject2 = new Subject(2, teacher2, "German", "B308", "ff0000");
+        Subject subject1 = new Subject(1, teacher1, "Math", "B213", "#ffffff");
+        Subject subject2 = new Subject(2, teacher2, "German", "B308", "#ff0000");
 
         Exam exam1 = new Exam(1, subject1, "A simple Test in Math", "2017-06-13");
         Exam exam2 = new Exam(2, subject2, "German Test", "2017-05-03");

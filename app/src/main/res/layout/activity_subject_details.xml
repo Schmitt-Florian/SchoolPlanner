@@ -102,7 +102,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_weight="0.2"
+            android:layout_weight="0.5"
             android:prompt="@string/string_select_subject" />
 
         <TextView
@@ -113,6 +113,16 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:background="@color/divider" />
+
+        <Button
+            android:id="@+id/subjectDetails_buttonColor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/fab_margin"
+            android:layout_marginStart="@dimen/fab_margin"
+            android:layout_marginTop="@dimen/fab_margin"
+            android:onClick="onSelectColorClick"
+            android:text="@string/string_select_color" />
 
     </LinearLayout>
 

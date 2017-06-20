@@ -25,7 +25,7 @@ public class Subject {
     private String room;
 
     /**
-     * color of subject as Hex, without 0x e.g "ffffff"
+     * color of subject as Hex with '#' e.g "#ffffff"
      */
     private String color;
 
@@ -36,7 +36,7 @@ public class Subject {
      * @param teacher the {@link Teacher} that teaches this subject
      * @param name    name of the subject as string e.g "Math"
      * @param room    number/code of the room as String e.g "B201"
-     * @param color   color of subject as Hex, without 0x e.g "ffffff"
+     * @param color   color of subject as Hex with '#' e.g "#ffffff"
      */
     public Subject(int id, Teacher teacher, String name, String room, String color) {
         this.id = id;
@@ -83,7 +83,7 @@ public class Subject {
     }
 
     /**
-     * get color of subject as Hex, without 0x e.g "ffffff"
+     * get color of subject as Hex with '#' e.g "#ffffff"
      *
      * @return Hex String
      */
