@@ -4,6 +4,7 @@ package schmitt_florian.schoolplanner.gui;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -43,7 +44,7 @@ public class SubjectDetailsActivity extends AppCompatActivity {
         int subjectId = getIntent().getIntExtra("SubjectID", -1);
         if (subjectId <= 0) {
             addMode = true;
-            subjectColor = "#e0e0e0";
+            subjectColor = Subject.DEFAULT_COLOR;
         } else {
             addMode = false;
             showingSubject = dbHelper.getSubjectAtId(subjectId);
@@ -141,7 +142,8 @@ public class SubjectDetailsActivity extends AppCompatActivity {
             }
         }
 
-        findViewById(R.id.subjectDetails_buttonColor).setBackgroundColor(Color.parseColor(subjectColor));
+        findViewById(R.id.subjectDetails_buttonColor).getBackground().setColorFilter(Color.parseColor(subjectColor), PorterDuff.Mode.MULTIPLY);
+
     }
 
     /**

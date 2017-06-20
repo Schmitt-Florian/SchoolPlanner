@@ -3,6 +3,8 @@ package schmitt_florian.schoolplanner.gui;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -197,6 +199,10 @@ public class ScheduleFragment extends Fragment {
                 buttons[x][y].setOnClickListener(new OnScheduleButtonClickListener(x, y));
                 buttons[x][y].setClickable(editMode);
 
+                if (x >= 2) {
+                    buttons[x][y].getBackground().setColorFilter(Color.parseColor(Subject.DEFAULT_COLOR), PorterDuff.Mode.MULTIPLY);
+                }
+
                 if (editMode) {
                     buttons[x][y].setText("+");
                 } else {
@@ -214,26 +220,33 @@ public class ScheduleFragment extends Fragment {
     private void loadSubjectButtons() {
         for (int i = 0; i < schedule.getDays().length; i++) {
             for (Lesson lesson : schedule.getDays()[i].getLessons()) {
+                int columnIdx = 2;
+
                 switch (schedule.getDays()[i].getName()) {
                     case Weekday.MONDAY:
-                        buttons[2][lesson.getPeriod().getSchoolHourNo()].setText(lesson.getSubject().getName());
+                        columnIdx = 2;
                         break;
                     case Weekday.TUESDAY:
-                        buttons[3][lesson.getPeriod().getSchoolHourNo()].setText(lesson.getSubject().getName());
+                        columnIdx = 3;
                         break;
                     case Weekday.WEDNESDAY:
-                        buttons[4][lesson.getPeriod().getSchoolHourNo()].setText(lesson.getSubject().getName());
+                        columnIdx = 4;
                         break;
                     case Weekday.THURSDAY:
-                        buttons[5][lesson.getPeriod().getSchoolHourNo()].setText(lesson.getSubject().getName());
+                        columnIdx = 5;
                         break;
                     case Weekday.FRIDAY:
-                        buttons[6][lesson.getPeriod().getSchoolHourNo()].setText(lesson.getSubject().getName());
+                        columnIdx = 6;
                         break;
                     case Weekday.SATURDAY:
-                        buttons[7][lesson.getPeriod().getSchoolHourNo()].setText(lesson.getSubject().getName());
+                        columnIdx = 7;
                         break;
                 }
+
+                Button currButton = buttons[columnIdx][lesson.getPeriod().getSchoolHourNo()];
+
+                currButton.setText(lesson.getSubject().getName());
+                currButton.getBackground().setColorFilter(Color.parseColor(lesson.getSubject().getColor()), PorterDuff.Mode.MULTIPLY);
             }
         }
     }

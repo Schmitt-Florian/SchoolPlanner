@@ -5,6 +5,12 @@ package schmitt_florian.schoolplanner.logic.objects;
  */
 public class Subject {
     /**
+     * the default color for a subject in {@link schmitt_florian.schoolplanner.gui.ScheduleFragment}.
+     * Similar to the default color for android {@link android.widget.Button}s
+     */
+    public static String DEFAULT_COLOR = "#e0e0e0";
+
+    /**
      * numeric id of the subject (unique)
      */
     private int id;
