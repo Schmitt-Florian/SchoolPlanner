@@ -4,8 +4,9 @@ This is a schoolplanner. You can use it to remember your schedule, your homework
 
 ## Table of Content
 - [Key Features](https://github.com/Schmitt-Florian/SchoolPlanner#key-features)
-- [Prerequisites](https://github.com/Schmitt-Florian/SchoolPlanner#prerequisites)
-- [Installing](https://github.com/Schmitt-Florian/SchoolPlanner#installing)
+- [Getting Started](https://github.com/Schmitt-Florian/SchoolPlanner#getting-started)
+    - [Prerequisites](https://github.com/Schmitt-Florian/SchoolPlanner#prerequisites)
+    - [Installing](https://github.com/Schmitt-Florian/SchoolPlanner#installing)
 - [Usage](https://github.com/Schmitt-Florian/SchoolPlanner#usage)
 - [Contributing](https://github.com/Schmitt-Florian/SchoolPlanner#contributing)
     - [Authors](https://github.com/Schmitt-Florian/SchoolPlanner#authors)
@@ -24,11 +25,12 @@ This is a schoolplanner. You can use it to remember your schedule, your homework
 - Exam management
 - Grade tracking
 
-## Prerequisites
+## Getting Started
+### Prerequisites
 
 Make sure your device is running Android version 5.1 or above
 
-## Installing
+### Installing
 
 //playstore or website
 
