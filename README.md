@@ -61,7 +61,7 @@ See also the [list of contributors](https://github.com/Schmitt-Florian/SchoolPla
 
 ## Acknowledgments
 
-###Used Open Source Projects
+### Used Open Source Projects
 - [ColorPicker by QuadFlask](https://github.com/QuadFlask/colorpicker)
 - [ReadMe Template](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2)
 
