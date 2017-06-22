@@ -21,12 +21,19 @@
 
     //Days
     <string name="string_day_monday">Monday</string>
+    <string name="string_day_monday_abr">MON</string>
     <string name="string_day_tuesday">Tuesday</string>
+    <string name="string_day_tuesday_abr">TUE</string>
     <string name="string_day_wednesday">Wednesday</string>
+    <string name="string_day_wednesday_abr">WED</string>
     <string name="string_day_thursday">Thursday</string>
+    <string name="string_day_thursday_abr">THUR</string>
     <string name="string_day_friday">Friday</string>
+    <string name="string_day_friday_abr">FRI</string>
     <string name="string_day_saturday">Saturday</string>
+    <string name="string_day_saturday_abr">SAT</string>
     <string name="string_day_sunday">Sunday</string>
+    <string name="string_day_sunday_abr">SUN</string>
 
     //Subject
     <string name="string_teacher">Teacher</string>
@@ -80,6 +87,7 @@
     <string name="string_end_time">End Time</string>
     <string name="string_select_time">Select Time</string>
     <string name="string_time_must_comply_with">Time must comply with</string>
+    <string name="string_color">Color</string>
     <string name="string_missing_period">Missing Period</string>
 
     <string name="hello_blank_fragment" translatable="false">~Empty~</string>

@@ -55,7 +55,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:background="@color/primary_dark"
-                            android:text="Mon" />
+                            android:text="@string/string_day_monday_abr" />
 
                         <Button
                             android:id="@+id/button200"
@@ -64,7 +64,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:background="@color/primary_dark"
-                            android:text="Tue" />
+                            android:text="@string/string_day_tuesday_abr" />
 
                         <Button
                             android:id="@+id/button300"
@@ -73,7 +73,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:background="@color/primary_dark"
-                            android:text="Wed" />
+                            android:text="@string/string_day_wednesday_abr" />
 
                         <Button
                             android:id="@+id/button400"
@@ -82,7 +82,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:background="@color/primary_dark"
-                            android:text="Thur" />
+                            android:text="@string/string_day_thursday_abr" />
 
                         <Button
                             android:id="@+id/button500"
@@ -91,7 +91,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:background="@color/primary_dark"
-                            android:text="Fri" />
+                            android:text="@string/string_day_friday_abr" />
 
                         <Button
                             android:id="@+id/button600"
@@ -100,7 +100,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:background="@color/primary_dark"
-                            android:text="Sat" />
+                            android:text="@string/string_day_saturday_abr" />
                     </LinearLayout>
                 </TableRow>
 
