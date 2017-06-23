@@ -11,7 +11,6 @@
     <string name="string_credits">Mitwirkende</string>
     <string name="string_settings">Einstellungen</string>
     <string name="string_credits.developedBy">Diese Applikation wurde entwickelt von:\n Natascha Becker\nDarius Wolkewitz\nKevin Schevaljé\nJan-Nicklas Watz\nMarlon Drolsbach</string>
-    <string name="string_day_monday">Montag</string>
     <string name="string_day_tuesday">Dienstag</string>
     <string name="string_day_wednesday">Mittwoch</string>
     <string name="string_day_thursday">Donnerstag</string>
@@ -71,4 +70,15 @@
     <string name="string_end_time">Endzeit</string>
     <string name="string_missing_period">Zeit fehlt</string>
     <string name="text_dialog_schedule_missing_period">Sie versuchen eine Unterrichtseinheit einzugeben, ohne vorher deren Zeit bestimmt zu haben.\nVersuchen sie es erneut, nachdem sie die Zeit eingegeben haben.</string>
+    <string name="string_day_friday_abr">FR</string>
+    <string name="string_day_monday_abr">MON</string>
+    <string name="string_day_saturday_abr">SAM</string>
+    <string name="string_day_sunday_abr">SON</string>
+    <string name="string_day_thursday_abr">DO</string>
+    <string name="string_day_tuesday_abr">DI</string>
+    <string name="string_day_wednesday_abr">MI</string>
+    <string name="string_color">Farbe</string>
+    <string name="string_select_color">Wählen Sie eine Farbe</string>
+    <string name="string_day_monday">Montag</string>
+    <string name="string_days_per_week">Schultage</string>
 </resources>

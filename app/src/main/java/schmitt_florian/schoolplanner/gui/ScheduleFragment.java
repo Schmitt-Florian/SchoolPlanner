@@ -179,6 +179,7 @@ public class ScheduleFragment extends Fragment {
         SwitchCompat editSwitch = (SwitchCompat) getActivity().findViewById(R.id.appbar_switch);
 
         editSwitch.setVisibility(View.VISIBLE);
+        editSwitch.setChecked(editMode);
         editMode = editSwitch.isChecked();
 
         editSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

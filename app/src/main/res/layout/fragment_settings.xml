@@ -62,6 +62,80 @@
             android:max="15" />
 
         <TextView
+            android:id="@+id/settings_labelSchooldays"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:layout_marginRight="@dimen/fab_margin"
+            android:layout_marginTop="16dp"
+            android:text="@string/string_days_per_week"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+                android:orientation="horizontal"
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:layout_marginRight="@dimen/fab_margin"
+                android:layout_marginTop="@dimen/fab_margin">
+
+                <CheckBox
+                    android:id="@+id/settings_checkBox_for_monday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/small_fab_margin"
+                    android:text="@string/string_day_monday" />
+
+                <CheckBox
+                    android:id="@+id/settings_checkBox_for_tuesday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/string_day_tuesday" />
+
+                <CheckBox
+                    android:id="@+id/settings_checkBox_for_wednesday"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/string_day_wednesday" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="@dimen/fab_margin"
+                android:layout_marginRight="@dimen/fab_margin"
+                android:layout_marginTop="@dimen/fab_margin">
+
+                <CheckBox
+                    android:id="@+id/settings_checkBox_for_thursday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/string_day_thursday" />
+
+                <CheckBox
+                    android:id="@+id/settings_checkBox_for_friday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:text="@string/string_day_friday" />
+
+                <CheckBox
+                    android:id="@+id/settings_checkBox_for_saturday"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+                    android:text="@string/string_day_saturday" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+        <TextView
             android:id="@+id/settings_labelDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -87,24 +161,6 @@
             android:layout_marginStart="@dimen/small_fab_margin"
             android:layout_marginTop="@dimen/fab_margin"
             android:text="@string/string_personalisation" />
-
-        <TextView
-            android:id="@+id/settings_labelLanguage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/fab_margin"
-            android:layout_marginRight="@dimen/fab_margin"
-            android:layout_marginTop="@dimen/small_fab_margin"
-            android:text="@string/string_select_language"
-            android:textStyle="bold" />
-
-        <Spinner
-            android:id="@+id/settings_spinnerLanguage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/fab_margin"
-            android:layout_marginRight="@dimen/fab_margin"
-            android:layout_marginTop="@dimen/fab_margin" />
 
         <TextView
             android:id="@+id/settings_labelColor"
