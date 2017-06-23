@@ -45,11 +45,11 @@ public class MainActivity extends AppCompatActivity implements
         fragmentManager = this.getSupportFragmentManager();
 
         //----TESTING----
-        DatabaseHelperImpl testHelper = new DatabaseHelperImpl(this);
-        testHelper.resetDatabase();
-        testHelper.fillDatabaseWithExamples();
-
-        System.out.println(testHelper.toString());
+//        DatabaseHelperImpl testHelper = new DatabaseHelperImpl(this);
+//        testHelper.resetDatabase();
+//        testHelper.fillDatabaseWithExamples();
+//
+//        System.out.println(testHelper.toString());
         //----TESTING----
     }
 
