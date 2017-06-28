@@ -45,7 +45,7 @@ pull requests to us and the CODE_OF_CONDUCT.md for our code of conduct.
 
 ### Authors
 **Florian Schmitt** - *Database, GUI* - [Schmitt-Florian](https://github.com/Schmitt-Florian)  
-**Darius Wolkewitz** - *Database, Idea* - [Darius](https://github.com/DWolkewitz)  
+**Darius Wolkewitz** - *Database, GUI, Idea* - [Darius](https://github.com/DWolkewitz)  
 
 **Natascha Becker** - *GUI* - [NatiBckr](https://github.com/NatiBckr)  
 **Marlon Drolsbach** - *GUI* - [professionellername](https://github.com/professionellername)  
