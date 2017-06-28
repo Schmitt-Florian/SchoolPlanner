@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SwitchCompat;
+import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -117,6 +118,7 @@ public class ScheduleFragment extends Fragment {
         initButtons();
 
         initAppbarEditSwitch();
+        initToolbarTitle();
     }
 
     /**
@@ -170,6 +172,15 @@ public class ScheduleFragment extends Fragment {
         for (int i = rows.length; i > visibleRowCount; i--) {
             rows[i - 1].setVisibility(View.GONE);
         }
+    }
+
+    /**
+     * method to adjust appbar title for selected fragment
+     */
+
+    private void initToolbarTitle() {
+        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.string_schedule);
     }
 
     /**

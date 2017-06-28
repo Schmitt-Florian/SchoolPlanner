@@ -5,6 +5,7 @@ import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +48,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 
         settings = Settings.getInstance(view.getContext());
         initGui();
+        initToolbarTitle();
         return view;
     }
 
@@ -103,14 +105,14 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 
         weekdaySetSat = sat.isChecked();
 
-        System.out.println(
-                "mon: " + weekdaySetMon + "\n" +
-                        "tue: " + weekdaySetTue + "\n" +
-                        "wed: " + weekdaySetWed + "\n" +
-                        "thur: " + weekdaySetThur + "\n" +
-                        "fri: " + weekdaySetFri + "\n" +
-                        "sat: " + weekdaySetSat + "\n"
-        );
+//        System.out.println(
+//                "mon: " + weekdaySetMon + "\n" +
+//                        "tue: " + weekdaySetTue + "\n" +
+//                        "wed: " + weekdaySetWed + "\n" +
+//                        "thur: " + weekdaySetThur + "\n" +
+//                        "fri: " + weekdaySetFri + "\n" +
+//                        "sat: " + weekdaySetSat + "\n"
+//        );
 
     }
 
@@ -216,6 +218,15 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 
         Spinner spinner = (Spinner) view.findViewById(R.id.settings_spinnerDate);
         settings.setActiveDateFormat((String) spinner.getSelectedItem());
+    }
+
+    /**
+     * method to adjust appbar title for selected fragment
+     */
+
+    private void initToolbarTitle() {
+        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.string_settings);
     }
     //endregion
 }

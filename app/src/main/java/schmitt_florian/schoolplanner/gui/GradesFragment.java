@@ -7,6 +7,7 @@ import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +48,7 @@ public class GradesFragment extends Fragment implements View.OnClickListener {
 //        editButton.setVisibility(View.INVISIBLE);
 
         initGui(view);
+        initToolbarTitle();
         return view;
     }
 
@@ -216,6 +218,15 @@ public class GradesFragment extends Fragment implements View.OnClickListener {
             GuiHelper.fillGridViewFromArray(view, R.id.grades_gradesTable, gridStrings.toArray(new String[0]));
         }
         return gradeArrayList.toArray(new Grade[0]);
+    }
+
+    /**
+     * method to adjust appbar title for selected fragment
+     */
+
+    private void initToolbarTitle() {
+        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.string_grades);
     }
     //endregion
 }

@@ -6,6 +6,7 @@ import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,7 @@ public class CreditsFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_credits, container, false);
 
         initGUI(view);
+        initToolbarTitle();
         return view;
     }
 
@@ -113,6 +115,15 @@ public class CreditsFragment extends Fragment implements View.OnClickListener {
         intent.setData(Uri.parse("mailto:projectschoolplanner17@gmail.com"));
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // this will make sure that when user returns to the app, the app is displayed, instead of the email app.
         startActivity(intent);
+    }
+
+    /**
+     * method to adjust appbar title for selected fragment
+     */
+
+    private void initToolbarTitle() {
+        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.string_credits);
     }
 
     //endregion
