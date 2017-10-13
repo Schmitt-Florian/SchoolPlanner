@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SwitchCompat;
+import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -117,6 +118,7 @@ public class ScheduleFragment extends Fragment {
         initButtons();
 
         initAppbarEditSwitch();
+        initToolbarTitle();
     }
 
     /**
@@ -173,12 +175,22 @@ public class ScheduleFragment extends Fragment {
     }
 
     /**
+     * method to adjust appbar title for selected fragment
+     */
+
+    private void initToolbarTitle() {
+        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.string_schedule);
+    }
+
+    /**
      * method to initialise the Edit {@link SwitchCompat} in the appbar and define {@link ScheduleFragment#editMode}
      */
     private void initAppbarEditSwitch() {
         SwitchCompat editSwitch = (SwitchCompat) getActivity().findViewById(R.id.appbar_switch);
 
         editSwitch.setVisibility(View.VISIBLE);
+        editSwitch.setChecked(editMode);
         editMode = editSwitch.isChecked();
 
         editSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

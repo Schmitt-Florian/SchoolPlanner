@@ -2055,43 +2055,43 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
 
         Weekday weekday1 = new Weekday(1, Weekday.MONDAY, new Lesson[]{lesson1, lesson2, lesson3, lesson4});
 
-        Schedule schedule1 = new Schedule(1, "a", new Weekday[]{weekday1, null, null, null, null, null});
+        Schedule schedule1 = new Schedule(1, "a", new Weekday[]{null, null, null, null, null, null});
 
         //###################################Insert###############################################
-
-        insertIntoDB(teacher1);
-        insertIntoDB(teacher2);
-
-        insertIntoDB(subject1);
-        insertIntoDB(subject2);
-
-        insertIntoDB(exam1);
-        insertIntoDB(exam2);
-
-        insertIntoDB(grade1);
-        insertIntoDB(grade2);
-        insertIntoDB(grade3);
-        insertIntoDB(grade4);
-
-
-        insertIntoDB(homework1);
-        insertIntoDB(homework2);
-        insertIntoDB(homework3);
-        insertIntoDB(homework4);
-
-        insertIntoDB(period1);
-        insertIntoDB(period2);
-        insertIntoDB(period3);
-        insertIntoDB(period4);
-        insertIntoDB(period5);
-        insertIntoDB(period6);
-
-        insertIntoDB(lesson1);
-        insertIntoDB(lesson2);
-        insertIntoDB(lesson3);
-        insertIntoDB(lesson4);
-
-        insertIntoDB(weekday1);
+//
+//        insertIntoDB(teacher1);
+//        insertIntoDB(teacher2);
+//
+//        insertIntoDB(subject1);
+//        insertIntoDB(subject2);
+//
+//        insertIntoDB(exam1);
+//        insertIntoDB(exam2);
+//
+//        insertIntoDB(grade1);
+//        insertIntoDB(grade2);
+//        insertIntoDB(grade3);
+//        insertIntoDB(grade4);
+//
+//
+//        insertIntoDB(homework1);
+//        insertIntoDB(homework2);
+//        insertIntoDB(homework3);
+//        insertIntoDB(homework4);
+//
+//        insertIntoDB(period1);
+//        insertIntoDB(period2);
+//        insertIntoDB(period3);
+//        insertIntoDB(period4);
+//        insertIntoDB(period5);
+//        insertIntoDB(period6);
+//
+//        insertIntoDB(lesson1);
+//        insertIntoDB(lesson2);
+//        insertIntoDB(lesson3);
+//        insertIntoDB(lesson4);
+//
+//        insertIntoDB(weekday1);
 
         insertIntoDB(schedule1);
 

@@ -5,9 +5,11 @@ import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -26,7 +28,12 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
     private OnFragmentInteractionListener mListener;
     private Settings settings;
     private View view;
-
+    private boolean weekdaySetMon;
+    private boolean weekdaySetTue;
+    private boolean weekdaySetWed;
+    private boolean weekdaySetThur;
+    private boolean weekdaySetFri;
+    private boolean weekdaySetSat;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,6 +48,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 
         settings = Settings.getInstance(view.getContext());
         initGui();
+        initToolbarTitle();
         return view;
     }
 
@@ -73,9 +81,64 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
                 readGui();
                 settings.saveSettings();
                 Toast.makeText(getContext(), R.string.string_settings_saved, Toast.LENGTH_SHORT).show();
+                getActivatedWeekdays();
         }
     }
 
+    private void getActivatedWeekdays() {
+        CheckBox mon = (CheckBox) getActivity().findViewById(R.id.settings_checkBox_for_monday);
+        CheckBox tue = (CheckBox) getActivity().findViewById(R.id.settings_checkBox_for_tuesday);
+        CheckBox wed = (CheckBox) getActivity().findViewById(R.id.settings_checkBox_for_wednesday);
+        CheckBox thur = (CheckBox) getActivity().findViewById(R.id.settings_checkBox_for_thursday);
+        CheckBox fri = (CheckBox) getActivity().findViewById(R.id.settings_checkBox_for_friday);
+        CheckBox sat = (CheckBox) getActivity().findViewById(R.id.settings_checkBox_for_saturday);
+
+        weekdaySetMon = mon.isChecked();
+
+        weekdaySetTue = tue.isChecked();
+
+        weekdaySetWed = wed.isChecked();
+
+        weekdaySetThur = thur.isChecked();
+
+        weekdaySetFri = fri.isChecked();
+
+        weekdaySetSat = sat.isChecked();
+
+//        System.out.println(
+//                "mon: " + weekdaySetMon + "\n" +
+//                        "tue: " + weekdaySetTue + "\n" +
+//                        "wed: " + weekdaySetWed + "\n" +
+//                        "thur: " + weekdaySetThur + "\n" +
+//                        "fri: " + weekdaySetFri + "\n" +
+//                        "sat: " + weekdaySetSat + "\n"
+//        );
+
+    }
+
+    public boolean isWeekdaySetMon() {
+        return weekdaySetMon;
+    }
+
+    public boolean isWeekdaySetTue() {
+        return weekdaySetTue;
+    }
+
+    public boolean isWeekdaySetWed() {
+        return weekdaySetWed;
+    }
+
+    public boolean isWeekdaySetThur() {
+        return weekdaySetThur;
+    }
+
+    public boolean isWeekdaySetFri() {
+        return weekdaySetFri;
+    }
+
+    public boolean isWeekdaySetSat() {
+        return weekdaySetSat;
+    }
 
     /**
      * This interface must be implemented by activities that contain this
@@ -155,6 +218,15 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 
         Spinner spinner = (Spinner) view.findViewById(R.id.settings_spinnerDate);
         settings.setActiveDateFormat((String) spinner.getSelectedItem());
+    }
+
+    /**
+     * method to adjust appbar title for selected fragment
+     */
+
+    private void initToolbarTitle() {
+        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.string_settings);
     }
     //endregion
 }

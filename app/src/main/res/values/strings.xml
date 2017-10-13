@@ -94,5 +94,11 @@
     <string name="string_description">Description</string>
     <string name="string_cancel">Cancel</string>
     <string name="string_select_color">Select Color</string>
+    <string name="string_days_per_week">Schooldays</string>
+
+    <string name="string_license">License</string>
+    <string name="string_developers">Developers</string>
+    <string name="string_share">Share this App!</string>
+
     <string name="string_delete_database">Delete Database</string>
 </resources>
