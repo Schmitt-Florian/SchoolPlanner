@@ -94,4 +94,5 @@
     <string name="string_description">Description</string>
     <string name="string_cancel">Cancel</string>
     <string name="string_select_color">Select Color</string>
+    <string name="string_delete_database">Delete Database</string>
 </resources>
