@@ -161,9 +161,9 @@ public class HomeworkFragment extends Fragment implements View.OnClickListener {
             }
         }
 
-        if (homeworkStrings.size() != 0) {
-            GuiHelper.fillListViewFromArray(view, R.id.homework_listHomework, homeworkStrings.toArray(new String[0]));
-        }
+        //  if (homeworkStrings.size() != 0) {
+        GuiHelper.fillListViewFromArray(view, R.id.homework_listHomework, homeworkStrings.toArray(new String[0]));
+        //}
 
         return homeworkArrayList.toArray(new Homework[0]);
     }
@@ -173,6 +173,7 @@ public class HomeworkFragment extends Fragment implements View.OnClickListener {
      *
      * @param view the view of the fragment
      */
+
     private void defineHomeworkListOnClick(final View view) {
         ListView homeworkList = (ListView) view.findViewById(R.id.homework_listHomework);
 
