@@ -100,5 +100,5 @@
     <string name="string_developers">Developers</string>
     <string name="string_share">Share this App!</string>
 
-    <string name="string_delete_database">Delete Database</string>
+    <string name="string_reset_database">Reset Database</string>
 </resources>

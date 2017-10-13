@@ -81,7 +81,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:text="@string/string_add_subjects_first"
+            android:text="@string/string_add_teachers_first"
             android:textAlignment="textStart"
             android:textColor="@android:color/holo_red_dark"
             android:textStyle="bold"
