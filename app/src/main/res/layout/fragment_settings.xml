@@ -79,50 +79,11 @@
             android:layout_marginRight="@dimen/fab_margin"
             android:layout_marginTop="@dimen/fab_margin" />
 
-        <TextView
-            android:id="@+id/settings_labelPersonalisation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/fab_margin"
-            android:layout_marginStart="@dimen/small_fab_margin"
-            android:layout_marginTop="@dimen/fab_margin"
-            android:text="@string/string_personalisation" />
-
-        <TextView
-            android:id="@+id/settings_labelLanguage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/fab_margin"
-            android:layout_marginRight="@dimen/fab_margin"
-            android:layout_marginTop="@dimen/small_fab_margin"
-            android:text="@string/string_select_language"
-            android:textStyle="bold" />
-
-        <Spinner
-            android:id="@+id/settings_spinnerLanguage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/fab_margin"
-            android:layout_marginRight="@dimen/fab_margin"
-            android:layout_marginTop="@dimen/fab_margin" />
-
-        <TextView
-            android:id="@+id/settings_labelColor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/fab_margin"
-            android:layout_marginRight="@dimen/fab_margin"
-            android:layout_marginTop="@dimen/fab_margin"
-            android:text="@string/string_select_theme_color"
-            android:textStyle="bold" />
-
-        <Spinner
-            android:id="@+id/settings_spinnerColor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/fab_margin"
-            android:layout_marginRight="@dimen/fab_margin"
-            android:layout_marginTop="@dimen/fab_margin" />
+     <Button
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:text="@string/string_reset_database"
+         android:backgroundTint="@color/red"/>
     </LinearLayout>
 
     <LinearLayout
