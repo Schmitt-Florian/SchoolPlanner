@@ -9,8 +9,11 @@
 
 
     <LinearLayout
+        android:id="@+id/settings_button_resetDB"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:orientation="vertical">
 
         <TextView
@@ -79,11 +82,12 @@
             android:layout_marginRight="@dimen/fab_margin"
             android:layout_marginTop="@dimen/fab_margin" />
 
-     <Button
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:text="@string/string_reset_database"
-         android:backgroundTint="@color/red"/>
+        <Button
+            android:id="@+id/settings_buttonResetDB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/red"
+            android:text="@string/string_reset_database" />
     </LinearLayout>
 
     <LinearLayout

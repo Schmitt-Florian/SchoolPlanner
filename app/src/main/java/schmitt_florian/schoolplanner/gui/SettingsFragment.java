@@ -9,12 +9,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import schmitt_florian.schoolplanner.R;
+import schmitt_florian.schoolplanner.logic.DatabaseHelper;
+import schmitt_florian.schoolplanner.logic.DatabaseHelperImpl;
 import schmitt_florian.schoolplanner.logic.Settings;
 
 /**
@@ -82,6 +83,13 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
                 settings.saveSettings();
                 Toast.makeText(getContext(), R.string.string_settings_saved, Toast.LENGTH_SHORT).show();
                 getActivatedWeekdays();
+                break;
+            case R.id.settings_buttonResetDB:
+                System.out.println("pressed");
+                DatabaseHelper dbHelper = new DatabaseHelperImpl(getContext());
+                System.out.println(dbHelper.toString());
+                dbHelper.resetDatabase();
+                System.out.println(dbHelper.toString());
         }
     }
 
