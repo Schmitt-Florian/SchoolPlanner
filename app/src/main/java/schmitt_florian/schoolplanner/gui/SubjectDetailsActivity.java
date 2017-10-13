@@ -33,6 +33,7 @@ public class SubjectDetailsActivity extends AppCompatActivity {
     private boolean addMode;
     private String subjectColor;
     private Teacher[] teachersInSpinner;
+    private int selectedTeacherSpinnerPos;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -124,14 +125,14 @@ public class SubjectDetailsActivity extends AppCompatActivity {
         if (!addMode) {
             GuiHelper.setTextToTextView(rootView, R.id.subjectDetails_textName, showingSubject.getName());
             GuiHelper.setTextToTextView(rootView, R.id.subjectDetails_textRoom, showingSubject.getRoom());
-
             GuiHelper.setVisibility(rootView, R.id.subjectDetails_buttonDelete, View.VISIBLE);
         } else {
             GuiHelper.setVisibility(rootView, R.id.subjectDetails_buttonDelete, View.GONE);
         }
-
-        teachersInSpinner = fillSpinner();
-
+        //prevents spinner from being reset
+        if (teachersInSpinner == null) {
+            teachersInSpinner = fillSpinner();
+        }
         //preselect spinner
         if (!addMode) {
             for (int i = 0; i < teachersInSpinner.length; i++) {
@@ -179,6 +180,7 @@ public class SubjectDetailsActivity extends AppCompatActivity {
      * @return the generated {@link Subject}
      * @throws IllegalArgumentException if input is empty or illegal
      **/
+
     private Subject readSubjectFromGUI() throws IllegalArgumentException {
         Spinner spinner = (Spinner) findViewById(R.id.subjectDetails_spinnerTeacher);
 
