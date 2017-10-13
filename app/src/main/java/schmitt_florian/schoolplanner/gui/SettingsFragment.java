@@ -85,11 +85,13 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
                 getActivatedWeekdays();
                 break;
             case R.id.settings_buttonResetDB:
+                Toast.makeText(getContext(), "dodo", Toast.LENGTH_SHORT).show();
                 System.out.println("pressed");
                 DatabaseHelper dbHelper = new DatabaseHelperImpl(getContext());
                 System.out.println(dbHelper.toString());
                 dbHelper.resetDatabase();
                 System.out.println(dbHelper.toString());
+                break;
         }
     }
 
