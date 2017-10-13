@@ -136,7 +136,7 @@ public class SubjectsFragment extends Fragment implements View.OnClickListener {
     /**
      * method to handle Clicks on the ListView, which shows the {@link Subject}s at the subjects screen
      *
-     * @param view              the view of the fragment
+     * @param view the view of the fragment
      */
     private void defineSubjectListOnClick(final View view) {
         ListView subjectList = (ListView) view.findViewById(R.id.subjects_listSubjects);

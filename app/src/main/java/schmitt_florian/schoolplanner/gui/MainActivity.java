@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements
             drawer.closeDrawer(GravityCompat.START);
         } else {
             if (loadedFragment instanceof HomeFragment) {
-            super.onBackPressed();
+                super.onBackPressed();
             } else {
                 NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
                 navigationView.getMenu().getItem(0).setChecked(true);
@@ -197,6 +197,7 @@ public class MainActivity extends AppCompatActivity implements
 
     /**
      * method to reload the loaded fragment
+     *
      * @return return id of the loaded fragment in menu_main_drawer.xml file, or -1 if loaded fragment is not in
      * in list
      */

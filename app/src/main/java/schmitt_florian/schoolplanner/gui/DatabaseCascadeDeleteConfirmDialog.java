@@ -25,7 +25,7 @@ public class DatabaseCascadeDeleteConfirmDialog extends AlertDialog {
     /**
      * prepare dialog for use
      *
-     * @param context context to display dialog in
+     * @param context         context to display dialog in
      * @param numberOfObjects number of objects which would also be deleted
      */
     public DatabaseCascadeDeleteConfirmDialog(@NonNull Context context, int numberOfObjects) {
@@ -45,6 +45,7 @@ public class DatabaseCascadeDeleteConfirmDialog extends AlertDialog {
 
     /**
      * adds positive button and sets onClickListener for it
+     *
      * @param onClickListener onClickListener
      */
     public void positiveButton(OnClickListener onClickListener) {

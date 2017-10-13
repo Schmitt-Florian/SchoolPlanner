@@ -87,6 +87,7 @@ public class CreditsFragment extends Fragment implements View.OnClickListener {
     }
 
     //region private methods
+
     /**
      * method to initialise components of the GUI
      *

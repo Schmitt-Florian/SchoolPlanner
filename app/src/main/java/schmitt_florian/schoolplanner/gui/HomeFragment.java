@@ -80,6 +80,7 @@ public class HomeFragment extends Fragment {
     }
 
     //region private methods
+
     /**
      * method to initialise components of the GUI
      *

@@ -244,7 +244,7 @@ public class HomeworkDetailsActivity extends AppCompatActivity {
         return date;
     }
 
-    private void updateDateForDatePicker(int day, int month, int year){
+    private void updateDateForDatePicker(int day, int month, int year) {
 
         this.day = day;
         this.month = month;
