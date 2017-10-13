@@ -214,9 +214,9 @@ public class GradesFragment extends Fragment implements View.OnClickListener {
             }
         }
 
-        if (gridStrings.size() != 0) {
-            GuiHelper.fillGridViewFromArray(view, R.id.grades_gradesTable, gridStrings.toArray(new String[0]));
-        }
+        //if (gridStrings.size() != 0) {
+        GuiHelper.fillGridViewFromArray(view, R.id.grades_gradesTable, gridStrings.toArray(new String[0]));
+//        }
         return gradeArrayList.toArray(new Grade[0]);
     }
 
