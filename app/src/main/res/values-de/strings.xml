@@ -82,7 +82,6 @@
     <string name="string_day_monday">Montag</string>
     <string name="string_days_per_week">Schultage</string>
     <string name="string_developers">Entwickler</string>
-    <string name="hello_blank_fragment" translatable="false"></string>
     <string name="string_license">Lizenz</string>
     <string name="string_share">Teile diese App!</string>
 </resources>

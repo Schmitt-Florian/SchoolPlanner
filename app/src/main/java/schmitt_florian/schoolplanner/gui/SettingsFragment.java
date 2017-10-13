@@ -86,7 +86,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
     }
 
     private void getActivatedWeekdays() {
-        CheckBox mon = (CheckBox) getActivity().findViewById(R.id.settings_checkBox_for_monday);
+    /*    CheckBox mon = (CheckBox) getActivity().findViewById(R.id.settings_checkBox_for_monday);
         CheckBox tue = (CheckBox) getActivity().findViewById(R.id.settings_checkBox_for_tuesday);
         CheckBox wed = (CheckBox) getActivity().findViewById(R.id.settings_checkBox_for_wednesday);
         CheckBox thur = (CheckBox) getActivity().findViewById(R.id.settings_checkBox_for_thursday);
@@ -113,7 +113,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 //                        "fri: " + weekdaySetFri + "\n" +
 //                        "sat: " + weekdaySetSat + "\n"
 //        );
-
+*/
     }
 
     public boolean isWeekdaySetMon() {
