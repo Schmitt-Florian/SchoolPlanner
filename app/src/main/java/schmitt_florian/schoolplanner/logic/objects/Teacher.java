@@ -3,6 +3,8 @@ package schmitt_florian.schoolplanner.logic.objects;
 
 import android.support.annotation.Nullable;
 
+import java.util.Objects;
+
 /**
  * The Teacher Class represents an Object in the Teacher SQL table and is usually returned by methods from the DatabaseHelper Interface
  */
@@ -19,22 +21,22 @@ public class Teacher {
     /**
      * numeric id of the teacher (unique)
      */
-    private int id;
+    private final int id;
 
     /**
      * surname as String
      */
-    private String name;
+    private final String name;
 
     /**
      * unique abbreviation as String, can be null if not available
      */
-    private String abbreviation;
+    private final String abbreviation;
 
     /**
      * gender as Char,{@link #FEMALE} for female and {@link #MALE} for male
      */
-    private char gender;
+    private final char gender;
 
     /**
      * standard c'tor for Teacher class
@@ -95,7 +97,7 @@ public class Teacher {
      */
     public boolean match(Teacher otherTeacher) {
         return this.id == otherTeacher.id && this.name.equals(otherTeacher.name) &&
-                this.abbreviation.equals(otherTeacher.abbreviation)
+                Objects.requireNonNull(this.abbreviation).equals(otherTeacher.abbreviation)
                 && this.gender == otherTeacher.gender;
     }
 

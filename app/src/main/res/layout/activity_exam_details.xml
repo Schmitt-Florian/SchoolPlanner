@@ -38,7 +38,9 @@
             android:layout_marginRight="@dimen/fab_margin"
             android:ems="10"
             android:hint="@string/string_description"
-            android:inputType="textMultiLine" />
+            android:inputType="textMultiLine"
+            android:importantForAutofill="no"
+            tools:targetApi="o" />
 
         <TextView
             android:id="@+id/examDetails_labelDate"
@@ -98,7 +100,7 @@
         <Spinner
             android:id="@+id/examDetails_spinnerSubject"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_weight=".15"

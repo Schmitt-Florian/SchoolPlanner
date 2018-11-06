@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements
             ft.commit();
         } else {
             SharedPreferences preferences = this.getSharedPreferences(this.getApplicationContext().toString(), Context.MODE_PRIVATE);
-            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            NavigationView navigationView = findViewById(R.id.nav_view);
 
             int lastFragmentMenuItemId = preferences.getInt("lastFragment", 0);
             MenuItem lastFragmentMenuItem = navigationView.getMenu().getItem(lastFragmentMenuItemId);
@@ -79,14 +79,14 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             if (loadedFragment instanceof HomeFragment) {
                 super.onBackPressed();
             } else {
-                NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+                NavigationView navigationView = findViewById(R.id.nav_view);
                 navigationView.getMenu().getItem(0).setChecked(true);
 
                 loadedFragment = new HomeFragment();
@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements
         ft.replace(R.id.containerMain, loadedFragment);
         ft.commit();
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -185,13 +185,13 @@ public class MainActivity extends AppCompatActivity implements
      * method to configure the navigation drawer
      */
     private void initDrawer() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, (Toolbar) findViewById(R.id.toolbar), R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
 

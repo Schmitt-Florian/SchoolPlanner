@@ -98,7 +98,7 @@ public class TeacherDetailsActivity extends AppCompatActivity {
         if (!addMode) {
             for (int i = 0; i < gendersInSpinner.length; i++) {
                 if (gendersInSpinner[i] == showingTeacher.getGender()) {
-                    Spinner spinner = (Spinner) findViewById(R.id.teacherDetails_spinnerGender);
+                    Spinner spinner = findViewById(R.id.teacherDetails_spinnerGender);
                     spinner.setSelection(i);
                 }
             }
@@ -132,20 +132,20 @@ public class TeacherDetailsActivity extends AppCompatActivity {
      * @throws IllegalArgumentException if input is empty or illegal
      **/
     private Teacher readTeacherFromGUI() throws IllegalArgumentException {
-        Spinner spinner = (Spinner) findViewById(R.id.teacherDetails_spinnerGender);
+        Spinner spinner = findViewById(R.id.teacherDetails_spinnerGender);
 
         if (addMode) {
             return new Teacher(
                     -1,
                     GuiHelper.getInputFromMandatoryEditText(rootView, R.id.teacherDetails_textName),
-                    GuiHelper.getInputFromEditText(rootView, R.id.teacherDetails_textAbbreviation),
+                    GuiHelper.getInputFromEditText(rootView),
                     gendersInSpinner[spinner.getSelectedItemPosition()]
             );
         } else {
             return new Teacher(
                     showingTeacher.getId(),
                     GuiHelper.getInputFromMandatoryEditText(rootView, R.id.teacherDetails_textName),
-                    GuiHelper.getInputFromEditText(rootView, R.id.teacherDetails_textAbbreviation),
+                    GuiHelper.getInputFromEditText(rootView),
                     gendersInSpinner[spinner.getSelectedItemPosition()]
             );
         }

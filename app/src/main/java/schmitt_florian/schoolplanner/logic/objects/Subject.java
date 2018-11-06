@@ -8,32 +8,32 @@ public class Subject {
      * the default color for a subject in {@link schmitt_florian.schoolplanner.gui.ScheduleFragment}.
      * Similar to the default color for android {@link android.widget.Button}s
      */
-    public static String DEFAULT_COLOR = "#e0e0e0";
+    public static final String DEFAULT_COLOR = "#e0e0e0";
 
     /**
      * numeric id of the subject (unique)
      */
-    private int id;
+    private final int id;
 
     /**
      * the {@link Teacher} that teaches this subject
      */
-    private Teacher teacher;
+    private final Teacher teacher;
 
     /**
      * name of the subject as string e.g "Math"
      */
-    private String name;
+    private final String name;
 
     /**
      * number/code of the room as String e.g "B201"
      */
-    private String room;
+    private final String room;
 
     /**
      * color of subject as Hex with '#' e.g "#ffffff"
      */
-    private String color;
+    private final String color;
 
     /**
      * standard c'tor for Subject class

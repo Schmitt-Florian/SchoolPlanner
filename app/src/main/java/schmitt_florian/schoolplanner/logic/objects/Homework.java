@@ -11,22 +11,22 @@ public class Homework {
     /**
      * numeric id of the homework (unique)
      */
-    private int id;
+    private final int id;
 
     /**
      * {@link Subject} the homework is for
      */
-    private Subject subject;
+    private final Subject subject;
 
     /**
      * description/details of the homework
      */
-    private String description;
+    private final String description;
 
     /**
      * due date / deadline for the homework
      */
-    private GregorianCalendar deadline;
+    private final GregorianCalendar deadline;
 
     /**
      * indicates whether the homework is done or not
@@ -136,28 +136,6 @@ public class Homework {
         }
     }
 
-    /**
-     * mark a homework is done.
-     *
-     * @param done indicates whether the homework is done or not
-     */
-    public void setDone(boolean done) {
-        this.done = done;
-    }
-
-
-    /**
-     * method to indicate if one Homework matches another one by the values of their fields
-     *
-     * @param otherHomework the other Homework
-     * @return true if all fields are the same in both Homework, else false
-     */
-    public boolean match(Homework otherHomework) {
-        return this.id == otherHomework.id && this.subject.match(otherHomework.subject) &&
-                this.description.equals(otherHomework.description) &&
-                this.deadline.equals(otherHomework.deadline) && this.done == otherHomework.done
-                ;
-    }
 
     /**
      * builds a string from Homework's values

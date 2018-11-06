@@ -39,7 +39,9 @@
             android:layout_marginRight="@dimen/fab_margin"
             android:ems="10"
             android:hint="@string/string_description"
-            android:inputType="textMultiLine" />
+            android:inputType="textMultiLine"
+            android:importantForAutofill="no"
+            tools:targetApi="o" />
 
         <TextView
             android:id="@+id/homeworkDetails_labelDate"
@@ -60,8 +62,7 @@
             android:layout_marginRight="@dimen/fab_margin"
             android:ems="10"
             android:hint="@string/string_due_date"
-            android:inputType="date"
-            android:onClick="" />
+            android:inputType="date" />
 
         <TextView
             android:id="@+id/homeworkDetails_labelSubject"

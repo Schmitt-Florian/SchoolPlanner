@@ -38,7 +38,9 @@
             android:layout_marginRight="@dimen/fab_margin"
             android:ems="10"
             android:hint="@string/string_name"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:importantForAutofill="no"
+            tools:targetApi="o" />
 
         <TextView
             android:id="@+id/teacherDetails_labelAbbreviation"
@@ -61,7 +63,9 @@
             android:layout_marginRight="@dimen/fab_margin"
             android:ems="10"
             android:hint="@string/string_abbreviation"
-            android:inputType="textCapCharacters" />
+            android:inputType="textCapCharacters"
+            android:importantForAutofill="no"
+            tools:targetApi="o" />
 
         <TextView
             android:id="@+id/teacherDetails_labelGender"
@@ -88,7 +92,7 @@
         <Spinner
             android:id="@+id/teacherDetails_spinnerGender"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_weight="0.2"

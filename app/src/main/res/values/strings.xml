@@ -1,6 +1,6 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">School Planner</string>
-    <string name="app_email" translatable="false">projectschoolplanner17@gmail.com</string>
+    <string name="app_email" translatable="false" tools:keep="@string/app_email">projectschoolplanner17@gmail.com</string>
 
     //Navigation Drawer
     <string name="string_homepage">Home</string>
@@ -17,7 +17,7 @@
     <string name="navigation_drawer_close">Close Sidebar</string>
 
     //Credits
-    <string name="string_credits.developedBy">This Application was developed by:\n Natascha Becker\nDarius Wolkewitz\nKevin Schevaljé\nJan-Nicklas Watz\nMarlon Drolsbach</string>
+    <string name="string_credits.developedBy" tools:keep="@string/string_credits_developedBy">This Application was developed by:\n Natascha Becker\nDarius Wolkewitz\nKevin Schevaljé\nJan-Nicklas Watz\nMarlon Drolsbach</string>
 
     //Days
     <string name="string_day_monday">Monday</string>
@@ -33,7 +33,7 @@
     <string name="string_day_saturday">Saturday</string>
     <string name="string_day_saturday_abr">SAT</string>
     <string name="string_day_sunday">Sunday</string>
-    <string name="string_day_sunday_abr">SUN</string>
+    <string name="string_day_sunday_abr" tools:keep="@string/string_day_sunday_abr">SUN</string>
 
     //Subject
     <string name="string_teacher">Teacher</string>
@@ -46,16 +46,16 @@
 
     //Other
     <string name="string_error">Error</string>
-    <string name="string_choose_email_service">Choose Email Service</string>
+    <string name="string_choose_email_service" tools:keep="@string/string_choose_email_service">Choose Email Service</string>
     <string name="string_todo">ToDo</string>
     <string name="string_done">Done</string>
-    <string name="string_add">Add</string>
+    <string name="string_add" tools:keep="@string/string_add">Add</string>
     <string name="string_delete">Delete</string>
-    <string name="string_back">Back</string>
+    <string name="string_back" tools:keep="@string/string_back">Back</string>
     <string name="string_name">Name</string>
     <string name="string_close">Close</string>
     <string name="string_edit">Edit</string>
-    <string name="string_details">Details</string>
+    <string name="string_details" tools:keep="@string/string_details">Details</string>
     <string name="string_save">Save</string>
     <string name="string_select_subject">Select Subject</string>
     <string name="string_grade">Grade</string>
@@ -70,16 +70,16 @@
     <string name="string_gender">Gender</string>
     <string name="string_male">Male</string>
     <string name="string_female">Female</string>
-    <string name="string_select_teacher">Select Teacher</string>
+    <string name="string_select_teacher" tools:keep="@string/string_select_teacher">Select Teacher</string>
     <string name="string_select_gender">Select Gender</string>
     <string name="string_exam_date">Exam Date</string>
     <string name="string_confirm_delete">Confirm Delete</string>
     <string name="string_select_date_format">Select Date Format</string>
     <string name="string_amount_of_periods">Periods per Day</string>
-    <string name="string_select_language">Select Language</string>
+    <string name="string_select_language" tools:keep="@string/string_select_language">Select Language</string>
     <string name="string_general_settings">General Settings</string>
-    <string name="string_personalisation">Personalisation</string>
-    <string name="string_select_theme_color">Select Theme Color</string>
+    <string name="string_personalisation" tools:keep="@string/string_personalisation">Personalisation</string>
+    <string name="string_select_theme_color" tools:keep="@string/string_select_theme_color">Select Theme Color</string>
     <string name="string_settings_saved">Settings Saved</string>
     <string name="string_date_must_comply_with">Date must comply with</string>
     <string name="string_none">None</string>
@@ -87,14 +87,14 @@
     <string name="string_end_time">End Time</string>
     <string name="string_select_time">Select Time</string>
     <string name="string_time_must_comply_with">Time must comply with</string>
-    <string name="string_color">Color</string>
+    <string name="string_color" tools:keep="@string/string_color">Color</string>
     <string name="string_missing_period">Missing Period</string>
 
-    <string name="hello_blank_fragment" translatable="false">~Empty~</string>
+    <string name="hello_blank_fragment" translatable="false" tools:keep="@string/hello_blank_fragment">~Empty~</string>
     <string name="string_description">Description</string>
     <string name="string_cancel">Cancel</string>
     <string name="string_select_color">Select Color</string>
-    <string name="string_days_per_week">Schooldays</string>
+    <string name="string_days_per_week" tools:keep="@string/string_days_per_week">Schooldays</string>
 
     <string name="string_license">License</string>
     <string name="string_developers">Developers</string>

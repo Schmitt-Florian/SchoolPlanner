@@ -27,7 +27,7 @@ import schmitt_florian.schoolplanner.logic.objects.Weekday;
  * Implementation of DatabaseHelper interface to create and interact with the schoolPlanner SQLite Database.
  */
 public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelper {
-    private Context context = null;
+    private final Context context;
     private Activity activity = null;
 
     /**
@@ -763,13 +763,10 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public Subject getSubjectAtIdOrThrow(int id) throws NoSuchFieldException {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = null;
 
         String query = buildQueryToGetRowAtId(TABLE_SUBJECT, SUBJECT_COLUMN_ID, id);
 
-        try {
-            cursor = db.rawQuery(query, null);
+        try (SQLiteDatabase db = this.getReadableDatabase(); Cursor cursor = db.rawQuery(query, null)) {
             cursor.moveToFirst();
 
             return new Subject(
@@ -781,11 +778,6 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
             );
         } catch (Exception e) {
             throw new NoSuchFieldException();
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-            db.close();
         }
     }
 
@@ -798,13 +790,10 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public Teacher getTeacherAtIdOrThrow(int id) throws NoSuchFieldException {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = null;
 
         String query = buildQueryToGetRowAtId(TABLE_TEACHER, TEACHER_COLUMN_ID, id);
 
-        try {
-            cursor = db.rawQuery(query, null);
+        try (SQLiteDatabase db = this.getReadableDatabase(); Cursor cursor = db.rawQuery(query, null)) {
             cursor.moveToFirst();
 
             return new Teacher(
@@ -815,11 +804,6 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
             );
         } catch (Exception e) {
             throw new NoSuchFieldException();
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-            db.close();
         }
     }
 
@@ -832,13 +816,10 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public Homework getHomeworkAtIdOrThrow(int id) throws NoSuchFieldException {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = null;
 
         String query = buildQueryToGetRowAtId(TABLE_HOMEWORK, HOMEWORK_COLUMN_ID, id);
 
-        try {
-            cursor = db.rawQuery(query, null);
+        try (SQLiteDatabase db = this.getReadableDatabase(); Cursor cursor = db.rawQuery(query, null)) {
             cursor.moveToFirst();
 
             if (cursor.getInt(4) == 0) {
@@ -861,11 +842,6 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
 
         } catch (Exception e) {
             throw new NoSuchFieldException();
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-            db.close();
         }
     }
 
@@ -878,13 +854,10 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public Exam getExamAtIdOrThrow(int id) throws NoSuchFieldException {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = null;
 
         String query = buildQueryToGetRowAtId(TABLE_EXAM, EXAM_COLUMN_ID, id);
 
-        try {
-            cursor = db.rawQuery(query, null);
+        try (SQLiteDatabase db = this.getReadableDatabase(); Cursor cursor = db.rawQuery(query, null)) {
             cursor.moveToFirst();
 
             return new Exam(
@@ -895,11 +868,6 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
             );
         } catch (Exception e) {
             throw new NoSuchFieldException();
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-            db.close();
         }
     }
 
@@ -912,13 +880,10 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public Grade getGradeAtIdOrThrow(int id) throws NoSuchFieldException {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = null;
 
         String query = buildQueryToGetRowAtId(TABLE_GRADE, GRADE_COLUMN_ID, id);
 
-        try {
-            cursor = db.rawQuery(query, null);
+        try (SQLiteDatabase db = this.getReadableDatabase(); Cursor cursor = db.rawQuery(query, null)) {
             cursor.moveToFirst();
 
             return new Grade(
@@ -929,11 +894,6 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
             );
         } catch (Exception e) {
             throw new NoSuchFieldException();
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-            db.close();
         }
     }
 
@@ -946,13 +906,10 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public Period getPeriodAtIdOrThrow(int id) throws NoSuchFieldException {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = null;
 
         String query = buildQueryToGetRowAtId(TABLE_PERIOD, PERIOD_COLUMN_ID, id);
 
-        try {
-            cursor = db.rawQuery(query, null);
+        try (SQLiteDatabase db = this.getReadableDatabase(); Cursor cursor = db.rawQuery(query, null)) {
             cursor.moveToFirst();
 
             return new Period(
@@ -963,11 +920,6 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
             );
         } catch (Exception e) {
             throw new NoSuchFieldException();
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-            db.close();
         }
     }
 
@@ -980,13 +932,10 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public Lesson getLessonAtIdOrThrow(int id) throws NoSuchFieldException {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = null;
 
         String query = buildQueryToGetRowAtId(TABLE_LESSON, LESSON_COLUMN_ID, id);
 
-        try {
-            cursor = db.rawQuery(query, null);
+        try (SQLiteDatabase db = this.getReadableDatabase(); Cursor cursor = db.rawQuery(query, null)) {
             cursor.moveToFirst();
 
             return new Lesson(
@@ -996,11 +945,6 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
             );
         } catch (Exception e) {
             throw new NoSuchFieldException();
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-            db.close();
         }
     }
 
@@ -1013,13 +957,10 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public Weekday getWeekdayAtIdOrThrow(int id) throws NoSuchFieldException {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = null;
 
         String query = buildQueryToGetRowAtId(TABLE_WEEKDAY, WEEKDAY_COLUMN_ID, id);
 
-        try {
-            cursor = db.rawQuery(query, null);
+        try (SQLiteDatabase db = this.getReadableDatabase(); Cursor cursor = db.rawQuery(query, null)) {
             cursor.moveToFirst();
 
             return new Weekday(
@@ -1029,11 +970,6 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
             );
         } catch (Exception e) {
             throw new NoSuchFieldException();
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-            db.close();
         }
     }
 
@@ -1046,13 +982,10 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      */
     @Override
     public Schedule getScheduleAtIdOrThrow(int id) throws NoSuchFieldException {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = null;
 
         String query = buildQueryToGetRowAtId(TABLE_SCHEDULE, SCHEDULE_COLUMN_ID, id);
 
-        try {
-            cursor = db.rawQuery(query, null);
+        try (SQLiteDatabase db = this.getReadableDatabase(); Cursor cursor = db.rawQuery(query, null)) {
             cursor.moveToFirst();
 
             return new Schedule(
@@ -1062,11 +995,6 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
             );
         } catch (Exception e) {
             throw new NoSuchFieldException();
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-            db.close();
         }
     }
     //endregion
@@ -1080,24 +1008,16 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      * @throws NoSuchFieldException if there is no such {@link Lesson} in the Database
      */
     public Lesson getLessonOrThrowAtDate(Weekday day, Period period) throws NoSuchFieldException {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = null;
 
         String query = "SELECT " + LESSON_COLUMN_ID + " FROM " + TABLE_LESSON + " WHERE " + LESSON_COLUMN_WEEKDAY_ID + " = " + day.getId() +
                 " AND " + LESSON_COLUMN_PERIOD_ID + " = " + period.getId();
 
-        try {
-            cursor = db.rawQuery(query, null);
+        try (SQLiteDatabase db = this.getReadableDatabase(); Cursor cursor = db.rawQuery(query, null)) {
             cursor.moveToFirst();
 
             return getLessonAtIdOrThrow(cursor.getInt(0));
         } catch (Exception e) {
             throw new NoSuchFieldException();
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-            db.close();
         }
     }
 
@@ -2320,9 +2240,8 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      *
      * @param scheduleID id of the {@link Schedule}
      * @return Weekdays at the given schedule as Array
-     * @throws Exception if an error occurs
      */
-    private Weekday[] getWeekdaysAtSchedule(int scheduleID) throws Exception {
+    private Weekday[] getWeekdaysAtSchedule(int scheduleID) {
         SQLiteDatabase db = this.getReadableDatabase();
 
         String query = buildQueryToGetRowAtId(TABLE_WEEKDAY, WEEKDAY_COLUMN_SCHEDULE_ID, scheduleID);
@@ -2481,23 +2400,15 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      * @return count of objects from database which contains a specific {@link Period} at the given id
      */
     private int getCountOfRowsWhichUsePeriodAsForeignKey(int id) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = null;
 
         String queryLesson = "SELECT COUNT(*) FROM (SELECT * FROM " + TABLE_LESSON + " WHERE " + LESSON_COLUMN_PERIOD_ID + " = " + id + " )";
 
         int usingElementsCount = 0;
 
-        try {
-            cursor = db.rawQuery(queryLesson, null);
+        try (SQLiteDatabase db = this.getReadableDatabase(); Cursor cursor = db.rawQuery(queryLesson, null)) {
             cursor.moveToFirst();
             usingElementsCount += cursor.getInt(0);
 
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-            db.close();
         }
         return usingElementsCount;
     }
@@ -2509,23 +2420,15 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      * @return count of objects from database which contains a specific {@link Weekday} at the given id
      */
     private int getCountOfRowsWhichUseWeekdayAsForeignKey(int id) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = null;
 
         String queryLesson = "SELECT COUNT(*) FROM (SELECT * FROM " + TABLE_LESSON + " WHERE " + LESSON_COLUMN_WEEKDAY_ID + " = " + id + " )";
 
         int usingElementsCount = 0;
 
-        try {
-            cursor = db.rawQuery(queryLesson, null);
+        try (SQLiteDatabase db = this.getReadableDatabase(); Cursor cursor = db.rawQuery(queryLesson, null)) {
             cursor.moveToFirst();
             usingElementsCount += cursor.getInt(0);
 
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-            db.close();
         }
         return usingElementsCount;
     }
@@ -2537,23 +2440,15 @@ public class DatabaseHelperImpl extends SQLiteOpenHelper implements DatabaseHelp
      * @return count of objects from database which contains a specific {@link Schedule} at the given id
      */
     private int getCountOfRowsWhichUseScheduleAsForeignKey(int id) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = null;
 
         String queryWeekday = "SELECT COUNT(*) FROM (SELECT * FROM " + TABLE_WEEKDAY + " WHERE " + WEEKDAY_COLUMN_SCHEDULE_ID + " = " + id + " )";
 
         int usingElementsCount = 0;
 
-        try {
-            cursor = db.rawQuery(queryWeekday, null);
+        try (SQLiteDatabase db = this.getReadableDatabase(); Cursor cursor = db.rawQuery(queryWeekday, null)) {
             cursor.moveToFirst();
             usingElementsCount += cursor.getInt(0);
 
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-            db.close();
         }
         return usingElementsCount;
     }

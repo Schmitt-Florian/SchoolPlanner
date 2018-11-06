@@ -86,17 +86,6 @@ public class Schedule {
     }
 
     /**
-     * method to indicate if one Schedule matches another one by the values of their fields
-     *
-     * @param otherSchedule the other Schedule
-     * @return true if all fields are the same in both Schedules, else false
-     */
-    public boolean match(Schedule otherSchedule) {
-        return this.id == otherSchedule.id && this.name.equals(otherSchedule.name) &&
-                Arrays.equals(this.days, otherSchedule.days);
-    }
-
-    /**
      * builds a string from Schedule's values
      *
      * @return Schedule as String

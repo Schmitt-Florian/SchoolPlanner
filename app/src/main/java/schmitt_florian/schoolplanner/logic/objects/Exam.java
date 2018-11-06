@@ -11,22 +11,22 @@ public class Exam {
     /**
      * numeric id of the exam (unique)
      */
-    private int id;
+    private final int id;
 
     /**
      * {@link Subject} the exam is in
      */
-    private Subject subject;
+    private final Subject subject;
 
     /**
      * description/details of the exam
      */
-    private String description;
+    private final String description;
 
     /**
      * due date / deadline for the exam
      */
-    private GregorianCalendar deadline;
+    private final GregorianCalendar deadline;
 
     /**
      * standard c'tor for Exam class
@@ -106,19 +106,6 @@ public class Exam {
      */
     public String getDeadlineAsDatabaseString() {
         return deadline.get(Calendar.YEAR) + "-" + String.valueOf(deadline.get(Calendar.MONTH) + 1) + "-" + deadline.get(Calendar.DAY_OF_MONTH);
-    }
-
-    /**
-     * method to indicate if one Exam matches another one by the values of their fields
-     *
-     * @param otherExam the other Exam
-     * @return true if all fields are the same in both Exams, else false
-     */
-    public boolean match(Exam otherExam) {
-        return this.id == otherExam.id && this.subject.match(otherExam.subject) &&
-                this.description.equals(otherExam.description) &&
-                this.deadline.equals(otherExam.deadline)
-                ;
     }
 
     /**

@@ -11,17 +11,17 @@ public class Lesson implements Comparable<Lesson> {
     /**
      * numeric id of the lesson (unique)
      */
-    private int id;
+    private final int id;
 
     /**
      * the {@link Subject} taught in this Lesson
      */
-    private Subject subject;
+    private final Subject subject;
 
     /**
      * the {@link Period} the Lesson is taught in
      */
-    private Period period;
+    private final Period period;
 
     /**
      * standard c'tor for Lesson class

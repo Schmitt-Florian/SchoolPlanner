@@ -100,7 +100,7 @@ public class GradeDetailsActivity extends AppCompatActivity {
         if (!addMode) {
             for (int i = 0; i < subjectsInSpinner.length; i++) {
                 if (subjectsInSpinner[i].match(showingGrade.getSubject())) {
-                    Spinner spinner = (Spinner) findViewById(R.id.gradeDetails_spinnerSubject);
+                    Spinner spinner = findViewById(R.id.gradeDetails_spinnerSubject);
                     spinner.setSelection(i);
                 }
             }
@@ -141,7 +141,7 @@ public class GradeDetailsActivity extends AppCompatActivity {
      * @throws IllegalArgumentException if input is empty or illegal
      **/
     private Grade readGradeFromGUI() throws IllegalArgumentException {
-        Spinner spinner = (Spinner) findViewById(R.id.gradeDetails_spinnerSubject);
+        Spinner spinner = findViewById(R.id.gradeDetails_spinnerSubject);
 
         if (addMode) {
             return new Grade(

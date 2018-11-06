@@ -34,17 +34,17 @@ public class Weekday {
     /**
      * numeric id of the Weekday (unique)
      */
-    private int id;
+    private final int id;
 
     /**
      * name of the Weekday as string e.g "Monday"
      */
-    private String name;
+    private final String name;
 
     /**
      * {@link Lesson}s on that day, sorted by the schoolHourNo
      */
-    private Lesson[] lessons;
+    private final Lesson[] lessons;
 
     /**
      * standard c'tor for Weekday class

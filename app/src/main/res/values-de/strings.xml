@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Schulplaner</string>
 
     <string name="string_homepage">Home</string>
@@ -10,7 +10,7 @@
     <string name="string_grades">Noten</string>
     <string name="string_credits">Mitwirkende</string>
     <string name="string_settings">Einstellungen</string>
-    <string name="string_credits.developedBy">Diese Applikation wurde entwickelt von:\n Natascha Becker\nDarius Wolkewitz\nKevin Schevaljé\nJan-Nicklas Watz\nMarlon Drolsbach</string>
+    <string name="string_credits.developedBy" tools:keep="@string/string_credits_developedBy">Diese Applikation wurde entwickelt von:\n Natascha Becker\nDarius Wolkewitz\nKevin Schevaljé\nJan-Nicklas Watz\nMarlon Drolsbach</string>
     <string name="string_day_tuesday">Dienstag</string>
     <string name="string_day_wednesday">Mittwoch</string>
     <string name="string_day_thursday">Donnerstag</string>
@@ -20,16 +20,16 @@
     <string name="string_teacher">Lehrer</string>
     <string name="string_room">Raum</string>
     <string name="string_error">Error</string>
-    <string name="string_choose_email_service">Wähle Email Service aus</string>
+    <string name="string_choose_email_service" tools:keep="@string/string_choose_email_service">Wähle Email Service aus</string>
     <string name="string_todo">ToDo</string>
     <string name="string_done">Fertig</string>
-    <string name="string_add">Hinzufügen</string>
+    <string name="string_add" tools:keep="@string/string_add">Hinzufügen</string>
     <string name="string_delete">Löschen</string>
-    <string name="string_back">Zurück</string>
+    <string name="string_back" tools:keep="@string/string_back">Zurück</string>
     <string name="string_name">Name</string>
     <string name="string_close">Schließen</string>
     <string name="string_edit">Bearbeiten</string>
-    <string name="string_details">Details</string>
+    <string name="string_details" tools:keep="@string/string_details">Details</string>
     <string name="string_save">Speichern</string>
     <string name="string_select_subject">Wähle Fach aus</string>
     <string name="string_grade">Note</string>
@@ -47,7 +47,7 @@
     <string name="string_gender">Geschlecht</string>
     <string name="string_female">Weiblich</string>
     <string name="string_select_gender">Wähle Geschlecht aus</string>
-    <string name="string_select_teacher">Wähle Lehrer aus</string>
+    <string name="string_select_teacher" tools:keep="@string/string_select_teacher">Wähle Lehrer aus</string>
     <string name="string_exam_date">Klausurtermin</string>
     <string name="string_confirm_delete">Bestätige Löschen</string>
     <string name="text_dialog_db_cascade_deletion_part1">Möchten sie dieses Objekt wirklich löschen? Dies würde auch zur Löschung von</string>
@@ -55,10 +55,10 @@
     <string name="string_cancel">Abbrechen</string>
     <string name="string_amount_of_periods">Stundenzahl pro Tag</string>
     <string name="string_general_settings">Allgemeine Einstellungen</string>
-    <string name="string_personalisation">Personalisierung</string>
+    <string name="string_personalisation" tools:keep="@string/string_personalisation">Personalisierung</string>
     <string name="string_select_date_format">Wähle Datumsformat</string>
-    <string name="string_select_language">Wähle Sprache</string>
-    <string name="string_select_theme_color">Wähle Farbschema</string>
+    <string name="string_select_language" tools:keep="@string/string_select_language">Wähle Sprache</string>
+    <string name="string_select_theme_color" tools:keep="@string/string_select_theme_color">Wähle Farbschema</string>
     <string name="navigation_drawer_close">Schließe Seitenleiste</string>
     <string name="navigation_drawer_open">Öffne Seitenleiste</string>
     <string name="string_settings_saved">Einstellungen gespeichert</string>
@@ -73,15 +73,16 @@
     <string name="string_day_friday_abr">FR</string>
     <string name="string_day_monday_abr">MO</string>
     <string name="string_day_saturday_abr">SA</string>
-    <string name="string_day_sunday_abr">SO</string>
+    <string name="string_day_sunday_abr" tools:keep="@string/string_day_sunday_abr">SO</string>
     <string name="string_day_thursday_abr">DO</string>
     <string name="string_day_tuesday_abr">DI</string>
     <string name="string_day_wednesday_abr">MI</string>
-    <string name="string_color">Farbe</string>
+    <string name="string_color" tools:keep="@string/string_color">Farbe</string>
     <string name="string_select_color">Wählen Sie eine Farbe</string>
     <string name="string_day_monday">Montag</string>
-    <string name="string_days_per_week">Schultage</string>
+    <string name="string_days_per_week" tools:keep="@string/string_days_per_week">Schultage</string>
     <string name="string_developers">Entwickler</string>
     <string name="string_license">Lizenz</string>
     <string name="string_share">Teile diese App!</string>
+    <string name="string_reset_database">Datenbank zurücksetzen</string>
 </resources>

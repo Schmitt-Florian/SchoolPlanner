@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import schmitt_florian.schoolplanner.R;
 import schmitt_florian.schoolplanner.logic.DatabaseHelper;
@@ -34,11 +36,11 @@ public class TeachersFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        Objects.requireNonNull(getActivity()).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_teachers, container, false);
 
@@ -138,7 +140,7 @@ public class TeachersFragment extends Fragment implements View.OnClickListener {
      * @param view the view of the fragment
      */
     private void defineTeacherListOnClick(final View view) {
-        ListView teacherList = (ListView) view.findViewById(R.id.teachers_listTeachers);
+        ListView teacherList = view.findViewById(R.id.teachers_listTeachers);
 
         teacherList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -155,7 +157,7 @@ public class TeachersFragment extends Fragment implements View.OnClickListener {
      */
 
     private void initToolbarTitle() {
-        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        Toolbar toolbar = Objects.requireNonNull(getActivity()).findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.string_teachers);
     }
 //endregion

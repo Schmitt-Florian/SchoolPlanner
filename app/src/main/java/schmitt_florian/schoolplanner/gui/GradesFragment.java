@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import android.widget.GridView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import schmitt_florian.schoolplanner.R;
 import schmitt_florian.schoolplanner.logic.DatabaseHelper;
@@ -37,11 +39,11 @@ public class GradesFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        Objects.requireNonNull(getActivity()).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_grades, container, false);
 //        ToggleButton editButton = (ToggleButton) view.findViewById(R.id.toggleEditSchedule);
@@ -130,7 +132,7 @@ public class GradesFragment extends Fragment implements View.OnClickListener {
      * @param allSubjectsInList a array of all {@link Subject}s shown in the listView ordered by their position in the listView
      */
     private void defineSubjectListOnClick(final View view, final Subject[] allSubjectsInList) {
-        ListView subjectList = (ListView) view.findViewById(R.id.grades_listSubjects);
+        ListView subjectList = view.findViewById(R.id.grades_listSubjects);
 
         subjectList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -146,7 +148,7 @@ public class GradesFragment extends Fragment implements View.OnClickListener {
      * @param view the view of the fragment
      */
     private void defineGridViewOnClick(View view) {
-        final GridView gridView = (GridView) view.findViewById(R.id.grades_gradesTable);
+        final GridView gridView = view.findViewById(R.id.grades_gradesTable);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -215,7 +217,7 @@ public class GradesFragment extends Fragment implements View.OnClickListener {
         }
 
         //if (gridStrings.size() != 0) {
-        GuiHelper.fillGridViewFromArray(view, R.id.grades_gradesTable, gridStrings.toArray(new String[0]));
+        GuiHelper.fillGridViewFromArray(view, gridStrings.toArray(new String[0]));
 //        }
         return gradeArrayList.toArray(new Grade[0]);
     }
@@ -225,7 +227,7 @@ public class GradesFragment extends Fragment implements View.OnClickListener {
      */
 
     private void initToolbarTitle() {
-        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        Toolbar toolbar = Objects.requireNonNull(getActivity()).findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.string_grades);
     }
     //endregion

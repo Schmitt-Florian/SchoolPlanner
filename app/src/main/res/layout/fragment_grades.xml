@@ -10,7 +10,6 @@
         android:id="@+id/grades_data"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
         android:baselineAligned="false"
         android:orientation="horizontal">
 
@@ -89,6 +88,7 @@
         android:layout_marginEnd="16dp"
         android:clickable="true"
         app:fabSize="normal"
-        app:srcCompat="@drawable/ic_add" />
+        app:srcCompat="@drawable/ic_add"
+        android:focusable="true" />
 
 </FrameLayout>

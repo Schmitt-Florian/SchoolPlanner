@@ -26,6 +26,7 @@ import android.widget.TableRow;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.GregorianCalendar;
+import java.util.Objects;
 
 import schmitt_florian.schoolplanner.R;
 import schmitt_florian.schoolplanner.logic.DatabaseHelper;
@@ -59,11 +60,11 @@ public class ScheduleFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        Objects.requireNonNull(getActivity()).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_schedule, container, false);
 
         initGui();
@@ -126,7 +127,7 @@ public class ScheduleFragment extends Fragment {
      */
     private void updateValues() {
         databaseHelper = new DatabaseHelperImpl(getContext());
-        table = (TableLayout) rootView.findViewById(R.id.schedule_table);
+        table = rootView.findViewById(R.id.schedule_table);
         schedule = databaseHelper.getScheduleAtId(1);
     }
 
@@ -165,7 +166,7 @@ public class ScheduleFragment extends Fragment {
      * method to initialise visibility of the schedule rows based on {@link Settings#getPeriodsAtDay()}
      */
     private void initVisibilityForSchedule() {
-        int visibleRowCount = Settings.getInstance(getContext()).getPeriodsAtDay() + 1;
+        int visibleRowCount = Settings.getInstance(Objects.requireNonNull(getContext())).getPeriodsAtDay() + 1;
         for (int i = 0; i < visibleRowCount; i++) {
             rows[i].setVisibility(View.VISIBLE);
         }
@@ -179,7 +180,7 @@ public class ScheduleFragment extends Fragment {
      */
 
     private void initToolbarTitle() {
-        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        Toolbar toolbar = Objects.requireNonNull(getActivity()).findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.string_schedule);
     }
 
@@ -187,7 +188,7 @@ public class ScheduleFragment extends Fragment {
      * method to initialise the Edit {@link SwitchCompat} in the appbar and define {@link ScheduleFragment#editMode}
      */
     private void initAppbarEditSwitch() {
-        SwitchCompat editSwitch = (SwitchCompat) getActivity().findViewById(R.id.appbar_switch);
+        SwitchCompat editSwitch = Objects.requireNonNull(getActivity()).findViewById(R.id.appbar_switch);
 
         editSwitch.setVisibility(View.VISIBLE);
         editSwitch.setChecked(editMode);
@@ -301,9 +302,9 @@ public class ScheduleFragment extends Fragment {
      */
     private class OnScheduleButtonClickListener implements View.OnClickListener {
         private boolean timeHasChanged;
-        private boolean isTimeButton;
-        private int x;
-        private int y;
+        private final boolean isTimeButton;
+        private final int x;
+        private final int y;
 
 
         /**
@@ -339,7 +340,7 @@ public class ScheduleFragment extends Fragment {
          * method to show the select start and end time dialog in {@link ScheduleFragment}
          */
         private void showTimeAlertDialog() {
-            final InsertPeriodTimesDialog timeDialog = new InsertPeriodTimesDialog(getContext());
+            final InsertPeriodTimesDialog timeDialog = new InsertPeriodTimesDialog(Objects.requireNonNull(getContext()));
             timeDialog.positiveButton(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -382,7 +383,7 @@ public class ScheduleFragment extends Fragment {
          * the user select a {@link Subject} or none to be taught during the clicked {@link Period}
          */
         private void showSubjectAlertDialog() {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getContext()));
             builder.setTitle(R.string.string_select_subject);
 
             builder.setItems(getSubjectSelectorContent(), new DialogInterface.OnClickListener() {
@@ -547,7 +548,7 @@ public class ScheduleFragment extends Fragment {
          * by displaying a {@link AlertDialog} which tells the user to insert the {@link Period} first
          */
         private void handleMissingPeriod() {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getContext()));
 
             builder.setIconAttribute(android.R.attr.alertDialogIcon);
             builder.setTitle(R.string.string_missing_period);

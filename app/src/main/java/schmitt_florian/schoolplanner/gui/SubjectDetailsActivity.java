@@ -33,7 +33,6 @@ public class SubjectDetailsActivity extends AppCompatActivity {
     private boolean addMode;
     private String subjectColor;
     private Teacher[] teachersInSpinner;
-    private int selectedTeacherSpinnerPos;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -137,7 +136,7 @@ public class SubjectDetailsActivity extends AppCompatActivity {
         if (!addMode) {
             for (int i = 0; i < teachersInSpinner.length; i++) {
                 if (teachersInSpinner[i].match(showingSubject.getTeacher())) {
-                    Spinner spinner = (Spinner) findViewById(R.id.subjectDetails_spinnerTeacher);
+                    Spinner spinner = findViewById(R.id.subjectDetails_spinnerTeacher);
                     spinner.setSelection(i);
                 }
             }
@@ -182,7 +181,7 @@ public class SubjectDetailsActivity extends AppCompatActivity {
      **/
 
     private Subject readSubjectFromGUI() throws IllegalArgumentException {
-        Spinner spinner = (Spinner) findViewById(R.id.subjectDetails_spinnerTeacher);
+        Spinner spinner = findViewById(R.id.subjectDetails_spinnerTeacher);
 
         if (addMode) {
             return new Subject(

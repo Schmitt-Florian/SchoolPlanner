@@ -43,7 +43,7 @@ public class Settings {
     /**
      * the context of the application
      */
-    private Context context;
+    private final Context context;
     /**
      * the date format used in the app. One of {@link Settings#DATE_FORMAT_DDMMYYYY} ,
      * {@link Settings#DATE_FORMAT_MMDDYYYY} , {@link Settings#DATE_FORMAT_YYYYMMDD}
@@ -79,7 +79,7 @@ public class Settings {
      *                         {@link Settings#DATE_FORMAT_MMDDYYYY} , {@link Settings#DATE_FORMAT_YYYYMMDD}
      * @param periodsAtDay     number of periods at each day
      */
-    public Settings(Context context, String activeDateFormat, int periodsAtDay) {
+    private Settings(Context context, String activeDateFormat, int periodsAtDay) {
         this.context = context;
         this.activeDateFormat = activeDateFormat;
         this.periodsAtDay = periodsAtDay;

@@ -8,22 +8,22 @@ public class Grade {
     /**
      * numeric id of the Grade (unique)
      */
-    private int id;
+    private final int id;
 
     /**
      * the {@link Subject} the grade was given in
      */
-    private Subject subject;
+    private final Subject subject;
 
     /**
      * the name / type of the grade, e.g. "Presentation"
      */
-    private String name;
+    private final String name;
 
     /**
      * the grade itself as String, e.g "1" or "15" or "A" or what system you use
      */
-    private String grade;
+    private final String grade;
 
 
     /**
@@ -75,19 +75,6 @@ public class Grade {
      */
     public String getGrade() {
         return grade;
-    }
-
-    /**
-     * method to indicate if one Grade matches another one by the values of their fields
-     *
-     * @param otherGrade the other Grade
-     * @return true if all fields are the same in both Grades, else false
-     */
-    public boolean match(Grade otherGrade) {
-        return this.id == otherGrade.id && this.subject.match(otherGrade.subject) &&
-                this.name.equals(otherGrade.name) &&
-                this.grade.equals(otherGrade.grade)
-                ;
     }
 
     /**

@@ -40,7 +40,7 @@ class GuiHelper {
      * @throws IllegalArgumentException if input is empty and calls {@link GuiHelper#handleEmptyMandatoryEditText;} method to do things to the text field
      */
     static String getInputFromMandatoryEditText(View view, int id) throws IllegalArgumentException {
-        EditText editText = (EditText) view.findViewById(id);
+        EditText editText = view.findViewById(id);
 
         String input = editText.getText().toString();
         if (input.replaceAll("\\s+", "").replaceAll("\\s", "").isEmpty()) {
@@ -55,11 +55,10 @@ class GuiHelper {
      * gets the input of a {@link EditText} as String
      *
      * @param view the view the {@link EditText} is in
-     * @param id   Resource ID of the {@link EditText}
      * @return the input of a {@link EditText} as String or "NULL" if the input was empty
      */
-    static String getInputFromEditText(View view, int id) {
-        EditText editText = (EditText) view.findViewById(id);
+    static String getInputFromEditText(View view) {
+        EditText editText = view.findViewById(R.id.teacherDetails_textAbbreviation);
         String input = editText.getText().toString();
 
         if (input.matches("")) {
@@ -78,7 +77,7 @@ class GuiHelper {
      * @throws IllegalArgumentException if input is invalid date and calls {@link GuiHelper#handleEmptyMandatoryEditText;} method to do things to the text field
      */
     static GregorianCalendar getDateFromMandatoryButton(View view, int id) throws IllegalArgumentException {
-        Button button = (Button) view.findViewById(id);
+        Button button = view.findViewById(id);
 
         String str = button.getText().toString();
         str = str.replaceAll(":", "-");
@@ -159,10 +158,9 @@ class GuiHelper {
      * @param text The text to set to the {@link TextView}
      * @return the updated {@link TextView}
      */
-    static TextView setTextToTextView(View view, int id, String text) {
-        TextView textView = (TextView) view.findViewById(id);
+    static void setTextToTextView(View view, int id, String text) {
+        TextView textView = view.findViewById(id);
         textView.setText(text);
-        return textView;
     }
 
     /**
@@ -173,10 +171,9 @@ class GuiHelper {
      * @param colorId Resource ID of the color
      * @return the updated {@link Button}
      */
-    static Button setColorToButton(View view, int id, int colorId) {
-        Button b = (Button) view.findViewById(id);
+    static void setColorToButton(View view, int id, int colorId) {
+        Button b = view.findViewById(id);
         b.setBackgroundResource(colorId);
-        return b;
     }
 
     /**
@@ -188,10 +185,9 @@ class GuiHelper {
      *                   must be one of {@link View#VISIBLE} , {@link View#INVISIBLE} , {@link View#GONE}
      * @return the updated {@link View}
      */
-    static View setVisibility(View view, int id, int visibility) {
+    static void setVisibility(View view, int id, int visibility) {
         View v = view.findViewById(id);
         v.setVisibility(visibility);
-        return v;
     }
 
     /**
@@ -202,31 +198,28 @@ class GuiHelper {
      * @param content The content to fill the {@link ListView} with as string array
      * @return the updated {@link ListView}
      */
-    static ListView fillListViewFromArray(View view, int id, String[] content) {
-        ListView listView = (ListView) view.findViewById(id);
+    static void fillListViewFromArray(View view, int id, String[] content) {
+        ListView listView = view.findViewById(id);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_list_item_1, content);
 
         listView.setAdapter(adapter);
-        return listView;
     }
 
     /**
      * method to set the content of a {@link GridView}
      *
      * @param view    the view the {@link GridView} is in
-     * @param id      Resource ID of the {@link GridView}
      * @param content The content to fill the {@link GridView} with as string array.
      *                Fills the grid from left to right, so if you have a {@link GridView}
      *                with the {@link GridView#getNumColumns()} == 2 the content[] indices 0 & 1
      *                will form the first row in the grid, 2 & 3 the second row and so on.
      * @return the updated {@link GridView}
      */
-    static GridView fillGridViewFromArray(View view, int id, String[] content) {
-        GridView gridView = (GridView) view.findViewById(id);
+    static void fillGridViewFromArray(View view, String[] content) {
+        GridView gridView = view.findViewById(R.id.grades_gradesTable);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_list_item_1, content);
 
         gridView.setAdapter(adapter);
-        return gridView;
     }
 
     /**
@@ -238,7 +231,7 @@ class GuiHelper {
      * @return the updated {@link Spinner}
      */
     static Spinner fillSpinnerFromArray(View view, int id, String[] content) {
-        Spinner spinner = (Spinner) view.findViewById(id);
+        Spinner spinner = view.findViewById(id);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_item, content);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -363,10 +356,9 @@ class GuiHelper {
      * @param onClickListener the {@link View.OnClickListener} to set the {@link Button} to
      * @return the updated {@link Button}
      */
-    static Button defineButtonOnClickListener(View view, int id, View.OnClickListener onClickListener) {
-        Button b = (Button) view.findViewById(id);
+    static void defineButtonOnClickListener(View view, int id, View.OnClickListener onClickListener) {
+        Button b = view.findViewById(id);
         b.setOnClickListener(onClickListener);
-        return b;
     }
 
     /**
@@ -377,22 +369,20 @@ class GuiHelper {
      * @param onClickListener the {@link View.OnClickListener} to set the {@link FloatingActionButton} to
      * @return the updated {@link FloatingActionButton}
      */
-    static FloatingActionButton defineFloatingActionButtonOnClickListener(View view, int id, View.OnClickListener onClickListener) {
-        FloatingActionButton b = (FloatingActionButton) view.findViewById(id);
+    static void defineFloatingActionButtonOnClickListener(View view, int id, View.OnClickListener onClickListener) {
+        FloatingActionButton b = view.findViewById(id);
         b.setOnClickListener(onClickListener);
-        return b;
     }
 
     /**
      * method to set the {@link SeekBar.OnSeekBarChangeListener} of a {@link SeekBar} at a given id
      *
      * @param view                    the view the {@link SeekBar} is in
-     * @param id                      Resource ID of the {@link SeekBar}
      * @param onSeekBarChangeListener The {@link SeekBar.OnSeekBarChangeListener} to set to the {@link SeekBar}
      * @return the updated {@link SeekBar}
      */
-    static SeekBar defineSeekBarOnChangeListener(View view, int id, SeekBar.OnSeekBarChangeListener onSeekBarChangeListener) {
-        SeekBar seekBar = (SeekBar) view.findViewById(id);
+    static SeekBar defineSeekBarOnChangeListener(View view, SeekBar.OnSeekBarChangeListener onSeekBarChangeListener) {
+        SeekBar seekBar = view.findViewById(R.id.settings_seekbarPeriods);
         seekBar.setOnSeekBarChangeListener(onSeekBarChangeListener);
         return seekBar;
     }
@@ -417,7 +407,7 @@ class GuiHelper {
      * @param message the message to display in the hint
      */
     private static void handleEmptyMandatoryEditText(View view, int id, String message) {
-        EditText editText = (EditText) view.findViewById(id);
+        EditText editText = view.findViewById(id);
         handleEmptyMandatoryEditText(editText, message);
     }
 
@@ -461,17 +451,8 @@ class GuiHelper {
      * @param message the message to display in the hint
      */
     private static void handleEmptyMandatoryButton(View view, int id, String message) {
-        Button button = (Button) view.findViewById(id);
+        Button button = view.findViewById(id);
         handleEmptyMandatoryButton(button, message);
-    }
-
-    /**
-     * can be used to indicate for the user that a {@link Button} in the GUI must not be empty by displaying a Red hint "Mandatory Field"
-     *
-     * @param button the button
-     */
-    private static void handleEmptyMandatoryButton(Button button) {
-        handleEmptyMandatoryButton(button, button.getContext().getResources().getString(R.string.string_mandatory_field));
     }
 
     /**

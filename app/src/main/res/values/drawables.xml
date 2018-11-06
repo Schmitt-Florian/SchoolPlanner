@@ -1,8 +1,20 @@
-<resources>
-    <item name="ic_menu_camera" type="drawable">@android:drawable/ic_menu_camera</item>
-    <item name="ic_menu_gallery" type="drawable">@android:drawable/ic_menu_gallery</item>
-    <item name="ic_menu_slideshow" type="drawable">@android:drawable/ic_menu_slideshow</item>
-    <item name="ic_menu_manage" type="drawable">@android:drawable/ic_menu_manage</item>
-    <item name="ic_menu_share" type="drawable">@android:drawable/ic_menu_share</item>
-    <item name="ic_menu_send" type="drawable">@android:drawable/ic_menu_send</item>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <item name="ic_menu_camera" type="drawable" tools:keep="@drawable/ic_menu_camera">
+        @android:drawable/ic_menu_camera
+    </item>
+    <item name="ic_menu_gallery" type="drawable" tools:keep="@drawable/ic_menu_gallery">
+        @android:drawable/ic_menu_gallery
+    </item>
+    <item name="ic_menu_slideshow" type="drawable" tools:keep="@drawable/ic_menu_slideshow">
+        @android:drawable/ic_menu_slideshow
+    </item>
+    <item name="ic_menu_manage" type="drawable" tools:keep="@drawable/ic_menu_manage">
+        @android:drawable/ic_menu_manage
+    </item>
+    <item name="ic_menu_share" type="drawable" tools:keep="@drawable/ic_menu_share">
+        @android:drawable/ic_menu_share
+    </item>
+    <item name="ic_menu_send" type="drawable" tools:keep="@drawable/ic_menu_send">
+        @android:drawable/ic_menu_send
+    </item>
 </resources>

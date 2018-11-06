@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import schmitt_florian.schoolplanner.R;
 import schmitt_florian.schoolplanner.logic.DatabaseHelper;
@@ -37,12 +39,12 @@ public class HomeworkFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        Objects.requireNonNull(getActivity()).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         tabIsToDo = true;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_homework, container, false);
 
@@ -175,7 +177,7 @@ public class HomeworkFragment extends Fragment implements View.OnClickListener {
      */
 
     private void defineHomeworkListOnClick(final View view) {
-        ListView homeworkList = (ListView) view.findViewById(R.id.homework_listHomework);
+        ListView homeworkList = view.findViewById(R.id.homework_listHomework);
 
         homeworkList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -192,7 +194,7 @@ public class HomeworkFragment extends Fragment implements View.OnClickListener {
      */
 
     private void initToolbarTitle() {
-        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        Toolbar toolbar = Objects.requireNonNull(getActivity()).findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.string_homework);
     }
     //endregion

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -12,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import java.util.Objects;
 
 import schmitt_florian.schoolplanner.R;
 import schmitt_florian.schoolplanner.logic.DatabaseHelper;
@@ -29,21 +32,15 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
     private OnFragmentInteractionListener mListener;
     private Settings settings;
     private View view;
-    private boolean weekdaySetMon;
-    private boolean weekdaySetTue;
-    private boolean weekdaySetWed;
-    private boolean weekdaySetThur;
-    private boolean weekdaySetFri;
-    private boolean weekdaySetSat;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        Objects.requireNonNull(getActivity()).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_settings, container, false);
 
@@ -82,7 +79,6 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
                 readGui();
                 settings.saveSettings();
                 Toast.makeText(getContext(), R.string.string_settings_saved, Toast.LENGTH_SHORT).show();
-                getActivatedWeekdays();
                 break;
             case R.id.settings_buttonResetDB:
                 Toast.makeText(getContext(), "dodo", Toast.LENGTH_SHORT).show();
@@ -93,61 +89,6 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
                 System.out.println(dbHelper.toString());
                 break;
         }
-    }
-
-    private void getActivatedWeekdays() {
-    /*    CheckBox mon = (CheckBox) getActivity().findViewById(R.id.settings_checkBox_for_monday);
-        CheckBox tue = (CheckBox) getActivity().findViewById(R.id.settings_checkBox_for_tuesday);
-        CheckBox wed = (CheckBox) getActivity().findViewById(R.id.settings_checkBox_for_wednesday);
-        CheckBox thur = (CheckBox) getActivity().findViewById(R.id.settings_checkBox_for_thursday);
-        CheckBox fri = (CheckBox) getActivity().findViewById(R.id.settings_checkBox_for_friday);
-        CheckBox sat = (CheckBox) getActivity().findViewById(R.id.settings_checkBox_for_saturday);
-
-        weekdaySetMon = mon.isChecked();
-
-        weekdaySetTue = tue.isChecked();
-
-        weekdaySetWed = wed.isChecked();
-
-        weekdaySetThur = thur.isChecked();
-
-        weekdaySetFri = fri.isChecked();
-
-        weekdaySetSat = sat.isChecked();
-
-//        System.out.println(
-//                "mon: " + weekdaySetMon + "\n" +
-//                        "tue: " + weekdaySetTue + "\n" +
-//                        "wed: " + weekdaySetWed + "\n" +
-//                        "thur: " + weekdaySetThur + "\n" +
-//                        "fri: " + weekdaySetFri + "\n" +
-//                        "sat: " + weekdaySetSat + "\n"
-//        );
-*/
-    }
-
-    public boolean isWeekdaySetMon() {
-        return weekdaySetMon;
-    }
-
-    public boolean isWeekdaySetTue() {
-        return weekdaySetTue;
-    }
-
-    public boolean isWeekdaySetWed() {
-        return weekdaySetWed;
-    }
-
-    public boolean isWeekdaySetThur() {
-        return weekdaySetThur;
-    }
-
-    public boolean isWeekdaySetFri() {
-        return weekdaySetFri;
-    }
-
-    public boolean isWeekdaySetSat() {
-        return weekdaySetSat;
     }
 
     /**
@@ -181,7 +122,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
      * initialises the {@link SeekBar} which displays the {@link Settings#periodsAtDay}
      */
     private void initSeekBar() {
-        GuiHelper.defineSeekBarOnChangeListener(view, R.id.settings_seekbarPeriods,
+        GuiHelper.defineSeekBarOnChangeListener(view,
                 new SeekBar.OnSeekBarChangeListener() {
                     @Override
                     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -223,10 +164,10 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
      * updates {@link SettingsFragment#settings} with values in GUI
      */
     private void readGui() {
-        SeekBar seekBar = (SeekBar) view.findViewById(R.id.settings_seekbarPeriods);
+        SeekBar seekBar = view.findViewById(R.id.settings_seekbarPeriods);
         settings.setPeriodsAtDay(seekBar.getProgress());
 
-        Spinner spinner = (Spinner) view.findViewById(R.id.settings_spinnerDate);
+        Spinner spinner = view.findViewById(R.id.settings_spinnerDate);
         settings.setActiveDateFormat((String) spinner.getSelectedItem());
     }
 
@@ -235,7 +176,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
      */
 
     private void initToolbarTitle() {
-        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        Toolbar toolbar = Objects.requireNonNull(getActivity()).findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.string_settings);
     }
     //endregion

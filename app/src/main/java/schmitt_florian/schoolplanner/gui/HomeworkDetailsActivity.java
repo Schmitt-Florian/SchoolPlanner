@@ -15,6 +15,7 @@ import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Objects;
 
 import schmitt_florian.schoolplanner.R;
 import schmitt_florian.schoolplanner.logic.DatabaseHelper;
@@ -124,7 +125,7 @@ public class HomeworkDetailsActivity extends AppCompatActivity {
         if (!addMode) {
             for (int i = 0; i < subjectsInSpinner.length; i++) {
                 if (subjectsInSpinner[i].match(showingHomework.getSubject())) {
-                    Spinner spinner = (Spinner) findViewById(R.id.homeworkDetails_spinnerSubject);
+                    Spinner spinner = findViewById(R.id.homeworkDetails_spinnerSubject);
                     spinner.setSelection(i);
                 }
             }
@@ -166,8 +167,8 @@ public class HomeworkDetailsActivity extends AppCompatActivity {
      * @throws IllegalArgumentException if input is empty or illegal
      **/
     private Homework readHomeworkFromGUI() throws IllegalArgumentException {
-        Spinner spinner = (Spinner) findViewById(R.id.homeworkDetails_spinnerSubject);
-        SwitchCompat switchCompat = (SwitchCompat) findViewById(R.id.homeworkDetails_switchDone);
+        Spinner spinner = findViewById(R.id.homeworkDetails_spinnerSubject);
+        SwitchCompat switchCompat = findViewById(R.id.homeworkDetails_switchDone);
 
         if (addMode) {
             return new Homework(
@@ -190,7 +191,7 @@ public class HomeworkDetailsActivity extends AppCompatActivity {
     }
 
     private void implementDatePicker() {
-        dateButton = (Button) findViewById(R.id.homeworkDetails_textDate);
+        dateButton = findViewById(R.id.homeworkDetails_textDate);
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -199,7 +200,7 @@ public class HomeworkDetailsActivity extends AppCompatActivity {
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         dateSetListener,
                         year, month, day);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }
         });

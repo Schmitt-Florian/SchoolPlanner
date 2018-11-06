@@ -15,22 +15,22 @@ public class Period implements Comparable<Period> {
     /**
      * numeric id of the period (unique)
      */
-    private int id;
+    private final int id;
 
     /**
      * the school hour number the period is, e.g. '1' for the first school hour
      */
-    private int schoolHourNo;
+    private final int schoolHourNo;
 
     /**
      * the time the period starts as GregorianCalendar
      */
-    private GregorianCalendar startTime;
+    private final GregorianCalendar startTime;
 
     /**
      * the time the period ends as GregorianCalendar
      */
-    private GregorianCalendar endTime;
+    private final GregorianCalendar endTime;
 
     //region c'tors
 
@@ -67,27 +67,6 @@ public class Period implements Comparable<Period> {
     //endregion
 
     //region getters
-
-    /**
-     * method to indicate if one Period[] matches another one by the values of their fields
-     *
-     * @param periods      one period[]
-     * @param otherPeriods the other Period[]
-     * @return true if all fields are the same in both Period[]s, else false
-     */
-    public static boolean match(Period[] periods, Period[] otherPeriods) {
-        if (periods.length != otherPeriods.length) {
-            return false;
-        }
-
-        for (int i = 0; i < periods.length; i++) {
-            if (!periods[i].match(otherPeriods[i])) {
-                return false;
-            }
-        }
-
-        return true;
-    }
 
     /**
      * gets id of the period
@@ -170,13 +149,7 @@ public class Period implements Comparable<Period> {
      */
     @Override
     public int compareTo(@NonNull Period period) {
-        if (this.schoolHourNo < period.schoolHourNo) {
-            return -1;
-        } else if (this.schoolHourNo == period.schoolHourNo) {
-            return 0;
-        } else {
-            return 1;
-        }
+        return Integer.compare(this.schoolHourNo, period.schoolHourNo);
     }
 
     //region private methods
